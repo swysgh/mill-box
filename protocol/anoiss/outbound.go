@@ -43,6 +43,7 @@ type Outbound struct {
 	logger             log.ContextLogger
 	staticKey          noise.DHKey
 	expectedPeerStatic []byte
+	allowAnyServer     bool
 	psk                []byte
 	hsTimeout          time.Duration
 	hsPadding          int
@@ -69,11 +70,18 @@ func NewOutbound(ctx context.Context, router adapter.Router, logger log.ContextL
 	}
 	out.staticKey = noise.DHKey{Private: privBytes, Public: pub}
 
-	// Parse server public key (optional, for pinning)
+	if options.ServerPublicKey == "" && !options.AllowAnyServer {
+		return nil, E.New("anoiss: server_public_key is required to authenticate the server; set allow_any_server: true to disable server authentication (insecure, allows MITM)")
+	}
+	out.allowAnyServer = options.AllowAnyServer
+	// An explicit allow_any_server overrides pinning.
 	if options.ServerPublicKey != "" {
-		out.expectedPeerStatic, err = decodeKey("server_public_key", options.ServerPublicKey)
+		key, err := decodeKey("server_public_key", options.ServerPublicKey)
 		if err != nil {
 			return nil, err
+		}
+		if !out.allowAnyServer {
+			out.expectedPeerStatic = key
 		}
 	}
 
@@ -116,6 +124,9 @@ func NewOutbound(ctx context.Context, router adapter.Router, logger log.ContextL
 func (h *Outbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 	if stage != adapter.StartStateInitialize {
 		return nil
+	}
+	if h.allowAnyServer {
+		h.logger.Warn("anoiss: allow_any_server is enabled, server authentication disabled (insecure, allows MITM)")
 	}
 
 	// Log startup info (§6.3)

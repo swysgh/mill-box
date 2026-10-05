@@ -4,14 +4,15 @@ import "github.com/sagernet/sing/common/json/badoption"
 
 type AnoissInboundOptions struct {
 	ListenOptions
-	Users            []AnoissUser               `json:"users,omitempty"`
-	PaddingScheme    badoption.Listable[string] `json:"padding_scheme,omitempty"`
-	ServerPrivateKey string                     `json:"server_private_key,omitempty"`
-	ClientPublicKeys badoption.Listable[string] `json:"client_public_keys,omitempty"`
-	AllowAnyClient   bool                       `json:"allow_any_client,omitempty"`
-	PreSharedKey     string                     `json:"pre_shared_key,omitempty"`
-	HandshakeTimeout badoption.Duration         `json:"handshake_timeout,omitempty"`
-	HandshakePadding *int                       `json:"handshake_padding,omitempty"`
+	Users              []AnoissUser               `json:"users,omitempty"`
+	PaddingScheme      badoption.Listable[string] `json:"padding_scheme,omitempty"`
+	ServerPrivateKey   string                     `json:"server_private_key,omitempty"`
+	ClientPublicKeys   badoption.Listable[string] `json:"client_public_keys,omitempty"`
+	AllowAnyClient     bool                       `json:"allow_any_client,omitempty"`
+	PreSharedKey       string                     `json:"pre_shared_key,omitempty"`
+	HandshakeTimeout   badoption.Duration         `json:"handshake_timeout,omitempty"`
+	HandshakePadding   *int                       `json:"handshake_padding,omitempty"`
+	SessionAuthTimeout *badoption.Duration        `json:"session_auth_timeout,omitempty"`
 }
 
 type AnoissUser struct {
@@ -25,6 +26,7 @@ type AnoissOutboundOptions struct {
 	Password                 string             `json:"password,omitempty"`
 	ClientPrivateKey         string             `json:"client_private_key,omitempty"`
 	ServerPublicKey          string             `json:"server_public_key,omitempty"`
+	AllowAnyServer           bool               `json:"allow_any_server,omitempty"`
 	PreSharedKey             string             `json:"pre_shared_key,omitempty"`
 	HandshakeTimeout         badoption.Duration `json:"handshake_timeout,omitempty"`
 	HandshakePadding         *int               `json:"handshake_padding,omitempty"`

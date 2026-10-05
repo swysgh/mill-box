@@ -43,6 +43,13 @@ type noiseConn struct {
 
 	readBuf []byte // decrypted plaintext buffer
 	readOff int    // current read offset into readBuf
+
+	authTimeout   time.Duration
+	authPending   bool
+	authDelivered int
+	authHead      [34]byte
+	authHeadLen   int
+	authTotal     int
 }
 
 func newNoiseConn(inner net.Conn, sendCS, recvCS *noise.CipherState) *noiseConn {
@@ -60,6 +67,7 @@ func (c *noiseConn) Read(b []byte) (int, error) {
 	// Return buffered plaintext first
 	if c.readOff < len(c.readBuf) {
 		n := copy(b, c.readBuf[c.readOff:])
+		c.authRead(b[:n])
 		c.readOff += n
 		if c.readOff >= len(c.readBuf) {
 			c.readBuf = nil
@@ -94,11 +102,33 @@ func (c *noiseConn) Read(b []byte) (int, error) {
 	}
 
 	n := copy(b, plaintext)
+	c.authRead(b[:n])
 	if n < len(plaintext) {
 		c.readBuf = plaintext
 		c.readOff = n
 	}
 	return n, nil
+}
+
+// authRead tracks plaintext delivered to the session, not bytes decrypted into
+// readBuf. Only after the entire anytls authentication header and padding have
+// been consumed can an idle session safely outlive the authentication timeout.
+// Called with readMu held.
+func (c *noiseConn) authRead(delivered []byte) {
+	if !c.authPending {
+		return
+	}
+	if c.authHeadLen < len(c.authHead) {
+		c.authHeadLen += copy(c.authHead[c.authHeadLen:], delivered)
+		if c.authHeadLen == len(c.authHead) {
+			c.authTotal = len(c.authHead) + int(binary.BigEndian.Uint16(c.authHead[32:]))
+		}
+	}
+	c.authDelivered += len(delivered)
+	if c.authTotal > 0 && c.authDelivered >= c.authTotal {
+		c.authPending = false
+		c.Conn.SetReadDeadline(time.Time{})
+	}
 }
 
 func (c *noiseConn) Write(b []byte) (int, error) {
@@ -198,6 +228,7 @@ type HandshakeOptions struct {
 	PreSharedKey []byte
 	PaddingSize  int // target total bytes on the wire; 0 disables padding
 	Timeout      time.Duration
+	AuthTimeout  time.Duration // responder only; 0 disables the session authentication deadline
 }
 
 func validateHandshakePadding(size int) error {
@@ -344,7 +375,12 @@ func ServerHandshake(conn net.Conn, options HandshakeOptions) (*noiseConn, []byt
 	if err := conn.SetDeadline(deadline); err != nil {
 		return nil, nil, err
 	}
-	defer conn.SetDeadline(time.Time{})
+	handshakeComplete := false
+	defer func() {
+		if !handshakeComplete {
+			conn.SetDeadline(time.Time{})
+		}
+	}()
 
 	cs := newCipherSuite()
 	cfg := noise.Config{
@@ -393,7 +429,21 @@ func ServerHandshake(conn net.Conn, options HandshakeOptions) (*noiseConn, []byt
 	peerStatic := hs.PeerStatic()
 
 	// §2.4: Responder: send = cs2, recv = cs1
-	return newNoiseConn(conn, cs2, cs1), peerStatic, nil
+	c := newNoiseConn(conn, cs2, cs1)
+	if options.AuthTimeout > 0 {
+		if err := conn.SetReadDeadline(time.Now().Add(options.AuthTimeout)); err != nil {
+			return nil, nil, err
+		}
+		if err := conn.SetWriteDeadline(time.Time{}); err != nil {
+			return nil, nil, err
+		}
+		c.authTimeout = options.AuthTimeout
+		c.authPending = true
+	} else if err := conn.SetDeadline(time.Time{}); err != nil {
+		return nil, nil, err
+	}
+	handshakeComplete = true
+	return c, peerStatic, nil
 }
 
 // decodeKey decodes a base64-encoded 32-byte key.

@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+const maxPaddingSchemeSize = 1 << 20
+
 // paddingSchemeLines follows sing-anytls' newline-separated settings format.
 func paddingSchemeLines(scheme []string) []string {
 	return strings.Split(strings.Join(scheme, "\n"), "\n")
@@ -59,8 +61,11 @@ func validatePaddingScheme(scheme []string) error {
 			}
 			minSize, minErr := strconv.Atoi(minText)
 			maxSize, maxErr := strconv.Atoi(maxText)
-			if minErr != nil || maxErr != nil || minSize <= 0 || minSize > maxSize || maxSize > 1<<20 {
-				return fmt.Errorf("anoiss: invalid padding_scheme: index %d: invalid range %q (require 0 < min <= max <= %d)", index, item, 1<<20)
+			if minErr != nil || maxErr != nil || minSize <= 0 || minSize > maxSize || maxSize > maxPaddingSchemeSize {
+				return fmt.Errorf("anoiss: invalid padding_scheme: index %d: invalid range %q (require 0 < min <= max <= %d)", index, item, maxPaddingSchemeSize)
+			}
+			if index == 0 && maxSize > 65535 {
+				return fmt.Errorf("anoiss: invalid padding_scheme: index 0: max %d exceeds 65535 (the length field is a uint16)", maxSize)
 			}
 			validRanges++
 		}

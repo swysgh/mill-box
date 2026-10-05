@@ -35,16 +35,17 @@ func RegisterInbound(registry *inbound.Registry) {
 
 type Inbound struct {
 	inbound.Adapter
-	router           adapter.ConnectionRouterEx
-	logger           logger.ContextLogger
-	listener         *listener.Listener
-	service          *anytls.MultiService[string]
-	staticKey        noise.DHKey
-	clientPubKeys    map[string]bool
-	allowAnyClient   bool
-	psk              []byte
-	handshakeTimeout time.Duration
-	handshakePadding int
+	router             adapter.ConnectionRouterEx
+	logger             logger.ContextLogger
+	listener           *listener.Listener
+	service            *anytls.MultiService[string]
+	staticKey          noise.DHKey
+	clientPubKeys      map[string]bool
+	allowAnyClient     bool
+	psk                []byte
+	handshakeTimeout   time.Duration
+	handshakePadding   int
+	sessionAuthTimeout time.Duration
 }
 
 func NewInbound(ctx context.Context, router adapter.Router, logger log.ContextLogger, tag string, options option.AnoissInboundOptions) (adapter.Inbound, error) {
@@ -95,6 +96,10 @@ func NewInbound(ctx context.Context, router adapter.Router, logger log.ContextLo
 	}
 
 	in.handshakeTimeout = options.HandshakeTimeout.Build()
+	in.sessionAuthTimeout = 10 * time.Second
+	if options.SessionAuthTimeout != nil {
+		in.sessionAuthTimeout = options.SessionAuthTimeout.Build()
+	}
 	in.handshakePadding = configuredHandshakePadding(options.HandshakePadding)
 	if err := validateHandshakePadding(in.handshakePadding); err != nil {
 		return nil, err
@@ -175,7 +180,7 @@ func (h *Inbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 
 func (h *Inbound) NewConnection(ctx context.Context, conn net.Conn, metadata adapter.InboundContext, onClose N.CloseHandlerFunc) {
 	noiseConn, peerPub, err := ServerHandshake(conn, HandshakeOptions{
-		StaticKey: h.staticKey, PreSharedKey: h.psk, Timeout: h.handshakeTimeout, PaddingSize: h.handshakePadding,
+		StaticKey: h.staticKey, PreSharedKey: h.psk, Timeout: h.handshakeTimeout, PaddingSize: h.handshakePadding, AuthTimeout: h.sessionAuthTimeout,
 	})
 	if err != nil {
 		N.CloseOnHandshakeFailure(conn, onClose, err)

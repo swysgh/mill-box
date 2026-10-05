@@ -2,7 +2,9 @@ package anoiss
 
 import (
 	"bytes"
+	"context"
 	"crypto/rand"
+	"crypto/sha256"
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/json"
@@ -16,6 +18,7 @@ import (
 
 	"github.com/flynn/noise"
 	"github.com/sagernet/sing-anytls"
+	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 )
 
@@ -370,25 +373,193 @@ func TestNoiseServerPublicKeyPin(t *testing.T) {
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			client, server, clientErr, serverErr := handshakePair(t, clientKey, serverKey, tc.pin, nil, nil, nil)
-			if serverErr != nil {
-				t.Fatalf("server handshake: %v", serverErr)
-			}
 			if tc.bad {
 				if clientErr == nil || !strings.Contains(clientErr.Error(), "server public key mismatch") ||
 					!strings.Contains(clientErr.Error(), base64.RawURLEncoding.EncodeToString(tc.pin)) ||
 					!strings.Contains(clientErr.Error(), base64.RawURLEncoding.EncodeToString(serverKey.Public)) {
 					t.Fatalf("expected pin mismatch with both keys, got %v", clientErr)
 				}
+				// The pin mismatch closes the connection mid-handshake (msg3),
+				// so the server either fails the handshake outright or, if it
+				// completed first, must read an error instead of session data.
+				// A transport error and a clean io.EOF are both valid
+				// manifestations of the closed connection.
+				if serverErr != nil {
+					return
+				}
 				var b [1]byte
-				if _, err := server.Read(b[:]); !errors.Is(err, io.EOF) {
-					t.Fatalf("expected client to close connection, got %v", err)
+				if _, err := server.Read(b[:]); err == nil {
+					t.Fatal("expected error after pin mismatch, connection should be closed")
 				}
 				return
+			}
+			if serverErr != nil {
+				t.Fatalf("server handshake: %v", serverErr)
 			}
 			if clientErr != nil {
 				t.Fatalf("client handshake: %v", clientErr)
 			}
 			exchange(t, client, server, []byte("pinned exchange"))
+		})
+	}
+}
+
+func TestOutboundRequiresServerKey(t *testing.T) {
+	key := testKey(t)
+	validKey := base64.RawURLEncoding.EncodeToString(key.Public)
+	clientKey := base64.RawURLEncoding.EncodeToString(testKey(t).Private)
+	for _, tc := range []struct {
+		name    string
+		options option.AnoissOutboundOptions
+		wantErr string
+	}{
+		{"missing_without_allow_any", option.AnoissOutboundOptions{
+			ClientPrivateKey: clientKey, Password: "p",
+		}, "server_public_key"},
+		{"missing_with_allow_any", option.AnoissOutboundOptions{
+			ClientPrivateKey: clientKey, Password: "p", AllowAnyServer: true,
+		}, ""},
+		{"valid_key", option.AnoissOutboundOptions{
+			ClientPrivateKey: clientKey, Password: "p", ServerPublicKey: validKey,
+		}, ""},
+		{"valid_key_with_allow_any", option.AnoissOutboundOptions{
+			ClientPrivateKey: clientKey, Password: "p", ServerPublicKey: validKey, AllowAnyServer: true,
+		}, ""},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			logger := log.NewNOPFactory().NewLogger("")
+			_, err := NewOutbound(context.Background(), nil, logger, "test", tc.options)
+			if tc.wantErr == "" {
+				if err != nil {
+					t.Fatalf("expected success, got %v", err)
+				}
+				return
+			}
+			if err == nil || !strings.Contains(err.Error(), tc.wantErr) {
+				t.Fatalf("expected error containing %q, got %v", tc.wantErr, err)
+			}
+		})
+	}
+}
+
+// handshakePairAuth completes a Noise handshake with the given server-side
+// authentication timeout. The returned deadline setter controls the client's
+// underlying connection; the server's authentication deadline is managed by
+// ServerHandshake and noiseConn.authRead.
+func handshakePairAuth(t *testing.T, clientKey, serverKey noise.DHKey, authTimeout time.Duration) (*noiseConn, *noiseConn) {
+	t.Helper()
+	clientRaw, serverRaw := net.Pipe()
+	t.Cleanup(func() { clientRaw.Close(); serverRaw.Close() })
+	serverDone := make(chan serverResult, 1)
+	go func() {
+		conn, peer, err := ServerHandshake(serverRaw, HandshakeOptions{
+			StaticKey: serverKey, Timeout: 2 * time.Second, AuthTimeout: authTimeout,
+		})
+		serverDone <- serverResult{conn, peer, err}
+	}()
+	client, clientErr := ClientHandshake(clientRaw, HandshakeOptions{
+		StaticKey: clientKey, Timeout: 2 * time.Second,
+	})
+	server := <-serverDone
+	if clientErr != nil {
+		t.Fatalf("client handshake: %v", clientErr)
+	}
+	if server.err != nil {
+		t.Fatalf("server handshake: %v", server.err)
+	}
+	return client, server.conn
+}
+
+// writeAuthRequest writes a complete anytls authentication request:
+// sha256(password) + uint16 big-endian padding length + padding bytes.
+func writeAuthRequest(t *testing.T, conn net.Conn, password string, paddingLen int) {
+	t.Helper()
+	request := make([]byte, 34+paddingLen)
+	sum := sha256.Sum256([]byte(password))
+	copy(request, sum[:])
+	binary.BigEndian.PutUint16(request[32:34], uint16(paddingLen))
+	if _, err := conn.Write(request); err != nil {
+		t.Fatalf("write auth request: %v", err)
+	}
+}
+
+func TestServerAuthPhaseTimeout(t *testing.T) {
+	client, server := handshakePairAuth(t, testKey(t), testKey(t), time.Second)
+	defer client.Close()
+	defer server.Close()
+
+	type readResult struct {
+		err error
+	}
+	done := make(chan readResult, 1)
+	go func() {
+		var b [1]byte
+		_, err := server.Read(b[:])
+		done <- readResult{err}
+	}()
+
+	start := time.Now()
+	select {
+	case result := <-done:
+		elapsed := time.Since(start)
+		var ne net.Error
+		if !errors.As(result.err, &ne) || !ne.Timeout() {
+			t.Fatalf("expected timeout error, got %v", result.err)
+		}
+		if elapsed < 900*time.Millisecond || elapsed > 4*time.Second {
+			t.Fatalf("timeout fired after %v, want ~1s", elapsed)
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("server read did not time out within 5s")
+	}
+}
+
+func TestServerAuthPhaseTimeoutNotTriggered(t *testing.T) {
+	client, server := handshakePairAuth(t, testKey(t), testKey(t), time.Second)
+	defer client.Close()
+	defer server.Close()
+
+	// Complete the authentication phase well within the timeout, then keep
+	// exchanging data past it; the deadline must have been cleared by authRead.
+	// net.Pipe is synchronous, so the write must run in its own goroutine.
+	writeDone := make(chan struct{})
+	go func() {
+		defer close(writeDone)
+		writeAuthRequest(t, client, "password", 64)
+	}()
+	got := make([]byte, 34+64)
+	if _, err := io.ReadFull(server, got); err != nil {
+		t.Fatalf("read auth request: %v", err)
+	}
+	<-writeDone
+
+	time.Sleep(1100 * time.Millisecond)
+	exchange(t, client, server, []byte("post-auth client to server"))
+	exchange(t, server, client, []byte("post-auth server to client"))
+}
+
+func TestPaddingSchemeIndexZeroMax(t *testing.T) {
+	for _, tc := range []struct {
+		name    string
+		scheme  []string
+		wantErr bool
+	}{
+		{"boundary_valid", []string{"stop=1", "0=65535-65535"}, false},
+		{"exceeds_uint16", []string{"stop=1", "0=65536-65536"}, true},
+		{"range_exceeds_uint16", []string{"stop=1", "0=100-70000"}, true},
+		{"other_index_unrestricted", []string{"stop=1", "1=1-70000"}, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			err := validatePaddingScheme(tc.scheme)
+			if !tc.wantErr {
+				if err != nil {
+					t.Fatalf("expected valid scheme, got %v", err)
+				}
+				return
+			}
+			if err == nil || !strings.Contains(err.Error(), "65535") {
+				t.Fatalf("expected error mentioning 65535, got %v", err)
+			}
 		})
 	}
 }
