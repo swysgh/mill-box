@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/binary"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -13,6 +15,8 @@ import (
 	"time"
 
 	"github.com/flynn/noise"
+	"github.com/sagernet/sing-anytls"
+	"github.com/sagernet/sing-box/option"
 )
 
 type serverResult struct {
@@ -31,19 +35,45 @@ func testKey(t *testing.T) noise.DHKey {
 }
 
 func handshakePair(t *testing.T, clientKey, serverKey noise.DHKey, pin, clientPSK, serverPSK []byte, whitelist map[string]bool) (*noiseConn, *noiseConn, error, error) {
+	return handshakePairWithPadding(t, clientKey, serverKey, pin, clientPSK, serverPSK, whitelist, 0, 0, nil)
+}
+
+// recordingConn records complete Writes on one side of a net.Pipe. Both sides
+// must be wrapped to observe all three XX messages (the client writes only two).
+type recordingConn struct {
+	net.Conn
+	writes *bytes.Buffer
+}
+
+func (c *recordingConn) Write(b []byte) (int, error) {
+	n, err := c.Conn.Write(b)
+	c.writes.Write(b[:n])
+	return n, err
+}
+
+func handshakePairWithPadding(t *testing.T, clientKey, serverKey noise.DHKey, pin, clientPSK, serverPSK []byte, whitelist map[string]bool, clientPadding, serverPadding int, recorded *[2]bytes.Buffer) (*noiseConn, *noiseConn, error, error) {
 	t.Helper()
 	clientRaw, serverRaw := net.Pipe()
 	t.Cleanup(func() { clientRaw.Close(); serverRaw.Close() })
+	var clientConn, serverConn net.Conn = clientRaw, serverRaw
+	if recorded != nil {
+		clientConn = &recordingConn{Conn: clientRaw, writes: &recorded[0]}
+		serverConn = &recordingConn{Conn: serverRaw, writes: &recorded[1]}
+	}
 	serverDone := make(chan serverResult, 1)
 	go func() {
-		conn, peer, err := ServerHandshake(serverRaw, serverKey, serverPSK, 2*time.Second)
+		conn, peer, err := ServerHandshake(serverConn, HandshakeOptions{
+			StaticKey: serverKey, PreSharedKey: serverPSK, PaddingSize: serverPadding, Timeout: 2 * time.Second,
+		})
 		if err == nil && whitelist != nil && !(&Inbound{clientPubKeys: whitelist}).clientAllowed(peer) {
 			conn.Close()
 			err = fmt.Errorf("rejected client with unknown public key: %s", base64.RawURLEncoding.EncodeToString(peer))
 		}
 		serverDone <- serverResult{conn, peer, err}
 	}()
-	client, clientErr := ClientHandshake(clientRaw, clientKey, pin, clientPSK, 2*time.Second)
+	client, clientErr := ClientHandshake(clientConn, HandshakeOptions{
+		StaticKey: clientKey, ExpectedPeer: pin, PreSharedKey: clientPSK, PaddingSize: clientPadding, Timeout: 2 * time.Second,
+	})
 	server := <-serverDone
 	if clientErr == nil && server.err == nil {
 		if !bytes.Equal(server.peer, clientKey.Public) {
@@ -57,6 +87,160 @@ func handshakePair(t *testing.T, clientKey, serverKey noise.DHKey, pin, clientPS
 		}
 	}
 	return client, server.conn, clientErr, server.err
+}
+
+func recordedFrames(t *testing.T, recorded *[2]bytes.Buffer) [][]byte {
+	t.Helper()
+	// XX's on-wire order is client msg1, server msg2, client msg3.
+	var frames [2][][]byte
+	for side := range recorded {
+		data := recorded[side].Bytes()
+		for len(data) > 0 {
+			if len(data) < headerSize {
+				t.Fatalf("side %d: incomplete frame header", side)
+			}
+			length := int(binary.BigEndian.Uint16(data[:headerSize]))
+			data = data[headerSize:]
+			if len(data) < length {
+				t.Fatalf("side %d: incomplete frame payload", side)
+			}
+			frames[side] = append(frames[side], data[:length])
+			data = data[length:]
+		}
+	}
+	if len(frames[0]) != 2 || len(frames[1]) != 1 {
+		t.Fatalf("got %d client frames and %d server frames, want 2 and 1", len(frames[0]), len(frames[1]))
+	}
+	return [][]byte{frames[0][0], frames[1][0], frames[0][1]}
+}
+
+func TestHandshakePaddingUniform(t *testing.T) {
+	var recorded [2]bytes.Buffer
+	_, _, clientErr, serverErr := handshakePairWithPadding(t, testKey(t), testKey(t), nil, nil, nil, nil, 512, 512, &recorded)
+	if clientErr != nil || serverErr != nil {
+		t.Fatalf("handshake: client=%v server=%v", clientErr, serverErr)
+	}
+	frames := recordedFrames(t, &recorded)
+	if len(frames) != 3 {
+		t.Fatalf("got %d frames, want 3", len(frames))
+	}
+	for i, frame := range frames {
+		if len(frame) != 510 {
+			t.Errorf("frame %d: payload length %d, want 510", i, len(frame))
+		}
+	}
+	if bytes.Equal(frames[0][xxUnpaddedSize(0):], make([]byte, len(frames[0])-xxUnpaddedSize(0))) {
+		t.Fatal("msg1 padding is all zero")
+	}
+}
+
+func TestHandshakePaddingDisabled(t *testing.T) {
+	var recorded [2]bytes.Buffer
+	_, _, clientErr, serverErr := handshakePairWithPadding(t, testKey(t), testKey(t), nil, nil, nil, nil, 0, 0, &recorded)
+	if clientErr != nil || serverErr != nil {
+		t.Fatalf("handshake: client=%v server=%v", clientErr, serverErr)
+	}
+	frames := recordedFrames(t, &recorded)
+	for i, frame := range frames {
+		if len(frame) != xxUnpaddedSize(i) {
+			t.Errorf("frame %d: payload length %d, want %d", i, len(frame), xxUnpaddedSize(i))
+		}
+	}
+}
+
+func TestHandshakePaddingAsymmetric(t *testing.T) {
+	clientKey, serverKey := testKey(t), testKey(t)
+	for _, tc := range []struct{ client, server int }{{512, 0}, {512, 256}} {
+		t.Run(fmt.Sprintf("client_%d_server_%d", tc.client, tc.server), func(t *testing.T) {
+			client, server, clientErr, serverErr := handshakePairWithPadding(t, clientKey, serverKey, nil, nil, nil, nil, tc.client, tc.server, nil)
+			if clientErr != nil || serverErr != nil {
+				t.Fatalf("handshake: client=%v server=%v", clientErr, serverErr)
+			}
+			exchange(t, client, server, []byte("client to server"))
+			exchange(t, server, client, []byte("server to client"))
+		})
+	}
+}
+
+func TestHandshakePaddingPSK(t *testing.T) {
+	psk := bytes.Repeat([]byte{0x51}, 32)
+	var recorded [2]bytes.Buffer
+	client, server, clientErr, serverErr := handshakePairWithPadding(t, testKey(t), testKey(t), nil, psk, psk, nil, 512, 512, &recorded)
+	if clientErr != nil || serverErr != nil {
+		t.Fatalf("PSK handshake: client=%v server=%v", clientErr, serverErr)
+	}
+	for i, frame := range recordedFrames(t, &recorded) {
+		if len(frame) != 510 {
+			t.Errorf("frame %d: payload length %d, want 510", i, len(frame))
+		}
+	}
+	exchange(t, client, server, []byte("padded PSK works"))
+}
+
+func TestHandshakePaddingInvalid(t *testing.T) {
+	for _, tc := range []struct{ size, limit int }{{64, 128}, {65536, 65535}} {
+		t.Run(fmt.Sprint(tc.size), func(t *testing.T) {
+			client, server := net.Pipe()
+			defer client.Close()
+			defer server.Close()
+			for _, err := range []error{
+				func() error { _, err := ClientHandshake(client, HandshakeOptions{PaddingSize: tc.size}); return err }(),
+				func() error { _, _, err := ServerHandshake(server, HandshakeOptions{PaddingSize: tc.size}); return err }(),
+			} {
+				if err == nil || !strings.Contains(err.Error(), fmt.Sprint(tc.size)) || !strings.Contains(err.Error(), fmt.Sprint(tc.limit)) {
+					t.Errorf("padding %d: expected error with limit %d, got %v", tc.size, tc.limit, err)
+				}
+			}
+		})
+	}
+}
+
+func TestHandshakePaddingConfigDefault(t *testing.T) {
+	for _, raw := range []string{`{}`, `{"handshake_padding":0}`, `{"handshake_padding":512}`} {
+		var inbound option.AnoissInboundOptions
+		var outbound option.AnoissOutboundOptions
+		if err := json.Unmarshal([]byte(raw), &inbound); err != nil {
+			t.Fatal(err)
+		}
+		if err := json.Unmarshal([]byte(raw), &outbound); err != nil {
+			t.Fatal(err)
+		}
+		want := 512
+		if raw == `{"handshake_padding":0}` {
+			want = 0
+		}
+		if got := configuredHandshakePadding(inbound.HandshakePadding); got != want {
+			t.Errorf("inbound %s: got %d, want %d", raw, got, want)
+		}
+		if got := configuredHandshakePadding(outbound.HandshakePadding); got != want {
+			t.Errorf("outbound %s: got %d, want %d", raw, got, want)
+		}
+	}
+}
+
+func TestPaddingSchemeValidation(t *testing.T) {
+	for _, tc := range []struct {
+		name, scheme, position string
+	}{
+		{"default", string(anytls.DefaultPaddingScheme), ""},
+		{"stop_zero", "stop=0", ""},
+		{"check_mark", "stop=1\n0=30-30,c", ""},
+		{"missing_stop", "0=30-30", "stop"},
+		{"bad_stop", "stop=abc", "stop"},
+		{"min_zero", "stop=1\n0=0-100", "index 0"},
+		{"missing_max", "stop=2\n1=100-", "index 1"},
+		{"empty_value", "stop=3\n2=", "index 2"},
+		{"bad_range", "stop=4\n3=abc-def", "index 3"},
+		{"only_check_mark", "stop=1\n0=c", "index 0"},
+		{"bad_index", "stop=1\n01=1-10", "index"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			err := validatePaddingScheme([]string{tc.scheme})
+			if tc.position == "" && err != nil || tc.position != "" && (err == nil || !strings.Contains(err.Error(), tc.position)) {
+				t.Fatalf("validatePaddingScheme(%q): got %v; want position %q", tc.scheme, err, tc.position)
+			}
+		})
+	}
 }
 
 func requireHandshake(t *testing.T) (*noiseConn, *noiseConn) {

@@ -21,14 +21,18 @@ const (
 	maxFramePayload         = noise.MaxMsgLen - noiseTagSize // 65519
 	headerSize              = 2
 	defaultHandshakeTimeout = 5 * time.Second
+	defaultHandshakePadding = 512
+	minHandshakePadding     = 128
+	maxHandshakePadding     = 65535
 )
 
 // noiseConn wraps a net.Conn with Noise protocol encryption.
 // It implements net.Conn and provides thread-safe reads and writes.
 //
-// NOTE: sing-anytls padding scheme is designed for TLS record plaintext lengths;
-// anoiss has no TLS layer, and frames have 2-byte length prefix + 16-byte AEAD tag,
-// so padding target lengths are offset by 18 bytes. Kept as-is for now.
+// sing-anytls padding targets TLS plaintext sizes: TLS 1.3 records add 5 header
+// bytes and a 16-byte AEAD tag (21 bytes on the wire). Anoiss frames add a
+// 2-byte length prefix and a 16-byte tag (18 bytes), only 3 bytes less.
+// The default scheme needs no recalibration.
 type noiseConn struct {
 	net.Conn
 	sendCS *noise.CipherState
@@ -187,9 +191,83 @@ func readFrame(conn net.Conn) ([]byte, error) {
 	return data, nil
 }
 
+// HandshakeOptions configures a Noise XX handshake.
+type HandshakeOptions struct {
+	StaticKey    noise.DHKey
+	ExpectedPeer []byte
+	PreSharedKey []byte
+	PaddingSize  int // target total bytes on the wire; 0 disables padding
+	Timeout      time.Duration
+}
+
+func validateHandshakePadding(size int) error {
+	if size != 0 && (size < minHandshakePadding || size > maxHandshakePadding) {
+		return fmt.Errorf("anoiss: handshake_padding %d must be 0 or between %d and %d", size, minHandshakePadding, maxHandshakePadding)
+	}
+	return nil
+}
+
+func configuredHandshakePadding(size *int) int {
+	if size == nil {
+		return defaultHandshakePadding
+	}
+	return *size
+}
+
+// xxUnpaddedSize returns the XX/25519 handshake message length without payload.
+func xxUnpaddedSize(msgIndex int) int {
+	dhLen := noise.DH25519.DHLen()
+	switch msgIndex {
+	case 0: // -> e
+		return dhLen
+	case 1: // <- e, ee, s, es
+		return dhLen + (dhLen + noiseTagSize) + noiseTagSize
+	case 2: // -> s, se
+		return (dhLen + noiseTagSize) + noiseTagSize
+	}
+	return -1
+}
+
+// writeHandshakeMessage includes padding in the hashed Noise payload, then checks
+// the actual size before writing any bytes of the frame.
+func writeHandshakeMessage(conn net.Conn, hs *noise.HandshakeState, msgIndex, target int, hasPSK bool) (*noise.CipherState, *noise.CipherState, error) {
+	var padding []byte
+	if target != 0 {
+		unpaddedSize := xxUnpaddedSize(msgIndex)
+		// flynn/noise mixes the ephemeral key when a PSK is configured, so
+		// even msg1's payload is encrypted and gains an AEAD tag.
+		if hasPSK && msgIndex == 0 {
+			unpaddedSize += noiseTagSize
+		}
+		paddingLen := target - headerSize - unpaddedSize
+		if paddingLen < 0 {
+			return nil, nil, fmt.Errorf("anoiss: handshake_padding %d too small for message %d", target, msgIndex)
+		}
+		padding = make([]byte, paddingLen)
+		if _, err := rand.Read(padding); err != nil {
+			return nil, nil, err
+		}
+	}
+	msg, cs1, cs2, err := hs.WriteMessage(nil, padding)
+	if err != nil {
+		return nil, nil, err
+	}
+	if target != 0 && len(msg) != target-headerSize {
+		return nil, nil, fmt.Errorf("anoiss: handshake padding mismatch: got %d want %d", len(msg), target-headerSize)
+	}
+	if err := writeFrame(conn, msg); err != nil {
+		return nil, nil, err
+	}
+	return cs1, cs2, nil
+}
+
 // ClientHandshake performs a Noise XX handshake as initiator.
 // Returns a noiseConn wrapping the provided connection.
-func ClientHandshake(conn net.Conn, staticKey noise.DHKey, expectedPeerStatic []byte, psk []byte, timeout time.Duration) (*noiseConn, error) {
+func ClientHandshake(conn net.Conn, options HandshakeOptions) (*noiseConn, error) {
+	if err := validateHandshakePadding(options.PaddingSize); err != nil {
+		return nil, err
+	}
+	timeout := options.Timeout
 	if timeout <= 0 {
 		timeout = defaultHandshakeTimeout
 	}
@@ -206,10 +284,10 @@ func ClientHandshake(conn net.Conn, staticKey noise.DHKey, expectedPeerStatic []
 		Pattern:       noise.HandshakeXX,
 		Initiator:     true,
 		Prologue:      []byte(prologue),
-		StaticKeypair: staticKey,
+		StaticKeypair: options.StaticKey,
 	}
-	if len(psk) == 32 {
-		cfg.PresharedKey = psk
+	if len(options.PreSharedKey) == 32 {
+		cfg.PresharedKey = options.PreSharedKey
 		cfg.PresharedKeyPlacement = 3
 	}
 
@@ -219,11 +297,7 @@ func ClientHandshake(conn net.Conn, staticKey noise.DHKey, expectedPeerStatic []
 	}
 
 	// Message 1: client → server (e)
-	msg1, _, _, err := hs.WriteMessage(nil, nil)
-	if err != nil {
-		return nil, fmt.Errorf("anoiss: client write msg1: %w", err)
-	}
-	if err := writeFrame(conn, msg1); err != nil {
+	if _, _, err := writeHandshakeMessage(conn, hs, 0, options.PaddingSize, len(options.PreSharedKey) == 32); err != nil {
 		return nil, fmt.Errorf("anoiss: client send msg1: %w", err)
 	}
 
@@ -238,19 +312,16 @@ func ClientHandshake(conn net.Conn, staticKey noise.DHKey, expectedPeerStatic []
 	}
 
 	// Message 3: client → server (s, se) — completes handshake
-	msg3, cs1, cs2, err := hs.WriteMessage(nil, nil)
+	cs1, cs2, err := writeHandshakeMessage(conn, hs, 2, options.PaddingSize, len(options.PreSharedKey) == 32)
 	if err != nil {
-		return nil, fmt.Errorf("anoiss: client write msg3: %w", err)
-	}
-	if err := writeFrame(conn, msg3); err != nil {
 		return nil, fmt.Errorf("anoiss: client send msg3: %w", err)
 	}
-	if len(expectedPeerStatic) > 0 {
+	if len(options.ExpectedPeer) > 0 {
 		actual := hs.PeerStatic()
-		if !bytes.Equal(actual, expectedPeerStatic) {
+		if !bytes.Equal(actual, options.ExpectedPeer) {
 			conn.Close()
 			return nil, fmt.Errorf("anoiss: server public key mismatch: expected %s, got %s",
-				base64.RawURLEncoding.EncodeToString(expectedPeerStatic),
+				base64.RawURLEncoding.EncodeToString(options.ExpectedPeer),
 				base64.RawURLEncoding.EncodeToString(actual))
 		}
 	}
@@ -261,7 +332,11 @@ func ClientHandshake(conn net.Conn, staticKey noise.DHKey, expectedPeerStatic []
 
 // ServerHandshake performs a Noise XX handshake as responder.
 // Returns a noiseConn and the peer's static public key.
-func ServerHandshake(conn net.Conn, staticKey noise.DHKey, psk []byte, timeout time.Duration) (*noiseConn, []byte, error) {
+func ServerHandshake(conn net.Conn, options HandshakeOptions) (*noiseConn, []byte, error) {
+	if err := validateHandshakePadding(options.PaddingSize); err != nil {
+		return nil, nil, err
+	}
+	timeout := options.Timeout
 	if timeout <= 0 {
 		timeout = defaultHandshakeTimeout
 	}
@@ -278,10 +353,10 @@ func ServerHandshake(conn net.Conn, staticKey noise.DHKey, psk []byte, timeout t
 		Pattern:       noise.HandshakeXX,
 		Initiator:     false,
 		Prologue:      []byte(prologue),
-		StaticKeypair: staticKey,
+		StaticKeypair: options.StaticKey,
 	}
-	if len(psk) == 32 {
-		cfg.PresharedKey = psk
+	if len(options.PreSharedKey) == 32 {
+		cfg.PresharedKey = options.PreSharedKey
 		cfg.PresharedKeyPlacement = 3
 	}
 
@@ -301,11 +376,7 @@ func ServerHandshake(conn net.Conn, staticKey noise.DHKey, psk []byte, timeout t
 	}
 
 	// Message 2: server → client (e, ee, s, es)
-	msg2, _, _, err := hs.WriteMessage(nil, nil)
-	if err != nil {
-		return nil, nil, fmt.Errorf("anoiss: server write msg2: %w", err)
-	}
-	if err := writeFrame(conn, msg2); err != nil {
+	if _, _, err := writeHandshakeMessage(conn, hs, 1, options.PaddingSize, len(options.PreSharedKey) == 32); err != nil {
 		return nil, nil, fmt.Errorf("anoiss: server send msg2: %w", err)
 	}
 

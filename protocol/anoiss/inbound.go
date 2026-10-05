@@ -8,6 +8,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"net"
+	"strconv"
 	"strings"
 	"time"
 
@@ -43,6 +44,7 @@ type Inbound struct {
 	allowAnyClient   bool
 	psk              []byte
 	handshakeTimeout time.Duration
+	handshakePadding int
 }
 
 func NewInbound(ctx context.Context, router adapter.Router, logger log.ContextLogger, tag string, options option.AnoissInboundOptions) (adapter.Inbound, error) {
@@ -93,10 +95,30 @@ func NewInbound(ctx context.Context, router adapter.Router, logger log.ContextLo
 	}
 
 	in.handshakeTimeout = options.HandshakeTimeout.Build()
+	in.handshakePadding = configuredHandshakePadding(options.HandshakePadding)
+	if err := validateHandshakePadding(in.handshakePadding); err != nil {
+		return nil, err
+	}
 
 	// Padding scheme
 	var paddingScheme []byte
 	if len(options.PaddingScheme) > 0 {
+		if err := validatePaddingScheme(options.PaddingScheme); err != nil {
+			return nil, err
+		}
+		stop, _ := paddingSchemeStop(options.PaddingScheme)
+		for _, entry := range paddingSchemeLines(options.PaddingScheme) {
+			key, _, found := strings.Cut(entry, "=")
+			if found && key != "stop" {
+				index, _ := strconv.ParseUint(key, 10, 32)
+				if index >= uint64(stop) {
+					logger.Warn("anoiss: padding_scheme index ", fmt.Sprint(index), " >= stop ", fmt.Sprint(stop), " will not be used")
+				}
+			}
+		}
+		// sing-anytls clients start with DefaultPaddingScheme: ClientOptions has no
+		// scheme field. The server sends commandUpdatePaddingScheme during the
+		// settings phase, so the configured scheme applies from session two.
 		paddingScheme = []byte(strings.Join(options.PaddingScheme, "\n"))
 	}
 
@@ -140,6 +162,7 @@ func (h *Inbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 		" client_whitelist_count=", len(h.clientPubKeys),
 		" allow_any_client=", h.allowAnyClient,
 		" handshake_timeout=", h.handshakeTimeout.String(),
+		" handshake_padding=", fmt.Sprint(h.handshakePadding),
 	)
 
 	err := h.listener.Start()
@@ -151,8 +174,9 @@ func (h *Inbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 }
 
 func (h *Inbound) NewConnection(ctx context.Context, conn net.Conn, metadata adapter.InboundContext, onClose N.CloseHandlerFunc) {
-	timeout := h.handshakeTimeout
-	noiseConn, peerPub, err := ServerHandshake(conn, h.staticKey, h.psk, timeout)
+	noiseConn, peerPub, err := ServerHandshake(conn, HandshakeOptions{
+		StaticKey: h.staticKey, PreSharedKey: h.psk, Timeout: h.handshakeTimeout, PaddingSize: h.handshakePadding,
+	})
 	if err != nil {
 		N.CloseOnHandshakeFailure(conn, onClose, err)
 		h.logger.ErrorContext(ctx, E.Cause(err, "process connection from ", metadata.Source, ": Noise handshake"))

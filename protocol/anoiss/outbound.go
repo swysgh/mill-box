@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
 	"net"
 	"os"
 	"time"
@@ -44,6 +45,7 @@ type Outbound struct {
 	expectedPeerStatic []byte
 	psk                []byte
 	hsTimeout          time.Duration
+	hsPadding          int
 }
 
 func NewOutbound(ctx context.Context, router adapter.Router, logger log.ContextLogger, tag string, options option.AnoissOutboundOptions) (adapter.Outbound, error) {
@@ -84,6 +86,10 @@ func NewOutbound(ctx context.Context, router adapter.Router, logger log.ContextL
 	}
 
 	out.hsTimeout = options.HandshakeTimeout.Build()
+	out.hsPadding = configuredHandshakePadding(options.HandshakePadding)
+	if err := validateHandshakePadding(out.hsPadding); err != nil {
+		return nil, err
+	}
 
 	outboundDialer, err := dialer.NewWithOptions(dialer.Options{
 		Context:        ctx,
@@ -119,6 +125,7 @@ func (h *Outbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 		" client_pubkey_fingerprint=", hex.EncodeToString(fingerprint[:8]),
 		" psk=", len(h.psk) > 0,
 		" handshake_timeout=", h.hsTimeout.String(),
+		" handshake_padding=", fmt.Sprint(h.hsPadding),
 	)
 
 	client, err := anytls.NewClient(h.clientOptions)
@@ -149,7 +156,10 @@ func (h *Outbound) dialOut(ctx context.Context) (net.Conn, error) {
 	if err != nil {
 		return nil, err
 	}
-	noiseConn, err := ClientHandshake(conn, h.staticKey, h.expectedPeerStatic, h.psk, h.hsTimeout)
+	noiseConn, err := ClientHandshake(conn, HandshakeOptions{
+		StaticKey: h.staticKey, ExpectedPeer: h.expectedPeerStatic, PreSharedKey: h.psk,
+		Timeout: h.hsTimeout, PaddingSize: h.hsPadding,
+	})
 	if err != nil {
 		conn.Close()
 		return nil, err

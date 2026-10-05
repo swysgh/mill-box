@@ -11,6 +11,7 @@ type AnoissInboundOptions struct {
 	AllowAnyClient   bool                       `json:"allow_any_client,omitempty"`
 	PreSharedKey     string                     `json:"pre_shared_key,omitempty"`
 	HandshakeTimeout badoption.Duration         `json:"handshake_timeout,omitempty"`
+	HandshakePadding *int                       `json:"handshake_padding,omitempty"`
 }
 
 type AnoissUser struct {
@@ -26,6 +27,7 @@ type AnoissOutboundOptions struct {
 	ServerPublicKey          string             `json:"server_public_key,omitempty"`
 	PreSharedKey             string             `json:"pre_shared_key,omitempty"`
 	HandshakeTimeout         badoption.Duration `json:"handshake_timeout,omitempty"`
+	HandshakePadding         *int               `json:"handshake_padding,omitempty"`
 	IdleSessionCheckInterval badoption.Duration `json:"idle_session_check_interval,omitempty"`
 	IdleSessionTimeout       badoption.Duration `json:"idle_session_timeout,omitempty"`
 	MinIdleSession           int                `json:"min_idle_session,omitempty"`
