@@ -8,11 +8,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/badhttp"
-	"github.com/sagernet/sing-box/common/tls"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/badhttp"
+	"github.com/swysgh/mill-box/common/tls"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common/buf"
 	"github.com/sagernet/sing/common/bufio"
 	"github.com/sagernet/sing/common/bufio/deadline"

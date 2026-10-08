@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/daemon"
 )
 
 type daemonPlatform interface {

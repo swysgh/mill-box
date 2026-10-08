@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/sagernet/sing-box/common/networkquality"
+	"github.com/swysgh/mill-box/common/networkquality"
 )
 
 type NetworkQualityTest struct {

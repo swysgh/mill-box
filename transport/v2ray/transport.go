@@ -3,13 +3,14 @@ package v2ray
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/tls"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
-	"github.com/sagernet/sing-box/transport/v2rayhttp"
-	"github.com/sagernet/sing-box/transport/v2rayhttpupgrade"
-	"github.com/sagernet/sing-box/transport/v2raywebsocket"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/tls"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+	"github.com/swysgh/mill-box/transport/v2rayhttp"
+	"github.com/swysgh/mill-box/transport/v2rayhttpupgrade"
+	"github.com/swysgh/mill-box/transport/v2raywebsocket"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/logger"
 	M "github.com/sagernet/sing/common/metadata"

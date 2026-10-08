@@ -7,8 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/protocol/group"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/protocol/group"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/json/badjson"
 

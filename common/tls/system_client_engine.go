@@ -8,9 +8,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/ntp"
 )

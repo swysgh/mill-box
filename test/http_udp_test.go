@@ -12,9 +12,10 @@ import (
 	"testing"
 	"time"
 
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
-	sHTTP "github.com/sagernet/sing-box/transport/http"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+	sHTTP "github.com/swysgh/mill-box/transport/http"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/auth"
 	E "github.com/sagernet/sing/common/exceptions"

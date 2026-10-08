@@ -12,11 +12,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/srs"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/experimental/deprecated"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/srs"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/experimental/deprecated"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	F "github.com/sagernet/sing/common/format"

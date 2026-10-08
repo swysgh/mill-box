@@ -7,10 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/tls"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/tls"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/logger"
 	M "github.com/sagernet/sing/common/metadata"

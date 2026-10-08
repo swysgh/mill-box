@@ -119,7 +119,7 @@ jobs:
         run: |
           set -xeuo pipefail
           go build -v -trimpath -o sing-box -tags "${BUILD_TAGS}" \
-          -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=${VERSION}' ${LDFLAGS_SHARED} -s -w -buildid=" \
+          -ldflags "-X 'github.com/swysgh/mill-box/constant.Version=${VERSION}' ${LDFLAGS_SHARED} -s -w -buildid=" \
           ./cmd/sing-box
         env:
           CGO_ENABLED: "1"
@@ -132,7 +132,7 @@ jobs:
         run: |
           set -xeuo pipefail
           go build -v -trimpath -o sing-box -tags "${BUILD_TAGS}" \
-          -ldflags "-X 'github.com/sagernet/sing-box/constant.Version=${VERSION}' ${LDFLAGS_SHARED} -s -w -buildid=" \
+          -ldflags "-X 'github.com/swysgh/mill-box/constant.Version=${VERSION}' ${LDFLAGS_SHARED} -s -w -buildid=" \
           ./cmd/sing-box
         env:
           CGO_ENABLED: "0"

@@ -6,9 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sagernet/sing-box/common/taskmonitor"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/common/taskmonitor"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/log"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	F "github.com/sagernet/sing/common/format"
 )

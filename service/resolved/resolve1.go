@@ -13,10 +13,11 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/dns"
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/dns"
+	"github.com/swysgh/mill-box/log"
+
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	F "github.com/sagernet/sing/common/format"

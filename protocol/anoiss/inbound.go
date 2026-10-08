@@ -12,21 +12,23 @@ import (
 	"strings"
 	"time"
 
-	"github.com/flynn/noise"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/adapter/inbound"
+	"github.com/swysgh/mill-box/common/listener"
+	"github.com/swysgh/mill-box/common/uot"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing-anytls"
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/adapter/inbound"
-	"github.com/sagernet/sing-box/common/listener"
-	"github.com/sagernet/sing-box/common/uot"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/auth"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/logger"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"
+
+	"github.com/flynn/noise"
 )
 
 func RegisterInbound(registry *inbound.Registry) {

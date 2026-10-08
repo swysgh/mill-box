@@ -5,11 +5,12 @@ package include
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/adapter/certificate"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/adapter/certificate"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 )
 

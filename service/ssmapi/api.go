@@ -3,8 +3,9 @@ package ssmapi
 import (
 	"net/http"
 
-	"github.com/sagernet/sing-box/common/badhttp"
-	C "github.com/sagernet/sing-box/constant"
+	"github.com/swysgh/mill-box/common/badhttp"
+	C "github.com/swysgh/mill-box/constant"
+
 	"github.com/sagernet/sing/common/logger"
 
 	"github.com/go-chi/chi/v5"

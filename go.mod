@@ -1,4 +1,4 @@
-module github.com/sagernet/sing-box
+module github.com/swysgh/mill-box
 
 go 1.25.5
 

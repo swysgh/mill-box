@@ -9,18 +9,20 @@ import (
 	"os"
 	"time"
 
-	"github.com/flynn/noise"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/adapter/outbound"
+	"github.com/swysgh/mill-box/common/dialer"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing-anytls"
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/adapter/outbound"
-	"github.com/sagernet/sing-box/common/dialer"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
 	E "github.com/sagernet/sing/common/exceptions"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"
 	"github.com/sagernet/sing/common/uot"
+
+	"github.com/flynn/noise"
 )
 
 func RegisterOutbound(registry *outbound.Registry) {

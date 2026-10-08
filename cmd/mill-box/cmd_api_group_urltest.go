@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/daemon"
 
 	"github.com/spf13/cobra"
 )

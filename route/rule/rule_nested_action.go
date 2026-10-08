@@ -3,8 +3,9 @@ package rule
 import (
 	"reflect"
 
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 )
 

@@ -5,11 +5,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/sagernet/sing-box/common/convertor/adguard"
-	"github.com/sagernet/sing-box/common/srs"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/common/convertor/adguard"
+	"github.com/swysgh/mill-box/common/srs"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 
 	"github.com/spf13/cobra"

@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/sagernet/sing-box/daemon"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/service/powerreport"
+	"github.com/swysgh/mill-box/daemon"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/service/powerreport"
 )
 
 type powerReportMetadata struct {

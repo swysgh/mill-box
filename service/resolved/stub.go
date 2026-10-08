@@ -5,12 +5,13 @@ package resolved
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/adapter"
-	boxService "github.com/sagernet/sing-box/adapter/service"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/dns"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	boxService "github.com/swysgh/mill-box/adapter/service"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/dns"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 )
 

@@ -5,11 +5,12 @@ package v2ray
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/tls"
-	"github.com/sagernet/sing-box/option"
-	"github.com/sagernet/sing-box/transport/v2raygrpc"
-	"github.com/sagernet/sing-box/transport/v2raygrpclite"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/tls"
+	"github.com/swysgh/mill-box/option"
+	"github.com/swysgh/mill-box/transport/v2raygrpc"
+	"github.com/swysgh/mill-box/transport/v2raygrpclite"
+
 	"github.com/sagernet/sing/common/logger"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"

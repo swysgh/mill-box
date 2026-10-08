@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
-	R "github.com/sagernet/sing-box/route/rule"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+	R "github.com/swysgh/mill-box/route/rule"
 
 	mDNS "github.com/miekg/dns"
 	"github.com/stretchr/testify/require"

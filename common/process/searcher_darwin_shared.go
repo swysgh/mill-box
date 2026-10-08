@@ -11,7 +11,8 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/swysgh/mill-box/adapter"
+
 	N "github.com/sagernet/sing/common/network"
 
 	"golang.org/x/sys/unix"

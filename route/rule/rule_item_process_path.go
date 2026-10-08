@@ -4,8 +4,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
 )
 
 var _ RuleItem = (*ProcessPathItem)(nil)

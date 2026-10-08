@@ -7,8 +7,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/sagernet/sing-box/common/srs"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/common/srs"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/logger"
 	"github.com/sagernet/sing/service/filemanager"

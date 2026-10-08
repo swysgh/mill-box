@@ -16,7 +16,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/daemon"
+
 	"github.com/sagernet/sing-usbip"
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"

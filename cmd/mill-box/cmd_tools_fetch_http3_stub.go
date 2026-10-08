@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"os"
 
-	box "github.com/sagernet/sing-box"
+	box "github.com/swysgh/mill-box"
 )
 
 func initializeHTTP3Client(instance *box.Box) error {

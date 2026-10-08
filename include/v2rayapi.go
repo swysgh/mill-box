@@ -2,4 +2,4 @@
 
 package include
 
-import _ "github.com/sagernet/sing-box/experimental/v2rayapi"
+import _ "github.com/swysgh/mill-box/experimental/v2rayapi"

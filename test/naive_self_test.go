@@ -8,10 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sagernet/sing-box/common/tls"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
-	"github.com/sagernet/sing-box/protocol/naive"
+	"github.com/swysgh/mill-box/common/tls"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+	"github.com/swysgh/mill-box/protocol/naive"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/auth"
 	"github.com/sagernet/sing/common/json/badoption"

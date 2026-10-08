@@ -9,12 +9,13 @@ import (
 	"sort"
 	"time"
 
-	"github.com/sagernet/sing-box/common/trafficcontrol"
-	"github.com/sagernet/sing-box/daemon"
-	"github.com/sagernet/sing-box/experimental/libbox/internal/oomprofile"
-	"github.com/sagernet/sing-box/experimental/libbox/internal/runtimeinfo"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/service/oomkiller"
+	"github.com/swysgh/mill-box/common/trafficcontrol"
+	"github.com/swysgh/mill-box/daemon"
+	"github.com/swysgh/mill-box/experimental/libbox/internal/oomprofile"
+	"github.com/swysgh/mill-box/experimental/libbox/internal/runtimeinfo"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/service/oomkiller"
+
 	"github.com/sagernet/sing/common/byteformats"
 	F "github.com/sagernet/sing/common/format"
 )

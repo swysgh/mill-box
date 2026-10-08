@@ -7,7 +7,8 @@ import (
 	"io"
 	"sync"
 
-	transportHTTP "github.com/sagernet/sing-box/transport/http"
+	transportHTTP "github.com/swysgh/mill-box/transport/http"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/buf"
 	E "github.com/sagernet/sing/common/exceptions"

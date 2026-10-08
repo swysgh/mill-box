@@ -12,7 +12,7 @@ import "C"
 import (
 	"crypto/x509"
 
-	"github.com/sagernet/sing-box/common/jni"
+	"github.com/swysgh/mill-box/common/jni"
 )
 
 func systemCertificates() []*x509.Certificate {

@@ -9,7 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sagernet/sing-box/experimental/locale"
+	"github.com/swysgh/mill-box/experimental/locale"
+
 	E "github.com/sagernet/sing/common/exceptions"
 )
 

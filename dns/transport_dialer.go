@@ -3,8 +3,9 @@ package dns
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/common/dialer"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/common/dialer"
+	"github.com/swysgh/mill-box/option"
+
 	N "github.com/sagernet/sing/common/network"
 )
 

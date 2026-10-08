@@ -3,7 +3,8 @@ package main
 import (
 	"time"
 
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/daemon"
+
 	"github.com/sagernet/sing/common"
 
 	"github.com/spf13/cobra"

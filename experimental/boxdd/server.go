@@ -9,14 +9,15 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/daemon"
-	"github.com/sagernet/sing-box/experimental/libbox"
-	"github.com/sagernet/sing-box/include"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/service/oomkiller"
-	"github.com/sagernet/sing-box/service/powerreport"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/daemon"
+	"github.com/swysgh/mill-box/experimental/libbox"
+	"github.com/swysgh/mill-box/include"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/service/oomkiller"
+	"github.com/swysgh/mill-box/service/powerreport"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/service"
 

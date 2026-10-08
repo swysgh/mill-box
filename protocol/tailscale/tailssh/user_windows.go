@@ -8,7 +8,7 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/swysgh/mill-box/adapter"
 )
 
 func resolveLocalUserNative(username string) (*adapter.PlatformUser, error) {

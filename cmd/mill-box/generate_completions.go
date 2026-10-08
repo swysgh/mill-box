@@ -2,7 +2,7 @@
 
 package main
 
-import "github.com/sagernet/sing-box/log"
+import "github.com/swysgh/mill-box/log"
 
 func main() {
 	err := generateCompletions()

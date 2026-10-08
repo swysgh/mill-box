@@ -7,7 +7,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/swysgh/mill-box/adapter"
 )
 
 type stubWIFIMonitor struct{}

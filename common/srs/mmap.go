@@ -9,8 +9,9 @@ import (
 	"runtime"
 	"unsafe"
 
-	"github.com/sagernet/sing-box/common/ipset"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/common/ipset"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common/domain"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/varbin"

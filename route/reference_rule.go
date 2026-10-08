@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"strings"
 
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
 )
 
 type staticMatch uint8

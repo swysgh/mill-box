@@ -3,9 +3,10 @@ package deprecated
 import (
 	"fmt"
 
-	"github.com/sagernet/sing-box/common/badversion"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/experimental/locale"
+	"github.com/swysgh/mill-box/common/badversion"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/experimental/locale"
+
 	F "github.com/sagernet/sing/common/format"
 
 	"golang.org/x/mod/semver"

@@ -8,11 +8,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/experimental/deprecated"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/bbolt"
 	bboltErrors "github.com/sagernet/bbolt/errors"
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/experimental/deprecated"
-	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/logger"

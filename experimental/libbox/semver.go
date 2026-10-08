@@ -3,7 +3,7 @@ package libbox
 import (
 	"strings"
 
-	"github.com/sagernet/sing-box/common/badversion"
+	"github.com/swysgh/mill-box/common/badversion"
 
 	"golang.org/x/mod/semver"
 )

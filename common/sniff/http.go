@@ -6,9 +6,10 @@ import (
 	"errors"
 	"io"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/badhttp"
-	C "github.com/sagernet/sing-box/constant"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/badhttp"
+	C "github.com/swysgh/mill-box/constant"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	M "github.com/sagernet/sing/common/metadata"
 )

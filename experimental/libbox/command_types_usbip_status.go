@@ -1,6 +1,6 @@
 package libbox
 
-import "github.com/sagernet/sing-box/daemon"
+import "github.com/swysgh/mill-box/daemon"
 
 type USBIPServerStatusUpdate struct {
 	servers []*USBIPServerStatus

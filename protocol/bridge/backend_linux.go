@@ -5,9 +5,10 @@ import (
 	"net/netip"
 	"sync"
 
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/netlink"
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing/common/control"
 	E "github.com/sagernet/sing/common/exceptions"

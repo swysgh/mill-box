@@ -10,8 +10,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/swysgh/mill-box/adapter"
+
 	"github.com/sagernet/fswatch"
-	"github.com/sagernet/sing-box/adapter"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/logger"
 

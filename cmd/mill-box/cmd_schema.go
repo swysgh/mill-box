@@ -5,10 +5,10 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/sagernet/sing-box/include"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
-	"github.com/sagernet/sing-box/schema"
+	"github.com/swysgh/mill-box/include"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+	"github.com/swysgh/mill-box/schema"
 
 	"github.com/spf13/cobra"
 )

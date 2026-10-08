@@ -9,7 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/daemon"
+
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	F "github.com/sagernet/sing/common/format"

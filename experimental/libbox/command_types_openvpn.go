@@ -1,7 +1,8 @@
 package libbox
 
 import (
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/daemon"
+
 	"github.com/sagernet/sing/common"
 )
 

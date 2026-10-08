@@ -3,7 +3,7 @@ package netns
 import (
 	"os"
 
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/swysgh/mill-box/adapter"
 )
 
 var _ adapter.NetworkNamespaceManager = (*Manager)(nil)

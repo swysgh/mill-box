@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/log"
+
 	E "github.com/sagernet/sing/common/exceptions"
 
 	"github.com/oschwald/maxminddb-golang"

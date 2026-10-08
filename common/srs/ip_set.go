@@ -6,7 +6,8 @@ import (
 	"os"
 	"slices"
 
-	"github.com/sagernet/sing-box/common/ipset"
+	"github.com/swysgh/mill-box/common/ipset"
+
 	"github.com/sagernet/sing/common/varbin"
 )
 

@@ -3,7 +3,7 @@
 package oomkiller
 
 import (
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/swysgh/mill-box/adapter"
 )
 
 func (s *Service) Start(stage adapter.StartStage, scope *adapter.Scope) error {

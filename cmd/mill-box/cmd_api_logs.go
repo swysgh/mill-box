@@ -6,7 +6,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/log"
 
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/types/known/emptypb"

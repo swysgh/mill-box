@@ -5,11 +5,12 @@ import (
 	"net"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/dns"
-	dnsOutbound "github.com/sagernet/sing-box/protocol/dns"
-	R "github.com/sagernet/sing-box/route/rule"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/dns"
+	dnsOutbound "github.com/swysgh/mill-box/protocol/dns"
+	R "github.com/swysgh/mill-box/route/rule"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"

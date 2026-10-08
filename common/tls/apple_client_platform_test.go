@@ -13,7 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common/buf"
 	"github.com/sagernet/sing/common/json/badoption"
 	"github.com/sagernet/sing/common/logger"

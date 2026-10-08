@@ -4,7 +4,8 @@ import (
 	"os"
 	"sort"
 
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/log"
+
 	F "github.com/sagernet/sing/common/format"
 
 	"github.com/spf13/cobra"

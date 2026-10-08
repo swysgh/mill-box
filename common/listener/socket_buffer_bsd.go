@@ -5,7 +5,7 @@ package listener
 import (
 	"sync"
 
-	C "github.com/sagernet/sing-box/constant"
+	C "github.com/swysgh/mill-box/constant"
 
 	"golang.org/x/sys/unix"
 )

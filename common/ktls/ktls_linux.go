@@ -12,7 +12,8 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/sagernet/sing-box/common/badversion"
+	"github.com/swysgh/mill-box/common/badversion"
+
 	"github.com/sagernet/sing/common/control"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/shell"

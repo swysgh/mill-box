@@ -5,16 +5,17 @@ package include
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/adapter/certificate"
-	"github.com/sagernet/sing-box/adapter/endpoint"
-	"github.com/sagernet/sing-box/adapter/inbound"
-	"github.com/sagernet/sing-box/adapter/outbound"
-	"github.com/sagernet/sing-box/adapter/service"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/dns"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/adapter/certificate"
+	"github.com/swysgh/mill-box/adapter/endpoint"
+	"github.com/swysgh/mill-box/adapter/inbound"
+	"github.com/swysgh/mill-box/adapter/outbound"
+	"github.com/swysgh/mill-box/adapter/service"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/dns"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 )
 

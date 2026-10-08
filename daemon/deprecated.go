@@ -3,7 +3,8 @@ package daemon
 import (
 	"sync"
 
-	"github.com/sagernet/sing-box/experimental/deprecated"
+	"github.com/swysgh/mill-box/experimental/deprecated"
+
 	"github.com/sagernet/sing/common"
 )
 

@@ -3,7 +3,7 @@ package main
 import (
 	context "context"
 
-	daemon "github.com/sagernet/sing-box/daemon"
+	daemon "github.com/swysgh/mill-box/daemon"
 
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

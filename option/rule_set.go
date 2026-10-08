@@ -6,9 +6,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/sagernet/sing-box/common/ipset"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/schema"
+	"github.com/swysgh/mill-box/common/ipset"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/schema"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/domain"
 	E "github.com/sagernet/sing/common/exceptions"

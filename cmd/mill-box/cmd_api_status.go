@@ -6,7 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/sagernet/sing-box/daemon"
+	"github.com/swysgh/mill-box/daemon"
+
 	"github.com/sagernet/sing/common/byteformats"
 	F "github.com/sagernet/sing/common/format"
 

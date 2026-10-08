@@ -2,7 +2,7 @@
 
 package main
 
-import "github.com/sagernet/sing-box/option"
+import "github.com/swysgh/mill-box/option"
 
 func runInUserNamespaceIfNeeded(options option.Options, optionsList []*OptionsEntry) error {
 	return nil

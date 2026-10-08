@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/sagernet/sing-box/common/tlsfragment"
+	"github.com/swysgh/mill-box/common/tlsfragment"
 
 	"github.com/stretchr/testify/require"
 )

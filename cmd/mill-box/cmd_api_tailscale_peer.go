@@ -5,8 +5,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/sagernet/sing-box/daemon"
-	"github.com/sagernet/sing-box/dns"
+	"github.com/swysgh/mill-box/daemon"
+	"github.com/swysgh/mill-box/dns"
+
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 

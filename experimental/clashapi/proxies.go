@@ -8,10 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/urltest"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/protocol/group"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/urltest"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/protocol/group"
+
 	"github.com/sagernet/sing/common"
 	F "github.com/sagernet/sing/common/format"
 	"github.com/sagernet/sing/common/json/badjson"

@@ -16,10 +16,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/flynn/noise"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing-anytls"
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/option"
+
+	"github.com/flynn/noise"
 )
 
 type serverResult struct {

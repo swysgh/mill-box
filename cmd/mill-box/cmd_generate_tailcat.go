@@ -4,8 +4,8 @@ import (
 	"crypto/rand"
 	"os"
 
-	"github.com/sagernet/sing-box/log"
-	"github.com/sagernet/sing-box/protocol/tailscale"
+	"github.com/swysgh/mill-box/log"
+	"github.com/swysgh/mill-box/protocol/tailscale"
 
 	"github.com/spf13/cobra"
 )

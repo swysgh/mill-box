@@ -12,8 +12,9 @@ import (
 	"os"
 	"sync"
 
-	"github.com/sagernet/sing-box/dns"
-	dnsTransport "github.com/sagernet/sing-box/dns/transport"
+	"github.com/swysgh/mill-box/dns"
+	dnsTransport "github.com/swysgh/mill-box/dns/transport"
+
 	E "github.com/sagernet/sing/common/exceptions"
 
 	mDNS "github.com/miekg/dns"

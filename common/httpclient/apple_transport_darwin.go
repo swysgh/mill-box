@@ -25,11 +25,12 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/common/certificate"
-	"github.com/sagernet/sing-box/common/proxybridge"
-	boxTLS "github.com/sagernet/sing-box/common/tls"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	"github.com/swysgh/mill-box/common/certificate"
+	"github.com/swysgh/mill-box/common/proxybridge"
+	boxTLS "github.com/swysgh/mill-box/common/tls"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/logger"

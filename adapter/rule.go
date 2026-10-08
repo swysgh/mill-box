@@ -1,7 +1,7 @@
 package adapter
 
 import (
-	C "github.com/sagernet/sing-box/constant"
+	C "github.com/swysgh/mill-box/constant"
 
 	"github.com/miekg/dns"
 )

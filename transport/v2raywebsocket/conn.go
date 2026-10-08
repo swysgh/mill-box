@@ -10,7 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	C "github.com/sagernet/sing-box/constant"
+	C "github.com/swysgh/mill-box/constant"
+
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/buf"
 	"github.com/sagernet/sing/common/debug"

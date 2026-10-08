@@ -6,7 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/option"
+
 	E "github.com/sagernet/sing/common/exceptions"
 )
 

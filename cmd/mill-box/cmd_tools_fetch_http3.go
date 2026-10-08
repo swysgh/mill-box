@@ -7,9 +7,10 @@ import (
 	"crypto/tls"
 	"net/http"
 
+	box "github.com/swysgh/mill-box"
+
 	"github.com/sagernet/quic-go"
 	"github.com/sagernet/quic-go/http3"
-	box "github.com/sagernet/sing-box"
 	M "github.com/sagernet/sing/common/metadata"
 	N "github.com/sagernet/sing/common/network"
 )

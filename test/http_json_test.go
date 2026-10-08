@@ -6,7 +6,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common/json"
 
 	"github.com/stretchr/testify/require"

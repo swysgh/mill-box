@@ -7,9 +7,10 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/sagernet/sing-box/cmd/internal/build_shared"
-	"github.com/sagernet/sing-box/common/badversion"
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/cmd/internal/build_shared"
+	"github.com/swysgh/mill-box/common/badversion"
+	"github.com/swysgh/mill-box/log"
+
 	"github.com/sagernet/sing/common"
 
 	"howett.net/plist"

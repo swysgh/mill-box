@@ -3,12 +3,13 @@ package local
 import (
 	"context"
 
-	"github.com/sagernet/sing-box/adapter"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/dns"
-	"github.com/sagernet/sing-box/dns/transport/hosts"
-	"github.com/sagernet/sing-box/dns/transport/mdns"
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/adapter"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/dns"
+	"github.com/swysgh/mill-box/dns/transport/hosts"
+	"github.com/swysgh/mill-box/dns/transport/mdns"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing/common/logger"
 	"github.com/sagernet/sing/service"
 

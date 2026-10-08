@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/swysgh/mill-box/adapter"
 )
 
 type RuleSetUpdater struct {

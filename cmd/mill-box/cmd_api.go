@@ -4,8 +4,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/sagernet/sing-box/daemon"
-	"github.com/sagernet/sing-box/log"
+	"github.com/swysgh/mill-box/daemon"
+	"github.com/swysgh/mill-box/log"
+
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 

@@ -3,9 +3,10 @@
 package usbip
 
 import (
-	boxService "github.com/sagernet/sing-box/adapter/service"
-	C "github.com/sagernet/sing-box/constant"
-	"github.com/sagernet/sing-box/option"
+	boxService "github.com/swysgh/mill-box/adapter/service"
+	C "github.com/swysgh/mill-box/constant"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing-usbip"
 )
 

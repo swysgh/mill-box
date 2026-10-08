@@ -4,7 +4,8 @@ import (
 	"context"
 	"net/netip"
 
-	"github.com/sagernet/sing-box/option"
+	"github.com/swysgh/mill-box/option"
+
 	"github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing/common/logger"
 )

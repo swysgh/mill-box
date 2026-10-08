@@ -4,7 +4,8 @@ import (
 	"errors"
 	"os"
 
-	"github.com/sagernet/sing-box"
+	"github.com/swysgh/mill-box"
+
 	E "github.com/sagernet/sing/common/exceptions"
 	N "github.com/sagernet/sing/common/network"
 	"github.com/sagernet/sing/service"
