@@ -1,0 +1,6 @@
+# /etc/conf.d/mill-box: config file for /etc/init.d/mill-box
+
+# mill-box configuration path, could be file or directory
+# MILLBOX_CONFIG=/etc/mill-box
+
+# MILLBOX_WORKDIR=/var/lib/mill-box

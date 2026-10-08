@@ -9,7 +9,7 @@ setup_environment
 
 BUILD_TAGS=$(get_build_tags)
 
-build_sing_box "$BUILD_TAGS"
+build_mill_box "$BUILD_TAGS"
 
 stop_service
 install_binary

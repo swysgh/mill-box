@@ -1,23 +1,23 @@
 #!/sbin/openrc-run
 
 name=$RC_SVCNAME
-description="sing-box service"
+description="mill-box service"
 supervisor="supervise-daemon"
-command="/usr/bin/sing-box"
+command="/usr/bin/mill-box"
 extra_commands="checkconfig"
 extra_started_commands="reload"
 
-: ${SINGBOX_CONFIG:=${config:-"/etc/sing-box"}}
+: ${MILLBOX_CONFIG:=${config:-"/etc/mill-box"}}
 
-if [ -d "$SINGBOX_CONFIG" ]; then
-	_config_opt="-C $SINGBOX_CONFIG"
-elif [ -z "$SINGBOX_CONFIG" ]; then
+if [ -d "$MILLBOX_CONFIG" ]; then
+	_config_opt="-C $MILLBOX_CONFIG"
+elif [ -z "$MILLBOX_CONFIG" ]; then
 	_config_opt=""
 else
-	_config_opt="-c $SINGBOX_CONFIG"
+	_config_opt="-c $MILLBOX_CONFIG"
 fi
 
-_workdir=${SINGBOX_WORKDIR:-${workdir:-"/var/lib/sing-box"}}
+_workdir=${MILLBOX_WORKDIR:-${workdir:-"/var/lib/mill-box"}}
 
 command_args="run --disable-color
 	-D $_workdir
@@ -29,7 +29,7 @@ depend() {
 
 checkconfig() {
 	ebegin "Checking $RC_SVCNAME configuration"
-	sing-box check -D "$_workdir" $_config_opt
+	mill-box check -D "$_workdir" $_config_opt
 	eend $?
 }
 

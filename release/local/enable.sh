@@ -2,6 +2,6 @@
 
 set -e -o pipefail
 
-sudo systemctl enable sing-box
-sudo systemctl start sing-box
-sudo journalctl -u sing-box --output cat -f
+sudo systemctl enable mill-box
+sudo systemctl start mill-box
+sudo journalctl -u mill-box --output cat -f

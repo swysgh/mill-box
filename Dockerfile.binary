@@ -10,5 +10,5 @@ RUN set -ex \
         apt-get update && apt-get install -y --no-install-recommends bash tzdata ca-certificates nftables \
         && rm -rf /var/lib/apt/lists/*; \
     fi
-COPY sing-box-${TARGETARCH}${TARGETVARIANT} /usr/local/bin/sing-box
-ENTRYPOINT ["sing-box"]
+COPY mill-box-${TARGETARCH}${TARGETVARIANT} /usr/local/bin/mill-box
+ENTRYPOINT ["mill-box"]
