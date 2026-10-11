@@ -19,7 +19,6 @@ import (
 	"github.com/swysgh/mill-box/experimental/deprecated"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/option"
-	"github.com/swysgh/mill-box/service/oomkiller"
 
 	"github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing-tun/gtcpip/header"
@@ -486,11 +485,6 @@ func (t *Inbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 		if t.platformInterface != nil && t.platformInterface.UnderNetworkExtension() {
 			includeAllNetworks = t.platformInterface.NetworkExtensionIncludeAllNetworks()
 		}
-		var memoryPressure func() tun.MemoryPressure
-		oomKiller := service.FromContext[*oomkiller.Service](t.ctx)
-		if oomKiller != nil {
-			memoryPressure = oomKiller.MemoryPressure
-		}
 		tunStack, err := tun.NewStack(t.stack, tun.StackOptions{
 			Context:                t.ctx,
 			Tun:                    tunInterface,
@@ -505,7 +499,6 @@ func (t *Inbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 			ForwarderBindInterface: C.IsDarwin,
 			InterfaceFinder:        t.networkManager.InterfaceFinder(),
 			IncludeAllNetworks:     includeAllNetworks,
-			MemoryPressure:         memoryPressure,
 		})
 		if err != nil {
 			return err

@@ -3,7 +3,7 @@
 package libbox
 
 import (
-	"path/filepath"
+	"bytes"
 	"time"
 
 	"github.com/swysgh/mill-box/daemon"
@@ -29,12 +29,40 @@ func PowerReportOptions(startedService *daemon.StartedService) powerreport.Optio
 		LogCallback: func() []byte {
 			return formatLogEntries(startedService.SavedLog())
 		},
-		ProfileCallback: func(path string) {
-			for _, name := range oomReportProfiles {
-				writeOOMProfile(filepath.Join(path, name+".pb"), name)
-			}
-		},
 	}
+}
+
+func formatLogEntries(entries []*log.Entry) []byte {
+	if len(entries) == 0 {
+		return nil
+	}
+	var buffer bytes.Buffer
+	for _, entry := range entries {
+		writeWithoutColors(&buffer, entry.Message)
+		buffer.WriteByte('\n')
+	}
+	return buffer.Bytes()
+}
+
+func writeWithoutColors(buffer *bytes.Buffer, message string) {
+	start := 0
+	for index := 0; index < len(message); {
+		if message[index] != '\x1b' || index+1 >= len(message) || message[index+1] != '[' {
+			index++
+			continue
+		}
+		end := index + 2
+		for end < len(message) && message[end] != 'm' {
+			end++
+		}
+		if end >= len(message) {
+			break
+		}
+		buffer.WriteString(message[start:index])
+		index = end + 1
+		start = index
+	}
+	buffer.WriteString(message[start:])
 }
 
 func DiscardPowerReportDraft() {

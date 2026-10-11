@@ -4,16 +4,7 @@ import (
 	"runtime/debug"
 
 	"github.com/swysgh/mill-box/option"
-
-	E "github.com/sagernet/sing/common/exceptions"
 )
-
-func checkDebugOptions(options option.DebugOptions) error {
-	if options.OOMKiller != nil {
-		return E.New("legacy oom_killer in debug options is removed, use oom-killer service instead")
-	}
-	return nil
-}
 
 func applyDebugOptions(options option.DebugOptions) {
 	if options.GCPercent != nil {

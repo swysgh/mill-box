@@ -987,19 +987,6 @@ func (c *CommandClient) SubscribeTailscaleStatus(handler TailscaleStatusHandler)
 	return session, nil
 }
 
-func (c *CommandClient) SubscribeUSBIPServerStatus(handler USBIPServerStatusHandler) (*USBIPServerStatusSubscription, error) {
-	session := new(USBIPServerStatusSubscription)
-	err := subscribeStatus(c, &session.streamSession, "usbip server status", func(ctx context.Context, client daemon.StartedServiceClient) (grpc.ServerStreamingClient[daemon.USBIPServerStatusUpdate], error) {
-		return client.SubscribeUSBIPServerStatus(ctx, &emptypb.Empty{})
-	}, func(update *daemon.USBIPServerStatusUpdate) {
-		handler.OnStatusUpdate(usbipServerStatusUpdateFromGRPC(update))
-	}, handler.OnError)
-	if err != nil {
-		return nil, err
-	}
-	return session, nil
-}
-
 func (c *CommandClient) SubscribeOpenConnectStatus(handler OpenConnectStatusHandler) (*OpenConnectStatusSubscription, error) {
 	session := new(OpenConnectStatusSubscription)
 	err := subscribeStatus(c, &session.streamSession, "openconnect status", func(ctx context.Context, client daemon.StartedServiceClient) (grpc.ServerStreamingClient[daemon.OpenConnectStatusUpdate], error) {
@@ -1288,62 +1275,6 @@ func (c *CommandClient) StartTailscaleSSHSession(opts *TailscaleSSHOptions, hand
 	go func() {
 		session.wg.Wait()
 		close(session.closeDone)
-		if standalone {
-			c.closeConnection()
-		}
-	}()
-
-	return session, nil
-}
-
-func (c *CommandClient) ProvideUSBDevices(handler USBProviderHandler) (*USBProviderSession, error) {
-	client, parentCtx, err := c.getClientForCall()
-	if err != nil {
-		return nil, E.Cause(err, "provide usb devices")
-	}
-
-	streamCtx, cancel := context.WithCancel(parentCtx)
-	stream, err := client.ProvideUSBDevices(streamCtx)
-	if err != nil {
-		cancel()
-		if c.standalone {
-			c.closeConnection()
-		}
-		return nil, E.Cause(err, "provide usb devices")
-	}
-
-	session := &USBProviderSession{
-		stream:    stream,
-		ctx:       streamCtx,
-		cancel:    cancel,
-		closeDone: make(chan struct{}),
-	}
-
-	standalone := c.standalone
-	go func() {
-		defer close(session.closeDone)
-		for {
-			message, recvErr := stream.Recv()
-			if recvErr == io.EOF {
-				cancel()
-				break
-			}
-			if recvErr != nil {
-				handler.OnError("", E.Cause(recvErr, "usb provider recv").Error())
-				cancel()
-				break
-			}
-			switch payload := message.GetMessage().(type) {
-			case *daemon.USBServerMessage_Ready:
-				handler.OnReady(payload.Ready.GetDeviceId(), payload.Ready.GetBusId())
-			case *daemon.USBServerMessage_UrbRequest:
-				handler.OnURBRequest(usbURBRequestFromGRPC(payload.UrbRequest))
-			case *daemon.USBServerMessage_Abort:
-				handler.OnAbort(payload.Abort.GetDeviceId(), int32(payload.Abort.GetEndpoint()))
-			case *daemon.USBServerMessage_Error:
-				handler.OnError(payload.Error.GetDeviceId(), payload.Error.GetMessage())
-			}
-		}
 		if standalone {
 			c.closeConnection()
 		}

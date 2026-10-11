@@ -15,7 +15,6 @@ import (
 	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/option"
-	"github.com/swysgh/mill-box/service/oomkiller"
 
 	"github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing/common/bufio"
@@ -150,9 +149,8 @@ func (i *TailcatInbound) Start(stage adapter.StartStage, scope *adapter.Scope) e
 		LookupHook: func(ctx context.Context, host string) ([]netip.Addr, error) {
 			return i.dnsRouter.Lookup(ctx, host, i.queryOptions)
 		},
-		MemoryPressure: oomkiller.MemoryPressure(i.ctx),
-		Handler:        i,
-		Users:          i.users,
+		Handler: i,
+		Users:   i.users,
 	})
 	if err != nil {
 		return err

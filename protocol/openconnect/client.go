@@ -19,7 +19,6 @@ import (
 	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/option"
-	"github.com/swysgh/mill-box/service/oomkiller"
 	"github.com/swysgh/mill-box/transport/device"
 	openconnecttransport "github.com/swysgh/mill-box/transport/openconnect"
 
@@ -428,7 +427,6 @@ func (e *Endpoint) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 			e.cancelLoop()
 			return nil
 		})
-		e.deviceOptions.MemoryPressure = oomkiller.MemoryPressure(e.loopContext)
 		tunnelDevice, err := device.New(*e.deviceOptions)
 		if err != nil {
 			return err

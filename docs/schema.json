@@ -259,6 +259,18 @@
         }
       ]
     },
+    "AnoissUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "AnyTLSUser": {
       "type": "object",
       "properties": {
@@ -282,18 +294,6 @@
         },
         "down_mbps": {
           "type": "integer"
-        }
-      },
-      "additionalProperties": false
-    },
-    "CCMUser": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
         }
       },
       "additionalProperties": false
@@ -3267,9 +3267,6 @@
               "type": "string"
             }
           ]
-        },
-        "oom_killer": {
-          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -6151,6 +6148,126 @@
     },
     "Inbound": {
       "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "anoiss"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "listen": {
+              "$ref": "#/$defs/IPAddress"
+            },
+            "listen_port": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "bind_interface": {
+              "type": "string"
+            },
+            "routing_mark": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "reuse_addr": {
+              "type": "boolean"
+            },
+            "netns": {
+              "type": "string",
+              "x-tag-reference": "network_namespace"
+            },
+            "disable_tcp_keep_alive": {
+              "type": "boolean"
+            },
+            "tcp_keep_alive": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_keep_alive_interval": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_fast_open": {
+              "type": "boolean"
+            },
+            "tcp_multi_path": {
+              "type": "boolean"
+            },
+            "udp_fragment": {
+              "type": "boolean"
+            },
+            "udp_timeout": {
+              "$ref": "#/$defs/UDPTimeout"
+            },
+            "detour": {
+              "type": "string",
+              "x-tag-reference": "inbound"
+            },
+            "users": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/AnoissUser"
+              }
+            },
+            "padding_scheme": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "server_private_key": {
+              "type": "string"
+            },
+            "client_public_keys": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "allow_any_client": {
+              "type": "boolean"
+            },
+            "pre_shared_key": {
+              "type": "string"
+            },
+            "handshake_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "handshake_padding": {
+              "type": "integer"
+            },
+            "session_auth_timeout": {
+              "$ref": "#/$defs/Duration"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
         {
           "type": "object",
           "properties": {
@@ -10625,18 +10742,6 @@
         }
       ]
     },
-    "OCMUser": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
-    },
     "OpenConnectCSDOptions": {
       "type": "object",
       "properties": {
@@ -11423,6 +11528,161 @@
     },
     "Outbound": {
       "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "anoiss"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "detour": {
+              "type": "string",
+              "x-tag-reference": "outbound"
+            },
+            "bind_interface": {
+              "type": "string"
+            },
+            "inet4_bind_address": {
+              "$ref": "#/$defs/IPAddress"
+            },
+            "inet6_bind_address": {
+              "$ref": "#/$defs/IPAddress"
+            },
+            "bind_address_no_port": {
+              "type": "boolean"
+            },
+            "protect_path": {
+              "type": "string"
+            },
+            "routing_mark": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "reuse_addr": {
+              "type": "boolean"
+            },
+            "netns": {
+              "type": "string",
+              "x-tag-reference": "network_namespace"
+            },
+            "connect_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_fast_open": {
+              "type": "boolean"
+            },
+            "tcp_multi_path": {
+              "type": "boolean"
+            },
+            "disable_tcp_keep_alive": {
+              "type": "boolean"
+            },
+            "tcp_keep_alive": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_keep_alive_interval": {
+              "$ref": "#/$defs/Duration"
+            },
+            "udp_fragment": {
+              "type": "boolean"
+            },
+            "domain_resolver": {
+              "$ref": "#/$defs/DomainResolver"
+            },
+            "network_strategy": {
+              "type": "string",
+              "enum": [
+                "default",
+                "fallback",
+                "hybrid"
+              ]
+            },
+            "network_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/InterfaceType"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/InterfaceType"
+                  }
+                }
+              ]
+            },
+            "fallback_network_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/InterfaceType"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/InterfaceType"
+                  }
+                }
+              ]
+            },
+            "fallback_delay": {
+              "$ref": "#/$defs/Duration"
+            },
+            "server": {
+              "type": "string"
+            },
+            "server_port": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "password": {
+              "type": "string"
+            },
+            "client_private_key": {
+              "type": "string"
+            },
+            "server_public_key": {
+              "type": "string"
+            },
+            "allow_any_server": {
+              "type": "boolean"
+            },
+            "pre_shared_key": {
+              "type": "string"
+            },
+            "handshake_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "handshake_padding": {
+              "type": "integer"
+            },
+            "idle_session_check_interval": {
+              "$ref": "#/$defs/Duration"
+            },
+            "idle_session_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "min_idle_session": {
+              "type": "integer"
+            },
+            "client_metadata": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
         {
           "type": "object",
           "properties": {
@@ -16492,94 +16752,6 @@
           "type": "object",
           "properties": {
             "type": {
-              "const": "ccm"
-            },
-            "tag": {
-              "type": "string"
-            },
-            "listen": {
-              "$ref": "#/$defs/IPAddress"
-            },
-            "listen_port": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 65535
-            },
-            "bind_interface": {
-              "type": "string"
-            },
-            "routing_mark": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 4294967295
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "reuse_addr": {
-              "type": "boolean"
-            },
-            "netns": {
-              "type": "string",
-              "x-tag-reference": "network_namespace"
-            },
-            "disable_tcp_keep_alive": {
-              "type": "boolean"
-            },
-            "tcp_keep_alive": {
-              "$ref": "#/$defs/Duration"
-            },
-            "tcp_keep_alive_interval": {
-              "$ref": "#/$defs/Duration"
-            },
-            "tcp_fast_open": {
-              "type": "boolean"
-            },
-            "tcp_multi_path": {
-              "type": "boolean"
-            },
-            "udp_fragment": {
-              "type": "boolean"
-            },
-            "udp_timeout": {
-              "$ref": "#/$defs/UDPTimeout"
-            },
-            "detour": {
-              "type": "string",
-              "x-tag-reference": "outbound"
-            },
-            "tls": {
-              "$ref": "#/$defs/InboundTLSOptions"
-            },
-            "credential_path": {
-              "type": "string"
-            },
-            "users": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/CCMUser"
-              }
-            },
-            "headers": {
-              "$ref": "#/$defs/HTTPHeader"
-            },
-            "usages_path": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "type": {
               "const": "derp"
             },
             "tag": {
@@ -17267,137 +17439,6 @@
           "type": "object",
           "properties": {
             "type": {
-              "const": "ocm"
-            },
-            "tag": {
-              "type": "string"
-            },
-            "listen": {
-              "$ref": "#/$defs/IPAddress"
-            },
-            "listen_port": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 65535
-            },
-            "bind_interface": {
-              "type": "string"
-            },
-            "routing_mark": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 4294967295
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "reuse_addr": {
-              "type": "boolean"
-            },
-            "netns": {
-              "type": "string",
-              "x-tag-reference": "network_namespace"
-            },
-            "disable_tcp_keep_alive": {
-              "type": "boolean"
-            },
-            "tcp_keep_alive": {
-              "$ref": "#/$defs/Duration"
-            },
-            "tcp_keep_alive_interval": {
-              "$ref": "#/$defs/Duration"
-            },
-            "tcp_fast_open": {
-              "type": "boolean"
-            },
-            "tcp_multi_path": {
-              "type": "boolean"
-            },
-            "udp_fragment": {
-              "type": "boolean"
-            },
-            "udp_timeout": {
-              "$ref": "#/$defs/UDPTimeout"
-            },
-            "detour": {
-              "type": "string",
-              "x-tag-reference": "outbound"
-            },
-            "tls": {
-              "$ref": "#/$defs/InboundTLSOptions"
-            },
-            "credential_path": {
-              "type": "string"
-            },
-            "users": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/OCMUser"
-              }
-            },
-            "headers": {
-              "$ref": "#/$defs/HTTPHeader"
-            },
-            "usages_path": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "type": {
-              "const": "oom-killer"
-            },
-            "tag": {
-              "type": "string"
-            },
-            "memory_limit": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "safety_margin": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "min_interval": {
-              "$ref": "#/$defs/Duration"
-            },
-            "max_interval": {
-              "$ref": "#/$defs/Duration"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "type": {
               "const": "resolved"
             },
             "tag": {
@@ -17545,295 +17586,6 @@
             "type"
           ],
           "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "type": {
-              "const": "usbip-client"
-            },
-            "tag": {
-              "type": "string"
-            },
-            "detour": {
-              "type": "string",
-              "x-tag-reference": "outbound"
-            },
-            "bind_interface": {
-              "type": "string"
-            },
-            "inet4_bind_address": {
-              "$ref": "#/$defs/IPAddress"
-            },
-            "inet6_bind_address": {
-              "$ref": "#/$defs/IPAddress"
-            },
-            "bind_address_no_port": {
-              "type": "boolean"
-            },
-            "protect_path": {
-              "type": "string"
-            },
-            "routing_mark": {
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 4294967295
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "reuse_addr": {
-              "type": "boolean"
-            },
-            "netns": {
-              "type": "string",
-              "x-tag-reference": "network_namespace"
-            },
-            "connect_timeout": {
-              "$ref": "#/$defs/Duration"
-            },
-            "tcp_fast_open": {
-              "type": "boolean"
-            },
-            "tcp_multi_path": {
-              "type": "boolean"
-            },
-            "disable_tcp_keep_alive": {
-              "type": "boolean"
-            },
-            "tcp_keep_alive": {
-              "$ref": "#/$defs/Duration"
-            },
-            "tcp_keep_alive_interval": {
-              "$ref": "#/$defs/Duration"
-            },
-            "udp_fragment": {
-              "type": "boolean"
-            },
-            "domain_resolver": {
-              "$ref": "#/$defs/DomainResolver"
-            },
-            "network_strategy": {
-              "type": "string",
-              "enum": [
-                "default",
-                "fallback",
-                "hybrid"
-              ]
-            },
-            "network_type": {
-              "anyOf": [
-                {
-                  "$ref": "#/$defs/InterfaceType"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/InterfaceType"
-                  }
-                }
-              ]
-            },
-            "fallback_network_type": {
-              "anyOf": [
-                {
-                  "$ref": "#/$defs/InterfaceType"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/InterfaceType"
-                  }
-                }
-              ]
-            },
-            "fallback_delay": {
-              "$ref": "#/$defs/Duration"
-            },
-            "server": {
-              "type": "string"
-            },
-            "server_port": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 65535
-            },
-            "devices": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/USBIPDeviceMatch"
-              }
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "usbip-server"
-                },
-                "tag": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string",
-                  "enum": [
-                    "default",
-                    ""
-                  ]
-                },
-                "listen": {
-                  "$ref": "#/$defs/IPAddress"
-                },
-                "listen_port": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 65535
-                },
-                "bind_interface": {
-                  "type": "string"
-                },
-                "routing_mark": {
-                  "anyOf": [
-                    {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 4294967295
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "reuse_addr": {
-                  "type": "boolean"
-                },
-                "netns": {
-                  "type": "string",
-                  "x-tag-reference": "network_namespace"
-                },
-                "disable_tcp_keep_alive": {
-                  "type": "boolean"
-                },
-                "tcp_keep_alive": {
-                  "$ref": "#/$defs/Duration"
-                },
-                "tcp_keep_alive_interval": {
-                  "$ref": "#/$defs/Duration"
-                },
-                "tcp_fast_open": {
-                  "type": "boolean"
-                },
-                "tcp_multi_path": {
-                  "type": "boolean"
-                },
-                "udp_fragment": {
-                  "type": "boolean"
-                },
-                "udp_timeout": {
-                  "$ref": "#/$defs/UDPTimeout"
-                },
-                "detour": {
-                  "type": "string",
-                  "x-tag-reference": "inbound"
-                },
-                "devices": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/USBIPDeviceMatch"
-                  }
-                }
-              },
-              "required": [
-                "type"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "usbip-server"
-                },
-                "tag": {
-                  "type": "string"
-                },
-                "provider": {
-                  "const": "dynamic"
-                },
-                "listen": {
-                  "$ref": "#/$defs/IPAddress"
-                },
-                "listen_port": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 65535
-                },
-                "bind_interface": {
-                  "type": "string"
-                },
-                "routing_mark": {
-                  "anyOf": [
-                    {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 4294967295
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ]
-                },
-                "reuse_addr": {
-                  "type": "boolean"
-                },
-                "netns": {
-                  "type": "string",
-                  "x-tag-reference": "network_namespace"
-                },
-                "disable_tcp_keep_alive": {
-                  "type": "boolean"
-                },
-                "tcp_keep_alive": {
-                  "$ref": "#/$defs/Duration"
-                },
-                "tcp_keep_alive_interval": {
-                  "$ref": "#/$defs/Duration"
-                },
-                "tcp_fast_open": {
-                  "type": "boolean"
-                },
-                "tcp_multi_path": {
-                  "type": "boolean"
-                },
-                "udp_fragment": {
-                  "type": "boolean"
-                },
-                "udp_timeout": {
-                  "$ref": "#/$defs/UDPTimeout"
-                },
-                "detour": {
-                  "type": "string",
-                  "x-tag-reference": "inbound"
-                }
-              },
-              "required": [
-                "type",
-                "provider"
-              ],
-              "additionalProperties": false
-            }
-          ]
         }
       ]
     },
@@ -18066,28 +17818,6 @@
           "pattern": "^[-+]?(((\\d+(\\.\\d*)?|\\.\\d+)(ns|us|µs|μs|ms|s|m|h|d))+|0)$"
         }
       ]
-    },
-    "USBIPDeviceMatch": {
-      "type": "object",
-      "properties": {
-        "bus_id": {
-          "type": "string"
-        },
-        "vendor_id": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 65535
-        },
-        "product_id": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 65535
-        },
-        "serial": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
     },
     "User": {
       "type": "object",

@@ -27,7 +27,6 @@ import (
 	"github.com/swysgh/mill-box/option"
 	"github.com/swysgh/mill-box/protocol/tailscale/tailssh"
 	R "github.com/swysgh/mill-box/route/rule"
-	"github.com/swysgh/mill-box/service/oomkiller"
 
 	"github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing/common"
@@ -251,7 +250,6 @@ func (t *Endpoint) References() []string {
 func (t *Endpoint) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 	switch stage {
 	case adapter.StartStateInitialize:
-		t.server.NetstackMemoryPressure = oomkiller.MemoryPressure(t.ctx)
 		mkdirErr := filemanager.MkdirAll(t.ctx, t.server.Dir, 0o700)
 		if mkdirErr != nil {
 			return E.Cause(mkdirErr, "create state directory")

@@ -145,10 +145,6 @@ func New(options Options) (*Box, error) {
 	ctx = pause.WithDefaultManager(ctx)
 	experimentalOptions := common.PtrValueOrDefault(options.Experimental)
 	debugOptions := common.PtrValueOrDefault(experimentalOptions.Debug)
-	err := checkDebugOptions(debugOptions)
-	if err != nil {
-		return nil, err
-	}
 	var needCacheFile bool
 	var needClashAPI bool
 	var needV2RayAPI bool

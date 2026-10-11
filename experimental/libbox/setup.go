@@ -2,7 +2,6 @@ package libbox
 
 import (
 	"encoding/json"
-	"math"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -15,7 +14,6 @@ import (
 	"github.com/swysgh/mill-box/dns"
 	"github.com/swysgh/mill-box/experimental/locale"
 	"github.com/swysgh/mill-box/log"
-	"github.com/swysgh/mill-box/service/oomkiller"
 
 	"github.com/sagernet/sing/common/byteformats"
 	E "github.com/sagernet/sing/common/exceptions"
@@ -35,9 +33,6 @@ var (
 	sCrashReportSource       string
 	sAppVersion              string
 	sAppMarketingVersion     string
-	sOOMKillerEnabled        bool
-	sOOMKillerDisabled       bool
-	sOOMMemoryLimit          int64
 	sPowerReportEnabled      bool
 	sPlatformMetadata        []byte
 )
@@ -59,9 +54,6 @@ type SetupOptions struct {
 	CrashReportSource       string
 	AppVersion              string
 	AppMarketingVersion     string
-	OomKillerEnabled        bool
-	OomKillerDisabled       bool
-	OomMemoryLimit          int64
 	PowerReportEnabled      bool
 	PlatformMetadata        string
 }
@@ -89,27 +81,11 @@ func applySetupOptions(options *SetupOptions) {
 }
 
 func ReloadSetupOptions(options *SetupOptions) {
-	sOOMKillerEnabled = options.OomKillerEnabled
-	sOOMKillerDisabled = options.OomKillerDisabled
-	sOOMMemoryLimit = options.OomMemoryLimit
 	sPowerReportEnabled = options.PowerReportEnabled
 	if json.Valid([]byte(options.PlatformMetadata)) {
 		sPlatformMetadata = []byte(options.PlatformMetadata)
 	} else {
 		sPlatformMetadata = nil
-	}
-	if sOOMKillerEnabled {
-		if sOOMMemoryLimit == 0 && C.IsIos {
-			sOOMMemoryLimit = oomkiller.DefaultAppleNetworkExtensionMemoryLimit
-			debug.SetGCPercent(oomkiller.DefaultAppleNetworkExtensionGCPercent)
-		}
-		if sOOMMemoryLimit > 0 {
-			debug.SetMemoryLimit(int64(oomkiller.RuntimeMemoryLimit(uint64(sOOMMemoryLimit))))
-		} else {
-			debug.SetMemoryLimit(math.MaxInt64)
-		}
-	} else {
-		debug.SetMemoryLimit(math.MaxInt64)
 	}
 }
 

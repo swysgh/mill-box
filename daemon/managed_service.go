@@ -5,8 +5,6 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/swysgh/mill-box/service/oomkiller"
-
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -15,22 +13,20 @@ import (
 var _ ManagedServiceServer = (*ManagedService)(nil)
 
 type ManagedService struct {
-	handler     ManagedHandler
-	debug       bool
-	oomRecorder *oomkiller.Recorder
+	UnimplementedManagedServiceServer
+	handler ManagedHandler
+	debug   bool
 }
 
 type ManagedServiceOptions struct {
-	Handler     ManagedHandler
-	Debug       bool
-	OOMRecorder *oomkiller.Recorder
+	Handler ManagedHandler
+	Debug   bool
 }
 
 func NewManagedService(options ManagedServiceOptions) *ManagedService {
 	return &ManagedService{
-		handler:     options.Handler,
-		debug:       options.Debug,
-		oomRecorder: options.OOMRecorder,
+		handler: options.Handler,
+		debug:   options.Debug,
 	}
 }
 
@@ -83,13 +79,6 @@ func (s *ManagedService) TriggerDebugCrash(ctx context.Context, request *DebugCr
 		return nil, status.Error(codes.InvalidArgument, "unknown debug crash type")
 	}
 	return &emptypb.Empty{}, nil
-}
-
-func (s *ManagedService) TriggerOOMReport(ctx context.Context, _ *emptypb.Empty) (*emptypb.Empty, error) {
-	if s.oomRecorder == nil {
-		return nil, status.Error(codes.Unavailable, "OOM recorder not available")
-	}
-	return &emptypb.Empty{}, s.oomRecorder.WriteReport()
 }
 
 func (s *ManagedService) mustEmbedUnimplementedManagedServiceServer() {

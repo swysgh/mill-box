@@ -18,7 +18,6 @@ import (
 	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/option"
-	"github.com/swysgh/mill-box/service/oomkiller"
 	"github.com/swysgh/mill-box/transport/device"
 	"github.com/swysgh/mill-box/transport/http"
 	"github.com/swysgh/mill-box/transport/masque"
@@ -147,7 +146,6 @@ func (s *ServerEndpoint) resolve(ctx context.Context, domain string) ([]netip.Ad
 func (s *ServerEndpoint) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 	switch stage {
 	case adapter.StartStateInitialize:
-		s.deviceOptions.MemoryPressure = oomkiller.MemoryPressure(s.ctx)
 		tunnelDevice, err := device.New(*s.deviceOptions)
 		if err != nil {
 			return err

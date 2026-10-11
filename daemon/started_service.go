@@ -20,7 +20,6 @@ import (
 	"github.com/swysgh/mill-box/experimental/locale"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/protocol/group"
-	"github.com/swysgh/mill-box/service/oomkiller"
 
 	"github.com/sagernet/sing/common"
 	"github.com/sagernet/sing/common/memory"
@@ -45,13 +44,12 @@ const (
 var _ StartedServiceServer = (*StartedService)(nil)
 
 type StartedService struct {
+	UnimplementedStartedServiceServer
+
 	ctx context.Context
 	// platform adapter.PlatformInterface
-	handler           PlatformHandler
-	debug             bool
-	oomKillerEnabled  bool
-	oomKillerDisabled bool
-	oomMemoryLimit    uint64
+	handler PlatformHandler
+	debug   bool
 	// workingDirectory string
 	// tempDirectory    string
 	// userID           int
@@ -81,12 +79,9 @@ type StartedService struct {
 type ServiceOptions struct {
 	Context context.Context
 	// Platform           adapter.PlatformInterface
-	Handler           PlatformHandler
-	Debug             bool
-	LogMaxLines       int
-	OOMKillerEnabled  bool
-	OOMKillerDisabled bool
-	OOMMemoryLimit    uint64
+	Handler     PlatformHandler
+	Debug       bool
+	LogMaxLines int
 	// WorkingDirectory   string
 	// TempDirectory      string
 	// UserID             int
@@ -98,12 +93,9 @@ func NewStartedService(options ServiceOptions) *StartedService {
 	s := &StartedService{
 		ctx: options.Context,
 		// platform:                options.Platform,
-		handler:           options.Handler,
-		debug:             options.Debug,
-		logLines:          logRing{maxLines: options.LogMaxLines},
-		oomKillerEnabled:  options.OOMKillerEnabled,
-		oomKillerDisabled: options.OOMKillerDisabled,
-		oomMemoryLimit:    options.OOMMemoryLimit,
+		handler:  options.Handler,
+		debug:    options.Debug,
+		logLines: logRing{maxLines: options.LogMaxLines},
 		// workingDirectory: options.WorkingDirectory,
 		// tempDirectory:    options.TempDirectory,
 		// userID:           options.UserID,
@@ -122,14 +114,6 @@ func NewStartedService(options ServiceOptions) *StartedService {
 	s.clashModeObserver = observable.NewObserver(s.clashModeSubscriber, 1)
 	s.notificationObserver = observable.NewObserver(s.notificationSubscriber, notificationQueueSize)
 	return s
-}
-
-func (s *StartedService) SetOOMKillerOptions(enabled bool, killerDisabled bool, memoryLimit uint64) {
-	s.serviceAccess.Lock()
-	defer s.serviceAccess.Unlock()
-	s.oomKillerEnabled = enabled
-	s.oomKillerDisabled = killerDisabled
-	s.oomMemoryLimit = memoryLimit
 }
 
 func (s *StartedService) GetVersion(ctx context.Context, empty *emptypb.Empty) (*Version, error) {
@@ -262,11 +246,6 @@ func (s *StartedService) StartOrReloadService(ctx context.Context, profileConten
 		s.instance = nil
 		s.updateStatus(ServiceStatus_STOPPING)
 		s.serviceAccess.Unlock()
-		oomRecorder := service.FromContext[*oomkiller.Recorder](s.ctx)
-		if oomRecorder != nil {
-			oomRecorder.BeginReload()
-			defer oomRecorder.EndReload()
-		}
 		_ = oldInstance.Close()
 		runtimeDebug.FreeOSMemory()
 		s.serviceAccess.Lock()

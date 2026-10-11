@@ -14,7 +14,6 @@ import (
 	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/daemon"
 	"github.com/swysgh/mill-box/log"
-	"github.com/swysgh/mill-box/service/oomkiller"
 	"github.com/swysgh/mill-box/service/powerreport"
 
 	"github.com/sagernet/sing/common"
@@ -37,7 +36,6 @@ type CommandServer struct {
 	platformInterface PlatformInterface
 	platformWrapper   *platformInterfaceWrapper
 	powerManager      *powerreport.Manager
-	oomRecorder       *oomkiller.Recorder
 	grpcServer        *grpc.Server
 	listener          net.Listener
 }
@@ -72,26 +70,18 @@ func NewCommandServer(handler CommandServerHandler, platformInterface PlatformIn
 	server.StartedService = daemon.NewStartedService(daemon.ServiceOptions{
 		Context: ctx,
 		// Platform:         platformWrapper,
-		Handler:           (*platformHandler)(server),
-		Debug:             sDebug,
-		LogMaxLines:       sLogMaxLines,
-		OOMKillerEnabled:  sOOMKillerEnabled,
-		OOMKillerDisabled: sOOMKillerDisabled,
-		OOMMemoryLimit:    uint64(sOOMMemoryLimit),
+		Handler:     (*platformHandler)(server),
+		Debug:       sDebug,
+		LogMaxLines: sLogMaxLines,
 		// WorkingDirectory: sWorkingPath,
 		// TempDirectory:    sTempPath,
 		// UserID:           sUserID,
 		// GroupID:          sGroupID,
 		// SystemProxyEnabled: false,
 	})
-	oomRecorder := oomkiller.NewRecorder(OOMRecorderOptions(server.StartedService))
-	service.MustRegister[*oomkiller.Recorder](ctx, oomRecorder)
-	oomRecorder.Start()
-	server.oomRecorder = oomRecorder
 	server.managedService = daemon.NewManagedService(daemon.ManagedServiceOptions{
-		Handler:     (*platformHandler)(server),
-		Debug:       sDebug,
-		OOMRecorder: oomRecorder,
+		Handler: (*platformHandler)(server),
+		Debug:   sDebug,
 	})
 	if sPowerReportEnabled {
 		err := powerManager.Start(PowerReportOptions(server.StartedService))
@@ -198,7 +188,6 @@ func (s *CommandServer) Close() {
 	}
 	common.Close(s.listener)
 	s.StartedService.Close()
-	s.oomRecorder.Close()
 	s.powerManager.Close()
 }
 

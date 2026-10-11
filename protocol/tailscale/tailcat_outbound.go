@@ -16,7 +16,6 @@ import (
 	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/option"
-	"github.com/swysgh/mill-box/service/oomkiller"
 
 	"github.com/sagernet/sing-tun"
 	"github.com/sagernet/sing/common/buf"
@@ -188,7 +187,6 @@ func (o *TailcatOutbound) ensureLocked(ctx context.Context) (*tailcatNode, error
 		LookupHook: func(ctx context.Context, host string) ([]netip.Addr, error) {
 			return o.dnsRouter.Lookup(ctx, host, o.queryOptions)
 		},
-		MemoryPressure:  oomkiller.MemoryPressure(o.ctx),
 		ServerPublicKey: o.serverPublicKey,
 		ServerDiscoKey:  o.serverDiscoKey,
 	})

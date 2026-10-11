@@ -157,10 +157,6 @@ func ServiceRegistry() *service.Registry {
 
 	registerQUICServices(registry)
 	registerDERPService(registry)
-	registerCCMService(registry)
-	registerOCMService(registry)
-	registerOOMKillerService(registry)
-	registerUSBIPServices(registry)
 
 	return registry
 }

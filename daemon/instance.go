@@ -8,7 +8,6 @@ import (
 	"github.com/swysgh/mill-box/adapter"
 	"github.com/swysgh/mill-box/common/trafficcontrol"
 	"github.com/swysgh/mill-box/common/urltest"
-	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/experimental/clashmode"
 	"github.com/swysgh/mill-box/experimental/deprecated"
 	"github.com/swysgh/mill-box/experimental/locale"
@@ -16,7 +15,6 @@ import (
 	"github.com/swysgh/mill-box/option"
 	"github.com/swysgh/mill-box/service/powerreport"
 
-	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/json"
 	"github.com/sagernet/sing/common/x/list"
@@ -102,20 +100,6 @@ func (s *StartedService) newInstance(ctx context.Context, profileContent string,
 				tunInboundOptions.ExcludePackage = append(tunInboundOptions.ExcludePackage, overrideOptions.ExcludePackage...)
 				break
 			}
-		}
-	}
-	if s.oomKillerEnabled {
-		if !common.Any(options.Services, func(it option.Service) bool {
-			return it.Type == C.TypeOOMKiller
-		}) {
-			oomOptions := &option.OOMKillerServiceOptions{
-				KillerDisabled:      s.oomKillerDisabled,
-				MemoryLimitOverride: s.oomMemoryLimit,
-			}
-			options.Services = append(options.Services, option.Service{
-				Type:    C.TypeOOMKiller,
-				Options: oomOptions,
-			})
 		}
 	}
 	urlTestHistoryStorage := urltest.NewHistoryStorage()

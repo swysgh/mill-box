@@ -17,7 +17,6 @@ import (
 	C "github.com/swysgh/mill-box/constant"
 	"github.com/swysgh/mill-box/log"
 	"github.com/swysgh/mill-box/option"
-	"github.com/swysgh/mill-box/service/oomkiller"
 	"github.com/swysgh/mill-box/transport/device"
 	ovpntransport "github.com/swysgh/mill-box/transport/openvpn"
 
@@ -614,7 +613,6 @@ func (c *ClientEndpoint) Start(stage adapter.StartStage, scope *adapter.Scope) e
 			c.cancelLoop()
 			return nil
 		})
-		c.deviceOptions.MemoryPressure = oomkiller.MemoryPressure(c.ctx)
 		tunnelDevice, err := device.New(*c.deviceOptions)
 		if err != nil {
 			return err
