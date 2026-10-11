@@ -39,8 +39,6 @@ func main() {
 	switch target {
 	case "android":
 		buildAndroid()
-	case "apple":
-		buildApple()
 	}
 }
 
@@ -48,7 +46,6 @@ var (
 	sharedFlags []string
 	debugFlags  []string
 	sharedTags  []string
-	darwinTags  []string
 	// memcTags    []string
 	notMemcTags []string
 	debugTags   []string
@@ -65,7 +62,6 @@ func init() {
 	debugFlags = append(debugFlags, "-ldflags", build_shared.LinkerFlags(currentTag, true))
 
 	sharedTags = append(sharedTags, "with_quic", "with_wireguard", "with_utls", "with_naive_outbound", "with_clash_api", "with_usbip", "with_openvpn", "with_openconnect", "badlinkname", "tfogo_checklinkname0")
-	darwinTags = append(darwinTags, "with_dhcp", "grpcnotrace")
 	notMemcTags = append(notMemcTags, "with_low_memory")
 	debugTags = append(debugTags, "debug")
 }
@@ -185,63 +181,4 @@ func buildAndroid() {
 		OutputName: "libbox-legacy.aar",
 		Tags:       legacyTags,
 	}, bindTarget)
-}
-
-func buildApple() {
-	var bindTarget string
-	if platform != "" {
-		bindTarget = platform
-	} else if debugEnabled {
-		bindTarget = "ios"
-	} else {
-		bindTarget = "ios,iossimulator,tvos,tvossimulator,macos"
-	}
-
-	args := []string{
-		"bind",
-		"-v",
-		"-target", bindTarget,
-		"-libname=box",
-		"-tags-not-macos=with_low_memory",
-		"-iosversion=15.0",
-		"-macosversion=13.0",
-		"-tvosversion=17.0",
-	}
-	//if !withTailscale {
-	//	args = append(args, "-tags-macos="+strings.Join(memcTags, ","))
-	//}
-
-	if !debugEnabled {
-		args = append(args, sharedFlags...)
-	} else {
-		args = append(args, debugFlags...)
-	}
-
-	tags := append(sharedTags, darwinTags...)
-	//if withTailscale {
-	//	tags = append(tags, memcTags...)
-	//}
-	if debugEnabled {
-		tags = append(tags, debugTags...)
-	}
-
-	args = append(args, "-tags", strings.Join(tags, ","))
-	args = append(args, "./experimental/libbox")
-
-	command := exec.Command(build_shared.GoBinPath+"/gomobile", args...)
-	command.Stdout = os.Stdout
-	command.Stderr = os.Stderr
-	err := command.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	copyPath := filepath.Join("..", "sing-box-for-apple")
-	if rw.IsDir(copyPath) {
-		targetDir := filepath.Join(copyPath, "Libbox.xcframework")
-		targetDir, _ = filepath.Abs(targetDir)
-		os.RemoveAll(targetDir)
-		os.Rename("Libbox.xcframework", targetDir)
-		log.Info("copied to ", targetDir)
-	}
 }
