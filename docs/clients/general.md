@@ -2,62 +2,62 @@
 icon: material/pencil-ruler
 ---
 
-# General
+# 通用
 
-Describes and explains the functions implemented uniformly by sing-box graphical clients.
+描述并解释由 sing-box 图形客户端统一实现的功能。
 
-### Profile
+### 配置文件
 
-Profile describes a sing-box configuration file and its state.
+配置文件描述一个 sing-box 配置文件及其状态。
 
-#### Local
+#### 本地
 
-* Local Profile represents a local sing-box configuration with minimal state
-* The graphical client must provide an editor to modify configuration content
+* 本地配置文件表示一个状态最少的本地 sing-box 配置
+* 图形客户端必须提供编辑器以修改配置内容
 
-#### iCloud (on iOS and macOS)
+#### iCloud（在 iOS 和 macOS 上）
 
-* iCloud Profile represents a remote sing-box configuration with iCloud as the update source
-* The configuration file is stored in the sing-box folder under iCloud
-* The graphical client must provide an editor to modify configuration content
+* iCloud 配置文件表示一个以 iCloud 作为更新源的远程 sing-box 配置
+* 配置文件存储在 iCloud 下的 sing-box 文件夹中
+* 图形客户端必须提供编辑器以修改配置内容
 
-#### Remote
+#### 远程
 
-* Remote Profile represents a remote sing-box configuration with a URL as the update source.
-* The graphical client should provide a configuration content viewer
-* The graphical client must implement automatic profile update (default interval is 60 minutes) and HTTP Basic
-  authorization.
+* 远程配置文件表示一个以 URL 作为更新源的远程 sing-box 配置。
+* 图形客户端应提供配置内容查看器
+* 图形客户端必须实现自动配置文件更新（默认间隔为 60 分钟）以及 HTTP Basic
+  认证。
 
-At the same time, the graphical client must provide support for importing remote profiles
-through a specific URL Scheme. The URL is defined as follows:
+同时，图形客户端必须提供通过特定 URL Scheme 导入远程配置文件的支持。
+URL 定义如下：
 
 ```
 sing-box://import-remote-profile?url=urlEncodedURL#urlEncodedName
 ```
 
-### Dashboard
+### 仪表盘
 
-While the sing-box service is running, the graphical client should provide a Dashboard interface to manage the service.
+在 sing-box 服务运行期间，图形客户端应提供一个仪表盘界面来管理该服务。
 
-#### Status
+#### 状态
 
-Dashboard should display status information such as memory, connection, and traffic.
+仪表盘应显示内存、连接和流量等状态信息。
 
-#### Mode
+#### 模式
 
-Dashboard should provide a Mode selector for switching when the configuration uses at least two `clash_mode` values.
+当配置使用至少两个 `clash_mode` 值时，仪表盘应提供一个模式选择器用于切换。
 
-#### Groups
+#### 组
 
-When the configuration includes group outbounds (specifically, Selector or URLTest),
-the dashboard should provide a Group selector for status display or switching.
+当配置包含出站组（具体而言，Selector 或 URLTest）时，
+仪表盘应提供一个组选择器用于状态显示或切换。
 
-### Chore
+### 杂项
 
-#### Core
+#### 核心
 
-Graphical clients should provide a Core region:
+图形客户端应提供一个核心区域：
 
-* Display the current sing-box version
-* Provides a button to clean the working directory
-* Provides a memory limiter switch
+* 显示当前 sing-box 版本
+* 提供一个清理工作目录的按钮
+* 提供一个内存限制器开关

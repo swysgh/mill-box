@@ -2,9 +2,8 @@
 icon: material/server
 ---
 
-# Server
+# 服务器
 
-To use sing-box as a proxy protocol server, you pretty much only need to configure the inbound for that protocol.
+要将 sing-box 用作代理协议服务器，你基本上只需要为该协议配置入站。
 
-The Proxy Protocol menu below contains descriptions and configuration examples
-of recommended protocols for bypassing GFW.
+下面的代理协议菜单包含用于绕过 GFW 的推荐协议的说明和配置示例。

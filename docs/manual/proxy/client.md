@@ -2,31 +2,31 @@
 icon: material/cellphone-link
 ---
 
-# Client
+# 客户端
 
-### :material-ray-start: Introduction
+### :material-ray-start: 引言
 
-For a long time, the modern usage and principles of proxy clients
-for graphical operating systems have not been clearly described.
-However, we can categorize them into three types:
-system proxy, firewall redirection, and virtual interface.
+长期以来，图形界面操作系统上代理客户端的现代用法与原理
+一直没有被清晰地描述过。
+不过，我们可以把它们分为三种类型：
+系统代理、防火墙重定向和虚拟接口。
 
-### :material-web-refresh: System Proxy
+### :material-web-refresh: 系统代理
 
-Almost all graphical environments support system-level proxies,
-which are essentially ordinary HTTP proxies that only support TCP.
+几乎所有图形环境都支持系统级代理，
+它们本质上只是仅支持 TCP 的普通 HTTP 代理。
 
-| Operating System / Desktop Environment       | System Proxy                         | Application Support |
+| 操作系统 / 桌面环境                          | 系统代理                            | 应用支持             |
 |:---------------------------------------------|:-------------------------------------|:--------------------|
 | Windows                                      | :material-check:                     | :material-check:    |
 | macOS                                        | :material-check:                     | :material-check:    |
 | GNOME/KDE                                    | :material-check:                     | :material-check:    |
-| Android                                      | ROOT or adb (permission) is required | :material-check:    |
-| Android/iOS (with sing-box graphical client) | via `tun.platform.http_proxy`        | :material-check:    |
+| Android                                      | 需要 ROOT 或 adb（权限）              | :material-check:    |
+| Android/iOS（使用 sing-box 图形界面客户端）     | 通过 `tun.platform.http_proxy`        | :material-check:    |
 
-As one of the most well-known proxy methods, it has many shortcomings:
-many TCP clients that are not based on HTTP do not check and use the system proxy.
-Moreover, UDP and ICMP traffics bypass the proxy.
+作为最广为人知的代理方式之一，它有许多缺点：
+许多并非基于 HTTP 的 TCP 客户端不会检查并使用系统代理。
+此外，UDP 和 ICMP 流量会绕过代理。
 
 ```mermaid
 flowchart LR
@@ -38,21 +38,21 @@ flowchart LR
     udp[UDP packet] --> leak
 ```
 
-### :material-wall-fire: Firewall Redirection
+### :material-wall-fire: 防火墙重定向
 
-This type of usage typically relies on the firewall or hook interface provided by the operating system,
-such as Windows’ WFP, Linux’s redirect, TProxy and eBPF, and macOS’s pf.
-Although it is intrusive and cumbersome to configure,
-it remains popular within the community of amateur proxy open source projects like V2Ray,
-due to the low technical requirements it imposes on the software.
+这类用法通常依赖操作系统提供的防火墙或钩子接口，
+例如 Windows 的 WFP、Linux 的 redirect、TProxy 和 eBPF，以及 macOS 的 pf。
+尽管它具有侵入性且配置繁琐，
+但由于对软件的技术要求较低，
+它在 V2Ray 等业余代理开源项目的社区中依然流行。
 
-### :material-expansion-card: Virtual Interface
+### :material-expansion-card: 虚拟接口
 
-All L2/L3 proxies (seriously defined VPNs, such as OpenVPN, WireGuard) are based on virtual network interfaces,
-which is also the only way for all L4 proxies to work as VPNs on mobile platforms like Android, iOS.
+所有 L2/L3 代理（严格定义上的 VPN，如 OpenVPN、WireGuard）都基于虚拟网络接口，
+这也是所有 L4 代理在 Android、iOS 等移动平台上作为 VPN 工作的唯一方式。
 
-The sing-box inherits and develops clash-premium’s TUN inbound (L3 to L4 conversion)
-as the most reasonable method for performing transparent proxying.
+sing-box 继承并发展了 clash-premium 的 TUN 入站（L3 到 L4 转换），
+作为执行透明代理的最合理方式。
 
 ```mermaid
 flowchart TB
@@ -80,11 +80,11 @@ flowchart TB
     proxy_server --> destination
 ```
 
-## :material-cellphone-link: Examples
+## :material-cellphone-link: 示例
 
-### Basic TUN usage for Chinese users
+### 中国用户的基础 TUN 用法
 
-=== ":material-numeric-4-box: IPv4 only"
+=== ":material-numeric-4-box: 仅 IPv4"
 
     ```json
     {
@@ -108,7 +108,7 @@ flowchart TB
           "type": "tun",
           "address": ["172.19.0.1/30"],
           "auto_route": true,
-          // "auto_redirect": true, // On linux
+          // "auto_redirect": true, // 在 Linux 上
           "strict_route": true
         }
       ],
@@ -139,7 +139,7 @@ flowchart TB
     }
     ```
 
-=== ":material-numeric-6-box: IPv4 & IPv6"
+=== ":material-numeric-6-box: IPv4 与 IPv6"
 
     ```json
     {
@@ -162,7 +162,7 @@ flowchart TB
           "type": "tun",
           "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
           "auto_route": true,
-          // "auto_redirect": true, // On linux
+          // "auto_redirect": true, // 在 Linux 上
           "strict_route": true
         }
       ],
@@ -232,7 +232,7 @@ flowchart TB
           "type": "tun",
           "address": ["172.19.0.1/30","fdfe:dcba:9876::1/126"],
           "auto_route": true,
-          // "auto_redirect": true, // On linux
+          // "auto_redirect": true, // 在 Linux 上
           "strict_route": true
         }
       ],
@@ -263,11 +263,11 @@ flowchart TB
     }
     ```
 
-### Traffic bypass usage for Chinese users
+### 中国用户的流量绕过用法
 
-=== ":material-dns: DNS rules"
+=== ":material-dns: DNS 规则"
 
-    === ":material-shield-off: With DNS leaks"
+    === ":material-shield-off: 有 DNS 泄漏"
 
         ```json
         {
@@ -340,7 +340,7 @@ flowchart TB
         }
         ```
 
-    === ":material-security: Without DNS leaks, but slower"
+    === ":material-security: 无 DNS 泄漏，但更慢"
     
         ```json
         {
@@ -375,7 +375,7 @@ flowchart TB
                   }
                 ],
                 "server": "google",
-                "client_subnet": "114.114.114.114/24" // Any China client IP address
+                "client_subnet": "114.114.114.114/24" // 任意中国客户端 IP 地址
               }
             ]
           },
@@ -414,7 +414,7 @@ flowchart TB
         }
         ```
 
-=== ":material-router-network: Route rules"
+=== ":material-router-network: 路由规则"
 
     ```json
     {

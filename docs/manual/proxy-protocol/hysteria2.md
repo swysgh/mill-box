@@ -4,23 +4,23 @@ icon: material/lightning-bolt
 
 # Hysteria 2
 
-Hysteria 2 is a simple, Chinese-made protocol based on QUIC.
-The selling point is Brutal, a congestion control algorithm that
-tries to achieve a user-defined bandwidth despite packet loss.
+Hysteria 2 是一种基于 QUIC 的简单的国产协议。
+其卖点是 Brutal——一种拥塞控制算法，
+它试图在丢包的情况下仍达到用户指定的带宽。
 
 !!! warning
 
-    Even though GFW rarely blocks UDP-based proxies, such protocols actually have far more obvious characteristics than TCP based proxies.
+    尽管 GFW 很少封锁基于 UDP 的代理，但这类协议的特征实际上比基于 TCP 的代理明显得多。
 
-| Specification                                                             | Resists passive detection | Resists active probes |
+| Specification                                                             | 抗被动检测 | 抗主动探测 |
 |---------------------------------------------------------------------------|---------------------------|-----------------------|
 | [hysteria.network](https://v2.hysteria.network/docs/developers/Protocol/) | :material-alert:          | :material-check:      |
 
-## :material-text-box-check: Password Generator
+## :material-text-box-check: 密码生成器
 
-| Generate Password          | Action                                                          |
+| 生成密码                   | 操作                                                            |
 |----------------------------|-----------------------------------------------------------------|
-| <code id="password"><code> | <button class="md-button" onclick="generate()">Refresh</button> |
+| <code id="password"><code> | <button class="md-button" onclick="generate()">刷新</button> |
 
 <script>
     function generate() {
@@ -31,20 +31,20 @@ tries to achieve a user-defined bandwidth despite packet loss.
     generate();
 </script>
 
-## :material-alert: Difference from official Hysteria
+## :material-alert: 与官方 Hysteria 的区别
 
-The official program supports an authentication method called **userpass**,
-which essentially uses a combination of `<username>:<password>` as the actual password,
-while sing-box does not provide this alias.
-To use sing-box with the official program, you need to fill in that combination as the actual password.
+官方程序支持一种名为 **userpass** 的验证方式，
+本质上是将用户名与密码的组合 `<username>:<password>` 作为实际上的密码，
+而 sing-box 不提供此别名。
+要将 sing-box 与官方程序一起使用，你需要填写该组合作为实际密码。
 
-## :material-server: Server Example
+## :material-server: 服务端示例
 
 !!! info ""
 
-    Replace `up_mbps` and `down_mbps` values with the actual bandwidth of your server.
+    将 `up_mbps` 和 `down_mbps` 的值替换为你服务器的实际带宽。
 
-=== ":material-harddisk: With local certificate"
+=== ":material-harddisk: 使用本地证书"
 
     ```json
      {
@@ -72,7 +72,7 @@ To use sing-box with the official program, you need to fill in that combination 
     }
     ```
 
-=== ":material-auto-fix: With ACME"
+=== ":material-auto-fix: 使用 ACME"
 
     ```json
      {
@@ -102,7 +102,7 @@ To use sing-box with the official program, you need to fill in that combination 
     }
     ```
 
-=== ":material-cloud: With ACME and Cloudflare API"
+=== ":material-cloud: 使用 ACME 和 Cloudflare API"
 
     ```json
      {
@@ -136,13 +136,13 @@ To use sing-box with the official program, you need to fill in that combination 
     }
     ```
 
-## :material-cellphone-link: Client Example
+## :material-cellphone-link: 客户端示例
 
 !!! info ""
 
-    Replace `up_mbps` and `down_mbps` values with the actual bandwidth of your client.
+    将 `up_mbps` 和 `down_mbps` 的值替换为你客户端的实际带宽。
 
-=== ":material-web-check: With valid certificate"
+=== ":material-web-check: 使用有效证书"
 
     ```json
     {
@@ -163,11 +163,11 @@ To use sing-box with the official program, you need to fill in that combination 
     }
     ```
 
-=== ":material-check: With self-sign certificate"
+=== ":material-check: 使用自签证书"
 
-    !!! info "Tip"
+    !!! info "提示"
         
-        Use `sing-box merge` command to merge configuration and certificate into one file.
+        使用 `sing-box merge` 命令将配置与证书合并到一个文件中。
 
     ```json
     {
@@ -189,7 +189,7 @@ To use sing-box with the official program, you need to fill in that combination 
     }
     ```
 
-=== ":material-alert: Ignore certificate verification"
+=== ":material-alert: 忽略证书验证"
 
     ```json
     {

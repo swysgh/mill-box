@@ -4,20 +4,20 @@ icon: material/horse
 
 # Trojan
 
-Trojan is the most commonly used TLS proxy made in China. It can be used in various combinations.
+Trojan 是最常用的国产 TLS 代理。它可以有多种组合用法。
 
-| Protocol and implementation combination | Specification                                                        | Resists passive detection | Resists active probes |
+| 协议与实现组合                          | 规范                                                                 | 抗被动检测                | 抗主动探测            |
 |-----------------------------------------|----------------------------------------------------------------------|---------------------------|-----------------------|
-| Origin / trojan-gfw                     | [trojan-gfw.github.io](https://trojan-gfw.github.io/trojan/protocol) | :material-check:          | :material-check:      |
-| Basic Go implementation                 | /                                                                    | :material-alert:          | :material-check:      |
-| with privates transport by V2Ray        | No formal definition                                                 | :material-alert:          | :material-alert:      |
-| with uTLS enabled                       | No formal definition                                                 | :material-help:           | :material-check:      |
+| 原版 / trojan-gfw                       | [trojan-gfw.github.io](https://trojan-gfw.github.io/trojan/protocol) | :material-check:          | :material-check:      |
+| 基础 Go 实现                            | /                                                                    | :material-alert:          | :material-check:      |
+| 使用 V2Ray 的 privates 传输             | 无正式定义                                                           | :material-alert:          | :material-alert:      |
+| 启用 uTLS                               | 无正式定义                                                           | :material-help:           | :material-check:      |
 
-## :material-text-box-check: Password Generator
+## :material-text-box-check: 密码生成器
 
-| Generate Password          | Action                                                          |
+| 生成密码                   | 操作                                                            |
 |----------------------------|-----------------------------------------------------------------|
-| <code id="password"><code> | <button class="md-button" onclick="generate()">Refresh</button> |
+| <code id="password"><code> | <button class="md-button" onclick="generate()">刷新</button> |
 
 <script>
     function generate() {
@@ -28,9 +28,9 @@ Trojan is the most commonly used TLS proxy made in China. It can be used in vari
     generate();
 </script>
 
-## :material-server: Server Example
+## :material-server: 服务端示例
 
-=== ":material-harddisk: With local certificate"
+=== ":material-harddisk: 使用本地证书"
 
     ```json
     {
@@ -59,7 +59,7 @@ Trojan is the most commonly used TLS proxy made in China. It can be used in vari
     }
     ```
 
-=== ":material-auto-fix: With ACME"
+=== ":material-auto-fix: 使用 ACME"
 
     ```json
     {
@@ -90,7 +90,7 @@ Trojan is the most commonly used TLS proxy made in China. It can be used in vari
     }
     ```
 
-=== ":material-cloud: With ACME and Cloudflare API"
+=== ":material-cloud: 使用 ACME 和 Cloudflare API"
 
     ```json
     {
@@ -125,9 +125,9 @@ Trojan is the most commonly used TLS proxy made in China. It can be used in vari
     }
     ```
 
-## :material-cellphone-link: Client Example
+## :material-cellphone-link: 客户端示例
 
-=== ":material-web-check: With valid certificate"
+=== ":material-web-check: 使用有效证书"
 
     ```json
     {
@@ -149,11 +149,11 @@ Trojan is the most commonly used TLS proxy made in China. It can be used in vari
     }
     ```
 
-=== ":material-check: With self-sign certificate"
+=== ":material-check: 使用自签证书"
 
-    !!! info "Tip"
+    !!! info "提示"
         
-        Use `sing-box merge` command to merge configuration and certificate into one file.
+        使用 `sing-box merge` 命令将配置与证书合并到一个文件中。
 
     ```json
     {
@@ -176,7 +176,7 @@ Trojan is the most commonly used TLS proxy made in China. It can be used in vari
     }
     ```
 
-=== ":material-alert: Ignore certificate verification"
+=== ":material-alert: 忽略证书验证"
 
     ```json
     {

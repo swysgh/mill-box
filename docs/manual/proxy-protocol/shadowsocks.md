@@ -4,24 +4,22 @@ icon: material/send
 
 # Shadowsocks
 
-Shadowsocks is the most well-known Chinese-made proxy protocol.
-It exists in multiple versions, but only AEAD 2022 ciphers 
-over TCP with multiplexing is recommended.
+Shadowsocks 是最知名的国产代理协议。
+它有多个版本，但只推荐在 TCP 上使用带多路复用的 AEAD 2022 加密方式。
 
-| Ciphers        | Specification                                              | Cryptographically sound | Resists passive detection | Resists active probes |
+| 加密方式       | 规范                                                       | 密码学安全              | 抗被动检测                | 抗主动探测            |
 |----------------|------------------------------------------------------------|-------------------------|---------------------------|-----------------------|
-| Stream Ciphers | [shadowsocks.org](https://shadowsocks.org/doc/stream.html) | :material-alert:        | :material-alert:          | :material-alert:      |
+| 流加密         | [shadowsocks.org](https://shadowsocks.org/doc/stream.html) | :material-alert:        | :material-alert:          | :material-alert:      |
 | AEAD           | [shadowsocks.org](https://shadowsocks.org/doc/aead.html)   | :material-check:        | :material-alert:          | :material-alert:      |
 | AEAD 2022      | [shadowsocks.org](https://shadowsocks.org/doc/sip022.html) | :material-check:        | :material-check:          | :material-help:       |
 
-(We strongly recommend using multiplexing to send UDP traffic over TCP, because
-doing otherwise is vulnerable to passive detection.)
+（我们强烈建议使用多路复用通过 TCP 发送 UDP 流量，因为不这样做容易受到被动检测。）
 
-## :material-text-box-check: Password Generator
+## :material-text-box-check: 密码生成器
 
-| For `2022-blake3-aes-128-gcm` cipher | For other ciphers             | Action                                                          |
+| 用于 `2022-blake3-aes-128-gcm` 加密方式 | 用于其他加密方式              | 操作                                                            |
 |--------------------------------------|-------------------------------|-----------------------------------------------------------------|
-| <code id="password_16"><code>        | <code id="password_32"><code> | <button class="md-button" onclick="generate()">Refresh</button> |
+| <code id="password_16"><code>        | <code id="password_32"><code> | <button class="md-button" onclick="generate()">刷新</button> |
 
 <script>
     function generatePassword(element, length) {
@@ -36,9 +34,9 @@ doing otherwise is vulnerable to passive detection.)
     generate();
 </script>
 
-## :material-server: Server Example
+## :material-server: 服务端示例
 
-=== ":material-account: Single-user"
+=== ":material-account: 单用户"
 
     ```json
      {
@@ -58,7 +56,7 @@ doing otherwise is vulnerable to passive detection.)
     }
     ```
 
-=== ":material-account-multiple: Multi-user"
+=== ":material-account-multiple: 多用户"
 
     ```json
      {
@@ -84,9 +82,9 @@ doing otherwise is vulnerable to passive detection.)
     }
     ```
 
-## :material-cellphone-link: Client Example
+## :material-cellphone-link: 客户端示例
 
-=== ":material-account: Single-user"
+=== ":material-account: 单用户"
 
     ```json
     {
@@ -105,7 +103,7 @@ doing otherwise is vulnerable to passive detection.)
     }
     ```
 
-=== ":material-account-multiple: Multi-user"
+=== ":material-account-multiple: 多用户"
 
     ```json
     {

@@ -1,66 +1,65 @@
-# :material-decagram: Features
+# :material-decagram: 功能
 
-#### UI options
+#### 界面选项
 
-* Display realtime network speed in the notification
+* 在通知中显示实时网络速度
 
-#### Service
+#### 服务
 
-SFA allows you to run sing-box through ForegroundService or VpnService (when TUN is required).
+SFA 允许您通过 ForegroundService 或 VpnService（当需要 TUN 时）运行 sing-box。
 
 #### TUN
 
-SFA provides an unprivileged TUN implementation through Android VpnService.
+SFA 通过 Android VpnService 提供非特权 TUN 实现。
 
-| TUN inbound option            | Available        | Note               |
-|-------------------------------|------------------|--------------------|
-| `interface_name`              | :material-close: | Managed by Android |
-| `inet4_address`               | :material-check: | /                  |
-| `inet6_address`               | :material-check: | /                  |
-| `mtu`                         | :material-check: | /                  |
-| `gso`                         | :material-close: | No permission      |
-| `auto_route`                  | :material-check: | /                  |
-| `strict_route`                | :material-close: | Not implemented    |
-| `inet4_route_address`         | :material-check: | /                  |
-| `inet6_route_address`         | :material-check: | /                  |
-| `inet4_route_exclude_address` | :material-check: | /                  |
-| `inet6_route_exclude_address` | :material-check: | /                  |
-| `stack`                       | :material-check: | /                  |
-| `include_interface`           | :material-close: | No permission      |
-| `exclude_interface`           | :material-close: | No permission      |
-| `include_uid`                 | :material-close: | No permission      |
-| `exclude_uid`                 | :material-close: | No permission      |
-| `include_android_user`        | :material-close: | No permission      |
-| `include_package`             | :material-check: | /                  |
-| `exclude_package`             | :material-check: | /                  |
-| `platform`                    | :material-check: | /                  |
+| TUN 入站字段                     | 可用             | 备注                 |
+|-------------------------------|------------------|----------------------|
+| `interface_name`              | :material-close: | 由 Android 管理      |
+| `inet4_address`               | :material-check: | /                    |
+| `inet6_address`               | :material-check: | /                    |
+| `mtu`                         | :material-check: | /                    |
+| `gso`                         | :material-close: | 无权限               |
+| `auto_route`                  | :material-check: | /                    |
+| `strict_route`                | :material-close: | 未实现               |
+| `inet4_route_address`         | :material-check: | /                    |
+| `inet6_route_address`         | :material-check: | /                    |
+| `inet4_route_exclude_address` | :material-check: | /                    |
+| `inet6_route_exclude_address` | :material-check: | /                    |
+| `stack`                       | :material-check: | /                    |
+| `include_interface`           | :material-close: | 无权限               |
+| `exclude_interface`           | :material-close: | 无权限               |
+| `include_uid`                 | :material-close: | 无权限               |
+| `exclude_uid`                 | :material-close: | 无权限               |
+| `include_android_user`        | :material-close: | 无权限               |
+| `include_package`             | :material-check: | /                    |
+| `exclude_package`             | :material-check: | /                    |
+| `platform`                    | :material-check: | /                    |
 
-| Route/DNS rule option | Available        | Note                              |
-|-----------------------|------------------|-----------------------------------|
-| `process_name`        | :material-close: | No permission                     |
-| `process_path`        | :material-close: | No permission                     |
-| `process_path_regex`  | :material-close: | No permission                     |
-| `package_name`        | :material-check: | /                                 |
-| `package_name_regex`  | :material-check: | /                                 |
-| `user`                | :material-close: | Use `package_name` instead        |
-| `user_id`             | :material-close: | Use `package_name` instead        |
-| `wifi_ssid`           | :material-check: | Fine location permission required |
-| `wifi_bssid`          | :material-check: | Fine location permission required |
+| 路由/DNS 规则字段         | 可用             | 备注                 |
+|-----------------------|------------------|----------------------|
+| `process_name`        | :material-close: | 无权限               |
+| `process_path`        | :material-close: | 无权限               |
+| `process_path_regex`  | :material-close: | 无权限               |
+| `package_name`        | :material-check: | /                    |
+| `package_name_regex`  | :material-check: | /                    |
+| `user`                | :material-close: | 改用 `package_name`  |
+| `user_id`             | :material-close: | 改用 `package_name`  |
+| `wifi_ssid`           | :material-check: | 需要精确位置权限     |
+| `wifi_bssid`          | :material-check: | 需要精确位置权限     |
 
-### Override
+### 覆盖
 
-Overrides profile configuration items with platform-specific values.
+使用平台特定的值覆盖配置文件配置项。
 
-#### Per-app proxy
+#### 按应用代理
 
-SFA allows you to select a list of Android apps that require proxying or bypassing in the graphical interface to
-override the `include_package` and `exclude_package` configuration items.
+SFA 允许您在图形界面中选择需要代理或绕过的 Android 应用列表，以覆盖 `include_package` 和
+`exclude_package` 配置项。
 
-In particular, the selector also provides the “China apps” scanning feature, providing Chinese users with an excellent
-experience to bypass apps that do not require a proxy. Specifically, by scanning China application or SDK
-characteristics through dex class path and other means, there will be almost no missed reports.
+特别地，该选择器还提供「中国应用」扫描功能，为中国用户提供出色的体验，以绕过不需要代理的应用。
+具体而言，通过 dex 类路径及其他方式扫描中国应用或 SDK 的特征，几乎不会有漏报。
 
-### Chore
+### 杂项
 
-* The working directory is located at `/sdcard/Android/data/io.nekohasekai.sfa/files` (External files directory)
-* Crash logs is located in `$working_directory/stderr.log`
+* 工作目录位于 `/sdcard/Android/data/io.nekohasekai.sfa/files`（外部文件目录）
+* 崩溃日志位于 `$working_directory/stderr.log`
