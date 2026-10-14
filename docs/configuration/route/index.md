@@ -2,38 +2,40 @@
 icon: material/alert-decagram
 ---
 
-# Route
+# 路由
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [default_http_client](#default_http_client)  
     :material-plus: [find_neighbor](#find_neighbor)  
     :material-plus: [dhcp_lease_files](#dhcp_lease_files)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [default_domain_resolver](#default_domain_resolver)  
     :material-note-remove: [geoip](#geoip)  
     :material-note-remove: [geosite](#geosite)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-plus: [default_network_strategy](#default_network_strategy)  
     :material-plus: [default_network_type](#default_network_type)  
     :material-plus: [default_fallback_network_type](#default_fallback_network_type)  
     :material-plus: [default_fallback_delay](#default_fallback_delay)
 
-!!! quote "Changes in sing-box 1.8.0"
+!!! quote "sing-box 1.8.0 中的更改"
 
     :material-plus: [rule_set](#rule_set)  
     :material-delete-clock: [geoip](#geoip)  
     :material-delete-clock: [geosite](#geosite)
 
-### Structure
+### 结构
 
 ```json
 {
   "route": {
+    "geoip": {},
+    "geosite": {},
     "rules": [],
     "rule_set": [],
     "final": "",
@@ -45,152 +47,149 @@ icon: material/alert-decagram
     "find_neighbor": false,
     "dhcp_lease_files": [],
     "default_http_client": "",
-    "default_domain_resolver": "", // or {}
     "default_network_strategy": "",
-    "default_network_type": [],
-    "default_fallback_network_type": [],
-    "default_fallback_delay": "",
-    
-    // Removed
-
-    "geoip": {},
-    "geosite": {}
+    "default_fallback_delay": ""
   }
 }
 ```
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-### Fields
+### 字段
 
-#### rules
+| 键         | 格式                    |
+|-----------|-----------------------|
+| `geoip`   | [GeoIP](./geoip/)     |
+| `geosite` | [Geosite](./geosite/) |
 
-List of [Route Rule](./rule/)
+#### rule
+
+一组 [路由规则](./rule/)    。
 
 #### rule_set
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
-List of [rule-set](/configuration/rule-set/)
+一组 [规则集](/configuration/rule-set/)。
 
 #### final
 
-Default outbound tag. the first outbound will be used if empty.
+默认出站标签。如果为空，将使用第一个可用于对应协议的出站。
 
 #### auto_detect_interface
 
 !!! quote ""
 
-    Only supported on Linux, Windows and macOS.
+    仅支持 Linux、Windows 和 macOS。
 
-Bind outbound connections to the default NIC by default to prevent routing loops under tun.
+默认将出站连接绑定到默认网卡，以防止在 tun 下出现路由环路。
 
-Takes no effect if `outbound.bind_interface` is set.
+如果设置了 `outbound.bind_interface` 设置，则不生效。
 
 #### override_android_vpn
 
 !!! quote ""
 
-    Only supported on Android.
+    仅支持 Android。
 
-Accept Android VPN as upstream NIC when `auto_detect_interface` enabled.
+启用 `auto_detect_interface` 时接受 Android VPN 作为上游网卡。
 
 #### default_interface
 
 !!! quote ""
 
-    Only supported on Linux, Windows and macOS.
+    仅支持 Linux、Windows 和 macOS。
 
-Bind outbound connections to the specified NIC by default to prevent routing loops under tun.
+默认将出站连接绑定到指定网卡，以防止在 tun 下出现路由环路。
 
-Takes no effect if `auto_detect_interface` is set.
+如果设置了 `auto_detect_interface` 设置，则不生效。
 
 #### default_mark
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Set routing mark by default.
+默认为出站连接设置路由标记。
 
-Takes no effect if `outbound.routing_mark` is set.
+如果设置了 `outbound.routing_mark` 设置，则不生效。
 
 #### find_process
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS。
 
-Enable process search for logging when no `process_name`, `process_path`, `package_name`, `user` or `user_id` rules exist.
+在没有 `process_name`、`process_path`、`package_name`、`user` 或 `user_id` 规则时启用进程搜索以输出日志。
 
 #### find_neighbor
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux and macOS.
+    仅支持 Linux 和 macOS。
 
-Enable neighbor resolution for logging when no `source_mac_address` or `source_hostname` rules exist.
+在没有 `source_mac_address` 或 `source_hostname` 规则时启用邻居解析以输出日志。
 
-See [Neighbor Resolution](/configuration/shared/neighbor/) for setup.
+参阅 [邻居解析](/configuration/shared/neighbor/) 了解设置方法。
 
 #### dhcp_lease_files
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux and macOS.
+    仅支持 Linux 和 macOS。
 
-Custom DHCP lease file paths for hostname and MAC address resolution.
+用于主机名和 MAC 地址解析的自定义 DHCP 租约文件路径。
 
-Automatically detected from common DHCP servers (dnsmasq, odhcpd, ISC dhcpd, Kea) if empty.
+为空时自动从常见 DHCP 服务器（dnsmasq、odhcpd、ISC dhcpd、Kea）检测。
 
 #### default_http_client
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Tag of the default [HTTP Client](/configuration/shared/http-client/) used by remote rule-sets.
+远程规则集使用的默认 [HTTP 客户端](/configuration/shared/http-client/) 的标签。
 
-If empty and `http_clients` is defined, the first HTTP client is used.
+如果为空且 `http_clients` 已定义，将使用第一个 HTTP 客户端。
 
 #### default_domain_resolver
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-See [Dial Fields](/configuration/shared/dial/#domain_resolver) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#domain_resolver)。
 
-Can be overridden by `outbound.domain_resolver`.
+可以被 `outbound.domain_resolver` 覆盖。
 
-#### default_network_strategy
+#### network_strategy
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-See [Dial Fields](/configuration/shared/dial/#network_strategy) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#network_strategy)。
 
-Takes no effect if `outbound.bind_interface`, `outbound.inet4_bind_address` or `outbound.inet6_bind_address` is set.
+当 `outbound.bind_interface`, `outbound.inet4_bind_address` 或 `outbound.inet6_bind_address` 已设置时不生效。
 
-Can be overridden by `outbound.network_strategy`.
+可以被 `outbound.network_strategy` 覆盖。
 
-Conflicts with `default_interface`.
+与 `default_interface` 冲突。
 
 #### default_network_type
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-See [Dial Fields](/configuration/shared/dial/#network_type) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#default_network_type)。
 
 #### default_fallback_network_type
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-See [Dial Fields](/configuration/shared/dial/#fallback_network_type) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#default_fallback_network_type)。
 
 #### default_fallback_delay
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-See [Dial Fields](/configuration/shared/dial/#fallback_delay) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#fallback_delay)。

@@ -2,18 +2,18 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [wildcard_sni](#wildcard_sni)
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "shadowtls",
   "tag": "st-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "version": 3,
   "password": "fuck me till the daylight",
@@ -26,15 +26,15 @@ icon: material/new-box
   "handshake": {
     "server": "google.com",
     "server_port": 443,
-    
-    ... // Dial Fields
+
+    ... // 拨号字段
   },
   "handshake_for_server_name": {
     "example.com": {
       "server": "example.com",
       "server_port": 443,
-
-      ... // Dial Fields
+      
+      ... // 拨号字段
     }
   },
   "strict_mode": false,
@@ -42,17 +42,17 @@ icon: material/new-box
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### version
 
-ShadowTLS protocol version.
+ShadowTLS 协议版本。
 
-| Value         | Protocol Version                                                                        |
+| 值             | 协议版本                                                                                    |
 |---------------|-----------------------------------------------------------------------------------------|
 | `1` (default) | [ShadowTLS v1](https://github.com/ihciah/shadow-tls/blob/master/docs/protocol-en.md#v1) |
 | `2`           | [ShadowTLS v2](https://github.com/ihciah/shadow-tls/blob/master/docs/protocol-en.md#v2) |
@@ -60,48 +60,48 @@ ShadowTLS protocol version.
 
 #### password
 
-ShadowTLS password.
+ShadowTLS 密码。
 
-Only available in the ShadowTLS protocol 2.
+仅在 ShadowTLS 协议版本 2 中可用。
 
 #### users
 
-ShadowTLS users.
+ShadowTLS 用户。
 
-Only available in the ShadowTLS protocol 3.
+仅在 ShadowTLS 协议版本 3 中可用。
 
 #### handshake
 
-==Required==
+==必填==
 
-When `wildcard_sni` is configured to `all`, the server address is optional.
-
-Handshake server address and [Dial Fields](/configuration/shared/dial/).
+握手服务器地址和 [拨号参数](/configuration/shared/dial/)。
 
 #### handshake_for_server_name
 
-Handshake server address and [Dial Fields](/configuration/shared/dial/) for specific server name.
+==必填==
 
-Only available in the ShadowTLS protocol 2/3.
+对于特定服务器名称的握手服务器地址和 [拨号参数](/configuration/shared/dial/)。
+
+仅在 ShadowTLS 协议版本 2/3 中可用。
 
 #### strict_mode
 
-ShadowTLS strict mode.
+ShadowTLS 严格模式。
 
-Only available in the ShadowTLS protocol 3.
+仅在 ShadowTLS 协议版本 3 中可用。
 
 #### wildcard_sni
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-ShadowTLS wildcard SNI mode.
+ShadowTLS 通配符 SNI 模式。
 
-Available values are:
+可用值：
 
-* `off`: (default) Disabled.
-* `authed`: Authenticated connections will have their destination overwritten to `(servername):443`
-* `all`: All connections will have their destination overwritten to `(servername):443`
+* `off`：（默认）禁用。
+* `authed`：已认证的连接的目标将被重写为 `(servername):443`。
+* `all`：所有连接的目标将被重写为 `(servername):443`。
 
-Additionally, connections matching `handshake_for_server_name` are not affected.
+此外，匹配 `handshake_for_server_name` 的连接不受影响。
 
-Only available in the ShadowTLS protocol 3.
+仅在 ShadowTLS 协议 3 中可用。

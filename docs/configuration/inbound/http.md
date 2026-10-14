@@ -1,12 +1,12 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "http",
   "tag": "http-in",
-  
-  ... // Listen Fields
-  
+
+  ... // 监听字段
+
   "version": [],
   "users": [
     {
@@ -17,62 +17,62 @@
   "tls": {},
   "set_system_proxy": false,
 
-  ... // HTTP2 Fields / QUIC Fields
+  ... // HTTP2 字段 / QUIC 字段
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### version
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-List of HTTP versions to serve.
+提供的 HTTP 版本列表。
 
-Available values: `1`, `2`, `3`.
+可用值：`1`、`2`、`3`。
 
-`1` and `2` are used by default.
+默认为 `1` 和 `2`。
 
-TLS is required for `3`.
+`3` 需要 TLS。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。
 
 #### users
 
-HTTP users.
+HTTP 用户
 
-No authentication required if empty.
+如果为空则不需要验证。
 
 #### set_system_proxy
 
 !!! quote ""
 
-    Only supported on Linux, Android, Windows, and macOS.
+    仅支持 Linux、Android、Windows 和 macOS。
 
 !!! warning ""
 
-    To work on Android and Apple platforms without privileges, use tun.platform.http_proxy instead.
+    要在无特权的 Android 和 iOS 上工作，请改用 tun.platform.http_proxy。
 
-Automatically set system proxy configuration when start and clean up when stop.
+启动时自动设置系统代理，停止时自动清理。
 
-### HTTP2 Fields
+### HTTP2 字段
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-When `version` contains `2`.
+当 `version` 包含 `2` 时。
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/)。
 
-### QUIC Fields
+### QUIC 字段
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-When `version` contains `3`, [HTTP2 Fields](#http2-fields) are replaced by QUIC Fields.
+当 `version` 包含 `3` 时，[HTTP2 字段](#http2-字段) 被 QUIC 字段替代。
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/)。

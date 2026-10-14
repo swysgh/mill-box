@@ -1,11 +1,11 @@
-### Server Requirements
+### 服务器要求
 
 * Linux
-* `brutal` congestion control algorithm kernel module installed
+* `brutal` 拥塞控制算法内核模块已安装
 
-See [tcp-brutal](https://github.com/apernet/tcp-brutal) for details.
+参阅 [tcp-brutal](https://github.com/apernet/tcp-brutal)。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -15,14 +15,14 @@ See [tcp-brutal](https://github.com/apernet/tcp-brutal) for details.
 }
 ```
 
-### Fields
+### 字段
 
 #### enabled
 
-Enable TCP Brutal congestion control algorithm。
+启用 TCP Brutal 拥塞控制算法。
 
 #### up_mbps, down_mbps
 
-==Required==
+==必填==
 
-Upload and download bandwidth, in Mbps.
+上传和下载带宽，以 Mbps 为单位。

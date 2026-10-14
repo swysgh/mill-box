@@ -1,6 +1,6 @@
-`http` outbound is a HTTP CONNECT proxy client.
+`http` 出站是一个 HTTP CONNECT 代理客户端
 
-### Structure
+### 结构
 
 ```json
 {
@@ -17,81 +17,81 @@
   "disable_version_fallback": false,
   "tls": {},
 
-  ... // HTTP2 Fields / QUIC Fields
-  ... // Dial Fields
+  ... // HTTP2 字段 / QUIC 字段
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### username
 
-Basic authorization username.
+Basic 认证用户名。
 
 #### password
 
-Basic authorization password.
+Basic 认证密码。
 
 #### path
 
-Path of HTTP request.
+HTTP 请求路径。
 
 #### headers
 
-Extra headers of HTTP request.
+HTTP 请求的额外标头。
 
 #### version
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-HTTP version.
+HTTP 版本。
 
-Available values: `1`, `2`, `3`.
+可用值：`1`、`2`、`3`。
 
-`2` is used by default, or `1` if `path` or the `Host` header is set.
+默认使用 `2`；设置了 `path` 或 `Host` 头时默认使用 `1`。
 
-`path` and the `Host` header are only available for `1`.
+`path` 和 `Host` 头仅在 `1` 时可用。
 
-When `3`, [HTTP2 Fields](#http2-fields) are replaced by [QUIC Fields](#quic-fields).
+当为 `3` 时，[HTTP2 字段](#http2-字段) 替换为 [QUIC 字段](#quic-字段)。
 
 #### disable_version_fallback
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Disable automatic fallback to lower HTTP version.
+禁用自动回退到更低的 HTTP 版本。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
-### HTTP2 Fields
+### HTTP2 字段
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-When `version` is `2` (default).
+当 `version` 为 `2`（默认）时。
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/) 了解详情。
 
-### QUIC Fields
+### QUIC 字段
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-When `version` is `3`.
+当 `version` 为 `3` 时。
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/) 了解详情。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

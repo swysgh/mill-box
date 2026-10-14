@@ -2,23 +2,23 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-alert: [netns](#netns)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [disable_tcp_keep_alive](#disable_tcp_keep_alive)  
     :material-alert: [tcp_keep_alive](#tcp_keep_alive)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [netns](#netns)  
     :material-plus: [bind_interface](#bind_interface)  
     :material-plus: [routing_mark](#routing_mark)  
     :material-plus: [reuse_addr](#reuse_addr)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-delete-clock: [sniff](#sniff)  
     :material-delete-clock: [sniff_override_destination](#sniff_override_destination)  
@@ -26,7 +26,7 @@ icon: material/new-box
     :material-delete-clock: [domain_strategy](#domain_strategy)  
     :material-delete-clock: [udp_disable_domain_unmapping](#udp_disable_domain_unmapping)
 
-### Structure
+### 结构
 
 ```json
 {
@@ -45,7 +45,7 @@ icon: material/new-box
   "udp_timeout": "",
   "detour": "",
 
-  // Deprecated
+  // 废弃的
   
   "sniff": false,
   "sniff_override_destination": false,
@@ -55,154 +55,152 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### listen
 
-==Required==
+==必填==
 
-Listen address.
+监听地址。
 
 #### listen_port
 
-Listen port.
+监听端口。
 
 #### bind_interface
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-The network interface to bind to.
+要绑定到的网络接口。
 
 #### routing_mark
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Set netfilter routing mark.
+设置 netfilter 路由标记。
 
-Integers (e.g. `1234`) and string hexadecimals (e.g. `"0x1234"`) are supported.
+支持数字 (如 `1234`) 和十六进制字符串 (如 `"0x1234"`)。
 
 #### reuse_addr
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Reuse listener address.
+重用监听地址。
 
 #### netns
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Set network namespace, name or path.
+设置网络命名空间，名称或路径。
 
-Since sing-box 1.14.0, the tag of a [network namespace](/configuration/network-namespace/) can also be used.
+自 sing-box 1.14.0 起，也可以使用[网络命名空间](/configuration/network-namespace/)的标签。
 
 #### tcp_fast_open
 
-Enable TCP Fast Open.
+启用 TCP Fast Open。
 
 #### tcp_multi_path
 
 !!! warning ""
 
-    Go 1.21 required.
+    需要 Go 1.21。
 
-Enable TCP Multi Path.
+启用 TCP Multi Path。
 
 #### disable_tcp_keep_alive
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Disable TCP keep alive.
+禁用 TCP keep alive。
 
 #### tcp_keep_alive
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-    Default value changed from `10m` to `5m`.
+    默认值从 `10m` 更改为 `5m`。
 
-TCP keep alive initial period.
+TCP keep alive 初始周期。
 
-`5m` will be used by default.
+默认使用 `5m`。
 
 #### tcp_keep_alive_interval
 
-TCP keep alive interval.
+TCP keep alive 间隔。
 
-`75s` will be used by default.
+默认使用 `75s`。
 
 #### udp_fragment
 
-Enable UDP fragmentation.
+启用 UDP 分段。
 
 #### udp_timeout
 
-UDP NAT expiration time.
+UDP NAT 过期时间。
 
-`5m` will be used by default.
+默认使用 `5m`。
 
 #### detour
 
-If set, connections will be forwarded to the specified inbound.
+如果设置，连接将被转发到指定的入站。
 
-Requires target inbound support, see [Injectable](/configuration/inbound/#fields).
+需要目标入站支持，参阅 [注入支持](/configuration/inbound/#字段)。
 
 #### sniff
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Inbound fields are deprecated and will be removed in sing-box 1.13.0, check [Migration](/migration/#migrate-legacy-inbound-fields-to-rule-actions).
+    入站字段已废弃且将在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移旧的入站字段到规则动作).
 
-Enable sniffing.
+启用协议探测。
 
-See [Protocol Sniff](/configuration/route/sniff/) for details.
+参阅 [协议探测](/configuration/route/sniff/)
 
 #### sniff_override_destination
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Inbound fields are deprecated and will be removed in sing-box 1.13.0.
+    入站字段已废弃且将在 sing-box 1.12.0 中被移除。
 
-Override the connection destination address with the sniffed domain.
+用探测出的域名覆盖连接目标地址。
 
-If the domain name is invalid (like tor), this will not work.
+如果域名无效（如 Tor），将不生效。
 
 #### sniff_timeout
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Inbound fields are deprecated and will be removed in sing-box 1.13.0, check [Migration](/migration/#migrate-legacy-inbound-fields-to-rule-actions).
+    入站字段已废弃且将在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移旧的入站字段到规则动作).
 
-Timeout for sniffing.
+探测超时时间。
 
-`300ms` is used by default.
+默认使用 300ms。
 
 #### domain_strategy
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Inbound fields are deprecated and will be removed in sing-box 1.13.0, check [Migration](/migration/#migrate-legacy-inbound-fields-to-rule-actions).
+    入站字段已废弃且将在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移旧的入站字段到规则动作).
 
-One of `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`.
+可选值： `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`。
 
-If set, the requested domain name will be resolved to IP before routing.
+如果设置，请求的域名将在路由之前解析为 IP。
 
-If `sniff_override_destination` is in effect, its value will be taken as a fallback.
+如果 `sniff_override_destination` 生效，它的值将作为后备。
 
 #### udp_disable_domain_unmapping
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Inbound fields are deprecated and will be removed in sing-box 1.13.0, check [Migration](/migration/#migrate-legacy-inbound-fields-to-rule-actions).
+    入站字段已废弃且将在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移旧的入站字段到规则动作).
 
-If enabled, for UDP proxy requests addressed to a domain, 
-the original packet address will be sent in the response instead of the mapped domain.
+如果启用，对于地址为域的 UDP 代理请求，将在响应中发送原始包地址而不是映射的域。
 
-This option is used for compatibility with clients that 
-do not support receiving UDP packets with domain addresses, such as Surge.
+此选项用于兼容不支持接收带有域地址的 UDP 包的客户端，如 Surge。

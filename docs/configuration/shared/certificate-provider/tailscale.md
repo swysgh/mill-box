@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # Tailscale
 
-### Structure
+### 结构
 
 ```json
 {
@@ -16,12 +16,12 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### endpoint
 
-==Required==
+==必填==
 
-The tag of the [Tailscale endpoint](/configuration/endpoint/tailscale/) to reuse.
+要复用的 [Tailscale 端点](/configuration/endpoint/tailscale/) 的标签。
 
-[MagicDNS and HTTPS](https://tailscale.com/kb/1153/enabling-https) must be enabled in the Tailscale admin console.
+必须在 Tailscale 管理控制台中启用 [MagicDNS 和 HTTPS](https://tailscale.com/kb/1153/enabling-https)。

@@ -1,16 +1,16 @@
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [cipher](#cipher)  
     :material-plus: [mac](#mac)  
     :material-plus: [kex_algorithm](#kex_algorithm)
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "ssh",
   "tag": "ssh-out",
-  
+
   "server": "127.0.0.1",
   "server_port": 22,
   "user": "root",
@@ -27,72 +27,72 @@
   "mac": [],
   "kex_algorithm": [],
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-Server address.
+服务器地址。
 
 #### server_port
 
-Server port. 22 will be used if empty.
+服务器端口，默认使用 22。
 
 #### user
 
-SSH user, root will be used if empty.
+SSH 用户, 默认使用 root。
 
 #### password
 
-Password.
+密码。
 
 #### private_key
 
-Private key.
+密钥。
 
 #### private_key_path
 
-Private key path.
+密钥路径。
 
 #### private_key_passphrase
 
-Private key passphrase.
+密钥密码。
 
 #### host_key
 
-Host key. Accept any if empty.
+主机密钥，留空接受所有。
 
 #### host_key_algorithms
 
-Host key algorithms.
+主机密钥算法。
 
 #### client_version
 
-Client version. Random version will be used if empty.
+客户端版本，默认使用随机值。
 
 #### cipher
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Allowed ciphers. Default values are used if empty.
+允许的加密算法。留空使用默认值。
 
 #### mac
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Allowed MAC algorithms. Default values are used if empty.
+允许的 MAC 算法。留空使用默认值。
 
 #### kex_algorithm
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Allowed key exchange algorithms. Default values are used if empty.
+允许的密钥交换算法。留空使用默认值。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

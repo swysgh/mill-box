@@ -2,25 +2,25 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: version `5`
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: version `4`
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-plus: version `3`
 
-!!! quote "Changes in sing-box 1.10.0"
+!!! quote "sing-box 1.10.0 中的更改"
 
     :material-plus: version `2`
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -29,26 +29,26 @@ icon: material/new-box
 }
 ```
 
-### Compile
+### 编译
 
-Use `sing-box rule-set compile [--output <file-name>.srs] <file-name>.json` to compile source to binary rule-set.
+使用 `sing-box rule-set compile [--output <file-name>.srs] <file-name>.json` 以编译源文件为二进制规则集。
 
-### Fields
+### 字段
 
 #### version
 
-==Required==
+==必填==
 
-Version of rule-set.
+规则集版本。
 
-* 1: sing-box 1.8.0: Initial rule-set version.
-* 2: sing-box 1.10.0: Optimized memory usages of `domain_suffix` rules in binary rule-sets.
-* 3: sing-box 1.11.0: Added `network_type`, `network_is_expensive` and `network_is_constrainted` rule items.
-* 4: sing-box 1.13.0: Added `network_interface_address` and `default_interface_address` rule items.
-* 5: sing-box 1.14.0: Added `package_name_regex` rule item.
+* 1: sing-box 1.8.0: 初始规则集版本。
+* 2: sing-box 1.10.0: 优化了二进制规则集中 `domain_suffix` 规则的内存使用。
+* 3: sing-box 1.11.0: 添加了 `network_type`、 `network_is_expensive` 和 `network_is_constrainted` 规则项。
+* 4: sing-box 1.13.0: 添加了 `network_interface_address` 和 `default_interface_address` 规则项。
+* 5: sing-box 1.14.0: 添加了 `package_name_regex` 规则项。
 
 #### rules
 
-==Required==
+==必填==
 
-List of [Headless Rule](../headless-rule/).
+一组 [无头规则](../headless-rule/).

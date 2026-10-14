@@ -1,10 +1,10 @@
 !!! warning ""
 
-    It's a proprietary protocol created by SagerNet, not part of shadowsocks.
+    这是 SagerNet 创建的专有协议，不是 shadowsocks 的一部分。
 
-The UDP over TCP protocol is used to transmit UDP packets in TCP.
+UDP over TCP 协议用于在 TCP 中传输 UDP 数据包。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -15,68 +15,68 @@ The UDP over TCP protocol is used to transmit UDP packets in TCP.
 
 !!! info ""
 
-    The structure can be replaced with a boolean value when the version is not specified.
+    当不指定版本时，结构可以用布尔值替换。
 
-### Fields
+### 字段
 
 #### enabled
 
-Enable the UDP over TCP protocol.
+启用 UDP over TCP 协议。
 
 #### version
 
-The protocol version, `1` or `2`.
+协议版本，`1` 或 `2`。
 
-2 is used by default.
+默认使用 2。
 
-### Application support
+### 应用程序支持
 
-| Project      | UoT v1               | UoT v2               |
+| 项目         | UoT v1               | UoT v2               |
 |--------------|----------------------|----------------------|
 | sing-box     | v0 (2022/08/11)      | v1.2-beta9           |
 | Clash.Meta   | v1.12.0 (2022/07/02) | v1.14.3 (2023/03/31) |
 | Shadowrocket | v2.2.12 (2022/08/13) | /                    |
 
-### Protocol details
+### 协议详情
 
-#### Protocol version 1
+#### 协议版本 1
 
-The client requests the magic address to the upper layer proxy protocol to indicate the request: `sp.udp-over-tcp.arpa`
+客户端向上层代理协议请求魔法地址以表示请求：`sp.udp-over-tcp.arpa`
 
-#### Stream format
+#### 流格式
 
-| ATYP | address  | port  | length | data     |
+| ATYP | 地址     | 端口  | 长度   | 数据     |
 |------|----------|-------|--------|----------|
-| u8   | variable | u16be | u16be  | variable |
+| u8   | 可变长   | u16be | u16be  | 可变长   |
 
-**ATYP / address / port**: Uses the SOCKS address format, but with different address types:
+**ATYP / 地址 / 端口**：使用 SOCKS 地址格式，但使用不同的地址类型：
 
-| ATYP   | Address type |
-|--------|--------------|
-| `0x00` | IPv4 Address |
-| `0x01` | IPv6 Address |
-| `0x02` | Domain Name  |
+| ATYP   | 地址类型  |
+|--------|-----------|
+| `0x00` | IPv4 地址 |
+| `0x01` | IPv6 地址 |
+| `0x02` | 域名      |
 
-#### Protocol version 2
+#### 协议版本 2
 
-Protocol version 2 uses a new magic address: `sp.v2.udp-over-tcp.arpa`
+协议版本 2 使用新的魔法地址：`sp.v2.udp-over-tcp.arpa`
 
-##### Request format
+##### 请求格式
 
-| isConnect | ATYP | address  | port  |
+| isConnect | ATYP | 地址     | 端口  |
 |-----------|------|----------|-------|
-| u8        | u8   | variable | u16be |
+| u8        | u8   | 可变长   | u16be |
 
-**isConnect**: Set to 1 to indicates that the stream uses the connect format, 0 to disable.
+**isConnect**：设置为 1 表示流使用连接格式，0 表示禁用。
 
-**ATYP / address / port**: Request destination, uses the SOCKS address format.
+**ATYP / 地址 / 端口**：请求目标，使用 SOCKS 地址格式。
 
-##### Connect stream format
+##### 连接流格式
 
-| length | data     |
+| 长度   | 数据     |
 |--------|----------|
-| u16be  | variable |
+| u16be  | 可变长   |
 
-##### Non-connect stream format
+##### 非连接流格式
 
-As the same as the stream format in protocol version 1.
+与协议版本 1 中的流格式相同。

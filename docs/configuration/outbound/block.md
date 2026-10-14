@@ -2,7 +2,9 @@
 icon: material/delete-clock
 ---
 
-### Structure
+`block` 出站关闭所有传入请求。
+
+### 结构
 
 ```json
 {
@@ -11,6 +13,6 @@ icon: material/delete-clock
 }
 ```
 
-### Fields
+### 字段
 
-No fields.
+无字段。

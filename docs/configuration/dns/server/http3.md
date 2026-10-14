@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # DNS over HTTP3 (DoH3)
 
-### Structure
+### 结构
 
 ```json
 {
@@ -15,57 +15,57 @@ icon: material/new-box
       {
         "type": "h3",
         "tag": "",
-        
+
         "server": "",
         "server_port": 443,
-        
+
         "path": "",
         "headers": {},
-        
+
         "tls": {},
-        
-        // Dial Fields
+
+        // 拨号字段
       }
     ]
   }
 }
 ```
 
-!!! info "Difference from legacy H3 server"
+!!! info "与旧版 H3 服务器的区别"
 
-    * The old server uses default outbound by default unless detour is specified; the new one uses dialer just like outbound, which is equivalent to using an empty direct outbound by default.
-    * The old server uses `address_resolver` and `address_strategy` to resolve the domain name in the server; the new one uses `domain_resolver` and `domain_strategy` in [Dial Fields](/configuration/shared/dial/) instead.
+    * 旧服务器默认使用默认出站，除非指定了绕行；新服务器像出站一样使用拨号器，相当于默认使用空的直连出站。
+    * 旧服务器使用 `address_resolver` 和 `address_strategy` 来解析服务器中的域名；新服务器改用 [拨号字段](/configuration/shared/dial/) 中的 `domain_resolver` 和 `domain_strategy`。
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The address of the DNS server.
+DNS 服务器的地址。
 
-If domain name is used, `domain_resolver` must also be set to resolve IP address.
+如果使用域名，还必须设置 `domain_resolver` 来解析 IP 地址。
 
 #### server_port
 
-The port of the DNS server.
+DNS 服务器的端口。
 
-`443` will be used by default.
+默认使用 `443`。
 
 #### path
 
-The path of the DNS server.
+DNS 服务器的路径。
 
-`/dns-query` will be used by default.
+默认使用 `/dns-query`。
 
 #### headers
 
-Additional headers to be sent to the DNS server.
+发送到 DNS 服务器的额外标头。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#出站)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

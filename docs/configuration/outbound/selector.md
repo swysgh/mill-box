@@ -1,10 +1,10 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "selector",
   "tag": "select",
-  
+
   "outbounds": [
     "proxy-a",
     "proxy-b",
@@ -17,22 +17,22 @@
 
 !!! quote ""
 
-    The selector can only be controlled through the [Clash API](/configuration/experimental#clash-api-fields) currently.
+    选择器目前只能通过 [Clash API](/configuration/experimental/clash-api/) 来控制。
 
-### Fields
+### 字段
 
 #### outbounds
 
-==Required==
+==必填==
 
-List of outbound tags to select.
+用于选择的出站标签列表。
 
 #### default
 
-The default outbound tag. The first outbound will be used if empty.
+默认的出站标签。默认使用第一个出站。
 
 #### interrupt_exist_connections
 
-Interrupt existing connections when the selected outbound has changed.
+当选定的出站发生更改时，中断现有连接。
 
-Only inbound connections are affected by this setting, internal connections will always be interrupted.
+仅入站连接受此设置影响，内部连接将始终被中断。

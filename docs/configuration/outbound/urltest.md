@@ -1,4 +1,4 @@
-### Structure
+### 结构
 
 ```json
 {
@@ -12,38 +12,38 @@
   ],
   "url": "",
   "interval": "",
-  "tolerance": 0,
+  "tolerance": 50,
   "idle_timeout": "",
   "interrupt_exist_connections": false
 }
 ```
 
-### Fields
+### 字段
 
 #### outbounds
 
-==Required==
+==必填==
 
-List of outbound tags to test.
+用于测试的出站标签列表。
 
 #### url
 
-The URL to test. `https://www.gstatic.com/generate_204` will be used if empty.
+用于测试的链接。默认使用 `https://www.gstatic.com/generate_204`。
 
 #### interval
 
-The test interval. `3m` will be used if empty.
+测试间隔。 默认使用 `3m`。
 
 #### tolerance
 
-The test tolerance in milliseconds. `50` will be used if empty.
+以毫秒为单位的测试容差。 默认使用 `50`。
 
 #### idle_timeout
 
-The idle timeout. `30m` will be used if empty.
+空闲超时。默认使用 `30m`。
 
 #### interrupt_exist_connections
 
-Interrupt existing connections when the selected outbound has changed.
+当选定的出站发生更改时，中断现有连接。
 
-Only inbound connections are affected by this setting, internal connections will always be interrupted.
+仅入站连接受此设置影响，内部连接将始终被中断。

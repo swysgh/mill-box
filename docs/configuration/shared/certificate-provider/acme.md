@@ -2,7 +2,7 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [account_key](#account_key)  
     :material-plus: [key_type](#key_type)  
@@ -13,9 +13,9 @@ icon: material/new-box
 
 !!! quote ""
 
-    `with_acme` build tag required.
+    需要 `with_acme` 构建标签。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -39,122 +39,117 @@ icon: material/new-box
   "dns01_challenge": {},
   "key_type": "",
   "profile": "",
-  "http_client": "" // or {}
+  "http_client": "" // 或 {}
 }
 ```
 
-### Fields
+### 字段
 
 #### domain
 
-==Required==
+==必填==
 
-List of domains.
+域名列表。
 
 #### data_directory
 
-The directory to store ACME data.
+ACME 数据存储目录。
 
-`$XDG_DATA_HOME/certmagic|$HOME/.local/share/certmagic` will be used if empty.
+如果为空则使用 `$XDG_DATA_HOME/certmagic|$HOME/.local/share/certmagic`。
 
 #### default_server_name
 
-Server name to use when choosing a certificate if the ClientHello's ServerName field is empty.
+如果 ClientHello 的 ServerName 字段为空，则选择证书时要使用的服务器名称。
 
 #### email
 
-The email address to use when creating or selecting an existing ACME server account.
+创建或选择现有 ACME 服务器帐户时使用的电子邮件地址。
 
 #### provider
 
-The ACME CA provider to use.
+要使用的 ACME CA 提供商。
 
-| Value                   | Provider      |
-|-------------------------|---------------|
-| `letsencrypt (default)` | Let's Encrypt |
-| `zerossl`               | ZeroSSL       |
-| `https://...`           | Custom        |
+| 值                  | 提供商           |
+|--------------------|---------------|
+| `letsencrypt (默认)` | Let's Encrypt |
+| `zerossl`          | ZeroSSL       |
+| `https://...`      | 自定义           |
 
-When `provider` is `zerossl`, sing-box will automatically request ZeroSSL EAB credentials if `email` is set and
-`external_account` is empty.
+当 `provider` 为 `zerossl` 时，如果设置了 `email` 且未设置 `external_account`，
+sing-box 会自动向 ZeroSSL 请求 EAB 凭据。
 
-When `provider` is `zerossl`, at least one of `external_account`, `email`, or `account_key` is required.
+当 `provider` 为 `zerossl` 时，必须至少设置 `external_account`、`email` 或 `account_key` 之一。
 
 #### account_key
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The PEM-encoded private key of an existing ACME account.
+现有 ACME 帐户的 PEM 编码私钥。
 
 #### disable_http_challenge
 
-Disable all HTTP challenges.
+禁用所有 HTTP 质询。
 
 #### disable_tls_alpn_challenge
 
-Disable all TLS-ALPN challenges
+禁用所有 TLS-ALPN 质询。
 
 #### alternative_http_port
 
-The alternate port to use for the ACME HTTP challenge; if non-empty, this port will be used instead of 80 to spin up a
-listener for the HTTP challenge.
+用于 ACME HTTP 质询的备用端口；如果非空，将使用此端口而不是 80 来启动 HTTP 质询的侦听器。
 
 #### alternative_tls_port
 
-The alternate port to use for the ACME TLS-ALPN challenge; the system must forward 443 to this port for challenge to
-succeed.
+用于 ACME TLS-ALPN 质询的备用端口； 系统必须将 443 转发到此端口以使质询成功。
 
 #### external_account
 
-EAB (External Account Binding) contains information necessary to bind or map an ACME account to some other account known
-by the CA.
+EAB（外部帐户绑定）包含将 ACME 帐户绑定或映射到 CA 已知的其他帐户所需的信息。
 
-External account bindings are used to associate an ACME account with an existing account in a non-ACME system, such as
-a CA customer database.
+外部帐户绑定用于将 ACME 帐户与非 ACME 系统中的现有帐户相关联，例如 CA 客户数据库。
 
-To enable ACME account binding, the CA operating the ACME server needs to provide the ACME client with a MAC key and a
-key identifier, using some mechanism outside of ACME. §7.3.4
+为了启用 ACME 帐户绑定，运行 ACME 服务器的 CA 需要使用 ACME 之外的某种机制向 ACME 客户端提供 MAC 密钥和密钥标识符。§7.3.4
 
 #### external_account.key_id
 
-The key identifier.
+密钥标识符。
 
 #### external_account.mac_key
 
-The MAC key.
+MAC 密钥。
 
 #### dns01_challenge
 
-ACME DNS01 challenge field. If configured, other challenge methods will be disabled.
+ACME DNS01 质询字段。如果配置，将禁用其他质询方法。
 
-See [DNS01 Challenge Fields](/configuration/shared/dns01_challenge/) for details.
+参阅 [DNS01 质询字段](/configuration/shared/dns01_challenge/)。
 
 #### key_type
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The private key type to generate for new certificates.
+为新证书生成的私钥类型。
 
-| Value      | Type    |
-|------------|---------|
-| `ed25519`  | Ed25519 |
-| `p256`     | P-256   |
-| `p384`     | P-384   |
-| `rsa2048`  | RSA     |
-| `rsa4096`  | RSA     |
+| 值         | 类型      |
+|-----------|----------|
+| `ed25519` | Ed25519 |
+| `p256`    | P-256   |
+| `p384`    | P-384   |
+| `rsa2048` | RSA     |
+| `rsa4096` | RSA     |
 
 #### profile
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The ACME profile to use for certificate issuance.
+用于证书签发的 ACME profile。
 
-When empty and `provider` is Let's Encrypt, `shortlived` will be used automatically if any domain is an IP address.
+当为空且 `provider` 为 Let's Encrypt 时，如果任意域名为 IP 地址，将自动使用 `shortlived`。
 
 #### http_client
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-HTTP Client for all provider HTTP requests.
+用于所有提供者 HTTP 请求的 HTTP 客户端。
 
-See [HTTP Client Fields](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端字段](/configuration/shared/http-client/) 了解详情。

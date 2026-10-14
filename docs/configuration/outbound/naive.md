@@ -2,9 +2,9 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -24,113 +24,113 @@ icon: material/new-box
   "quic_session_receive_window": "",
   "tls": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-!!! warning "Platform Support"
+!!! warning "平台支持"
 
-    NaiveProxy outbound is only available on Apple platforms, Android, Windows and certain Linux builds.
+    NaiveProxy 出站仅在 Apple 平台、Android、Windows 和特定 Linux 构建上可用。
 
-    **Official Release Build Variants:**
+    **官方发布版本区别：**
 
-    | Build Variant | Platforms | Description |
-    |---------------|-----------|-------------|
-    | (no suffix) | Linux amd64/arm64 | purego build, `libcronet.so` included |
-    | `-glibc` | Linux 386/amd64/arm/arm64/mipsle/mips64le/riscv64/loong64 | CGO build, dynamically linked with glibc, requires glibc >= 2.31 (loong64: >= 2.36) |
-    | `-musl` | Linux 386/amd64/arm/arm64/mipsle/riscv64/loong64 | CGO build, statically linked with musl |
-    | (no suffix) | Windows amd64/arm64 | purego build, `libcronet.dll` included |
+    | 构建变体 | 平台 | 说明 |
+    |---|---|---|
+    | (无后缀) | Linux amd64/arm64 | purego 构建，包含 `libcronet.so` |
+    | `-glibc` | Linux 386/amd64/arm/arm64/mipsle/mips64le/riscv64/loong64 | CGO 构建，动态链接 glibc，要求 glibc >= 2.31（loong64: >= 2.36） |
+    | `-musl` | Linux 386/amd64/arm/arm64/mipsle/riscv64/loong64 | CGO 构建，静态链接 musl |
+    | (无后缀) | Windows amd64/arm64 | purego 构建，包含 `libcronet.dll` |
 
-    For Linux, choose the glibc or musl variant based on your distribution's libc type.
+    对于 Linux，请根据发行版的 libc 类型选择 glibc 或 musl 变体。
 
-    **Runtime Requirements:**
+    **运行时要求：**
 
-    - **Linux purego**: `libcronet.so` must be in the same directory as the sing-box binary or in system library path
-    - **Windows**: `libcronet.dll` must be in the same directory as `sing-box.exe` or in a directory listed in `PATH`
+    - **Linux purego**：`libcronet.so` 必须位于 sing-box 二进制文件相同目录或系统库路径中
+    - **Windows**：`libcronet.dll` 必须位于 `sing-box.exe` 相同目录或 `PATH` 中的任意目录
 
-    For self-built binaries, see [Build from source](/installation/build-from-source/#with_naive_outbound).
+    自行构建请参阅 [从源代码构建](/installation/build-from-source/#with_naive_outbound)。
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### username
 
-Authentication username.
+认证用户名。
 
 #### password
 
-Authentication password.
+认证密码。
 
 #### insecure_concurrency
 
-Number of concurrent tunnel connections. Multiple connections make the tunneling easier to detect through traffic analysis, which defeats the purpose of NaiveProxy's design to resist traffic analysis.
+并发隧道连接数。多连接使隧道更容易被流量分析检测，违背 NaiveProxy 抵抗流量分析的设计目的。
 
 #### extra_headers
 
-Extra headers to send in HTTP requests.
+HTTP 请求中发送的额外头部。
 
 #### stream_receive_window
 
-The flow control window.
+流量控制窗口。
 
-When `quic` is enabled, it sets the initial QUIC stream receive window, and `6 MB` is used by default.
+当 `quic` 启用时，它设置 QUIC 初始流接收窗口，默认使用 `6 MB`。
 
-Otherwise, it sets the HTTP/2 session receive window, the stream receive window is set to half of it, and `4 MB` is used by default on iOS, `128 MB` on other platforms.
+否则，它设置 HTTP/2 会话接收窗口，流接收窗口被设置为它的一半，在 iOS 上默认使用 `4 MB`，在其他平台上默认使用 `128 MB`。
 
 #### udp_over_tcp
 
-UDP over TCP protocol settings.
+UDP over TCP 配置。
 
-See [UDP Over TCP](/configuration/shared/udp-over-tcp/) for details.
+参阅 [UDP Over TCP](/configuration/shared/udp-over-tcp/)。
 
 #### quic
 
-Use QUIC instead of HTTP/2.
+使用 QUIC 代替 HTTP/2。
 
 #### quic_congestion_control
 
-QUIC congestion control algorithm.
+QUIC 拥塞控制算法。
 
-| Algorithm | Description |
-|-----------|-------------|
+| 算法 | 描述 |
+|------|------|
 | `bbr` | BBR |
 | `bbr2` | BBRv2 |
 | `cubic` | CUBIC |
 | `reno` | New Reno |
 
-`cubic` is used by default (the default of Chromium, which NaiveProxy is based on).
+默认使用 `cubic`（NaiveProxy 基于的 Chromium 的默认值）。
 
 #### quic_session_receive_window
 
 !!! note ""
 
-    Only used when `quic` is enabled.
+    仅在 `quic` 启用时使用。
 
-The initial QUIC session receive window.
+QUIC 初始会话接收窗口。
 
-`15 MB` is used by default.
+默认使用 `15 MB`。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
-Only `server_name`, `certificate`, `certificate_path` and `ech` are supported.
+只有 `server_name`、`certificate`、`certificate_path` 和 `ech` 是被支持的。
 
-Self-signed certificates change traffic behavior significantly, which defeats the purpose of NaiveProxy's design to resist traffic analysis, and should not be used in production.
+自签名证书会显著改变流量行为，违背了 NaiveProxy 旨在抵抗流量分析的设计初衷，不应该在生产环境中使用。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

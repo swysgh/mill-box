@@ -2,31 +2,26 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # Bridge
 
 !!! quote ""
 
-    Requires privileges. Supported on Linux, macOS, Windows, rooted Android, and jailbroken iOS.
+    需要特权。支持 Linux、macOS、Windows、rooted Android 和越狱 iOS。
 
-    For graphical clients: on macOS, only available in the standalone version and requires the
-    Helper Service; on Android, requires root permission; on iOS, requires jailbreak.
+    对于图形客户端：macOS 仅独立版本可用，且需要辅助服务；Android 需要 root 权限；iOS 需要越狱。
 
-`bridge` is the L3 counterpart of the `direct` outbound: it forwards L3 connections
-(TCP, UDP and ICMP) directly out of a network interface. Route L3 traffic to it from a TUN
-or other L3 endpoints via the `route` action in
-[Pre-match](/configuration/shared/pre-match/); L4 connections will be rejected.
+`bridge` 是 `direct` 出站的 L3 版本：它将 L3 连接（TCP、UDP 和 ICMP）直接从网络接口转发出去。
+通过[预匹配](/configuration/shared/pre-match/)中的 `route` 动作，将 L3 流量从 TUN
+或其他 L3 endpoints 路由到它；L4 连接将被拒绝。
 
-Traffic to local addresses of the machine (loopback, or addresses assigned to its
-network interfaces) will be rejected.
+到本机本地地址（loopback 或分配给本机网络接口的地址）的流量将被拒绝。
 
-It is recommended to use [`preferred_by`](/configuration/route/rule/#preferred_by)
-as a gate in the `route` rule: it only matches in
-[pre-match](/configuration/shared/pre-match/) and excludes local addresses that
-cannot be routed.
+建议使用 [`preferred_by`](/configuration/route/rule/#preferred_by) 作为 `route`
+规则的门禁：它仅在[预匹配](/configuration/shared/pre-match/)中匹配，且排除了无法路由的本地地址。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -40,36 +35,36 @@ cannot be routed.
 }
 ```
 
-### Fields
+### 字段
 
 #### interface
 
-Interface name for forwarded traffic to egress.
+转发流量流出的网络接口名称。
 
-The default interface will be used by default.
+默认使用默认接口。
 
 #### bridge_name
 
-Custom bridge TUN interface name prefix, `bridge` is used by default.
+自定义 bridge TUN 接口名前缀，默认使用 `bridge`。
 
-Not effective on Apple platforms.
+在 Apple 平台上无效。
 
 #### iproute2_table_index
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Linux iproute2 table index.
+Linux iproute2 路由表索引。
 
-`2200` + instance index is used by default.
+默认使用 `2200` + 实例索引。
 
 #### iproute2_rule_index
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Linux iproute2 rule start index.
+Linux iproute2 规则起始索引。
 
-`100` is used by default.
+默认使用 `100`。

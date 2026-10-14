@@ -2,13 +2,13 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.15.0"
+!!! quote "sing-box 1.15.0 中的更改"
 
     :material-plus: [auto_redirect_tproxy_mark](#auto_redirect_tproxy_mark)  
     :material-plus: [multi_queue](#multi_queue)  
     :material-delete-clock: [stack](#stack)
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [include_mac_address](#include_mac_address)  
     :material-plus: [exclude_mac_address](#exclude_mac_address)  
@@ -19,28 +19,28 @@ icon: material/new-box
     :material-plus: [udp_filtering](/configuration/shared/udp-nat/#udp_filtering)  
     :material-plus: [udp_nat_max](/configuration/shared/udp-nat/#udp_nat_max)
 
-!!! quote "Changes in sing-box 1.13.3"
+!!! quote "sing-box 1.13.3 中的更改"
 
     :material-alert: [strict_route](#strict_route)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [auto_redirect_reset_mark](#auto_redirect_reset_mark)  
     :material-plus: [auto_redirect_nfqueue](#auto_redirect_nfqueue)  
     :material-plus: [exclude_mptcp](#exclude_mptcp)  
     :material-plus: [auto_redirect_iproute2_fallback_rule_index](#auto_redirect_iproute2_fallback_rule_index)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [loopback_address](#loopback_address)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-delete-alert: [gso](#gso)  
     :material-alert-decagram: [route_address_set](#stack)  
     :material-alert-decagram: [route_exclude_address_set](#stack)
 
-!!! quote "Changes in sing-box 1.10.0"
+!!! quote "sing-box 1.10.0 中的更改"
 
     :material-plus: [address](#address)  
     :material-delete-clock: [inet4_address](#inet4_address)  
@@ -59,21 +59,21 @@ icon: material/new-box
     :material-plus: [route_address_set](#route_address_set)  
     :material-plus: [route_exclude_address_set](#route_address_set)
 
-!!! quote "Changes in sing-box 1.9.0"
+!!! quote "sing-box 1.9.0 中的更改"
 
     :material-plus: [platform.http_proxy.bypass_domain](#platformhttp_proxybypass_domain)  
     :material-plus: [platform.http_proxy.match_domain](#platformhttp_proxymatch_domain)
 
-!!! quote "Changes in sing-box 1.8.0"
+!!! quote "sing-box 1.8.0 中的更改"
 
     :material-plus: [gso](#gso)  
     :material-alert-decagram: [stack](#stack)
 
 !!! quote ""
 
-    Only supported on Linux, Windows and macOS.
+    仅支持 Linux、Windows 和 macOS。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -111,6 +111,7 @@ icon: material/new-box
     "::/1",
     "8000::/1"
   ],
+
   "route_exclude_address": [
     "192.168.0.0/16",
     "fc00::/7"
@@ -123,7 +124,7 @@ icon: material/new-box
   ],
   "endpoint_independent_nat": false,
 
-  ... // UDP NAT Fields
+  ... // UDP NAT 字段
 
   "multi_queue": false,
   "include_interface": [
@@ -169,7 +170,8 @@ icon: material/new-box
       "match_domain": []
     }
   },
-  // Deprecated
+
+  // 已弃用
   "stack": "system",
   "gso": false,
   "inet4_address": [
@@ -192,538 +194,522 @@ icon: material/new-box
   "inet6_route_exclude_address": [
     "fc00::/7"
   ],
-  ...
-  // Listen Fields
+  
+  ... // 监听字段
 }
 ```
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签。
 
 !!! warning ""
 
-    If tun is running in non-privileged mode, addresses and MTU will not be configured automatically, please make sure the settings are accurate.
+    如果 tun 在非特权模式下运行，地址和 MTU 将不会自动配置，请确保设置正确。
 
-### Fields
+### Tun 字段
 
 #### interface_name
 
-Virtual device name, automatically selected if empty.
+虚拟设备名称，默认自动选择。
 
 #### netns
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Create the tun interface in the specified network namespace, name, path, or the tag of a
-[network namespace](/configuration/network-namespace/).
+在指定的网络命名空间中创建 tun 接口，可以是名称、路径，或[网络命名空间](/configuration/network-namespace/)的标签。
 
-When set, `auto_route` and `auto_redirect` operate inside the namespace, and no root privilege is
-required if the namespace is owned by the current user.
+设置后，`auto_route` 和 `auto_redirect` 在该命名空间内生效；若命名空间归当前用户所有，则无需 root 权限。
 
-Conflict with `platform`.
+与 `platform` 冲突。
 
 #### address
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-IPv4 and IPv6 prefix for the tun interface.
+==必填==
+
+tun 接口的 IPv4 和 IPv6 前缀。
 
 #### inet4_address
 
-!!! failure "Deprecated in sing-box 1.10.0"
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-    `inet4_address` is merged to `address` and will be removed in sing-box 1.12.0.
+    `inet4_address` 已合并到 `address` 且将在 sing-box 1.12.0 中被移除。
 
-IPv4 prefix for the tun interface.
+==必填==
+
+tun 接口的 IPv4 前缀。
 
 #### inet6_address
 
-!!! failure "Deprecated in sing-box 1.10.0"
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-    `inet6_address` is merged to `address` and will be removed in sing-box 1.12.0.
+    `inet6_address` 已合并到 `address` 且将在 sing-box 1.12.0 中被移除。
 
-IPv6 prefix for the tun interface.
+tun 接口的 IPv6 前缀。
 
 #### mtu
 
-The maximum transmission unit.
+最大传输单元。
 
 #### dns_mode
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-How DNS is handled on the TUN interface.
+TUN 接口上 DNS 的处理方式。
 
-| Mode       | Description                                                                                                                                                |
-|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `disabled` | Do not configure native DNS and do not hijack DNS traffic.                                                                                                 |
-| `native`   | Set the platform's native interface DNS where possible: per-interface DNS on Windows and Apple platforms, and `systemd-resolved` interface DNS on Linux.   |
-| `hijack`   | Same as `native`, with additional port 53 hijacking described below. Used by default.                                                                      |
+| 模式       | 描述                                                                                                  |
+|------------|-------------------------------------------------------------------------------------------------------|
+| `disabled` | 不设置原生 DNS，也不劫持 DNS 流量。                                                                    |
+| `native`   | 尽可能设置平台的原生接口 DNS：Windows 与 Apple 上的接口 DNS，Linux 上的 `systemd-resolved` 接口 DNS。   |
+| `hijack`   | 与 `native` 相同，并额外执行下文所述的 53 端口劫持。默认使用。                                         |
 
-`hijack` adds the following on top of `native`:
+`hijack` 在 `native` 之上额外执行：
 
-*On Linux*: DNS sent to addresses on the host's own interfaces (such as
-`127.0.0.53` or the host's LAN-side IP) is not hijacked.
+*Linux*：发往本机接口地址（如 `127.0.0.53` 或本机 LAN 接口 IP）的 DNS 不会被劫持。
 
-- Without `auto_redirect`, port 53 traffic to directly-attached subnets is
-  also routed through the TUN.
-- With `auto_redirect`, port 53 traffic is redirected to
-  [`dns_address`](#dns_address).
+- 未启用 `auto_redirect` 时：发往直连子网的 53 端口流量也会经由 TUN 路由。
+- 启用 `auto_redirect` 时：53 端口流量被重定向至
+  [`dns_address`](#dns_address)。
 
-*On Windows with [`strict_route`](#strict_route)*: port 53 traffic going
-through interfaces other than the TUN is blocked.
+*Windows 启用 [`strict_route`](#strict_route) 时*：阻止经由非 TUN 接口的 53 端口流量。
 
 #### dns_address
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-List of DNS server addresses used by [`dns_mode`](#dns_mode).
+[`dns_mode`](#dns_mode) 使用的 DNS 服务器地址列表。
 
-When unset, the next address after the first IPv4 and IPv6 entry in
-[`address`](#address) is used, and connections to it are handled as a
-[`hijack-dns`](/configuration/route/rule_action/#hijack-dns) route action.
+未设置时，使用 [`address`](#address) 中第一个 IPv4 和 IPv6 条目的下一个地址，
+发往该地址的连接按 [`hijack-dns`](/configuration/route/rule_action/#hijack-dns) 路由动作处理。
 
-When set, configure a [`hijack-dns`](/configuration/route/rule_action/#hijack-dns)
-route rule to handle DNS traffic to these addresses.
+设置后，请配置 [`hijack-dns`](/configuration/route/rule_action/#hijack-dns)
+路由规则以处理发往这些地址的 DNS 流量。
 
 #### gso
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    GSO has no advantages for transparent proxy scenarios, is deprecated and no longer works, and will be removed in sing-box 1.12.0.
+    GSO 对于透明代理场景没有优势，已废弃和不再生效，且将在 sing-box 1.12.0 中被移除。
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with `auto_route` enabled.
+    仅支持 Linux。
 
-Enable generic segmentation offload.
+启用通用分段卸载。
 
 #### auto_route
 
-Set the default route to the Tun.
+设置到 Tun 的默认路由。
 
 !!! quote ""
 
-    To avoid traffic loopback, set `route.auto_detect_interface` or `route.default_interface` or `outbound.bind_interface`
+    为避免流量环回，请设置 `route.auto_detect_interface` 或 `route.default_interface` 或 `outbound.bind_interface`。
 
-!!! note "Use with Android VPN"
+!!! note "与 Android VPN 一起使用"
 
-    By default, VPN takes precedence over tun. To make tun go through VPN, enable `route.override_android_vpn`.
+    VPN 默认优先于 tun。要使 tun 经过 VPN，启用 `route.override_android_vpn`。
 
-!!! note "Also enable `auto_redirect`"
+!!! note "也启用 `auto_redirect`"
 
-    `auto_redirect` is always recommended on Linux, it provides better routing, higher performance (better than tproxy), and avoids conflicts between TUN and Docker bridge networks.
+  在 Linux 上始终推荐使用 `auto_redirect`，它提供更好的路由， 更高的性能（优于 tproxy）， 并避免 TUN 与 Docker 桥接网络冲突。
 
 #### iproute2_table_index
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Linux iproute2 table index generated by `auto_route`.
+`auto_route` 生成的 iproute2 路由表索引。
 
-`2022` is used by default.
+默认使用 `2022`。
 
 #### iproute2_rule_index
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Linux iproute2 rule start index generated by `auto_route`.
+`auto_route` 生成的 iproute2 规则起始索引。
 
-`9000` is used by default.
+默认使用 `9000`。
 
 #### auto_redirect
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with `auto_route` enabled.
+    仅支持 Linux，且需要 `auto_route` 已启用。
 
-Improve TUN routing and performance using nftables.
+通过使用 nftables 改善 TUN 路由和性能。
 
-`auto_redirect` is always recommended on Linux, it provides better routing,
-higher performance (better than tproxy),
-and avoids conflicts between TUN and Docker bridge networks.
+在 Linux 上始终推荐使用 `auto_redirect`，它提供更好的路由、更高的性能（优于 tproxy），并避免了 TUN 和 Docker 桥接网络之间的冲突。
 
-Pre-matching requires nfqueue support in the kernel (`nfnetlink_queue`).
+预匹配需要内核支持 nfqueue（`nfnetlink_queue`）。
 
-`auto_redirect` is fully supported on Android through the root service of the graphical client
-or a root shell, including forwarded traffic (hotspot, repeater).
+`auto_redirect` 在 Android 上通过图形客户端的 root 服务或 root shell 得到完整支持，包括转发流量（热点、中继器）。
 
-`auto_redirect` also automatically inserts compatibility rules
-into the OpenWrt fw4 table, i.e. 
-it will work on routers without any extra configuration.
+`auto_redirect` 还会自动将兼容性规则插入 OpenWrt 的 fw4 表中，即无需额外配置即可在路由器上工作。
 
-Conflict with `route.default_mark` and `[dialOptions].routing_mark`.
+与 `route.default_mark` 和 `[dialOptions].routing_mark` 冲突。
 
 #### auto_redirect_input_mark
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Connection input mark used by `auto_redirect`.
+`auto_redirect` 使用的连接输入标记。
 
-`0x2023` is used by default (`0x400000` on Android).
+默认使用 `0x2023`（Android 上为 `0x400000`）。
 
 #### auto_redirect_output_mark
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Connection output mark used by `auto_redirect`.
+`auto_redirect` 使用的连接输出标记。
 
-`0x2024` is used by default (`0x200000` on Android).
+默认使用 `0x2024`（Android 上为 `0x200000`）。
 
 #### auto_redirect_reset_mark
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Connection reset mark used by `auto_redirect` pre-matching.
+`auto_redirect` 预匹配使用的连接重置标记。
 
-`0x2025` is used by default (`0x600000` on Android).
+默认使用 `0x2025`（Android 上为 `0x600000`）。
 
 #### auto_redirect_tproxy_mark
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Connection TPROXY mark used by the `auto_redirect` iptables backend for IPv6 TCP.
+`auto_redirect` iptables 后端为 IPv6 TCP 使用的连接 TPROXY 标记。
 
-`0x2026` is used by default (`0x800000` on Android).
+默认使用 `0x2026`（Android 上为 `0x800000`）。
 
 #### auto_redirect_nfqueue
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-NFQueue number used by `auto_redirect` pre-matching.
+`auto_redirect` 预匹配使用的 NFQueue 编号。
 
-`100` is used by default.
+默认使用 `100`。
 
 #### auto_redirect_iproute2_fallback_rule_index
 
-!!! question "Since sing-box 1.12.18"
+!!! question "自 sing-box 1.12.18 起"
 
-Linux iproute2 fallback rule index generated by `auto_redirect`.
+`auto_redirect` 生成的 iproute2 回退规则索引。
 
-This rule is checked after system default rules (32766: main, 32767: default),
-routing traffic to the sing-box table only when no route is found in system tables.
+此规则在系统默认规则（32766: main，32767: default）之后检查，
+仅当系统路由表中未找到路由时才将流量路由到 sing-box 路由表。
 
-`32768` is used by default.
+默认使用 `32768`。
 
 #### exclude_mptcp
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with nftables and requires `auto_route` and `auto_redirect` enabled.
+    仅支持 Linux，且需要 nftables，`auto_route` 和 `auto_redirect` 已启用。
 
-MPTCP cannot be transparently proxied due to protocol limitations.
+由于协议限制，MPTCP 无法被透明代理。
 
-Such traffic is usually created by Apple systems.
+此类流量通常由 Apple 系统创建。
 
-When enabled, MPTCP connections will bypass sing-box and connect directly, otherwise, will be rejected to avoid errors by default.
+启用时，MPTCP 连接将绕过 sing-box 直接连接，否则，将被拒绝以避免错误。
 
 #### loopback_address
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Loopback addresses make TCP connections to the specified address connect to the source address.
+环回地址是用于使指向指定地址的 TCP 连接连接到来源地址的。
 
-Setting option value to `10.7.0.1` achieves the same behavior as SideStore/StosVPN.
+将选项值设置为 `10.7.0.1` 可实现与 SideStore/StosVPN 相同的行为。
 
-When `auto_redirect` is enabled, the same behavior can be achieved for LAN devices (not just local) as a gateway.
+当启用 `auto_redirect` 时，可以作为网关为局域网设备（而不仅仅是本地）实现相同的行为。
 
 #### strict_route
 
-Enforce strict routing rules when `auto_route` is enabled:
+当启用 `auto_route` 时，强制执行严格的路由规则：
 
-*In Linux*:
+*在 Linux 中*：
 
-* Let unsupported network unreachable
-* For legacy reasons, when neither `strict_route` nor `auto_redirect` are enabled, all ICMP traffic will not go through TUN.
-* When `auto_redirect` is enabled, `strict_route` also affects `SO_BINDTODEVICE` traffic:
-    * Enabled: `SO_BINDTODEVICE` traffic is redirected through sing-box.
-    * Disabled: `SO_BINDTODEVICE` traffic bypasses sing-box.
+* 使不支持的网络不可达。
+* 出于历史遗留原因，当未启用 `strict_route` 或 `auto_redirect` 时，所有 ICMP 流量将不会通过 TUN。
+* 当启用 `auto_redirect` 时，`strict_route` 也影响 `SO_BINDTODEVICE` 流量：
+    * 启用：`SO_BINDTODEVICE` 流量被重定向通过 sing-box。
+    * 禁用：`SO_BINDTODEVICE` 流量绕过 sing-box。
 
-*In Windows*:
+*在 Windows 中*：
 
-* Let unsupported network unreachable
-* prevent DNS leak caused by
-  Windows' [ordinary multihomed DNS resolution behavior](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd197552%28v%3Dws.10%29)
+* 使不支持的网络不可达。
+* 阻止 Windows 的 [普通多宿主 DNS 解析行为](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd197552%28v%3Dws.10%29) 造成的 DNS 泄露
 
-It may prevent some Windows applications (such as VirtualBox) from working properly in certain situations.
+它可能会使某些 Windows 应用程序（如 VirtualBox）在某些情况下无法正常工作。
 
 #### route_address
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Use custom routes instead of default when `auto_route` is enabled.
+设置到 Tun 的自定义路由。
 
 #### inet4_route_address
 
-!!! failure "Deprecated in sing-box 1.10.0"
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-`inet4_route_address` is deprecated and will be removed in sing-box 1.12.0, please use [route_address](#route_address)
-instead.
+    `inet4_route_address` 已合并到 `route_address` 且将在 sing-box 1.12.0 中被移除。
 
-Use custom routes instead of default when `auto_route` is enabled.
+启用 `auto_route` 时使用自定义路由而不是默认路由。
 
 #### inet6_route_address
 
-!!! failure "Deprecated in sing-box 1.10.0"
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-`inet6_route_address` is deprecated and will be removed in sing-box 1.12.0, please use [route_address](#route_address)
-instead.
+    `inet6_route_address` 已合并到 `route_address` 且将在 sing-box 1.12.0 中被移除。
 
-Use custom routes instead of default when `auto_route` is enabled.
+启用 `auto_route` 时使用自定义路由而不是默认路由。
 
 #### route_exclude_address
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Exclude custom routes when `auto_route` is enabled.
+设置到 Tun 的排除自定义路由。
 
 #### inet4_route_exclude_address
 
-!!! failure "Deprecated in sing-box 1.10.0"
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-`inet4_route_exclude_address` is deprecated and will be removed in sing-box 1.12.0, please
-use [route_exclude_address](#route_exclude_address) instead.
+    `inet4_route_exclude_address` 已合并到 `route_exclude_address` 且将在 sing-box 1.12.0 中被移除。
 
-Exclude custom routes when `auto_route` is enabled.
+启用 `auto_route` 时排除自定义路由。
 
 #### inet6_route_exclude_address
 
-!!! failure "Deprecated in sing-box 1.10.0"
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-`inet6_route_exclude_address` is deprecated and will be removed in sing-box 1.12.0, please
-use [route_exclude_address](#route_exclude_address) instead.
+    `inet6_route_exclude_address` 已合并到 `route_exclude_address` 且将在 sing-box 1.12.0 中被移除。
 
-Exclude custom routes when `auto_route` is enabled.
+启用 `auto_route` 时排除自定义路由。
 
 #### route_address_set
 
-=== "With `auto_redirect` enabled"
+=== "`auto_redirect` 已启用"
 
-    !!! question "Since sing-box 1.10.0"
-
+    !!! question "自 sing-box 1.10.0 起"
+    
     !!! quote ""
     
-        Only supported on Linux and requires `auto_route` and `auto_redirect` enabled.
+        仅支持 Linux，且需要 `auto_route` 和 `auto_redirect` 已启用。
     
-    Match the destination IP CIDR rules in the specified rule-sets during pre-matching.
-    Unmatched traffic will bypass the sing-box routes.
-    
-    Conflict with `route.default_mark` and `[dialOptions].routing_mark`.
+    在预匹配中匹配指定规则集中的目标 IP CIDR 规则。
+    不匹配的流量将绕过 sing-box 路由。
 
-=== "Without `auto_redirect` enabled"
+=== "`auto_redirect` 未启用"
 
-    !!! question "Since sing-box 1.11.0"
-    
-    Add the destination IP CIDR rules in the specified rule-sets to routes, equivalent to adding to `route_address`.
-    Unmatched traffic will bypass the sing-box routes.
+    !!! question "自 sing-box 1.11.0 起"
 
-    Note that it **doesn't work on the Android graphical client** due to
-    the Android VpnService not being able to handle a large number of routes (DeadSystemException),
-    but otherwise it works fine on all command line clients and Apple platforms.
+    将指定规则集中的目标 IP CIDR 规则添加到路由，相当于添加到 `route_address`。
+    不匹配的流量将绕过 sing-box 路由。
+
+    请注意，由于 Android VpnService 无法处理大量路由（DeadSystemException），
+    因此它**在 Android 图形客户端上不起作用**，但除此之外，它在所有命令行客户端和 Apple 平台上都可以正常工作。
 
 #### route_exclude_address_set
 
-=== "With `auto_redirect` enabled"
+=== "`auto_redirect` 已启用"
 
-    !!! question "Since sing-box 1.10.0"
-
-    !!! quote ""
-
-        Only supported on Linux and requires `auto_route` and `auto_redirect` enabled.
-
-    Match the destination IP CIDR rules in the specified rule-sets during pre-matching.
-    Matched traffic will bypass the sing-box routes.
-
-=== "Without `auto_redirect` enabled"
-
-    !!! question "Since sing-box 1.11.0"
+    !!! question "自 sing-box 1.10.0 起"
     
-    Add the destination IP CIDR rules in the specified rule-sets to routes, equivalent to adding to `route_exclude_address`.
-    Matched traffic will bypass the sing-box routes.
+    !!! quote ""
+    
+        仅支持 Linux，且需要 `auto_route` 和 `auto_redirect` 已启用。
 
-    Note that it **doesn't work on the Android graphical client** due to
-    the Android VpnService not being able to handle a large number of routes (DeadSystemException),
-    but otherwise it works fine on all command line clients and Apple platforms.
+    在预匹配中匹配指定规则集中的目标 IP CIDR 规则。
+    匹配的流量将绕过 sing-box 路由。
+
+    与 `route.default_mark` 和 `[dialOptions].routing_mark` 冲突。
+
+=== "`auto_redirect` 未启用"
+
+    !!! question "自 sing-box 1.11.0 起"
+
+    将指定规则集中的目标 IP CIDR 规则添加到路由，相当于添加到 `route_exclude_address`。
+    匹配的流量将绕过 sing-box 路由。
+
+    请注意，由于 Android VpnService 无法处理大量路由（DeadSystemException），
+    因此它**在 Android 图形客户端上不起作用**，但除此之外，它在所有命令行客户端和 Apple 平台上都可以正常工作。
 
 #### endpoint_independent_nat
 
-This option has had no effect since sing-box 1.11.0 and can be removed from the configuration.
+此选项自 sing-box 1.11.0 起不再生效，可从配置中移除。
 
-Since sing-box 1.14.0, use [UDP NAT fields](/configuration/shared/udp-nat/)
-to customize the mapping and filtering behavior.
+自 sing-box 1.14.0 起，可使用 [UDP NAT 字段](/configuration/shared/udp-nat/)自定义映射和过滤行为。
 
 #### stack
 
-!!! failure "Deprecated in sing-box 1.15.0"
+!!! failure "已在 sing-box 1.15.0 废弃"
 
-    `stack` is deprecated and will be removed in sing-box 1.17.0.
-    Remove the `stack` option to use sing-tun's own TCP/IP stack.
-    See [Migration](/migration/#migrate-tun-stack).
+    `stack` 已废弃，并将在 sing-box 1.17.0 中被移除。
+    移除 `stack` 参数以使用 sing-tun 自有的 TCP/IP stack。
+    参阅[迁移指南](/migration/#迁移-tun-stack)。
 
-!!! quote "Changes in sing-box 1.15.0"
+!!! quote "sing-box 1.15.0 中的更改"
 
-    Since 1.15.0, sing-tun uses its own TCP/IP stack, with substantial improvements over all previous
-    implementations in peak performance, energy efficiency, and memory usage.
+    自 1.15.0 起，sing-tun 使用自有 TCP/IP stack，极限性能、能效以及内存占用均大幅领先于所有旧实现。
 
-!!! quote "Changes in sing-box 1.8.0"
+!!! quote "sing-box 1.8.0 中的更改"
 
-    :material-delete-alert: The legacy LWIP stack has been deprecated and removed.
+    :material-delete-alert: 旧的 LWIP 栈已被弃用并移除。
 
-TCP/IP stack.
+TCP/IP 栈。
 
-| Stack    | Description                                                                                           | 
+| 栈       | 描述                                                                                                  | 
 |----------|-------------------------------------------------------------------------------------------------------|
-| `system` | Perform L3 to L4 translation using the system network stack                                           |
-| `gvisor` | Perform L3 to L4 translation using [gVisor](https://github.com/google/gvisor)'s virtual network stack |
-| `mixed`  | Mixed `system` TCP stack and `gvisor` UDP stack                                                       |
+| `system` | 基于系统网络栈执行 L3 到 L4 转换                                                                        |
+| `gvisor` | 基于 [gVisor](https://github.com/google/gvisor) 虚拟网络栈执行 L3 到 L4 转换                            |
+| `mixed`  | 混合 `system` TCP 栈与 `gvisor` UDP 栈                                                                 |
 
 #### multi_queue
 
 !!! quote ""
 
-    Only supported on Linux, and requires sing-tun's own TCP/IP stack.
+    仅在 Linux 下被支持，且需要使用 sing-tun 自有的 TCP/IP stack。
 
-Enable multi-queue support based on `IFF_MULTI_QUEUE`, allowing throughput to scale with the number of CPU cores.
+启用基于 `IFF_MULTI_QUEUE` 的多队列支持，使吞吐量能够随 CPU 核心数量扩展。
 
 #### include_interface
 
 !!! quote ""
 
-    Interface rules are only supported on Linux and require auto_route.
+    接口规则仅在 Linux 下被支持，并且需要 `auto_route`。
 
-Limit interfaces in route. Not limited by default.
+限制被路由的接口。默认不限制。
 
-Conflict with `exclude_interface`.
+与 `exclude_interface` 冲突。
 
 #### exclude_interface
 
 !!! warning ""
 
-    When `strict_route` enabled, return traffic to excluded interfaces will not be automatically excluded, so add them as well (example: `br-lan` and `pppoe-wan`).
+    当 `strict_route` 启用，到被排除接口的回程流量将不会被自动排除，因此也要添加它们（例：`br-lan` 与 `pppoe-wan`）。
 
-Exclude interfaces in route.
+排除路由的接口。
 
-Conflict with `include_interface`.
+与 `include_interface` 冲突。
 
 #### include_uid
 
 !!! quote ""
 
-    UID rules are only supported on Linux and require auto_route.
+    UID 规则仅在 Linux 下被支持，并且需要 `auto_route`。
 
-Limit users in route. Not limited by default.
+限制被路由的用户。默认不限制。
 
 #### include_uid_range
 
-Limit users in route, but in range.
+限制被路由的用户范围。
 
 #### exclude_uid
 
-Exclude users in route.
+排除路由的用户。
 
 #### exclude_uid_range
 
-Exclude users in route, but in range.
+排除路由的用户范围。
 
 #### include_android_user
 
 !!! quote ""
 
-    Android user and package rules are only supported on Android and require auto_route.
+    Android 用户和应用规则仅在 Android 下被支持，并且需要 `auto_route`。
 
-Limit android users in route.
+限制被路由的 Android 用户。
 
-| Common user  | ID |
-|--------------|----|
-| Main         | 0  |
-| Work Profile | 10 |
+| 常用用户 | ID |
+|------|----|
+| 您    | 0  |
+| 工作资料 | 10 |
 
 #### include_package
 
-Limit android packages in route.
+限制被路由的 Android 应用包名。
 
 #### exclude_package
 
-Exclude android packages in route.
+排除路由的 Android 应用包名。
 
 #### include_mac_address
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with `auto_route` and `auto_redirect` enabled.
+    仅支持 Linux，且需要 `auto_route` 和 `auto_redirect` 已启用。
 
-Limit MAC addresses in route. Not limited by default.
+限制被路由的 MAC 地址。默认不限制。
 
-Conflict with `exclude_mac_address`.
+与 `exclude_mac_address` 冲突。
 
 #### exclude_mac_address
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with `auto_route` and `auto_redirect` enabled.
+    仅支持 Linux，且需要 `auto_route` 和 `auto_redirect` 已启用。
 
-Exclude MAC addresses in route.
+排除路由的 MAC 地址。
 
-Conflict with `include_mac_address`.
+与 `include_mac_address` 冲突。
 
 #### platform
 
-Platform-specific settings, provided by client applications.
+平台特定的设置，由客户端应用提供。
 
 #### platform.http_proxy
 
-System HTTP proxy settings.
+系统 HTTP 代理设置。
 
-#### platform.http_proxy.enabled
+##### platform.http_proxy.enabled
 
-Enable system HTTP proxy.
+启用系统 HTTP 代理。
 
-#### platform.http_proxy.server
+##### platform.http_proxy.server
 
-==Required==
+==必填==
 
-HTTP proxy server address.
+系统 HTTP 代理服务器地址。
 
-#### platform.http_proxy.server_port
+##### platform.http_proxy.server_port
 
-==Required==
+==必填==
 
-HTTP proxy server port.
+系统 HTTP 代理服务器端口。
 
-#### platform.http_proxy.bypass_domain
+##### platform.http_proxy.bypass_domain
 
 !!! note ""
 
-    On Apple platforms, `bypass_domain` items matches hostname **suffixes**.
+    在 Apple 平台，`bypass_domain` 项匹配主机名 **后缀**.
 
-Hostnames that bypass the HTTP proxy.
+绕过代理的主机名列表。
 
-#### platform.http_proxy.match_domain
+##### platform.http_proxy.match_domain
 
 !!! quote ""
 
-    Only supported in graphical clients on Apple platforms.
+    仅在 Apple 平台图形客户端中支持。
 
-Hostnames that use the HTTP proxy.
+代理的主机名列表。
 
-### UDP NAT Fields
+### UDP NAT 字段
 
-See [UDP NAT Fields](/configuration/shared/udp-nat/) for details.
+参阅 [UDP NAT 字段](/configuration/shared/udp-nat/)。
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。

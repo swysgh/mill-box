@@ -2,19 +2,19 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # DERP
 
-DERP service is a Tailscale DERP server, similar to [derper](https://pkg.go.dev/tailscale.com/cmd/derper).
+DERP 服务是一个 Tailscale DERP 服务器，类似于 [derper](https://pkg.go.dev/tailscale.com/cmd/derper)。
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "derp",
-  
-  ... // Listen Fields
+
+  ... // 监听字段
 
   "tls": {},
   "config_path": "",
@@ -30,43 +30,43 @@ DERP service is a Tailscale DERP server, similar to [derper](https://pkg.go.dev/
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/) 了解详情。
 
-### Fields
+### 字段
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#入站)。
 
 #### config_path
 
-==Required==
+==必填==
 
-Derper configuration file path.
+Derper 配置文件路径。
 
-Example: `derper.key`
+示例：`derper.key`
 
 #### verify_client_endpoint
 
-Tailscale endpoints tags to verify clients.
+用于验证客户端的 Tailscale 端点标签。
 
 #### verify_client_url
 
-URL to verify clients.
+用于验证客户端的 URL。
 
-Object format:
+对象格式：
 
 ```json
 {
   "url": "",
 
-  ... // HTTP Client Fields
+  ... // HTTP 客户端字段
 }
 ```
 
-Setting Array value to a string `__URL__` is equivalent to configuring:
+将数组值设置为字符串 `__URL__` 等同于配置：
 
 ```json
 { "url": __URL__ }
@@ -74,25 +74,25 @@ Setting Array value to a string `__URL__` is equivalent to configuring:
 
 #### verify_client_inbound
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Tailcat inbound tags to verify clients.
+用于验证客户端的 Tailcat 入站标签。
 
 #### verify_client_key
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Tailcat public keys to verify clients.
+用于验证客户端的 Tailcat 公钥。
 
 #### home
 
-What to serve at the root path. It may be left empty (the default, for a default homepage), `blank` for a blank page, or a URL to redirect to
+在根路径提供的内容。可以留空（默认值，显示默认主页）、`blank` 显示空白页面，或一个重定向的 URL。
 
 #### mesh_with
 
-Mesh with other DERP servers.
+与其他 DERP 服务器组网。
 
-Object format:
+对象格式：
 
 ```json
 {
@@ -100,49 +100,49 @@ Object format:
   "server_port": "",
   "host": "",
   "tls": {},
-  
-  ... // Dial Fields
+
+  ... // 拨号字段
 }
 ```
 
-Object fields:
+对象字段：
 
-- `server`: **Required** DERP server address.
-- `server_port`: **Required** DERP server port.
-- `host`: Custom DERP hostname.
-- `tls`: [TLS](/configuration/shared/tls/#outbound)
-- `Dial Fields`: [Dial Fields](/configuration/shared/dial/)
+- `server`：**必填** DERP 服务器地址。
+- `server_port`：**必填** DERP 服务器端口。
+- `host`：自定义 DERP 主机名。
+- `tls`：[TLS](/configuration/shared/tls/#出站)
+- `拨号字段`：[拨号字段](/configuration/shared/dial/)
 
 #### mesh_psk
 
-Pre-shared key for DERP mesh.
+DERP 组网的预共享密钥。
 
 #### mesh_psk_file
 
-Pre-shared key file for DERP mesh.
+DERP 组网的预共享密钥文件。
 
 #### stun
 
-STUN server listen options.
+STUN 服务器监听选项。
 
-Object format:
+对象格式：
 
 ```json
 {
   "enabled": true,
-  
-  ... // Listen Fields
+
+  ... // 监听字段
 }
 ```
 
-Object fields:
+对象字段：
 
-- `enabled`: **Required** Enable STUN server.
-- `listen`: **Required** STUN server listen address, default to `::`.
-- `listen_port`: **Required** STUN server listen port, default to `3478`.
-- `other Listen Fields`: [Listen Fields](/configuration/shared/listen/)
+- `enabled`：**必填** 启用 STUN 服务器。
+- `listen`：**必填** STUN 服务器监听地址，默认为 `::`。
+- `listen_port`：**必填** STUN 服务器监听端口，默认为 `3478`。
+- `其他监听字段`：[监听字段](/configuration/shared/listen/)
 
-Setting `stun` value to a number `__PORT__` is equivalent to configuring:
+将 `stun` 值设置为数字 `__PORT__` 等同于配置：
 
 ```json
 { "enabled": true, "listen_port": __PORT__ }

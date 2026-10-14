@@ -1,13 +1,13 @@
-`direct` inbound is a tunnel server.
+`direct` 入站是一个隧道服务器。
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "direct",
   "tag": "direct-in",
-  
-  ... // Listen Fields
+
+  ... // 监听字段
 
   "network": "udp",
   "override_address": "1.0.0.1",
@@ -15,22 +15,23 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### network
 
-Listen network, one of `tcp` `udp`.
+监听的网络协议，`tcp` `udp` 之一。
 
-Both if empty.
+默认所有。
 
 #### override_address
 
-Override the connection destination address.
+覆盖连接目标地址。
 
 #### override_port
 
-Override the connection destination port.
+覆盖连接目标端口。
+

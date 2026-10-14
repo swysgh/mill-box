@@ -1,9 +1,9 @@
-!!! quote "Changes in sing-box 1.10.0"
+!!! quote "sing-box 1.10.0 中的更改"
 
     :material-plus: [access_control_allow_origin](#access_control_allow_origin)  
     :material-plus: [access_control_allow_private_network](#access_control_allow_private_network)
 
-!!! quote "Changes in sing-box 1.8.0"
+!!! quote "sing-box 1.8.0 中的更改"
 
     :material-delete-alert: [store_mode](#store_mode)  
     :material-delete-alert: [store_selected](#store_selected)  
@@ -11,9 +11,9 @@
     :material-delete-alert: [cache_file](#cache_file)  
     :material-delete-alert: [cache_id](#cache_id)
 
-### Structure
+### 结构
 
-=== "Structure"
+=== "结构"
 
     ```json
     {
@@ -36,9 +36,9 @@
     }
     ```
 
-=== "Example (online)"
+=== "示例 (在线)"
 
-    !!! question "Since sing-box 1.10.0"
+    !!! question "自 sing-box 1.10.0 起"
 
     ```json
     {
@@ -51,9 +51,9 @@
     }
     ```
 
-=== "Example (download)"
+=== "示例 (下载)"
 
-    !!! question "Since sing-box 1.10.0"
+    !!! question "自 sing-box 1.10.0 起"
 
     ```json
     {
@@ -65,102 +65,100 @@
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
 ### Fields
 
 #### external_controller
 
-RESTful web API listening address. Clash API will be disabled if empty.
+RESTful web API 监听地址。如果为空，则禁用 Clash API。
 
 #### external_ui
 
-A relative path to the configuration directory or an absolute path to a
-directory in which you put some static web resource. sing-box will then
-serve it at `http://{{external-controller}}/ui`.
+到静态网页资源目录的相对路径或绝对路径。sing-box 会在 `http://{{external-controller}}/ui` 下提供它。
 
 #### external_ui_download_url
 
-ZIP download URL for the external UI, will be used if the specified `external_ui` directory is empty.
+静态网页资源的 ZIP 下载 URL，如果指定的 `external_ui` 目录为空，将使用。
 
-`https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip` will be used if empty.
+默认使用 `https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip`。
 
 #### external_ui_download_detour
 
-The tag of the outbound to download the external UI.
+用于下载静态网页资源的出站的标签。
 
-Default outbound will be used if empty.
+如果为空，将使用默认出站。
 
 #### secret
 
-Secret for the RESTful API (optional)
-Authenticate by spedifying HTTP header `Authorization: Bearer ${secret}`
-ALWAYS set a secret if RESTful API is listening on 0.0.0.0
+RESTful API 的密钥（可选）
+通过指定 HTTP 标头 `Authorization: Bearer ${secret}` 进行身份验证
+如果 RESTful API 正在监听 0.0.0.0，请始终设置一个密钥。
 
 #### default_mode
 
-Default mode in clash, `Rule` will be used if empty.
+Clash 中的默认模式，默认使用 `Rule`。
 
-This setting has no direct effect, but can be used in routing and DNS rules via the `clash_mode` rule item.
+此设置没有直接影响，但可以通过 `clash_mode` 规则项在路由和 DNS 规则中使用。
 
 #### access_control_allow_origin
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-CORS allowed origins, `*` will be used if empty.
+允许的 CORS 来源，默认使用 `*`。
 
-To access the Clash API on a private network from a public website, you must explicitly specify it in `access_control_allow_origin` instead of using `*`.
+要从公共网站访问私有网络上的 Clash API，必须在 `access_control_allow_origin` 中明确指定它而不是使用 `*`。
 
 #### access_control_allow_private_network
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Allow access from private network.
+允许从私有网络访问。
 
-To access the Clash API on a private network from a public website, `access_control_allow_private_network` must be enabled.
+要从公共网站访问私有网络上的 Clash API，必须启用 `access_control_allow_private_network`。
 
 #### store_mode
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.8.0 废弃"
 
-    `store_mode` is deprecated in Clash API and enabled by default if `cache_file.enabled`.
+    `store_mode` 已在 Clash API 中废弃，且默认启用当 `cache_file.enabled`。
 
-Store Clash mode in cache file.
+将 Clash 模式存储在缓存文件中。
 
 #### store_selected
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.8.0 废弃"
 
-    `store_selected` is deprecated in Clash API and enabled by default if `cache_file.enabled`.
+    `store_selected` 已在 Clash API 中废弃，且默认启用当 `cache_file.enabled`。
 
 !!! note ""
 
-    The tag must be set for target outbounds.
+    必须为目标出站设置标签。
 
-Store selected outbound for the `Selector` outbound in cache file.
+将 `Selector` 中出站的选定的目标出站存储在缓存文件中。
 
 #### store_fakeip
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.8.0 废弃"
 
-    `store_selected` is deprecated in Clash API and migrated to `cache_file.store_fakeip`.
+    `store_selected` 已在 Clash API 中废弃，且已迁移到 `cache_file.store_fakeip`。
 
-Store fakeip in cache file.
+将 fakeip 存储在缓存文件中。
 
 #### cache_file
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.8.0 废弃"
+ 
+    `cache_file` 已在 Clash API 中废弃，且已迁移到 `cache_file.enabled` 和 `cache_file.path`。
 
-    `cache_file` is deprecated in Clash API and migrated to `cache_file.enabled` and `cache_file.path`.
-
-Cache file path, `cache.db` will be used if empty.
+缓存文件路径，默认使用`cache.db`。
 
 #### cache_id
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.8.0 废弃"
+ 
+    `cache_id` 已在 Clash API 中废弃，且已迁移到 `cache_file.cache_id`。
 
-    `cache_id` is deprecated in Clash API and migrated to `cache_file.cache_id`.
+缓存 ID。
 
-Identifier in cache file.
-
-If not empty, configuration specified data will use a separate store keyed by it.
+如果不为空，配置特定的数据将使用由其键控的单独存储。

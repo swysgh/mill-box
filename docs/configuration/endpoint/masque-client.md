@@ -1,10 +1,10 @@
-# MASQUE Client
+# MASQUE 客户端
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-`masque-client` endpoint is an IP proxying over HTTP ([RFC 9484](https://datatracker.ietf.org/doc/html/rfc9484), CONNECT-IP) client.
+`masque-client` endpoint 是一个基于 HTTP 的 IP 代理（[RFC 9484](https://datatracker.ietf.org/doc/html/rfc9484)，CONNECT-IP）客户端。
 
-## Structure
+## 结构
 
 ```json
 {
@@ -26,114 +26,114 @@
   "mtu": 1280,
   "on_demand": false,
 
-  ... // HTTP2 Fields / QUIC Fields
-  ... // UDP NAT Fields
-  ... // Dial Fields
+  ... // HTTP2 字段 / QUIC 字段
+  ... // UDP NAT 字段
+  ... // 拨号字段
 }
 ```
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-## Fields
+## 字段
 
 ### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 ### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 ### username
 
-Basic authorization username.
+Basic 认证用户名。
 
 ### password
 
-Basic authorization password.
+Basic 认证密码。
 
 ### path
 
-URI template path of the IP proxying resource, may contain the `target` and `ipproto` variables.
+IP 代理资源的 URI 模板路径，可以包含 `target` 和 `ipproto` 变量。
 
-`/.well-known/masque/ip/{target}/{ipproto}/` is used by default.
+默认使用 `/.well-known/masque/ip/{target}/{ipproto}/`。
 
 ### headers
 
-Extra headers of HTTP request.
+HTTP 请求的额外标头。
 
 ### version
 
-HTTP version.
+HTTP 版本。
 
-Available values: `1`, `2`, `3`.
+可用值：`1`、`2`、`3`。
 
-`3` is used by default.
+默认使用 `3`。
 
-When `2`, [QUIC Fields](#quic-fields) are replaced by [HTTP2 Fields](#http2-fields).
+当为 `2` 时，[QUIC 字段](#quic-字段) 替换为 [HTTP2 字段](#http2-字段)。
 
 ### disable_version_fallback
 
-Disable automatic fallback to lower HTTP version.
+禁用自动回退到更低的 HTTP 版本。
 
 ### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#outbound)。
 
-Required for HTTP/3.
+HTTP/3 需要 TLS。
 
 ### advertise_routes
 
-List of IP prefixes to advertise to the server.
+向服务器声明的 IP 前缀列表。
 
-The server will route traffic for these prefixes into this endpoint, where it is handled as inbound traffic.
+服务器会把发往这些前缀的流量路由到此 endpoint，并在此作为入站流量处理。
 
 ### system
 
-Use system interface.
+使用系统接口。
 
-Requires privilege and cannot conflict with existing system interfaces.
+需要特权且不能与已有系统接口冲突。
 
-If disabled, sing-box uses the internal network stack.
+如果禁用，sing-box 将使用内部网络栈。
 
 ### name
 
-Custom interface name for system interface.
+系统接口的自定义接口名称。
 
-An automatically generated `masque` interface name is used by default.
+默认使用自动生成的 `masque` 接口名称。
 
 ### mtu
 
-Tunnel MTU.
+隧道 MTU。
 
-`1280` will be used by default.
+默认使用 `1280`。
 
 ### on_demand
 
-Allow the endpoint to be disconnected when necessary.
+允许该 endpoint 在需要时断开连接。
 
-## HTTP2 Fields
+## HTTP2 字段
 
-When `version` is `2`.
+当 `version` 为 `2` 时。
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/)。
 
-## QUIC Fields
+## QUIC 字段
 
-When `version` is `3` (default).
+当 `version` 为 `3`（默认）时。
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/)。
 
-## UDP NAT Fields
+## UDP NAT 字段
 
-See [UDP NAT Fields](/configuration/shared/udp-nat/) for details.
+参阅 [UDP NAT 字段](/configuration/shared/udp-nat/)。
 
-## Dial Fields
+## 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

@@ -2,9 +2,9 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -20,65 +20,65 @@ icon: material/new-box
   "derp_servers": [],
   "http_client": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### private_key
 
-Private key.
+私钥。
 
-A random key is used by default.
+默认使用随机密钥。
 
-Required when the server verifies clients with `users`, or the DERP server verifies clients with
-`verify_client_inbound` or `verify_client_key`.
+当服务器通过 `users` 验证客户端，或 DERP 服务器通过 `verify_client_inbound` 或 `verify_client_key`
+验证客户端时必须设置。
 
 #### server_public_key
 
-==Required==
+==必填==
 
-Server public key.
+服务器公钥。
 
 #### server_disco_key
 
-==Required==
+==必填==
 
-Server disco public key.
+服务器 disco 公钥。
 
 #### pre_shared_key
 
-Pre-shared key.
+预共享密钥。
 
 #### derp_map_url
 
-URL of the [DERP map](https://pkg.go.dev/tailscale.com/tailcfg#DERPMap).
+[DERP map](https://pkg.go.dev/tailscale.com/tailcfg#DERPMap) 的 URL。
 
-`https://tailcat.dev/derpmap.json` is used by default.
+默认使用 `https://tailcat.dev/derpmap.json`。
 
 #### derp_region
 
-DERP region ID in the DERP map.
+DERP map 中的 DERP 区域 ID。
 
-Conflicts with `derp_servers`.
+与 `derp_servers` 冲突。
 
 #### derp_servers
 
-Custom DERP servers, see [derp_servers](/configuration/inbound/tailcat/#derp_servers) in Tailcat inbound.
+自定义 DERP 服务器，参阅 Tailcat 入站的 [derp_servers](/configuration/inbound/tailcat/#derp_servers)。
 
-Conflicts with `derp_map_url` and `derp_region`.
+与 `derp_map_url` 和 `derp_region` 冲突。
 
 #### http_client
 
-HTTP client used to fetch the DERP map.
+用于获取 DERP map 的 HTTP 客户端。
 
-See [HTTP Client](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端](/configuration/shared/http-client/) 了解详情。
 
-### Dial Fields
+### 拨号字段
 
 !!! note
 
-    Dial Fields in Tailcat outbounds only control how it connects to DERP servers and have nothing to do with actual connections.
+    Tailcat 出站中的拨号字段仅控制它如何连接到 DERP 服务器，与实际连接无关。
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

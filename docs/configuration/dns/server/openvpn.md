@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # OpenVPN
 
-### Structure
+### 结构
 
 ```json
 {
@@ -25,31 +25,31 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### endpoint
 
-==Required==
+==必填==
 
-The tag of the [OpenVPN Client Endpoint](/configuration/endpoint/openvpn-client).
+[OpenVPN 客户端端点](/configuration/endpoint/openvpn-client) 的标签。
 
-DNS queries are sent through the endpoint to resolvers pushed by the OpenVPN server.
+DNS 查询会通过该端点发送到 OpenVPN 服务器推送的解析器。
 
-Both modern `dns` options and legacy `dhcp-option DNS`/`DNS6` and `DOMAIN-ROUTE` options are supported. `dnssec yes` is not supported.
+支持现代 `dns` 选项，以及传统的 `dhcp-option DNS`/`DNS6` 和 `DOMAIN-ROUTE` 选项。不支持 `dnssec yes`。
 
 #### accept_default_resolvers
 
-Use pushed resolvers for queries that do not match a pushed `resolve-domains`, `DOMAIN-ROUTE`, or search-domain suffix.
+对未匹配推送的 `resolve-domains`、`DOMAIN-ROUTE` 或搜索域后缀的查询使用推送解析器。
 
-When disabled, unmatched queries return `NXDOMAIN`.
+禁用时，未匹配查询返回 `NXDOMAIN`。
 
 #### accept_search_domain
 
-When enabled and pushed search domains are available, single-label queries (for example, `intranet`) are retried with each search domain until one resolves.
+启用且存在推送的搜索域时，单标签查询（例如 `intranet`）会依次附加各个搜索域重试，直到其中一个解析成功。
 
-If no search domain is available, the original single-label query follows normal default-resolver behavior.
+不存在搜索域时，原始单标签查询按普通默认解析器规则处理。
 
-### Example
+### 示例
 
 ```json
 {

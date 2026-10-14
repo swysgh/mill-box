@@ -2,17 +2,17 @@
 icon: material/alert-decagram
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [mdns](./mdns/)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [type](#type)
 
 # DNS Server
 
-### Structure
+### 结构
 
 ```json
 {
@@ -29,9 +29,9 @@ icon: material/alert-decagram
 
 #### type
 
-The type of the DNS server.
+DNS 服务器的类型。
 
-| Type            | Format                    |
+| 类型              | 格式                        |
 |-----------------|---------------------------|
 | empty (default) | :material-note-remove: [Legacy](./legacy/) |
 | `local`         | [Local](./local/)         |
@@ -52,4 +52,4 @@ The type of the DNS server.
 
 #### tag
 
-The tag of the DNS server.
+DNS 服务器的标签。

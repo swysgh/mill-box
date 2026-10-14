@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-# Service
+# 服务
 
-### Structure
+### 结构
 
 ```json
 {
@@ -19,9 +19,9 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
-| Type              | Format                                |
+| 类型              | 格式                                  |
 |-------------------|---------------------------------------|
 | `api`             | [sing-box API](./api)                 |
 | `derp`            | [DERP](./derp)                        |
@@ -31,4 +31,4 @@ icon: material/new-box
 
 #### tag
 
-The tag of the endpoint.
+端点的标签。

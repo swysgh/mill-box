@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # mDNS
 
-### Structure
+### 结构
 
 ```json
 {
@@ -18,7 +18,7 @@ icon: material/new-box
 
         "interface": [],
 
-        // Dial Fields
+        // 拨号字段
       }
     ]
   }
@@ -27,16 +27,16 @@ icon: material/new-box
 
 !!! info ""
 
-    `*.local.` and IPv4/IPv6 link-local reverse zones are also resolved by the [Local](./local/) server.
+    [Local](./local/) 服务器也会解析 `*.local.` 与 IPv4/IPv6 链路本地反向区域。
 
-### Fields
+### 字段
 
 #### interface
 
-List of network interface names to send mDNS queries on.
+用于发送 mDNS 查询的网络接口名称列表。
 
-When empty, all interfaces that are up, multicast-capable, and non-loopback are used.
+留空时，将使用所有处于 up 状态、支持多播且非环回的接口。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

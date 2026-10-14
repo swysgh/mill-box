@@ -2,11 +2,11 @@
 icon: material/note-remove
 ---
 
-!!! failure "Removed in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 移除"
 
-    Legacy fake-ip configuration is deprecated in sing-box 1.12.0 and removed in sing-box 1.14.0, check [Migration](/migration/#migrate-to-new-dns-server-formats).
+    旧的 fake-ip 配置已在 sing-box 1.12.0 废弃且已在 sing-box 1.14.0 中被移除，参阅 [迁移指南](/migration/#迁移到新的-dns-服务器格式)。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -16,16 +16,16 @@ icon: material/note-remove
 }
 ```
 
-### Fields
+### 字段
 
 #### enabled
 
-Enable FakeIP service.
+启用 FakeIP 服务。
 
 #### inet4_range
 
-IPv4 address range for FakeIP.
+用于 FakeIP 的 IPv4 地址范围。
 
 #### inet6_range
 
-IPv6 address range for FakeIP.
+用于 FakeIP 的 IPv6 地址范围。

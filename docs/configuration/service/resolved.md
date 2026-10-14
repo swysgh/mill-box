@@ -2,43 +2,43 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # Resolved
 
-Resolved service is a fake systemd-resolved DBUS service to receive DNS settings from other programs
-(e.g. NetworkManager) and provide DNS resolution.
+Resolved 服务是一个伪造的 systemd-resolved DBUS 服务，用于从其他程序
+（如 NetworkManager）接收 DNS 设置并提供 DNS 解析。
 
-See also: [Resolved DNS Server](/configuration/dns/server/resolved/)
+另请参阅：[Resolved DNS 服务器](/configuration/dns/server/resolved/)
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "resolved",
-  
-  ... // Listen Fields
+
+  ... // 监听字段
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/) 了解详情。
 
-### Fields
+### 字段
 
 #### listen
 
-==Required==
+==必填==
 
-Listen address.
+监听地址。
 
-`127.0.0.53` will be used by default.
+默认使用 `127.0.0.53`。
 
 #### listen_port
 
-==Required==
+==必填==
 
-Listen port.
+监听端口。
 
-`53` will be used by default.
+默认使用 `53`。

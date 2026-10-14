@@ -1,14 +1,14 @@
 ---
-description: Welcome to the wiki page for the sing-box project.
+description: 欢迎来到该 sing-box 项目的文档页。
 ---
 
-# :material-home: Home
+# :material-home: 开始
 
-Welcome to the wiki page for the sing-box project.
+欢迎来到该 sing-box 项目的文档页。
 
-The universal proxy platform.
+通用代理平台。
 
-## License
+## 授权
 
 ```
 Copyright (C) 2022 by nekohasekai <contact-sagernet@sekai.icu>

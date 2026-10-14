@@ -1,6 +1,6 @@
-# Log
+# 日志
 
-### Structure
+### 结构
 
 ```json
 {
@@ -14,20 +14,20 @@
 
 ```
 
-### Fields
+### 字段
 
 #### disabled
 
-Disable logging, no output after start.
+禁用日志，启动后不输出日志。
 
 #### level
 
-Log level. One of: `trace` `debug` `info` `warn` `error` `fatal` `panic`.
+日志等级，可选值：`trace` `debug` `info` `warn` `error` `fatal` `panic`。
 
 #### output
 
-Output file path. Will not write log to console after enable.
+输出文件路径，启动后将不输出到控制台。
 
 #### timestamp
 
-Add time to each line.
+添加时间到每行。

@@ -2,14 +2,14 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # JSON Schema
 
-sing-box provides a JSON Schema Draft 2020-12 for configuration files.
-Compatible editors can use it for completion and validation.
+sing-box 为配置文件提供 JSON Schema Draft 2020-12。
+兼容的编辑器可使用它提供补全和校验。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -17,27 +17,27 @@ Compatible editors can use it for completion and validation.
 }
 ```
 
-### Fields
+### 字段
 
 #### $schema
 
-The schema URI used by compatible editors.
+兼容编辑器使用的 Schema URI。
 
-The schema published with this documentation is available at
-[sing-box.sagernet.org/schema.json](https://sing-box.sagernet.org/schema.json).
+随本文档发布的 Schema 位于
+[sing-box.sagernet.org/schema.json](https://sing-box.sagernet.org/schema.json)。
 
-### Generate
+### 生成
 
-Use the following command to generate a schema matching the installed binary:
+使用以下命令生成与已安装的二进制文件匹配的 Schema：
 
 ```bash
 sing-box schema -o schema.json
 ```
 
-Without `--output`, the schema is written to standard output.
-The generated schema reflects the features included in the current build.
+未指定 `--output` 时，Schema 将写入标准输出。
+生成的 Schema 会反映当前构建中包含的功能。
 
-You can then reference the local schema from a configuration file:
+之后可从配置文件中引用本地 Schema：
 
 ```json
 {

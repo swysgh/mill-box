@@ -2,15 +2,15 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [accept_search_domain](#accept_search_domain)
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # Tailscale
 
-### Structure
+### 结构
 
 ```json
 {
@@ -29,29 +29,29 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### endpoint
 
-==Required==
+==必填==
 
-The tag of the [Tailscale Endpoint](/configuration/endpoint/tailscale).
+[Tailscale 端点](/configuration/endpoint/tailscale) 的标签。
 
 #### accept_default_resolvers
 
-Indicates whether default DNS resolvers should be accepted for fallback queries in addition to MagicDNS。
+指示是否除了 MagicDNS 外，还应接受默认 DNS 解析器以进行回退查询。
 
-if not enabled, `NXDOMAIN` will be returned for non-Tailscale domain queries.
+如果未启用，对于非 Tailscale 域名查询将返回 `NXDOMAIN`。
 
 #### accept_search_domain
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-When enabled, single-label queries (e.g. `my-device`) are retried against each Tailscale search domain until one resolves.
+启用后，单标签查询（例如 `my-device`）将依次附加 Tailscale 搜索域进行重试，直到其中一个解析成功。
 
-### Examples
+### 示例
 
-=== "MagicDNS only"
+=== "仅 MagicDNS"
 
     === ":material-card-multiple: sing-box 1.14.0"
 
@@ -106,7 +106,7 @@ When enabled, single-label queries (e.g. `my-device`) are retried against each T
         }
         ```
 
-=== "Use as global DNS"
+=== "用作全局 DNS"
 
     ```json
     {

@@ -1,7 +1,7 @@
-# Introduction
+# 引言
 
-sing-box uses JSON for configuration files.
-### Structure
+sing-box 使用 JSON 作为配置文件格式。
+### 结构
 
 ```json
 {
@@ -22,38 +22,38 @@ sing-box uses JSON for configuration files.
 }
 ```
 
-### Fields
+### 字段
 
-| Key            | Format                          |
-|----------------|---------------------------------|
-| `$schema`      | [JSON Schema](./schema/)        |
-| `log`          | [Log](./log/)                   |
-| `dns`          | [DNS](./dns/)                   |
-| `ntp`          | [NTP](./ntp/)                   |
-| `certificate`  | [Certificate](./certificate/)   |
-| `certificate_providers` | [Certificate Provider](./shared/certificate-provider/) |
-| `http_clients` | [HTTP Client](./shared/http-client/) |
-| `network_namespaces` | [Network Namespace](./network-namespace/) |
-| `endpoints`    | [Endpoint](./endpoint/)         |
-| `inbounds`     | [Inbound](./inbound/)           |
-| `outbounds`    | [Outbound](./outbound/)         |
-| `route`        | [Route](./route/)               |
-| `services`     | [Service](./service/)           |
-| `experimental` | [Experimental](./experimental/) |
+| Key            | Format                 |
+|----------------|------------------------|
+| `$schema`      | [JSON Schema](./schema/) |
+| `log`          | [日志](./log/)           |
+| `dns`          | [DNS](./dns/)          |
+| `ntp`          | [NTP](./ntp/)          |
+| `certificate`  | [证书](./certificate/)   |
+| `certificate_providers` | [证书提供者](./shared/certificate-provider/) |
+| `http_clients` | [HTTP 客户端](./shared/http-client/) |
+| `network_namespaces` | [网络命名空间](./network-namespace/) |
+| `endpoints`    | [端点](./endpoint/)      |
+| `inbounds`     | [入站](./inbound/)       |
+| `outbounds`    | [出站](./outbound/)      |
+| `route`        | [路由](./route/)         |
+| `services`     | [服务](./service/)       |
+| `experimental` | [实验性](./experimental/) |
 
-### Check
+### 检查
 
 ```bash
 sing-box check
 ```
 
-### Format
+### 格式化
 
 ```bash
 sing-box format -w -c config.json -D config_directory
 ```
 
-### Merge
+### 合并
 
 ```bash
 sing-box merge output.json -c config.json -D config_directory

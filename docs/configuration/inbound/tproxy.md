@@ -1,4 +1,4 @@
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [udp_mapping](/configuration/shared/udp-nat/#udp_mapping)  
     :material-plus: [udp_filtering](/configuration/shared/udp-nat/#udp_filtering)  
@@ -6,35 +6,35 @@
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "tproxy",
   "tag": "tproxy-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "network": "udp",
 
-  ... // UDP NAT Fields
+  ... // UDP NAT 字段
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### network
 
-Listen network, one of `tcp` `udp`.
+监听的网络协议，`tcp` `udp` 之一。
 
-Both if empty.
+默认所有。
 
-### UDP NAT Fields
+### UDP NAT 字段
 
-See [UDP NAT Fields](/configuration/shared/udp-nat/) for details.
+参阅 [UDP NAT 字段](/configuration/shared/udp-nat/)。

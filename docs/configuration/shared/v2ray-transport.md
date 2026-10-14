@@ -1,7 +1,6 @@
-V2Ray Transport is a set of private protocols invented by v2ray, and has contaminated the names of other protocols, such
-as `trojan-grpc` in clash.
+V2Ray Transport 是 v2ray 发明的一组私有协议，并污染了其他协议的名称，如 clash 中的 `trojan-grpc`。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -9,7 +8,7 @@ as `trojan-grpc` in clash.
 }
 ```
 
-Available transports:
+可用的传输协议：
 
 * HTTP
 * WebSocket
@@ -17,15 +16,15 @@ Available transports:
 * gRPC
 * HTTPUpgrade
 
-!!! warning "Difference from v2ray-core"
+!!! warning "与 v2ray-core 的区别"
 
-    * No TCP transport, plain HTTP is merged into the HTTP transport.
-    * No mKCP transport.
-    * No DomainSocket transport.
+    * 没有 TCP 传输层, 纯 HTTP 已合并到 HTTP 传输层。
+    * 没有 mKCP 传输层。
+    * 没有 DomainSocket 传输层。
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签。
 
 ### HTTP
 
@@ -41,62 +40,56 @@ Available transports:
 }
 ```
 
-!!! warning "Difference from v2ray-core"
+!!! warning "与 v2ray-core 的区别"
 
-    TLS is not enforced. If TLS is not configured, plain HTTP 1.1 is used.
+    不强制执行 TLS。如果未配置 TLS，将使用纯 HTTP 1.1。
 
 #### host
 
-List of host domain.
+主机域名列表。
 
-The client will choose randomly and the server will verify if not empty.
+如果设置，客户端将随机选择，服务器将验证。
 
 #### path
 
 !!! warning
 
-    V2Ray's documentation says that the path between the server and the client must be consistent, 
-    but the actual code allows the client to add any suffix to the path.
-    sing-box uses the same behavior as V2Ray, but note that the behavior does not exist in `WebSocket` and `HTTPUpgrade` transport.
+    V2Ray 文档称服务端和客户端的路径必须一致，但实际代码允许客户端向路径添加任何后缀。
+    sing-box 使用与 V2Ray 相同的行为，但请注意，该行为在 `WebSocket` 和 `HTTPUpgrade` 传输层中不存在。
 
-Path of HTTP request.
+HTTP 请求路径
 
-The server will verify.
+服务器将验证。
 
 #### method
 
-Method of HTTP request.
+HTTP 请求方法
 
-The server will verify if not empty.
+如果设置，服务器将验证。
 
 #### headers
 
-Extra headers of HTTP request.
+HTTP 请求的额外标头
 
-The server will write in response if not empty.
+如果设置，服务器将写入响应。
 
 #### idle_timeout
 
-In HTTP2 server:
+在 HTTP2 服务器中：
 
-Specifies the time until idle clients should be closed with a GOAWAY frame. PING frames are not considered as activity.
+指定闲置客户端应在多长时间内使用 GOAWAY 帧关闭。PING 帧不被视为活动。
 
-In HTTP2 client:
+在 HTTP2 客户端中：
 
-Specifies the period of time after which a health check will be performed using a ping frame if no frames have been
-received on the connection.Please note that a ping response is considered a received frame, so if there is no other
-traffic on the connection, the health check will be executed every interval. If the value is zero, no health check will
-be performed.
+如果连接上没有收到任何帧，指定一段时间后将使用 PING 帧执行健康检查。需要注意的是，PING 响应被视为已接收的帧，因此如果连接上没有其他流量，则健康检查将在每个间隔执行一次。如果值为零，则不会执行健康检查。
 
-Zero is used by default.
+默认使用零。
 
 #### ping_timeout
 
-In HTTP2 client:
+在 HTTP2 客户端中：
 
-Specifies the timeout duration after sending a PING frame, within which a response must be received.
-If a response to the PING frame is not received within the specified timeout duration, the connection will be closed.
-The default timeout duration is 15 seconds.
+指定发送 PING 帧后，在指定的超时时间内必须接收到响应。如果在指定的超时时间内没有收到 PING 帧的响应，则连接将关闭。默认超时持续时间为 15 秒。
 
 ### WebSocket
 
@@ -112,27 +105,27 @@ The default timeout duration is 15 seconds.
 
 #### path
 
-Path of HTTP request.
+HTTP 请求路径
 
-The server will verify.
+服务器将验证。
 
 #### headers
 
-Extra headers of HTTP request.
+HTTP 请求的额外标头
 
-The server will write in response if not empty.
+如果设置，服务器将写入响应。
 
 #### max_early_data
 
-Allowed payload size is in the request. Enabled if not zero.
+请求中允许的最大有效负载大小。默认启用。
 
 #### early_data_header_name
 
-Early data is sent in path instead of header by default.
+默认情况下，早期数据在路径而不是标头中发送。
 
-To be compatible with Xray-core, set this to `Sec-WebSocket-Protocol`.
+要与 Xray-core 兼容，请将其设置为 `Sec-WebSocket-Protocol`。
 
-It needs to be consistent with the server.
+它需要与服务器保持一致。
 
 ### QUIC
 
@@ -142,16 +135,16 @@ It needs to be consistent with the server.
 }
 ```
 
-!!! warning "Difference from v2ray-core"
+!!! warning "与 v2ray-core 的区别"
 
-    No additional encryption support:
-    It's basically duplicate encryption. And Xray-core is not compatible with v2ray-core in here.
+    没有额外的加密支持：
+    它基本上是重复加密。 并且 Xray-core 在这里与 v2ray-core 不兼容。
 
 ### gRPC
 
 !!! note ""
 
-    standard gRPC has good compatibility but poor performance and is not included by default, see [Installation](/installation/build-from-source/#build-tags).
+    默认安装不包含标准 gRPC (兼容性好，但性能较差), 参阅 [安装](/installation/build-from-source/#构建标记)。
 
 ```json
 {
@@ -165,39 +158,35 @@ It needs to be consistent with the server.
 
 #### service_name
 
-Service name of gRPC.
+gRPC 服务名称。
 
 #### idle_timeout
 
-In standard gRPC server/client:
+在标准 gRPC 服务器/客户端：
 
-If the transport doesn't see any activity after a duration of this time,
-it pings the client to check if the connection is still active.
+如果传输在此时间段后没有看到任何活动，它会向客户端发送 ping 请求以检查连接是否仍然活动。
 
-In default gRPC server/client:
+在默认 gRPC 服务器/客户端：
 
-It has the same behavior as the corresponding setting in HTTP transport.
+它的行为与 HTTP 传输层中的相应设置相同。
 
 #### ping_timeout
 
-In standard gRPC server/client:
+在标准 gRPC 服务器/客户端：
 
-The timeout that after performing a keepalive check, the client will wait for activity.
-If no activity is detected, the connection will be closed.
+经过一段时间之后，客户端将执行 keepalive 检查并等待活动。如果没有检测到任何活动，则会关闭连接。
 
-In default gRPC server/client:
+在默认 gRPC 服务器/客户端：
 
-It has the same behavior as the corresponding setting in HTTP transport.
+它的行为与 HTTP 传输层中的相应设置相同。
 
 #### permit_without_stream
 
-In standard gRPC client:
+在标准 gRPC 客户端：
 
-If enabled, the client transport sends keepalive pings even with no active connections.
-If disabled, when there are no active connections, `idle_timeout` and `ping_timeout` will be ignored and no keepalive
-pings will be sent.
+如果启用，客户端传输即使没有活动连接也会发送 keepalive ping。如果禁用，则在没有活动连接时，将忽略 `idle_timeout` 和 `ping_timeout`，并且不会发送 keepalive ping。
 
-Disabled by default.
+默认禁用。
 
 ### HTTPUpgrade
 
@@ -212,18 +201,18 @@ Disabled by default.
 
 #### host
 
-Host domain.
+主机域名。
 
-The server will verify if not empty.
+服务器将验证。
 
 #### path
 
-Path of HTTP request.
+HTTP 请求路径
 
-The server will verify.
+服务器将验证。
 
 #### headers
 
-Extra headers of HTTP request.
+HTTP 请求的额外标头。
 
-The server will write in response if not empty.
+如果设置，服务器将写入响应。

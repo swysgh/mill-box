@@ -1,11 +1,11 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "tuic",
   "tag": "tuic-in",
-  
-  ... // Listen Fields
+
+  ... // 监听字段
 
   "users": [
     {
@@ -20,65 +20,65 @@
   "heartbeat": "10s",
   "tls": {},
 
-  ... // QUIC Fields
+  ... // QUIC 字段
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-TUIC users
+TUIC 用户
 
 #### users.uuid
 
-==Required==
+==必填==
 
-TUIC user uuid
+TUIC 用户 UUID
 
 #### users.password
 
-TUIC user password
+TUIC 用户密码
 
 #### congestion_control
 
-QUIC congestion control algorithm
+QUIC 拥塞控制算法
 
-One of: `cubic`, `new_reno`, `bbr`
+可选值: `cubic`, `new_reno`, `bbr`
 
-`cubic` is used by default.
+默认使用 `cubic`。
 
 #### auth_timeout
 
-How long the server should wait for the client to send the authentication command
+服务器等待客户端发送认证命令的时间
 
-`3s` is used by default.
+默认使用 `3s`。
 
 #### zero_rtt_handshake
 
-Enable 0-RTT QUIC connection handshake on the client side  
-This is not impacting much on the performance, as the protocol is fully multiplexed  
+在客户端启用 0-RTT QUIC 连接握手
+这对性能影响不大，因为协议是完全复用的
 
 !!! warning ""
-    Disabling this is highly recommended, as it is vulnerable to replay attacks.
-    See [Attack of the clones](https://blog.cloudflare.com/even-faster-connection-establishment-with-quic-0-rtt-resumption/#attack-of-the-clones)
+强烈建议禁用此功能，因为它容易受到重放攻击。
+请参阅 [Attack of the clones](https://blog.cloudflare.com/even-faster-connection-establishment-with-quic-0-rtt-resumption/#attack-of-the-clones)
 
 #### heartbeat
 
-Interval for sending heartbeat packets for keeping the connection alive
+发送心跳包以保持连接存活的时间间隔
 
-`10s` is used by default.
+默认使用 `10s`。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。
 
-### QUIC Fields
+### QUIC 字段
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/) 了解详情。

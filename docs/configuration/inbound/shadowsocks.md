@@ -1,11 +1,11 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "shadowsocks",
   "tag": "ss-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "method": "2022-blake3-aes-128-gcm",
   "password": "8JCsPssfgS8tiRwiMlhARg==",
@@ -14,7 +14,7 @@
 }
 ```
 
-### Multi-User Structure
+### 多用户结构
 
 ```json
 {
@@ -30,7 +30,7 @@
 }
 ```
 
-### Relay Structure
+### 中转结构
 
 ```json
 {
@@ -49,48 +49,48 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### network
 
-Listen network, one of `tcp` `udp`.
+监听的网络协议，`tcp` `udp` 之一。
 
-Both if empty.
+默认所有。
 
 #### method
 
-==Required==
+==必填==
 
-| Method                        | Key Length |
-|-------------------------------|------------|
-| 2022-blake3-aes-128-gcm       | 16         |
-| 2022-blake3-aes-256-gcm       | 32         |
-| 2022-blake3-chacha20-poly1305 | 32         |
-| none                          | /          |
-| aes-128-gcm                   | /          |
-| aes-192-gcm                   | /          |
-| aes-256-gcm                   | /          |
-| chacha20-ietf-poly1305        | /          |
-| xchacha20-ietf-poly1305       | /          |
+| 方法                            | 密钥长度 |
+|-------------------------------|------|
+| 2022-blake3-aes-128-gcm       | 16   |
+| 2022-blake3-aes-256-gcm       | 32   |
+| 2022-blake3-chacha20-poly1305 | 32   |
+| none                          | /    |
+| aes-128-gcm                   | /    |
+| aes-192-gcm                   | /    |
+| aes-256-gcm                   | /    |
+| chacha20-ietf-poly1305        | /    |
+| xchacha20-ietf-poly1305       | /    |
 
 #### password
 
-==Required==
+==必填==
 
-| Method        | Password Format                                |
-|---------------|------------------------------------------------|
-| none          | /                                              |
-| 2022 methods  | `sing-box generate rand --base64 <Key Length>` |
-| other methods | any string                                     |
+| 方法            | 密码格式                                     |
+|---------------|------------------------------------------|
+| none          | /                                        |
+| 2022 methods  | `sing-box generate rand --base64 <密钥长度>` |
+| other methods | 任意字符串                                    |
 
 #### managed
 
-Defaults to `false`. Enable this when the inbound is managed by the [SSM API](/configuration/service/ssm-api) for dynamic user.
+默认为 `false`。当该入站需要由 [SSM API](/configuration/service/ssm-api) 管理用户时必须启用此字段。
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#inbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#入站)。

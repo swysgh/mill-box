@@ -2,25 +2,25 @@
 icon: material/alert-decagram
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [bbr_profile](#bbr_profile)  
     :material-plus: [realm](#realm)  
     :material-alert: [obfs](#obfstype)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-alert: [masquerade](#masquerade)  
     :material-alert: [ignore_client_bandwidth](#ignore_client_bandwidth)
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "hysteria2",
   "tag": "hy2-in",
   
-  ... // Listen Fields
+  ... // 监听字段
 
   "up_mbps": 100,
   "down_mbps": 100,
@@ -37,9 +37,9 @@ icon: material/alert-decagram
   "ignore_client_bandwidth": false,
   "tls": {},
 
-  ... // QUIC Fields
+  ... // QUIC 字段
 
-  "masquerade": "", // or {}
+  "masquerade": "", // 或 {}
   "bbr_profile": "",
   "brutal_debug": false,
   "realm": {
@@ -47,7 +47,7 @@ icon: material/alert-decagram
     "token": "",
     "realm_id": "",
     "stun_servers": [],
-    "stun_domain_resolver": "", // or {}
+    "stun_domain_resolver": "", // 或 {}
     "ip_version": 0,
     "port_mapping": {
       "enabled": false,
@@ -59,222 +59,219 @@ icon: material/alert-decagram
 }
 ```
 
-!!! warning "Difference from official Hysteria2"
+!!! warning "与官方 Hysteria2 的区别"
 
-    The official program supports an authentication method called **userpass**,
-    which essentially uses a combination of `<username>:<password>` as the actual password,
-    while sing-box does not provide this alias.
-    To use sing-box with the official program, you need to fill in that combination as the actual password.
+    官方程序支持一种名为 **userpass** 的验证方式，
+    本质上是将用户名与密码的组合 `<username>:<password>` 作为实际上的密码，而 sing-box 不提供此别名。
+    要将 sing-box 与官方程序一起使用， 您需要填写该组合作为实际密码。
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### up_mbps, down_mbps
 
-Max bandwidth, in Mbps.
+支持的速率，默认不限制。
 
-Not limited if empty.
-
-Conflict with `ignore_client_bandwidth`.
+与 `ignore_client_bandwidth` 冲突。
 
 #### obfs.type
 
-QUIC traffic obfuscator type, one of `salamander` `gecko`.
+QUIC 流量混淆器类型，可选 `salamander` `gecko`。
 
-Disabled if empty.
+如果为空则禁用。
 
 #### obfs.password
 
-QUIC traffic obfuscator password.
+QUIC 流量混淆器密码。
 
 #### obfs.min_packet_size
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Minimum on-wire packet size in bytes. Gecko only.
+最小线上数据包大小（字节）。仅限 Gecko。
 
-`512` is used by default.
+默认使用 `512`。
 
 #### obfs.max_packet_size
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Maximum on-wire packet size in bytes. Gecko only.
+最大线上数据包大小（字节）。仅限 Gecko。
 
-`1200` is used by default.
+默认使用 `1200`。
 
 #### users
 
-Hysteria2 users
+Hysteria 用户
 
 #### users.password
 
-Authentication password
+认证密码。
 
 #### ignore_client_bandwidth
 
-*When `up_mbps` and `down_mbps` are not set*:
+*当 `up_mbps` 和 `down_mbps` 未设定时*:
 
-Commands clients to use the BBR CC instead of Hysteria CC.
+命令客户端使用 BBR 拥塞控制算法而不是 Hysteria CC。
 
-*When `up_mbps` and `down_mbps` are set*:
+*当 `up_mbps` 和 `down_mbps` 已设定时*:
 
-Deny clients to use the BBR CC.
+禁止客户端使用 BBR 拥塞控制算法。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。
 
-### QUIC Fields
+### QUIC 字段
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/) 了解详情。
 
 #### masquerade
 
-HTTP3 server behavior (URL string configuration) when authentication fails.
+HTTP3 服务器认证失败时的行为 （URL 字符串配置）。
 
-| Scheme       | Example                 | Description        |
-|--------------|-------------------------|--------------------|
-| `file`       | `file:///var/www`       | As a file server   |
-| `http/https` | `http://127.0.0.1:8080` | As a reverse proxy |
+| Scheme       | 示例                      | 描述      |
+|--------------|-------------------------|---------|
+| `file`       | `file:///var/www`       | 作为文件服务器 |
+| `http/https` | `http://127.0.0.1:8080` | 作为反向代理  |
 
-Conflict with `masquerade.type`.
+如果 masquerade 未配置，则返回 404 页。
 
-A 404 page will be returned if masquerade is not configured.
+与 `masquerade.type` 冲突。
 
 #### masquerade.type
 
-HTTP3 server behavior (Object configuration) when authentication fails.
+HTTP3 服务器认证失败时的行为 （对象配置）。
 
-| Type     | Description                 | Fields                              |
-|----------|-----------------------------|-------------------------------------|
-| `file`   | As a file server            | `directory`                         |
-| `proxy`  | As a reverse proxy          | `url`, `rewrite_host`               |
-| `string` | Reply with a fixed response | `status_code`, `headers`, `content` |
+| Type     | 描述      | 字段                                  |
+|----------|---------|-------------------------------------|
+| `file`   | 作为文件服务器 | `directory`                         |
+| `proxy`  | 作为反向代理  | `url`, `rewrite_host`               |
+| `string` | 返回固定响应  | `status_code`, `headers`, `content` |
 
-Conflict with `masquerade`.
+如果 masquerade 未配置，则返回 404 页。
 
-A 404 page will be returned if masquerade is not configured.
+与 `masquerade` 冲突。
 
 #### masquerade.directory
 
-File server root directory.
+文件服务器根目录。
 
 #### masquerade.url
 
-Reverse proxy target URL.
+反向代理目标 URL。
 
 #### masquerade.rewrite_host
 
-Rewrite the `Host` header to the target URL.
+重写请求头中的 Host 字段到目标 URL。
 
 #### masquerade.status_code
 
-Fixed response status code.
+固定响应状态码。
 
 #### masquerade.headers
 
-Fixed response headers.
+固定响应头。
 
 #### masquerade.content
 
-Fixed response content.
+固定响应内容。
 
 #### bbr_profile
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-BBR congestion control algorithm profile, one of `conservative` `standard` `aggressive`.
+BBR 拥塞控制算法配置，可选 `conservative` `standard` `aggressive`。
 
-`standard` is used by default.
+默认使用 `standard`。
 
 #### brutal_debug
 
-Enable debug information logging for Hysteria Brutal CC.
+启用 Hysteria Brutal CC 的调试信息日志记录。
 
 #### realm
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Register this inbound to a Hysteria Realm rendezvous service to enable NAT traversal.
+将此入站注册到 Hysteria Realm 会合服务，以启用 NAT 穿透。
 
-See [Hysteria Realm](/configuration/service/hysteria-realm/) for the rendezvous service.
+会合服务参阅 [Hysteria Realm](/configuration/service/hysteria-realm/)。
 
 #### realm.server_url
 
-==Required==
+==必填==
 
-Realm rendezvous service URL.
+Realm 会合服务 URL。
 
 #### realm.token
 
-Bearer token for the realm. Must match one of `users[].token` configured on the realm.
+Realm 的 Bearer 令牌，需与 realm 上配置的 `users[].token` 之一匹配。
 
 #### realm.realm_id
 
-==Required==
+==必填==
 
-Slot identifier on the realm.
+Realm 上的槽位标识符。
 
-1–64 characters, must match `^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$`.
+1–64 字符，需匹配 `^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$`。
 
-Outbounds must use the same `realm_id` to find this server.
+出站需使用相同的 `realm_id` 才能找到本服务器。
 
 #### realm.stun_servers
 
-==Required==
+==必填==
 
-List of STUN servers (`host` or `host:port`) used to discover public addresses.
+用于发现公网地址的 STUN 服务器列表（`host` 或 `host:port`）。
 
 #### realm.stun_domain_resolver
 
-Set domain resolver to use for resolving STUN server domain names.
+用于解析 STUN 服务器域名的域名解析器。
 
-This option uses the same format as the [route DNS rule action](/configuration/dns/rule_action/#route) without the `action` field.
+此选项的格式与 [路由 DNS 规则动作](/configuration/dns/rule_action/#route) 相同，但不包含 `action` 字段。
 
-Setting this option directly to a string is equivalent to setting `server` of this options.
+若直接将此选项设置为字符串，则等同于设置该选项的 `server` 字段。
 
-If empty, the default domain resolver is used.
+如果为空，则使用默认域名解析器。
 
 #### realm.ip_version
 
-Restrict realm connections (STUN, hole punching, and the resulting QUIC path) to a single IP version.
+将 realm 连接（STUN、打洞与最终的 QUIC 路径）限制为单一 IP 版本。
 
-`4` or `6`. Both are used if empty.
+`4` 或 `6`。默认使用两者。
 
-The `listen` address must be compatible with the selected version.
+`listen` 地址必须与所选版本兼容。
 
 #### realm.port_mapping
 
-Maintain a UDP port mapping on the local gateway via UPnP or NAT-PMP.
+通过 UPnP 或 NAT-PMP 在本地网关上维护 UDP 端口映射。
 
-Improves hole-punching reliability behind gateways that support it.
+可在支持的网关后提升打洞成功率。
 
-Requires IPv4: conflicts with `"ip_version": 6`.
+需要 IPv4：与 `"ip_version": 6` 冲突。
 
 #### realm.port_mapping.enabled
 
-Enable port mapping.
+启用端口映射。
 
 #### realm.port_mapping.timeout
 
-Timeout for gateway discovery and mapping operations.
+网关发现与映射操作的超时。
 
-`10s` is used by default.
+默认使用 `10s`。
 
 #### realm.port_mapping.lifetime
 
-Lease lifetime of the mapping.
+映射的租约时长。
 
-`10m` is used by default.
+默认使用 `10m`。
 
 #### realm.http_client
 
-HTTP client used to talk to the realm.
+与 realm 通信使用的 HTTP 客户端。
 
-See [HTTP Client](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端](/configuration/shared/http-client/) 了解详情。

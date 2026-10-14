@@ -2,9 +2,9 @@
 icon: material/package
 ---
 
-# Package Manager
+# 包管理器
 
-## :material-tram: Repository Installation
+## :material-tram: 仓库安装
 
 === ":material-debian: Debian / APT"
 
@@ -39,32 +39,31 @@ icon: material/package
     sudo dnf install sing-box # or sing-box-beta
     ```
 
-## :material-download-box: Manual Installation
+## :material-download-box: 手动安装
 
-The script download and install the latest package from GitHub releases
-for deb or rpm based Linux distributions, ArchLinux and OpenWrt.
+该脚本从 GitHub 发布中下载并安装最新的软件包，适用于基于 deb 或 rpm 的 Linux 发行版、ArchLinux 和 OpenWrt。
 
 ```shell
 curl -fsSL https://sing-box.app/install.sh | sh
 ```
 
-or latest beta:
+或最新测试版：
 
 ```shell
 curl -fsSL https://sing-box.app/install.sh | sh -s -- --beta
 ```
 
-or specific version:
+或指定版本：
 
 ```shell
 curl -fsSL https://sing-box.app/install.sh | sh -s -- --version <version>
 ```
 
-## :material-book-lock-open: Managed Installation
+## :material-book-lock-open: 托管安装
 
 === ":material-linux: Linux"
 
-    | Type     | Platform      | Command                      | Link                                                                                                          |
+    | 类型       | 平台            | 命令                           | 链接                                                                                                            |
     |----------|---------------|------------------------------|---------------------------------------------------------------------------------------------------------------|
     | AUR      | Arch Linux    | `? -S sing-box`              | [![AUR package](https://repology.org/badge/version-for-repo/aur/sing-box.svg)][aur]                           |
     | nixpkgs  | NixOS         | `nix-env -iA nixos.sing-box` | [![nixpkgs unstable package](https://repology.org/badge/version-for-repo/nix_unstable/sing-box.svg)][nixpkgs] |
@@ -74,61 +73,59 @@ curl -fsSL https://sing-box.app/install.sh | sh -s -- --version <version>
 
 === ":material-apple: macOS"
 
-    | Type     | Platform | Command                 | Link                                                                                           |
-    |----------|----------|-------------------------|------------------------------------------------------------------------------------------------|
-    | Homebrew | macOS    | `brew install sing-box` | [![Homebrew package](https://repology.org/badge/version-for-repo/homebrew/sing-box.svg)][brew] |
+    | 类型       | 平台    | 命令                      | 链接                                                                                             |
+    |----------|-------|-------------------------|------------------------------------------------------------------------------------------------|
+    | Homebrew | macOS | `brew install sing-box` | [![Homebrew package](https://repology.org/badge/version-for-repo/homebrew/sing-box.svg)][brew] |
 
 === ":material-microsoft-windows: Windows"
 
-    | Type       | Platform | Command                   | Link                                                                                                |
-    |------------|----------|---------------------------|-----------------------------------------------------------------------------------------------------|
-    | Scoop      | Windows  | `scoop install sing-box`  | [![Scoop package](https://repology.org/badge/version-for-repo/scoop/sing-box.svg)][scoop]           |
-    | Chocolatey | Windows  | `choco install sing-box`  | [![Chocolatey package](https://repology.org/badge/version-for-repo/chocolatey/sing-box.svg)][choco] |
-    | winget     | Windows  | `winget install sing-box` | [![winget package](https://repology.org/badge/version-for-repo/winget/sing-box.svg)][winget]        |
+    | 类型         | 平台      | 命令                        | 链接                                                                                                  |
+    |------------|---------|---------------------------|-----------------------------------------------------------------------------------------------------|
+    | Scoop      | Windows | `scoop install sing-box`  | [![Scoop package](https://repology.org/badge/version-for-repo/scoop/sing-box.svg)][scoop]           |
+    | Chocolatey | Windows | `choco install sing-box`  | [![Chocolatey package](https://repology.org/badge/version-for-repo/chocolatey/sing-box.svg)][choco] |
+    | winget     | Windows | `winget install sing-box` | [![winget package](https://repology.org/badge/version-for-repo/winget/sing-box.svg)][winget]        |
 
 === ":material-android: Android"
 
-    | Type   | Platform | Command            | Link                                                                                         |
-    |--------|----------|--------------------|----------------------------------------------------------------------------------------------|
-    | Termux | Android  | `pkg add sing-box` | [![Termux package](https://repology.org/badge/version-for-repo/termux/sing-box.svg)][termux] |
+    | 类型     | 平台      | 命令                 | 链接                                                                                           |
+    |--------|---------|--------------------|----------------------------------------------------------------------------------------------|
+    | Termux | Android | `pkg add sing-box` | [![Termux package](https://repology.org/badge/version-for-repo/termux/sing-box.svg)][termux] |
 
 === ":material-freebsd: FreeBSD"
 
-    | Type       | Platform | Command                | Link                                                                                       |
-    |------------|----------|------------------------|--------------------------------------------------------------------------------------------|
-    | FreshPorts | FreeBSD  | `pkg install sing-box` | [![FreeBSD port](https://repology.org/badge/version-for-repo/freebsd/sing-box.svg)][ports] |
+    | 类型         | 平台      | 命令                     | 链接                                                                                         |
+    |------------|---------|------------------------|--------------------------------------------------------------------------------------------|
+    | FreshPorts | FreeBSD | `pkg install sing-box` | [![FreeBSD port](https://repology.org/badge/version-for-repo/freebsd/sing-box.svg)][ports] |
 
-## :material-alert: Problematic Sources
+## :material-alert: 存在问题的源
 
-| Type       | Platform | Link                                                                                      | Promblem(s)                             |
-|------------|----------|-------------------------------------------------------------------------------------------|-----------------------------------------|
-| DEB        | AOSC     | [aosc-os-abbs](https://github.com/AOSC-Dev/aosc-os-abbs/tree/stable/app-network/sing-box) | Problematic build tag list modification |
-| Homebrew   | /        | [homebrew-core][brew]                                                                     | Problematic build tag list modification |
-| Termux     | Android  | [termux-packages][termux]                                                                 | Problematic build tag list modification |
-| FreshPorts | FreeBSD  | [FreeBSD ports][ports]                                                                    | Old Go  (go1.20)                        |
+| 类型         | 平台      | 链接                                                                                        | 原因              |
+|------------|---------|-------------------------------------------------------------------------------------------|-----------------|
+| DEB        | AOSC    | [aosc-os-abbs](https://github.com/AOSC-Dev/aosc-os-abbs/tree/stable/app-network/sing-box) | 存在问题的构建标志列表修改   |
+| Homebrew   | /       | [homebrew-core][brew]                                                                     | 存在问题的构建标志列表修改   |
+| Termux     | Android | [termux-packages][termux]                                                                 | 存在问题的构建标志列表修改   |
+| FreshPorts | FreeBSD | [FreeBSD ports][ports]                                                                    | 太旧的 Go (go1.20) |
 
-If you are a user of them, please report issues to them:
+如果您是其用户，请向他们报告问题：
 
-1. Please do not modify release build tags without full understanding of the related functionality: enabling non-default
-   labels may result in decreased performance; the lack of default labels may cause user confusion.
-2. sing-box supports compiling with some older Go versions, but it is not recommended (especially versions that are no
-   longer supported by Go).
+1. 在未完全了解相关功能的情况下，请勿修改发布版本标签：启用非默认标签可能会导致性能下降；缺少默认标签可能会引起用户混淆。
+2. sing-box 支持使用一些较旧的 Go 版本进行编译，但不推荐使用（特别是已不再受 Go 支持的版本）。
 
-## :material-book-multiple: Service Management
+## :material-book-multiple: 服务管理
 
-For Linux systems with [systemd][systemd], usually the installation already includes a sing-box service,
-you can manage the service using the following command:
+对于带有 [systemd][systemd] 的 Linux 系统，通常安装已经包含 sing-box 服务，
+您可以使用以下命令管理服务：
 
-| Operation | Command                                       |
-|-----------|-----------------------------------------------|
-| Enable    | `sudo systemctl enable sing-box`              |
-| Disable   | `sudo systemctl disable sing-box`             |
-| Start     | `sudo systemctl start sing-box`               |
-| Stop      | `sudo systemctl stop sing-box`                |
-| Kill      | `sudo systemctl kill sing-box`                |
-| Restart   | `sudo systemctl restart sing-box`             |
-| Logs      | `sudo journalctl -u sing-box --output cat -e` |
-| New Logs  | `sudo journalctl -u sing-box --output cat -f` |
+| 行动   | 命令                                            |
+|------|-----------------------------------------------|
+| 启用   | `sudo systemctl enable sing-box`              |
+| 禁用   | `sudo systemctl disable sing-box`             |
+| 启动   | `sudo systemctl start sing-box`               |
+| 停止   | `sudo systemctl stop sing-box`                |
+| 强行停止 | `sudo systemctl kill sing-box`                |
+| 重新启动 | `sudo systemctl restart sing-box`             |
+| 查看日志 | `sudo journalctl -u sing-box --output cat -e` |
+| 实时日志 | `sudo journalctl -u sing-box --output cat -f` |
 
 [alpine]: https://pkgs.alpinelinux.org/packages?name=sing-box
 
@@ -137,10 +134,6 @@ you can manage the service using the following command:
 [nixpkgs]: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/tools/networking/sing-box/default.nix
 
 [brew]: https://formulae.brew.sh/formula/sing-box
-
-[openwrt]: https://github.com/openwrt/packages/tree/master/net/sing-box
-
-[immortalwrt]: https://github.com/immortalwrt/packages/tree/master/net/sing-box
 
 [choco]: https://chocolatey.org/packages/sing-box
 

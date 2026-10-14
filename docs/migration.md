@@ -4,15 +4,14 @@ icon: material/arrange-bring-forward
 
 ## 1.15.0
 
-### Migrate TUN stack
+### 迁移 TUN stack
 
-Since 1.15.0, sing-tun uses its own TCP/IP stack, with substantial improvements over all previous
-implementations in peak performance, energy efficiency, and memory usage.
-Remove the `stack` option to use it.
+自 1.15.0 起，sing-tun 使用自有 TCP/IP stack，极限性能、能效以及内存占用均大幅领先于所有旧实现。
+移除 `stack` 参数以使用。
 
-The `stack` option is deprecated in sing-box 1.15.0 and will be removed in sing-box 1.17.0.
+`stack` 参数自 sing-box 1.15.0 起废弃，并将在 sing-box 1.17.0 中被移除。
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 已废弃"
 
     ```json
     {
@@ -26,7 +25,7 @@ The `stack` option is deprecated in sing-box 1.15.0 and will be removed in sing-
     }
     ```
 
-=== ":material-card-multiple: Migrated"
+=== ":material-card-multiple: 已迁移"
 
     ```json
     {
@@ -41,12 +40,12 @@ The `stack` option is deprecated in sing-box 1.15.0 and will be removed in sing-
 
 ## 1.14.0
 
-### Migrate the macOS standalone client data
+### 迁移 macOS standalone 客户端数据
 
-Apple platform clients migrated to a new Apple developer account, so the macOS standalone client
-is a new application, and profiles and settings are not inherited.
+Apple 平台客户端已迁移至新的 Apple 开发者账户，因此 macOS standalone 客户端是一个新应用，
+配置文件与设置不会被继承。
 
-Before starting sing-box 1.14.0-rc.2 or later, they can be migrated using the following commands:
+在启动 sing-box 1.14.0-rc.2 或更高版本之前，可使用以下命令迁移：
 
 ```bash
 mv ~/Library/Group\ Containers/287TTNZF8L.io.nekohasekai.sfavt \
@@ -55,8 +54,7 @@ xattr -c ~/Library/Group\ Containers/P8XK3KHB48.io.nekohasekai.sfamt
 rm ~/Library/Group\ Containers/P8XK3KHB48.io.nekohasekai.sfamt/.com.apple.containermanagerd.metadata.plist
 ```
 
-If you have already migrated using an earlier version of this command and a permission prompt
-appears at startup, run the following commands and restart the application:
+如果您已使用此命令的早期版本迁移，且启动时出现权限弹窗，请执行以下命令并重新启动应用：
 
 ```bash
 xattr -c ~/Library/Group\ Containers/P8XK3KHB48.io.nekohasekai.sfamt
@@ -64,19 +62,19 @@ rm ~/Library/Group\ Containers/P8XK3KHB48.io.nekohasekai.sfamt/.com.apple.contai
 tccutil reset All io.nekohasekai.sfamt.standalone
 ```
 
-### Migrate inline ACME to certificate provider
+### 迁移内联 ACME 到证书提供者
 
-Inline ACME options in TLS are deprecated and can be replaced by certificate providers.
+TLS 中的内联 ACME 选项已废弃，且可以被证书提供者替代。
 
-Most `tls.acme` fields can be moved into the ACME certificate provider unchanged.
-See [ACME](/configuration/shared/certificate-provider/acme/) for fields newly added in sing-box 1.14.0.
+`tls.acme` 的大多数字段都可以原样迁移到 ACME 证书提供者中。
+sing-box 1.14.0 新增字段参阅 [ACME](/configuration/shared/certificate-provider/acme/) 页面。
 
-!!! info "References"
+!!! info "参考"
 
     [TLS](/configuration/shared/tls/#certificate_provider) /
-    [Certificate Provider](/configuration/shared/certificate-provider/)
+    [证书提供者](/configuration/shared/certificate-provider/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -95,7 +93,7 @@ See [ACME](/configuration/shared/certificate-provider/acme/) for fields newly ad
     }
     ```
 
-=== ":material-card-multiple: Inline"
+=== ":material-card-multiple: 内联"
 
     ```json
     {
@@ -115,7 +113,7 @@ See [ACME](/configuration/shared/certificate-provider/acme/) for fields newly ad
     }
     ```
 
-=== ":material-card-multiple: Shared"
+=== ":material-card-multiple: 共享"
 
     ```json
     {
@@ -139,23 +137,23 @@ See [ACME](/configuration/shared/certificate-provider/acme/) for fields newly ad
     }
     ```
 
-### Migrate address filter fields to response matching
+### 迁移地址筛选字段到响应匹配
 
-Legacy Address Filter Fields (`ip_cidr`, `ip_is_private` without `match_response`) in DNS rules are deprecated,
-along with the Legacy `rule_set_ip_cidr_accept_empty` DNS rule item. A DNS rule that references a rule-set
-containing only `ip_cidr` items (for example, a GeoIP rule-set) without `match_response` is also rejected
-at startup when DNS rules use features added in sing-box 1.14.0, such as `evaluate`, `match_response`
-or `ip_version`.
+旧版地址筛选字段（不使用 `match_response` 的 `ip_cidr`、`ip_is_private`）已废弃，
+旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项也已废弃。当 DNS 规则使用了 sing-box 1.14.0
+新增的功能（例如 `evaluate`、`match_response` 或 `ip_version`）时，
+引用仅包含 `ip_cidr` 项的规则集（例如 GeoIP 规则集）且未设置 `match_response` 的 DNS 规则
+也将在启动时被拒绝。
 
-In sing-box 1.14.0, use the [`evaluate`](/configuration/dns/rule_action/#evaluate) action
-to fetch a DNS response, then match against it explicitly with `match_response`.
+在 sing-box 1.14.0 中，请使用 [`evaluate`](/configuration/dns/rule_action/#evaluate) 动作
+获取 DNS 响应，然后通过 `match_response` 显式匹配。
 
-!!! info "References"
+!!! info "参考"
 
-    [DNS Rule](/configuration/dns/rule/) /
-    [DNS Rule Action](/configuration/dns/rule_action/#evaluate)
+    [DNS 规则](/configuration/dns/rule/) /
+    [DNS 规则动作](/configuration/dns/rule_action/#evaluate)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -175,7 +173,7 @@ to fetch a DNS response, then match against it explicitly with `match_response`.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -200,15 +198,15 @@ to fetch a DNS response, then match against it explicitly with `match_response`.
     }
     ```
 
-### Migrate independent DNS cache
+### 迁移 independent DNS cache
 
-`independent_cache` is deprecated, remove the field.
+`independent_cache` 已废弃，直接移除该字段即可。
 
-!!! info "References"
+!!! info "参考"
 
     [DNS](/configuration/dns/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -218,7 +216,7 @@ to fetch a DNS response, then match against it explicitly with `match_response`.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -226,16 +224,16 @@ to fetch a DNS response, then match against it explicitly with `match_response`.
     }
     ```
 
-### Migrate store_rdrc
+### 迁移 store_rdrc
 
-`store_rdrc` is deprecated and can be replaced by `store_dns`,
-which persists the full DNS cache to the cache file.
+`store_rdrc` 已废弃，且可以被 `store_dns` 替代，
+后者将完整的 DNS 缓存持久化到缓存文件中。
 
-!!! info "References"
+!!! info "参考"
 
-    [Cache File](/configuration/experimental/cache-file/)
+    [缓存文件](/configuration/experimental/cache-file/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -248,7 +246,7 @@ which persists the full DNS cache to the cache file.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -261,50 +259,46 @@ which persists the full DNS cache to the cache file.
     }
     ```
 
-### ip_version and query_type behavior changes in DNS rules
+### DNS 规则中的 ip_version 和 query_type 行为更改
 
-In sing-box 1.14.0, the behavior of
-[`ip_version`](/configuration/dns/rule/#ip_version) and
-[`query_type`](/configuration/dns/rule/#query_type) in DNS rules, together with
-[`query_type`](/configuration/rule-set/headless-rule/#query_type) in referenced
-rule-sets, changes in two ways.
+在 sing-box 1.14.0 中，DNS 规则中的
+[`ip_version`](/configuration/dns/rule/#ip_version) 和
+[`query_type`](/configuration/dns/rule/#query_type)，以及被引用规则集中的
+[`query_type`](/configuration/rule-set/headless-rule/#query_type)，
+行为有两项更改。
 
-First, these fields now also take effect when a DNS rule is matched from an
-internal domain resolution that does not target a specific DNS server, such as
-the [`resolve`](/configuration/route/rule_action/#resolve) route rule action
-without a `server` set.
+其一，当 DNS 规则被未指定具体 DNS 服务器的内部域名解析匹配时，这些字段现在也会生效，
+例如未设置 `server` 的 [`resolve`](/configuration/route/rule_action/#resolve) 路由规则动作。
 
-Second, setting `ip_version` or `query_type` in a DNS rule, or referencing a
-rule-set containing `query_type`, is no longer compatible in the same DNS
-configuration with Legacy Address Filter Fields in DNS rules, the Legacy
-`strategy` DNS rule action option, or the Legacy `rule_set_ip_cidr_accept_empty`
-DNS rule item. Such a configuration will be rejected at startup. To combine
-these fields with address-based filtering, migrate to response matching via
-the [`evaluate`](/configuration/dns/rule_action/#evaluate) action and
-[`match_response`](/configuration/dns/rule/#match_response), see
-[Migrate address filter fields to response matching](#migrate-address-filter-fields-to-response-matching).
+其二，设置了 `ip_version` 或 `query_type` 的 DNS 规则，或引用了包含 `query_type` 的
+规则集的 DNS 规则，在同一 DNS 配置中不再能与旧版地址筛选字段 (DNS 规则)、旧版
+DNS 规则动作 `strategy` 选项，或旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项共存。
+此类配置将在启动时被拒绝。如需将这些字段与基于地址的筛选组合，请通过
+[`evaluate`](/configuration/dns/rule_action/#evaluate) 动作和
+[`match_response`](/configuration/dns/rule/#match_response) 迁移到响应匹配，
+参阅 [迁移地址筛选字段到响应匹配](#迁移地址筛选字段到响应匹配)。
 
-!!! info "References"
+!!! info "参考"
 
-    [DNS Rule](/configuration/dns/rule/) /
-    [Headless Rule](/configuration/rule-set/headless-rule/) /
-    [Route Rule Action](/configuration/route/rule_action/#resolve)
+    [DNS 规则](/configuration/dns/rule/) /
+    [Headless 规则](/configuration/rule-set/headless-rule/) /
+    [路由规则动作](/configuration/route/rule_action/#resolve)
 
 ## 1.12.0
 
-### Migrate to new DNS server formats
+### 迁移到新的 DNS 服务器格式
 
-DNS servers are refactored for better performance and scalability.
+DNS 服务器已经重构。
 
-!!! info "References"
+!!! info "引用"
 
-    [DNS Server](/configuration/dns/server/) /
-    [Legacy DNS Server](/configuration/dns/server/legacy/)
+    [DNS 服务器](/configuration/dns/server/) /
+    [旧 DNS 服务器](/configuration/dns/server/legacy/)
 
 === "Local"
 
-    === ":material-card-remove: Deprecated"
-        
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -316,9 +310,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -333,8 +327,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "TCP"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -346,9 +340,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -364,8 +358,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "UDP"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -377,9 +371,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -395,8 +389,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "TLS"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -408,9 +402,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -426,8 +420,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "HTTPS"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -439,9 +433,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -457,8 +451,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "QUIC"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -470,9 +464,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -488,8 +482,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "HTTP3"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -501,9 +495,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -519,8 +513,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "DHCP"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -535,9 +529,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -556,8 +550,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "FakeIP"
 
-    === ":material-card-remove: Deprecated"
-        
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -587,9 +581,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -620,8 +614,8 @@ DNS servers are refactored for better performance and scalability.
 
 === "RCode"
 
-    === ":material-card-remove: Deprecated"
-        
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -633,9 +627,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-        
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -644,7 +638,7 @@ DNS servers are refactored for better performance and scalability.
                 "domain": [
                   "example.com"
                 ],
-                // other rules
+                // 其它规则
                 
                 "action": "predefined",
                 "rcode": "REFUSED"
@@ -654,10 +648,10 @@ DNS servers are refactored for better performance and scalability.
         }
         ```
 
-=== "Servers with domain address"
+=== "带有域名地址的服务器"
 
-    === ":material-card-remove: Deprecated"
-        
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -674,9 +668,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -696,10 +690,10 @@ DNS servers are refactored for better performance and scalability.
         }
         ```
 
-=== "Servers with strategy"
+=== "带有域策略的服务器"
 
-    === ":material-card-remove: Deprecated"
-            
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -723,9 +717,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -752,10 +746,10 @@ DNS servers are refactored for better performance and scalability.
         }
         ```
 
-=== "Servers with client subnet"
+=== "带有客户端子网的服务器"
 
-    === ":material-card-remove: Deprecated"
-        
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "dns": {
@@ -772,9 +766,9 @@ DNS servers are refactored for better performance and scalability.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "dns": {
@@ -800,17 +794,17 @@ DNS servers are refactored for better performance and scalability.
         }
         ```
 
-### Migrate outbound DNS rule items to domain resolver
+### 迁移 outbound DNS 规则项到域解析选项
 
-The legacy outbound DNS rules are deprecated and can be replaced by new domain resolver options.
+旧的 `outbound` DNS 规则已废弃，且可新的域解析选项代替。
 
-!!! info "References"
+!!! info "参考"
 
-    [DNS rule](/configuration/dns/rule/#outbound) /
-    [Dial Fields](/configuration/shared/dial/#domain_resolver) /
-    [Route](/configuration/route/#domain_resolver)
+    [DNS 规则](/configuration/dns/rule/#outbound) /
+    [拨号字段](/configuration/shared/dial/#domain_resolver) /
+    [路由](/configuration/route/#default_domain_resolver)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 废弃的"
 
     ```json
     {
@@ -838,7 +832,7 @@ The legacy outbound DNS rules are deprecated and can be replaced by new domain r
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -860,12 +854,12 @@ The legacy outbound DNS rules are deprecated and can be replaced by new domain r
             "rewrite_ttl": 60,
             "client_subnet": "1.1.1.1"
           },
-          // or "domain_resolver": "local",
+          // 或 "domain_resolver": "local",
         }
       ],
-      
-      // or
-    
+
+      // 或
+
       "route": {
         "default_domain_resolver": {
           "server": "local",
@@ -876,18 +870,17 @@ The legacy outbound DNS rules are deprecated and can be replaced by new domain r
     }
     ```
 
-### Migrate outbound domain strategy option to domain resolver
+### 迁移出站域名策略选项到域名解析器
 
-!!! info "References"
+拨号字段中的 `domain_strategy` 选项已被弃用，可以用新的域名解析器选项替代。
 
-    [Dial Fields](/configuration/shared/dial/#domain_strategy)
+请注意，由于 sing-box 1.12 中引入的一些新 DNS 服务器使用了拨号字段，一些人错误地认为 `domain_strategy` 与旧 DNS 服务器中的功能相同。
 
-The `domain_strategy` option in Dial Fields has been deprecated and can be replaced with the new domain resolver option.
+!!! info "参考"
 
-Note that due to the use of Dial Fields by some of the new DNS servers introduced in sing-box 1.12,
-some people mistakenly believe that `domain_strategy` is the same feature as in the legacy DNS servers.
+    [拨号字段](/configuration/shared/dial/#domain_strategy)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -902,7 +895,7 @@ some people mistakenly believe that `domain_strategy` is the same feature as in 
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
      {
@@ -930,20 +923,20 @@ some people mistakenly believe that `domain_strategy` is the same feature as in 
 
 ## 1.11.0
 
-### Migrate legacy special outbounds to rule actions
+### 迁移旧的特殊出站到规则动作
 
-Legacy special outbounds are deprecated and can be replaced by rule actions.
+旧的特殊出站已被弃用，且可以被规则动作替代。
 
-!!! info "References"
+!!! info "参考"
 
-    [Rule Action](/configuration/route/rule_action/) / 
+    [规则动作](/configuration/route/rule_action/) /
     [Block](/configuration/outbound/block/) / 
     [DNS](/configuration/outbound/dns)
 
 === "Block"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "outbounds": [
@@ -956,7 +949,7 @@ Legacy special outbounds are deprecated and can be replaced by rule actions.
             "rules": [
               {
                 ...,
-                
+
                 "outbound": "block"
               }
             ]
@@ -964,15 +957,15 @@ Legacy special outbounds are deprecated and can be replaced by rule actions.
         }
         ```
 
-    === ":material-card-multiple: New"
-    
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "route": {
             "rules": [
               {
                 ...,
-                
+
                 "action": "reject"
               }
             ]
@@ -982,14 +975,14 @@ Legacy special outbounds are deprecated and can be replaced by rule actions.
 
 === "DNS"
 
-    === ":material-card-remove: Deprecated"
-    
+    === ":material-card-remove: 弃用的"
+
         ```json
         {
           "inbound": [
             {
               ...,
-              
+
               "sniff": true
             }
           ],
@@ -1009,9 +1002,9 @@ Legacy special outbounds are deprecated and can be replaced by rule actions.
           }
         }
         ```
-    
-    === ":material-card-multiple: New"
-    
+
+    === ":material-card-multiple: 新的"
+
         ```json
         {
           "route": {
@@ -1028,19 +1021,19 @@ Legacy special outbounds are deprecated and can be replaced by rule actions.
         }
         ```
 
-### Migrate legacy inbound fields to rule actions
+### 迁移旧的入站字段到规则动作
 
-Inbound fields are deprecated and can be replaced by rule actions.
+入站选项已被弃用，且可以被规则动作替代。
 
-!!! info "References"
+!!! info "参考"
 
-    [Listen Fields](/configuration/shared/listen/) /
-    [Rule](/configuration/route/rule/) / 
-    [Rule Action](/configuration/route/rule_action/) / 
-    [DNS Rule](/configuration/dns/rule/) / 
-    [DNS Rule Action](/configuration/dns/rule_action/)
+    [监听字段](/configuration/shared/listen/) /
+    [规则](/configuration/route/rule/) /
+    [规则动作](/configuration/route/rule_action/) /
+    [DNS 规则](/configuration/dns/rule/) /
+    [DNS 规则动作](/configuration/dns/rule_action/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -1055,7 +1048,7 @@ Inbound fields are deprecated and can be replaced by rule actions.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -1082,16 +1075,16 @@ Inbound fields are deprecated and can be replaced by rule actions.
     }
     ```
 
-### Migrate destination override fields to route options
+### 迁移 direct 出站中的目标地址覆盖字段到路由字段
 
-Destination override fields in direct outbound are deprecated and can be replaced by route options.
+direct 出站中的目标地址覆盖字段已废弃，且可以被路由字段替代。
 
-!!! info "References"
+!!! info "参考"
 
     [Rule Action](/configuration/route/rule_action/) /
     [Direct](/configuration/outbound/direct/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -1105,32 +1098,33 @@ Destination override fields in direct outbound are deprecated and can be replace
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
       "route": {
         "rules": [
           {
-            "action": "route-options", // or route
+            "action": "route-options", // 或 route
             "override_address": "1.1.1.1",
             "override_port": 443
           }
         ]
       }
+    }
     ```
 
-### Migrate WireGuard outbound to endpoint
+### 迁移 WireGuard 出站到端点
 
-WireGuard outbound is deprecated and can be replaced by endpoint.
+WireGuard 出站已被弃用，且可以被端点替代。
 
-!!! info "References"
+!!! info "参考"
 
-    [Endpoint](/configuration/endpoint/) /
-    [WireGuard Endpoint](/configuration/endpoint/wireguard/) /
-    [WireGuard Outbound](/configuration/outbound/wireguard/)
+    [端点](/configuration/endpoint/) /
+    [WireGuard 端点](/configuration/endpoint/wireguard/) / 
+    [WireGuard 出站](/configuration/outbound/wireguard/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -1157,7 +1151,7 @@ WireGuard outbound is deprecated and can be replaced by endpoint.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -1193,17 +1187,17 @@ WireGuard outbound is deprecated and can be replaced by endpoint.
 
 ## 1.10.0
 
-### TUN address fields are merged
+### TUN 地址字段已合并
 
-`inet4_address` and `inet6_address` are merged into `address`,
-`inet4_route_address` and `inet6_route_address` are merged into `route_address`,
-`inet4_route_exclude_address` and `inet6_route_exclude_address` are merged into `route_exclude_address`.
+`inet4_address` 和 `inet6_address` 已合并为 `address`，
+`inet4_route_address` 和 `inet6_route_address` 已合并为 `route_address`，
+`inet4_route_exclude_address` 和 `inet6_route_exclude_address` 已合并为 `route_exclude_address`。
 
-!!! info "References"
+!!! info "参考"
 
     [TUN](/configuration/inbound/tun/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -1231,7 +1225,7 @@ WireGuard outbound is deprecated and can be replaced by endpoint.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -1259,15 +1253,14 @@ WireGuard outbound is deprecated and can be replaced by endpoint.
 
 ## 1.9.5
 
-### Bundle Identifier updates in Apple platform clients
+### Apple 平台客户端的 Bundle Identifier 更新
 
-Due to problems with our old Apple developer account,
-we can only change Bundle Identifiers to re-list sing-box apps,
-which means the data will not be automatically inherited.
+由于我们旧的苹果开发者账户存在问题，我们只能通过更新 Bundle Identifiers
+来重新上架 sing-box 应用， 这意味着数据不会自动继承。
 
-For iOS, you need to back up your old data yourself (if you still have access to it);  
-for tvOS, you need to re-import profiles from your iPhone or iPad or create it manually;  
-for macOS, you can migrate the data folder using the following command:
+对于 iOS，您需要自行备份旧的数据（如果您仍然可以访问）；  
+对于 Apple tvOS，您需要从 iPhone 或 iPad 重新导入配置或者手动创建；  
+对于 macOS，您可以使用以下命令迁移数据文件夹：
 
 ```bash
 cd ~/Library/Group\ Containers && \ 
@@ -1276,38 +1269,37 @@ cd ~/Library/Group\ Containers && \
 
 ## 1.9.0
 
-### `domain_suffix` behavior update
+### `domain_suffix` 行为更新
 
-For historical reasons, sing-box's `domain_suffix` rule matches literal prefixes instead of the same as other projects.
+由于历史原因，sing-box 的 `domain_suffix` 规则匹配字面前缀，而不与其他项目相同。
 
-sing-box 1.9.0 modifies the behavior of `domain_suffix`: If the rule value is prefixed with `.`,
-the behavior is unchanged, otherwise it matches `(domain|.+\.domain)` instead.
+sing-box 1.9.0 修改了 `domain_suffix` 的行为：如果规则值以 `.` 为前缀则行为不变，否则改为匹配 `(domain|.+\.domain)`。
 
-### `process_path` format update on Windows
+### 对 Windows 上 `process_path` 格式的更新
 
-The `process_path` rule of sing-box is inherited from Clash,
-the original code uses the local system's path format (e.g. `\Device\HarddiskVolume1\folder\program.exe`),
-but when the device has multiple disks, the HarddiskVolume serial number is not stable.
+sing-box 的 `process_path` 规则继承自Clash，
+原始代码使用本地系统的路径格式（例如 `\Device\HarddiskVolume1\folder\program.exe`），
+但是当设备有多个硬盘时，该 HarddiskVolume 系列号并不稳定。
 
-sing-box 1.9.0 make QueryFullProcessImageNameW output a Win32 path (such as `C:\folder\program.exe`),
-which will disrupt the existing `process_path` use cases in Windows.
+sing-box 1.9.0 使 QueryFullProcessImageNameW 输出 Win32 路径（如 `C:\folder\program.exe`），
+这将会破坏现有的 Windows `process_path` 用例。
 
 ## 1.8.0
 
-### :material-close-box: Migrate cache file from Clash API to independent options
+### :material-close-box: 将缓存文件从 Clash API 迁移到独立选项
 
-!!! info "References"
+!!! info "参考"
 
     [Clash API](/configuration/experimental/clash-api/) / 
     [Cache File](/configuration/experimental/cache-file/)
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
       "experimental": {
         "clash_api": {
-          "cache_file": "cache.db", // default value
+          "cache_file": "cache.db", // 默认值
           "cahce_id": "my_profile2",
           "store_mode": true,
           "store_selected": true,
@@ -1317,14 +1309,14 @@ which will disrupt the existing `process_path` use cases in Windows.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
       "experimental"  : {
         "cache_file": {
           "enabled": true,
-          "path": "cache.db", // default value
+          "path": "cache.db", // 默认值
           "cache_id": "my_profile2",
           "store_fakeip": true
         }
@@ -1332,21 +1324,21 @@ which will disrupt the existing `process_path` use cases in Windows.
     }
     ```
 
-### :material-checkbox-intermediate: Migrate GeoIP to rule-sets
+### :material-checkbox-intermediate: 迁移 GeoIP 到规则集
 
-!!! info "References"
+!!! info "参考"
 
     [GeoIP](/configuration/route/geoip/) / 
-    [Route](/configuration/route/) / 
-    [Route Rule](/configuration/route/rule/) / 
-    [DNS Rule](/configuration/dns/rule/) / 
-    [rule-set](/configuration/rule-set/)
+    [路由](/configuration/route/) / 
+    [路由规则](/configuration/route/rule/) / 
+    [DNS 规则](/configuration/dns/rule/) / 
+    [规则集](/configuration/rule-set/)
 
 !!! tip
 
-    `sing-box geoip` commands can help you convert custom GeoIP into rule-sets.
+    `sing-box geoip` 命令可以帮助您将自定义 GeoIP 转换为规则集。
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -1372,7 +1364,7 @@ which will disrupt the existing `process_path` use cases in Windows.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {
@@ -1417,21 +1409,21 @@ which will disrupt the existing `process_path` use cases in Windows.
     }
     ```
 
-### :material-checkbox-intermediate: Migrate Geosite to rule-sets
+### :material-checkbox-intermediate: 迁移 Geosite 到规则集
 
-!!! info "References"
+!!! info "参考"
 
     [Geosite](/configuration/route/geosite/) / 
-    [Route](/configuration/route/) / 
-    [Route Rule](/configuration/route/rule/) / 
-    [DNS Rule](/configuration/dns/rule/) / 
-    [rule-set](/configuration/rule-set/)
+    [路由](/configuration/route/) / 
+    [路由规则](/configuration/route/rule/) / 
+    [DNS 规则](/configuration/dns/rule/) / 
+    [规则集](/configuration/rule-set/)
 
 !!! tip
 
-    `sing-box geosite` commands can help you convert custom Geosite into rule-sets.
+    `sing-box geosite` 命令可以帮助您将自定义 Geosite 转换为规则集。
 
-=== ":material-card-remove: Deprecated"
+=== ":material-card-remove: 弃用的"
 
     ```json
     {
@@ -1449,7 +1441,7 @@ which will disrupt the existing `process_path` use cases in Windows.
     }
     ```
 
-=== ":material-card-multiple: New"
+=== ":material-card-multiple: 新的"
 
     ```json
     {

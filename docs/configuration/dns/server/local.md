@@ -2,19 +2,19 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [neighbor_domain](#neighbor_domain)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [prefer_go](#prefer_go)
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # Local
 
-### Structure
+### 结构
 
 ```json
 {
@@ -24,56 +24,54 @@ icon: material/new-box
         "type": "local",
         "tag": "",
         "prefer_go": false,
-        "neighbor_domain": []
+        "neighbor_domain": [],
 
-        // Dial Fields
+        // 拨号字段
       }
     ]
   }
 }
 ```
 
-!!! info "Difference from legacy local server"
+!!! info "与旧版本地服务器的区别"
 
-    * The old legacy local server only handles IP requests; the new one handles all types of requests and supports concurrent for IP requests.
-    * The old local server uses default outbound by default unless detour is specified; the new one uses dialer just like outbound, which is equivalent to using an empty direct outbound by default.
+    * 旧的传统本地服务器只处理 IP 请求；新的服务器处理所有类型的请求，并支持 IP 请求的并发处理。
+    * 旧的本地服务器默认使用默认出站，除非指定了绕行；新服务器像出站一样使用拨号器，相当于默认使用空的直连出站。
 
-### Fields
+### 字段
 
 #### prefer_go
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-When enabled, `local` DNS server will resolve DNS by dialing itself whenever possible.
+启用后，`local` DNS 服务器将尽可能通过拨号自身来解析 DNS。
 
-Specifically, it disables following behaviors which was added as features in sing-box 1.13.0:
+具体来说，它禁用了在 sing-box 1.13.0 中作为功能添加的以下行为：
 
-1. On Apple platforms: Attempt to resolve A/AAAA requests using `getaddrinfo` in NetworkExtension.
-2. On Linux: Resolve through `systemd-resolvd`'s DBus interface when available.
+1. 在 Apple 平台上：尝试在 NetworkExtension 中使用 `getaddrinfo` 解析 A/AAAA 请求。
+2. 在 Linux 上：当可用时通过 `systemd-resolvd` 的 DBus 接口进行解析。
 
-As a sole exception, it cannot disable the following behavior:
+作为唯一的例外，它无法禁用以下行为：
 
-1. In the Android graphical client,
-`local` will always resolve DNS through the platform interface,
-as there is no other way to obtain upstream DNS servers;
-On devices running Android versions lower than 10, this interface can only resolve A/AAAA requests.
+1. 在 Android 图形客户端中，
+`local` 将始终通过平台接口解析 DNS，
+因为没有其他方法来获取上游 DNS 服务器；
+在运行 Android 10 以下版本的设备上，此接口只能解析 A/AAAA 请求。
 
-2. On macOS, `local` will try DHCP first in Network Extension, since DHCP respects DIal Fields,
-it will not be disabled by `prefer_go`.
+2. 在 macOS 上，`local` 会在 Network Extension 中首先尝试 DHCP，由于 DHCP 遵循拨号字段，
+它不会被 `prefer_go` 禁用。
 
 #### neighbor_domain
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-A list of domain suffixes for which A/AAAA queries are answered from the
-[neighbor resolver](/configuration/shared/neighbor/) instead of the upstream.
+用于从[邻居解析器](/configuration/shared/neighbor/)而非上游回答 A/AAAA 查询的域后缀列表。
 
-Each entry must start with `.`. Only queries whose host part (the portion
-before the suffix) contains no dots are matched; `.` matches any
-single-label name such as `nas`.
+每一项必须以 `.` 开头。仅匹配后缀之前的主机名部分不包含点的查询；
+`.` 匹配任意单标签名称，例如 `nas`。
 
-Example: `[".", ".lan"]`.
+示例：`[".", ".lan"]`。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

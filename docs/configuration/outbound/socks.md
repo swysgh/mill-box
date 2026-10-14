@@ -1,6 +1,6 @@
-`socks` outbound is a socks4/socks4a/socks5 client.
+`socks` 出站是 socks4/socks4a/socks5 客户端
 
-### Structure
+### 结构
 
 ```json
 {
@@ -15,52 +15,52 @@
   "network": "udp",
   "udp_over_tcp": false | {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### version
 
-The SOCKS version, one of `4` `4a` `5`.
+SOCKS 版本, 可为 `4` `4a` `5`.
 
-SOCKS5 used by default.
+默认使用 SOCKS5。
 
 #### username
 
-SOCKS username.
+SOCKS 用户名。
 
 #### password
 
-SOCKS5 password.
+SOCKS5 密码。
 
 #### network
 
-Enabled network
+启用的网络协议
 
-One of `tcp` `udp`.
+`tcp` 或 `udp`。
 
-Both is enabled by default.
+默认所有。
 
 #### udp_over_tcp
 
-UDP over TCP protocol settings.
+UDP over TCP 配置。
 
-See [UDP Over TCP](/configuration/shared/udp-over-tcp/) for details.
+参阅 [UDP Over TCP](/configuration/shared/udp-over-tcp/)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

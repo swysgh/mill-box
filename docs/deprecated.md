@@ -2,199 +2,189 @@
 icon: material/delete-alert
 ---
 
-# Deprecated Feature List
+# 废弃功能列表
 
 ## 1.15.0
 
-#### TUN `stack` option
+#### TUN `stack` 参数
 
-The TUN `stack` option is deprecated and will be removed in sing-box 1.17.0.
+TUN 的 `stack` 参数已废弃，并将在 sing-box 1.17.0 中被移除。
 
-Since 1.15.0, sing-tun uses its own TCP/IP stack, with substantial improvements over all previous
-implementations in peak performance, energy efficiency, and memory usage.
-Remove the `stack` option to use it, see [Migration](/migration/#migrate-tun-stack).
+自 1.15.0 起，sing-tun 使用自有 TCP/IP stack，极限性能、能效以及内存占用均大幅领先于所有旧实现。
+移除 `stack` 参数以使用，参阅[迁移指南](/migration/#迁移-tun-stack)。
 
 ## 1.14.0
 
-#### Legacy `download_detour` remote rule-set option
+#### 旧版远程规则集 `download_detour` 选项
 
-Legacy `download_detour` remote rule-set option is deprecated,
-use `http_client` instead.
+旧版远程规则集 `download_detour` 选项已废弃，
+请使用 `http_client` 代替。
 
-Old field will be removed in sing-box 1.16.0.
+旧字段将在 sing-box 1.16.0 中被移除。
 
-#### Implicit default HTTP client
+#### 隐式默认 HTTP 客户端
 
-Implicit default HTTP client using the default outbound for remote rule-sets is deprecated.
-Configure `http_clients` and `route.default_http_client` explicitly.
+使用默认出站为远程规则集隐式创建默认 HTTP 客户端的行为已废弃。
+请显式配置 `http_clients` 和 `route.default_http_client`。
 
-Old behavior will be removed in sing-box 1.16.0.
+旧行为将在 sing-box 1.16.0 中被移除。
 
-#### Inline ACME options in TLS
+#### TLS 中的内联 ACME 选项
 
-Inline ACME options (`tls.acme`) are deprecated
-and can be replaced by the ACME certificate provider,
-check [Migration](../migration/#migrate-inline-acme-to-certificate-provider).
+TLS 中的内联 ACME 选项（`tls.acme`）已废弃，
+且可以通过 ACME 证书提供者替代，
+参阅 [迁移指南](/migration/#迁移内联-acme-到证书提供者)。
 
-Old fields will be removed in sing-box 1.16.0.
+旧字段将在 sing-box 1.16.0 中被移除。
 
-#### Legacy `strategy` DNS rule action option
+#### 旧版 DNS 规则动作 `strategy` 选项
 
-Legacy `strategy` DNS rule action option is deprecated.
+旧版 DNS 规则动作 `strategy` 选项已废弃。
 
-Old fields will be removed in sing-box 1.16.0.
+旧字段将在 sing-box 1.16.0 中被移除。
 
-#### Legacy `rule_set_ip_cidr_accept_empty` DNS rule item
+#### 旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项
 
-Legacy `rule_set_ip_cidr_accept_empty` DNS rule item is deprecated,
-check [Migration](../migration/#migrate-address-filter-fields-to-response-matching).
+旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项已废弃，
+参阅[迁移指南](/migration/#迁移地址筛选字段到响应匹配)。
 
-Old fields will be removed in sing-box 1.16.0.
+旧字段将在 sing-box 1.16.0 中被移除。
 
-#### `independent_cache` DNS option
+#### `independent_cache` DNS 选项
 
-`independent_cache` DNS option is deprecated,
-check [Migration](../migration/#migrate-independent-dns-cache).
+`independent_cache` DNS 选项已废弃，
+参阅[迁移指南](/migration/#迁移-independent-dns-cache)。
 
-Old fields will be removed in sing-box 1.16.0.
+旧字段将在 sing-box 1.16.0 中被移除。
 
-#### `store_rdrc` cache file option
+#### `store_rdrc` 缓存文件选项
 
-`store_rdrc` cache file option is deprecated,
-check [Migration](../migration/#migrate-store-rdrc).
+`store_rdrc` 缓存文件选项已废弃，
+参阅[迁移指南](/migration/#迁移-store_rdrc)。
 
-Old fields will be removed in sing-box 1.16.0.
+旧字段将在 sing-box 1.16.0 中被移除。
 
-#### Legacy Address Filter Fields in DNS rules
+#### 旧版地址筛选字段 (DNS 规则)
 
-Legacy Address Filter Fields (`ip_cidr`, `ip_is_private` without `match_response`)
-in DNS rules are deprecated,
-check [Migration](../migration/#migrate-address-filter-fields-to-response-matching).
+旧版地址筛选字段（不使用 `match_response` 的 `ip_cidr`、`ip_is_private`）已废弃，
+参阅[迁移指南](/migration/#迁移地址筛选字段到响应匹配)。
 
-Old behavior will be removed in sing-box 1.16.0.
+旧行为将在 sing-box 1.16.0 中被移除。
 
 ## 1.12.0
 
-#### Legacy DNS server formats
+#### 旧的 DNS 服务器格式
 
-DNS servers are refactored,
-check [Migration](../migration/#migrate-to-new-dns-server-formats).
+DNS 服务器已重构，
+参阅 [迁移指南](/migration/#迁移到新的-dns-服务器格式).
 
-Old formats were removed in sing-box 1.14.0.
+旧格式已在 sing-box 1.14.0 中被移除。
 
-#### `outbound` DNS rule item
+#### `outbound` DNS 规则项
 
-Legacy `outbound` DNS rules are deprecated
-and can be replaced by dial fields,
-check [Migration](../migration/#migrate-outbound-dns-rule-items-to-domain-resolver).
+旧的 `outbound` DNS 规则已废弃，
+且可被拨号字段代替，
+参阅 [迁移指南](/migration/#迁移-outbound-dns-规则项到域解析选项).
 
-#### Legacy ECH fields
+#### 旧的 ECH 字段
 
-ECH support has been migrated to use stdlib in sing-box 1.12.0,
-which does not come with support for PQ signature schemes,
-so `pq_signature_schemes_enabled` has been deprecated and no longer works.
+ECH 支持已在 sing-box 1.12.0 迁移至使用标准库，但标准库不支持后量子对等证书签名方案，
+因此 `pq_signature_schemes_enabled` 已被弃用且不再工作。
 
-Also, `dynamic_record_sizing_disabled` has nothing to do with ECH,
-was added by mistake, has been deprecated and no longer works.
+另外，`dynamic_record_sizing_disabled` 与 ECH 无关，是错误添加的，现已弃用且不再工作。
 
-These fields were removed in sing-box 1.13.0.
+相关字段已在 sing-box 1.13.0 中被移除。
 
 ## 1.11.0
 
-#### Legacy special outbounds
+#### 旧的特殊出站
 
-Legacy special outbounds (`block` / `dns`) are deprecated
-and can be replaced by rule actions,
-check [Migration](../migration/#migrate-legacy-special-outbounds-to-rule-actions).
+旧的特殊出站（`block` / `dns`）已废弃且可以通过规则动作替代，
+参阅 [迁移指南](/migration/#迁移旧的特殊出站到规则动作)。
 
-Old fields were removed in sing-box 1.13.0.
+旧字段已在 sing-box 1.13.0 中被移除。
 
-#### Legacy inbound fields
+#### 旧的入站字段
 
-Legacy inbound fields （`inbound.<sniff/domain_strategy/...>` are deprecated
-and can be replaced by rule actions,
-check [Migration](../migration/#migrate-legacy-inbound-fields-to-rule-actions).
+旧的入站字段（`inbound.<sniff/domain_strategy/...>`）已废弃且可以通过规则动作替代，
+参阅 [迁移指南](/migration/#迁移旧的入站字段到规则动作)。
 
-Old fields were removed in sing-box 1.13.0.
+旧字段已在 sing-box 1.13.0 中被移除。
 
-#### Destination override fields in direct outbound
+#### direct 出站中的目标地址覆盖字段
 
-Destination override fields (`override_address` / `override_port`) in direct outbound are deprecated
-and can be replaced by rule actions,
-check [Migration](../migration/#migrate-destination-override-fields-to-route-options).
+direct 出站中的目标地址覆盖字段（`override_address` / `override_port`）已废弃且可以通过规则动作替代，
+参阅 [迁移指南](/migration/#迁移-direct-出站中的目标地址覆盖字段到路由字段)。
 
-Old fields were removed in sing-box 1.13.0.
+旧字段已在 sing-box 1.13.0 中被移除。
 
-#### WireGuard outbound
+#### WireGuard 出站
 
-WireGuard outbound is deprecated and can be replaced by endpoint,
-check [Migration](../migration/#migrate-wireguard-outbound-to-endpoint).
+WireGuard 出站已废弃且可以通过端点替代，
+参阅 [迁移指南](/migration/#迁移-wireguard-出站到端点)。
 
-Old outbound was removed in sing-box 1.13.0.
+旧出站已在 sing-box 1.13.0 中被移除。
 
-#### GSO option in TUN
+#### TUN 的 GSO 字段
 
-GSO has no advantages for transparent proxy scenarios, is deprecated and no longer works in TUN.
+GSO 对透明代理场景没有优势，已废弃且在 TUN 中不再起作用。
 
-Old fields were removed in sing-box 1.13.0.
+旧字段已在 sing-box 1.13.0 中被移除。
 
 ## 1.10.0
 
-#### TUN address fields are merged
+#### Match source 规则项已重命名
 
-`inet4_address` and `inet6_address` are merged into `address`,
-`inet4_route_address` and `inet6_route_address` are merged into `route_address`,
-`inet4_route_exclude_address` and `inet6_route_exclude_address` are merged into `route_exclude_address`.
+`rule_set_ipcidr_match_source` 路由和 DNS 规则项已被重命名为
+`rule_set_ip_cidr_match_source` 且已在 sing-box 1.11.0 中被移除。
 
-Old fields were removed in sing-box 1.12.0.
+#### TUN 地址字段已合并
 
-#### Match source rule items are renamed
+`inet4_address` 和 `inet6_address` 已合并为 `address`，
+`inet4_route_address` 和 `inet6_route_address` 已合并为 `route_address`，
+`inet4_route_exclude_address` 和 `inet6_route_exclude_address` 已合并为 `route_exclude_address`。
 
-`rule_set_ipcidr_match_source` route and DNS rule items are renamed to
-`rule_set_ip_cidr_match_source` and were removed in sing-box 1.11.0.
+旧字段已在 sing-box 1.12.0 中被移除。
 
-#### Drop support for go1.18 and go1.19
+#### 移除对 go1.18 和 go1.19 的支持
 
-Due to maintenance difficulties, sing-box 1.10.0 requires at least Go 1.20 to compile.
+由于维护困难，sing-box 1.10.0 要求至少 Go 1.20 才能编译。
 
 ## 1.8.0
 
-#### Cache file and related features in Clash API
+#### Clash API 中的 Cache file 及相关功能
 
-`cache_file` and related features in Clash API is migrated to independent `cache_file` options,
-check [Migration](/migration/#migrate-cache-file-from-clash-api-to-independent-options).
+Clash API 中的 `cache_file` 及相关功能已废弃且已迁移到独立的 `cache_file` 设置，
+参阅 [迁移指南](/migration/#将缓存文件从-clash-api-迁移到独立选项)。
 
 #### GeoIP
 
-GeoIP is deprecated and was removed in sing-box 1.12.0.
+GeoIP 已废弃且已在 sing-box 1.12.0 中被移除。
 
-The maxmind GeoIP National Database, as an IP classification database,
-is not entirely suitable for traffic bypassing,
-and all existing implementations suffer from high memory usage and difficult management.
+maxmind GeoIP 国家数据库作为 IP 分类数据库，不完全适合流量绕过，
+且现有的实现均存在内存使用大与管理困难的问题。
 
-sing-box 1.8.0 introduces [rule-set](/configuration/rule-set/), which can completely replace GeoIP,
-check [Migration](/migration/#migrate-geoip-to-rule-sets).
+sing-box 1.8.0 引入了[规则集](/configuration/rule-set/)，
+可以完全替代 GeoIP， 参阅 [迁移指南](/migration/#迁移-geoip-到规则集)。
 
 #### Geosite
 
-Geosite is deprecated and was removed in sing-box 1.12.0.
+Geosite 已废弃且已在 sing-box 1.12.0 中被移除。
 
-Geosite, the `domain-list-community` project maintained by V2Ray as an early traffic bypassing solution,
-suffers from a number of problems, including lack of maintenance, inaccurate rules, and difficult management.
+Geosite，即由 V2Ray 维护的 domain-list-community 项目，作为早期流量绕过解决方案，
+存在着包括缺少维护、规则不准确和管理困难内的大量问题。
 
-sing-box 1.8.0 introduces [rule-set](/configuration/rule-set/), which can completely replace Geosite,
-check [Migration](/migration/#migrate-geosite-to-rule-sets).
+sing-box 1.8.0 引入了[规则集](/configuration/rule-set/)，
+可以完全替代 Geosite，参阅 [迁移指南](/migration/#迁移-geosite-到规则集)。
 
 ## 1.6.0
 
-The following features will be marked deprecated in 1.5.0 and removed entirely in 1.6.0.
+下列功能已在 1.5.0 中标记为已弃用，并在 1.6.0 中完全删除。
 
 #### ShadowsocksR
 
-ShadowsocksR support has never been enabled by default, since the most commonly used proxy sales panel in the
-illegal industry stopped using this protocol, it does not make sense to continue to maintain it.
+ShadowsocksR 支持从未默认启用，自从常用的黑产代理销售面板停止使用该协议，继续维护它是没有意义的。
 
 #### Proxy Protocol
 
-Proxy Protocol is added by Pull Request, has problems, is only used by the backend of HTTP multiplexers such as nginx,
-is intrusive, and is meaningless for proxy purposes.
+Proxy Protocol 支持由 Pull Request 添加，存在问题且仅由 HTTP 多路复用器（如 nginx）的后端使用，具有侵入性，对于代理目的毫无意义。

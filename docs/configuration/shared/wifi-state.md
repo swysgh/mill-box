@@ -2,32 +2,32 @@
 icon: material/new-box
 ---
 
-# Wi-Fi State
+# Wi-Fi 状态
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
-    :material-plus: Linux support  
-    :material-plus: Windows support
+    :material-plus: Linux 支持  
+    :material-plus: Windows 支持
 
-sing-box can monitor Wi-Fi state to enable routing rules based on `wifi_ssid` and `wifi_bssid`.
+sing-box 可以监控 Wi-Fi 状态，以启用基于 `wifi_ssid` 和 `wifi_bssid` 的路由规则。
 
-### Platform Support
+### 平台支持
 
-| Platform        | Support          | Notes                    |
-|-----------------|------------------|--------------------------|
-| Android         | :material-check: | In graphical client      |
-| Apple platforms | :material-check: | In graphical clients     |
-| Linux           | :material-check: | Requires supported daemon |
-| Windows         | :material-check: | WLAN API                 |
-| Others          | :material-close: |                          |
+| 平台            | 支持              | 备注           |
+|-----------------|------------------|----------------|
+| Android         | :material-check: | 仅图形客户端    |
+| Apple 平台      | :material-check: | 仅图形客户端    |
+| Linux           | :material-check: | 需要支持的守护进程 |
+| Windows         | :material-check: | WLAN API       |
+| 其他            | :material-close: |                |
 
 ### Linux
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-The following backends are supported and will be auto-detected in order of priority:
+支持以下后端，将按优先级顺序自动探测：
 
-| Backend          | Interface   |
+| 后端              | 接口         |
 |------------------|-------------|
 | NetworkManager   | D-Bus       |
 | IWD              | D-Bus       |
@@ -36,6 +36,6 @@ The following backends are supported and will be auto-detected in order of prior
 
 ### Windows
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Uses Windows WLAN API.
+使用 Windows WLAN API。

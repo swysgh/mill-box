@@ -1,15 +1,15 @@
-# OpenVPN Server
+# OpenVPN 服务器
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-## Structure
+## 结构
 
 ```json
 {
   "type": "openvpn-server",
   "tag": "ovpn-server",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "system": false,
   "name": "",
@@ -91,524 +91,513 @@
   "renegotiate_packets": 0,
   "handshake_window": "1m",
 
-  ... // UDP NAT Fields
+  ... // UDP NAT 字段
 }
 ```
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-## Listen Fields
+## 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details. `udp_timeout` is part of the [UDP NAT Fields](#udp-nat-fields) below.
+参阅 [监听字段](/configuration/shared/listen/)。`udp_timeout` 属于下方的 [UDP NAT 字段](#udp-nat-字段)。
 
-## Fields
+## 字段
 
 ### system
 
-Use system interface.
+使用系统接口。
 
-Requires privilege and cannot conflict with existing system interfaces.
+需要特权且不能与已有系统接口冲突。
 
-If disabled, sing-box uses the internal network stack.
+如果禁用，sing-box 将使用内部网络栈。
 
 ### name
 
-Custom interface name for system interface.
+系统接口的自定义接口名称。
 
-An automatically generated `ovpn` interface name is used by default.
+默认使用自动生成的 `ovpn` 接口名称。
 
 ### mtu
 
-OpenVPN interface MTU.
+OpenVPN 接口 MTU。
 
-`1500` will be used by default.
+默认使用 `1500`。
 
 ### mode
 
-OpenVPN session mode, one of `tls` or `static_key`.
+OpenVPN 会话模式，`tls` 或 `static_key` 之一。
 
-`tls` is used by default.
+默认使用 `tls`。
 
-`static_key` serves one peer without a TLS control channel or forward secrecy.
+`static_key` 在没有 TLS 控制信道和前向保密的情况下服务一个对端。
 
 ### network
 
-OpenVPN transport network, one of `udp` or `tcp`.
+OpenVPN 传输网络，`udp` 或 `tcp` 之一。
 
-`udp` will be used by default.
+默认使用 `udp`。
 
-Only one transport network is served per endpoint; to serve both TCP and UDP,
-configure two endpoints with separate `address` subnets.
+每个端点仅服务一种传输网络；如需同时服务 TCP 与 UDP，
+需要配置两个端点并使用互不重叠的 `address` 子网。
 
 ### remote
 
-Fixed remote peer address for a UDP `static_key` server.
+UDP `static_key` 服务器的固定远端地址。
 
-Required with `remote_port` in UDP `static_key` mode.
+在 UDP `static_key` 模式下与 `remote_port` 一起必填。
 
 ### remote_port
 
-Fixed remote peer port for a UDP `static_key` server.
+UDP `static_key` 服务器的固定远端端口。
 
-Required with `remote` in UDP `static_key` mode.
+在 UDP `static_key` 模式下与 `remote` 一起必填。
 
 ### max_clients
 
-Maximum number of established and pending TLS client sessions.
+已建立与握手中的 TLS 客户端会话的最大数量。
 
-`1024` is used by default. The maximum value is `16777215`.
+默认使用 `1024`。最大值为 `16777215`。
 
-Must be `0` or `1` in `static_key` mode.
+在 `static_key` 模式下必须为 `0` 或 `1`。
 
 ### address
 
-==Required==
+==必填==
 
-List of OpenVPN server address prefixes.
+OpenVPN 服务器地址前缀列表。
 
-At most one IPv4 prefix and one IPv6 prefix are supported.
+最多支持一个 IPv4 前缀和一个 IPv6 前缀。
 
-The prefix address is assigned to the server interface. The masked prefix is used as the client address pool and route.
+前缀地址被分配给服务器接口。掩码后的前缀用作客户端地址池和路由。
 
-The first IPv4 and IPv6 prefix addresses are used as the endpoint's local addresses.
+第一个 IPv4 和 IPv6 前缀地址用作端点的本地地址。
 
-In `static_key` mode these are the local tunnel prefixes rather than address pools.
+在 `static_key` 模式下，这些地址是本地隧道前缀，而不是地址池。
 
 ### peer_address
 
-IPv4 tunnel peer address.
+IPv4 隧道对端地址。
 
-Required when an IPv4 `address` is configured in `static_key` mode.
+在 `static_key` 模式下配置 IPv4 `address` 时必填。
 
 ### peer_address_ipv6
 
-IPv6 tunnel peer address.
+IPv6 隧道对端地址。
 
-Required when an IPv6 `address` is configured in `static_key` mode.
+在 `static_key` 模式下配置 IPv6 `address` 时必填。
 
 ### topology
 
-OpenVPN topology pushed to clients, one of `subnet`, `p2p` or `net30`.
+推送给客户端的 OpenVPN topology，`subnet`、`p2p` 或 `net30` 之一。
 
-`subnet` is used by default in TLS mode. `p2p` is used by default in
-`static_key` mode.
+TLS 模式默认使用 `subnet`，`static_key` 模式默认使用 `p2p`。
 
 ### duplicate_cn
 
-Allow multiple active clients with the same authenticated certificate common name or username.
+允许具有相同认证证书 common name 或用户名的多个客户端同时在线。
 
-When disabled, a newly authenticated session replaces the existing session with the same identity and reuses its tunnel address when available.
+禁用时，新认证的会话会替换具有相同身份的现有会话，并在可用时复用其 tunnel 地址。
 
-Disabled by default.
+默认禁用。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### users
 
-List of OpenVPN username/password users.
+OpenVPN 用户名/密码用户列表。
 
-If set, clients must pass username/password authentication in addition to any certificate policy configured by `tls.verify_client_certificate`.
+如果设置，客户端除了通过 `tls.verify_client_certificate` 配置的证书策略外，还必须通过用户名/密码认证。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### users.username
 
-Username.
+用户名。
 
 ### users.password
 
-Password.
+密码。
 
 ### static_key
 
-OpenVPN static key content.
+OpenVPN 静态密钥内容。
 
-Required in `static_key` mode.
+在 `static_key` 模式下必填。
 
-Conflict with `static_key_path`.
+与 `static_key_path` 冲突。
 
 ### static_key_path
 
-OpenVPN static key path.
+OpenVPN 静态密钥路径。
 
-Required in `static_key` mode when `static_key` is not set.
+在 `static_key` 模式下未设置 `static_key` 时必填。
 
-Conflict with `static_key`.
+与 `static_key` 冲突。
 
 ### key_direction
 
-Static key direction, one of `server` or `client`.
+静态密钥方向，`server` 或 `client` 之一。
 
-The key is used bidirectionally if empty. Conventionally the server uses
-`server` and the peer uses `client`.
+为空时双向使用密钥。按照惯例，服务器使用 `server`，对端使用 `client`。
 
-Only available in `static_key` mode.
+仅在 `static_key` 模式下可用。
 
 ### tls
 
-Required in TLS mode.
+在 TLS 模式下必填。
 
-OpenVPN control channel TLS configuration.
+OpenVPN 控制信道 TLS 配置。
 
 ### tls.certificate
 
-TLS server certificate content.
+TLS 服务器证书内容。
 
-Either `tls.certificate` or `tls.certificate_path` is required.
+`tls.certificate` 或 `tls.certificate_path` 必填其一。
 
-Conflict with `tls.certificate_path`.
+与 `tls.certificate_path` 冲突。
 
 ### tls.certificate_path
 
-TLS server certificate path.
+TLS 服务器证书路径。
 
-Either `tls.certificate` or `tls.certificate_path` is required.
+`tls.certificate` 或 `tls.certificate_path` 必填其一。
 
-Conflict with `tls.certificate`.
+与 `tls.certificate` 冲突。
 
 ### tls.key
 
-TLS server private key content.
+TLS 服务器私钥内容。
 
-Either `tls.key` or `tls.key_path` is required.
+`tls.key` 或 `tls.key_path` 必填其一。
 
-Conflict with `tls.key_path`.
+与 `tls.key_path` 冲突。
 
 ### tls.key_path
 
-TLS server private key path.
+TLS 服务器私钥路径。
 
-Either `tls.key` or `tls.key_path` is required.
+`tls.key` 或 `tls.key_path` 必填其一。
 
-Conflict with `tls.key`.
+与 `tls.key` 冲突。
 
 ### tls.client_certificate
 
-TLS CA certificate content, used to verify client certificates.
+TLS CA 证书内容，用于验证客户端证书。
 
-One of `tls.client_certificate`, `tls.client_certificate_path`, or `tls.peer_fingerprint` is required when `tls.verify_client_certificate` is `require` or `optional`.
+当 `tls.verify_client_certificate` 为 `require` 或 `optional` 时，`tls.client_certificate`、`tls.client_certificate_path` 或 `tls.peer_fingerprint` 必填其一。
 
-Conflict with `tls.client_certificate_path`.
+与 `tls.client_certificate_path` 冲突。
 
 ### tls.client_certificate_path
 
-TLS CA certificate path, used to verify client certificates.
+TLS CA 证书路径，用于验证客户端证书。
 
-One of `tls.client_certificate`, `tls.client_certificate_path`, or `tls.peer_fingerprint` is required when `tls.verify_client_certificate` is `require` or `optional`.
+当 `tls.verify_client_certificate` 为 `require` 或 `optional` 时，`tls.client_certificate`、`tls.client_certificate_path` 或 `tls.peer_fingerprint` 必填其一。
 
-Conflict with `tls.client_certificate`.
+与 `tls.client_certificate` 冲突。
 
 ### tls.verify_client_certificate
 
-OpenVPN client certificate policy, one of `require`, `optional` or `none`.
+OpenVPN 客户端证书策略，`require`、`optional` 或 `none` 之一。
 
-`require` will be used by default.
+默认使用 `require`。
 
-If set to `optional`, a client certificate is verified when provided, but clients without a certificate are allowed.
+设为 `optional` 时，客户端提供证书则验证，不提供证书的客户端也被允许。
 
-If set to `none`, client certificates are not requested.
+设为 `none` 时，不请求客户端证书。
 
 ### tls.client_name
 
-Expected client certificate name. Disabled when empty.
+期望的客户端证书名称。为空时禁用。
 
 ### tls.client_name_type
 
-Certificate field matched by `tls.client_name`, one of `subject`, `name`, or `name-prefix`.
+`tls.client_name` 匹配的证书字段，`subject`、`name` 或 `name-prefix` 之一。
 
-`name` is used by default when `tls.client_name` is configured.
+配置 `tls.client_name` 时默认使用 `name`。
 
 ### tls.peer_fingerprint
 
-Allowed SHA-256 fingerprints of client leaf certificates. Fingerprint-only verification can be used without a client CA.
+允许的客户端叶证书 SHA-256 指纹。可以在没有客户端 CA 时仅使用指纹验证。
 
 ### tls.crl_path
 
-Path to a certificate revocation list used to reject revoked client certificates.
+用于拒绝已吊销客户端证书的证书吊销列表路径。
 
 ### tls.remote_certificate_ku
 
-Required client certificate key usage masks in OpenVPN `remote-cert-ku` format.
+OpenVPN `remote-cert-ku` 格式的客户端证书 Key Usage mask。
 
 ### tls.remote_certificate_eku
 
-Required client certificate extended key usage. Conflict with an explicitly configured `tls.remote_certificate_tls`.
+客户端证书所需的 Extended Key Usage。与显式配置的 `tls.remote_certificate_tls` 冲突。
 
 ### tls.remote_certificate_tls
 
-Client certificate purpose check, one of `server`, `client`, or `none`. `client` is used by default.
+客户端证书用途检查，`server`、`client` 或 `none` 之一。默认使用 `client`。
 
 ### tls.certificate_profile
 
-Certificate profile, one of `insecure`, `legacy`, `preferred`, or `suiteb`.
+证书 profile，可选值为 `insecure`、`legacy`、`preferred` 或 `suiteb`。
 
-`legacy` is used by default.
+默认使用 `legacy`。
 
-`insecure` accepts MD5- and SHA-1-signed certificate chains and smaller legacy
-keys for compatibility with immutable peers. Use it only when the peer cannot
-be upgraded. `legacy` accepts SHA-1 but rejects MD5 signatures; `preferred`
-requires stronger signatures and keys.
+`insecure` 为兼容不可变对端而接受使用 MD5 或 SHA-1 签名的证书链和较小的旧密钥，仅应在对端无法升级时使用。`legacy` 接受 SHA-1 但拒绝 MD5 签名；`preferred` 要求更强的签名和密钥。
 
-When `suiteb` is selected and `tls.cipher` is empty, the TLS 1.2 cipher list defaults to the Suite B ECDHE-ECDSA AES-GCM suites.
+选择 `suiteb` 且 `tls.cipher` 为空时，TLS 1.2 cipher 列表默认使用 Suite B ECDHE-ECDSA AES-GCM 套件。
 
 ### tls.ns_certificate_type
 
-Deprecated Netscape certificate type check, one of `server` or `client`.
+已弃用的 Netscape 证书类型检查，`server` 或 `client` 之一。
 
 ### tls.version_min
 
-Minimum TLS version. `1.2` is used by default.
+最低 TLS 版本。默认使用 `1.2`。
 
 ### tls.version_max
 
-Maximum TLS version. The maximum supported version is used by default.
+最高 TLS 版本。默认使用支持的最高版本。
 
 ### tls.cipher
 
-Colon-separated OpenSSL cipher suite names allowed for TLS 1.2 and earlier.
+TLS 1.2 及更低版本允许的 OpenSSL cipher suite 名称，以冒号分隔。
 
-The default TLS cipher suites are used when empty.
+为空时使用默认 TLS cipher suite。
 
 ### tls.groups
 
-Colon-separated TLS key exchange groups in preference order.
+按偏好顺序排列的 TLS key exchange group，以冒号分隔。
 
 ### tls.control_wrap
 
-OpenVPN control channel wrapping.
+OpenVPN 控制信道包装。
 
-Equivalent to OpenVPN `tls-auth`, `tls-crypt` and `tls-crypt-v2`.
+等价于 OpenVPN `tls-auth`、`tls-crypt` 和 `tls-crypt-v2`。
 
-Disabled by default.
+默认禁用。
 
 ### tls.control_wrap.type
 
-==Required==
+==必填==
 
-Control channel wrapping type, one of `tls_auth`, `tls_crypt` or `tls_crypt_v2`.
+控制信道包装类型，`tls_auth`、`tls_crypt` 或 `tls_crypt_v2` 之一。
 
-For `tls_crypt_v2`, the key is the server key.
+对于 `tls_crypt_v2`，密钥为服务器密钥。
 
 ### tls.control_wrap.key
 
-Control channel wrapping key content.
+控制信道包装密钥内容。
 
-Either `tls.control_wrap.key` or `tls.control_wrap.key_path` is required.
+`tls.control_wrap.key` 或 `tls.control_wrap.key_path` 必填其一。
 
-Conflict with `tls.control_wrap.key_path`.
+与 `tls.control_wrap.key_path` 冲突。
 
 ### tls.control_wrap.key_path
 
-Control channel wrapping key path.
+控制信道包装密钥路径。
 
-Either `tls.control_wrap.key` or `tls.control_wrap.key_path` is required.
+`tls.control_wrap.key` 或 `tls.control_wrap.key_path` 必填其一。
 
-Conflict with `tls.control_wrap.key`.
+与 `tls.control_wrap.key` 冲突。
 
 ### tls.control_wrap.direction
 
-OpenVPN `tls-auth` key direction, one of `server` or `client`.
+OpenVPN `tls-auth` 密钥方向，`server` 或 `client` 之一。
 
-Only available when `tls.control_wrap.type` is `tls_auth`.
+仅当 `tls.control_wrap.type` 为 `tls_auth` 时可用。
 
-`server` maps to OpenVPN key direction `0`, and `client` maps to `1`; by convention servers use `0` and clients use `1`.
+`server` 对应 OpenVPN 密钥方向 `0`，`client` 对应 `1`；按照惯例服务器使用 `0`，客户端使用 `1`。
 
-If empty, the key is used bidirectionally, matching an omitted `key-direction` on both peers.
+如果为空，密钥被双向使用，与两端均省略 `key-direction` 的行为一致。
 
 ### tls.control_wrap.force_cookie
 
-Require `tls-crypt-v2` clients over UDP to support stateless session cookies.
+要求 UDP 上的 `tls-crypt-v2` 客户端支持无状态 session cookie。
 
-Only available when `tls.control_wrap.type` is `tls_crypt_v2`. When disabled,
-clients without cookie support are accepted using the upstream `allow-noncookie` behavior.
+仅当 `tls.control_wrap.type` 为 `tls_crypt_v2` 时可用。禁用时，不支持 cookie 的客户端会按照上游 `allow-noncookie` 行为被接受。
 
-Disabled by default.
+默认禁用。
 
 ### cipher
 
-Data-channel cipher used in `static_key` mode.
+`static_key` 模式使用的数据信道加密方式。
 
-The upstream static-key default `BF-CBC` is used when empty. Supported
-static-key ciphers are the AES-CBC, ARIA-CBC, Camellia-CBC, DES-CBC,
-Blowfish-CBC, CAST5-CBC families, `SEED-CBC`, `SM4-CBC`, and `NONE`.
+为空时使用上游静态密钥模式的默认值 `BF-CBC`。支持 AES-CBC、ARIA-CBC、Camellia-CBC、DES-CBC、Blowfish-CBC、CAST5-CBC 系列，以及 `SEED-CBC`、`SM4-CBC` 和 `NONE`。
 
-Only available in `static_key` mode.
+仅在 `static_key` 模式下可用。
 
 ### data_ciphers
 
-Allowed OpenVPN data channel ciphers.
+允许的 OpenVPN 数据信道加密方式。
 
-`AES-256-GCM`, `AES-128-GCM` and `CHACHA20-POLY1305` are used by default.
+默认使用 `AES-256-GCM`、`AES-128-GCM` 和 `CHACHA20-POLY1305`。
 
-The AES-GCM family includes `AES-192-GCM`. Retained ciphers include the CBC,
-CFB, and OFB forms of AES, ARIA, Camellia, DES, Blowfish, and CAST5, the CBC,
-CFB, and OFB forms of SEED and SM4, and `NONE`. CFB and OFB are available only
-in TLS mode.
+AES-GCM 系列还包括 `AES-192-GCM`。保留的 cipher 包括 AES、ARIA、Camellia、DES、Blowfish、CAST5、SEED 和 SM4 的 CBC、CFB、OFB 形式，以及 `NONE`。CFB 和 OFB 仅可用于 TLS 模式。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### data_ciphers_fallback
 
-OpenVPN data channel cipher for legacy clients that do not support cipher negotiation.
+用于不支持加密方式协商的遗留客户端的 OpenVPN 数据信道加密方式。
 
-Equivalent to OpenVPN `data-ciphers-fallback`.
+等价于 OpenVPN `data-ciphers-fallback`。
 
-Disabled by default.
+默认禁用。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### auth
 
-OpenVPN data channel authentication digest.
+OpenVPN 数据信道认证摘要。
 
-`SHA1` will be used by default. It only applies to non-AEAD data ciphers and `tls_auth`.
+默认使用 `SHA1`，仅对非 AEAD 数据信道加密方式和 `tls_auth` 生效。
 
 ### mss_fix
 
-Maximum encapsulated packet size used to clamp TCP MSS. The upstream default calculation uses `1492` with the default MTU.
+用于限制 TCP MSS 的最大封装数据包大小。默认 MTU 下使用上游默认值 `1492` 计算。
 
 ### mss_fix_disabled
 
-Disable MSS clamping, including the default clamp.
+禁用 MSS 限制，包括默认限制。
 
 ### mss_fix_mode
 
-Calculation mode for an explicit `mss_fix`, one of `mtu` or `fixed`. Requires `mss_fix`.
+显式 `mss_fix` 的计算模式，`mtu` 或 `fixed` 之一。需要 `mss_fix`。
 
 ### replay_window
 
-UDP data-channel replay window size. `64` is used by default.
+UDP 数据通道重放窗口大小。默认使用 `64`。
 
 ### replay_window_time
 
-UDP replay window duration. `15s` is used by default. The value must use whole seconds.
+UDP 重放窗口时长。默认使用 `15s`。该值必须使用整秒。
 
 ### push
 
-Options pushed to clients.
+推送给客户端的选项。
 
 ### push.routes
 
-Routes to push to clients.
+推送给客户端的路由。
 
-IPv4 and IPv6 prefixes can be mixed.
+IPv4 和 IPv6 前缀可以混用。
 
 ### push.dns
 
-DNS server addresses to push to clients.
+推送给客户端的 DNS 服务器地址。
 
-Uses legacy `dhcp-option DNS`/`DNS6`. A pushed modern DNS server group overrides these addresses on compatible clients.
+使用传统的 `dhcp-option DNS`/`DNS6`。兼容客户端收到现代 DNS 服务器组时会覆盖这些地址。
 
 ### push.dns_servers
 
-Modern OpenVPN DNS server groups to push. Each entry contains `priority`, `addresses`, optional `resolve_domains`, `dnssec`, `transport`, and `sni`.
+推送的现代 OpenVPN DNS 服务器组。每项包含 `priority`、`addresses`，以及可选的 `resolve_domains`、`dnssec`、`transport` 和 `sni`。
 
-Addresses accept an IP address or `IP:port` (IPv6 ports use `[IPv6]:port`). `transport` is one of `plain`, `dot`, or `doh`; `dnssec` is one of `yes`, `optional`, or `no`. OpenVPN clients apply only the group with the lowest priority number.
+地址接受 IP 或 `IP:port`（带端口的 IPv6 使用 `[IPv6]:port`）。`transport` 为 `plain`、`dot` 或 `doh` 之一；`dnssec` 为 `yes`、`optional` 或 `no` 之一。OpenVPN 客户端仅应用优先级数字最低的服务器组。
 
 ### push.search_domains
 
-Modern OpenVPN search domains to push.
+推送的现代 OpenVPN 搜索域。
 
 ### push.dhcp_options
 
-Additional legacy `dhcp-option` values to push, without the `dhcp-option` prefix.
+推送的额外传统 `dhcp-option` 值，不包含 `dhcp-option` 前缀。
 
 ### push.redirect_gateway
 
-Push `redirect-gateway` to clients, which routes client traffic through the VPN according to `push.redirect_gateway_flags`.
+向客户端推送 `redirect-gateway`，根据 `push.redirect_gateway_flags` 通过 VPN 路由客户端流量。
 
-When `push.redirect_gateway_flags` is empty, `def1` is used by default.
+当 `push.redirect_gateway_flags` 为空时，默认使用 `def1`。
 
 ### push.redirect_gateway_flags
 
-OpenVPN `redirect-gateway` flags to push to clients.
+向客户端推送的 OpenVPN `redirect-gateway` flag。
 
-Only available when `push.redirect_gateway` is enabled.
+仅当启用 `push.redirect_gateway` 时可用。
 
-`def1` is used by default.
+默认使用 `def1`。
 
 ### push.block_outside_dns
 
-Push `block-outside-dns` to clients, which blocks DNS queries outside the VPN on Windows clients.
+向客户端推送 `block-outside-dns`，在 Windows 客户端上阻止 VPN 之外的 DNS 查询。
 
 ### push.ping_interval
 
-OpenVPN `ping` interval pushed to clients.
+推送给客户端的 OpenVPN `ping` 间隔。
 
-After the interval passes without sending a packet, the client sends a data-channel ping to the server.
+在该间隔内未发送任何 packet 后，客户端会向服务器发送一个 data channel ping。
 
-The value must use whole seconds.
+该值必须使用整秒。
 
-Disabled by default.
+默认禁用。
 
 ### push.ping_restart
 
-OpenVPN `ping-restart` timeout pushed to clients.
+推送给客户端的 OpenVPN `ping-restart` 超时。
 
-After the timeout passes without receiving a packet, the client reconnects to the server.
+在该超时时间内未收到任何 packet 后，客户端会重新连接服务器。
 
-The value must use whole seconds.
+该值必须使用整秒。
 
-Disabled by default.
+默认禁用。
 
 ### ping_interval
 
-Interval after which the server sends a data-channel ping when no packet has been sent to a client.
+服务器未向客户端发送任何 packet 时，发送 data channel ping 的间隔。
 
-This value applies to the server. Use `push.ping_interval` to configure clients.
+该值应用于服务器。使用 `push.ping_interval` 配置客户端。
 
-The value must use whole seconds.
+该值必须使用整秒。
 
-Disabled by default.
+默认禁用。
 
 ### ping_restart
 
-Time without receiving a packet after which the server closes the client session.
+服务器未收到任何 packet 后关闭客户端会话的时间。
 
-This value applies to the server. Use `push.ping_restart` to configure clients.
+该值应用于服务器。使用 `push.ping_restart` 配置客户端。
 
-The value must use whole seconds.
+该值必须使用整秒。
 
-Disabled by default.
+默认禁用。
 
 ### renegotiate_interval
 
-OpenVPN TLS renegotiation interval.
+OpenVPN TLS 重协商间隔。
 
-When empty, the OpenVPN default `1h` is used.
+为空时使用 OpenVPN 默认值 `1h`。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### renegotiate_disabled
 
-Disable time-based TLS renegotiation, including the default interval.
+禁用基于时间的 TLS 重协商，包括默认间隔。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### renegotiate_bytes
 
-Renegotiate data-channel keys after this many bytes. `0` uses the cipher-dependent OpenVPN default.
+传输指定字节数后重新协商数据通道密钥。`0` 使用与密码算法相关的 OpenVPN 默认值。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### renegotiate_packets
 
-Renegotiate data-channel keys after this many packets. `0` uses the cipher-dependent OpenVPN default.
+传输指定数据包数后重新协商数据通道密钥。`0` 使用与密码算法相关的 OpenVPN 默认值。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
 ### handshake_window
 
-Maximum time allowed for the initial TLS handshake and each TLS renegotiation.
+初始 TLS 握手和每次 TLS 重协商允许使用的最长时间。
 
-`1m` is used by default.
+默认使用 `1m`。
 
-Only available in TLS mode.
+仅在 TLS 模式下可用。
 
-## UDP NAT Fields
+## UDP NAT 字段
 
-These fields configure UDP sessions for traffic through the OpenVPN interface.
+这些字段配置通过 OpenVPN 接口的流量的 UDP 会话。
 
-See [UDP NAT Fields](/configuration/shared/udp-nat/) for details.
+参阅 [UDP NAT 字段](/configuration/shared/udp-nat/)。

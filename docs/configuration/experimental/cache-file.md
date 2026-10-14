@@ -1,22 +1,22 @@
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
-!!! quote "Changes in sing-box 1.15.0"
+!!! quote "sing-box 1.15.0 中的更改"
 
     :material-plus: [buffer_size](#buffer_size)  
     :material-plus: [flush_interval](#flush_interval)
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-delete-clock: [store_rdrc](#store_rdrc)  
     :material-delete-clock: [rdrc_timeout](#rdrc_timeout)  
     :material-plus: [store_dns](#store_dns)
 
-!!! quote "Changes in sing-box 1.9.0"
+!!! quote "sing-box 1.9.0 中的更改"
 
     :material-plus: [store_rdrc](#store_rdrc)  
     :material-plus: [rdrc_timeout](#rdrc_timeout)
 
-### Structure
+### 结构
 
 ```json
 {
@@ -32,67 +32,64 @@
 }
 ```
 
-### Fields
+### 字段
 
 #### enabled
 
-Enable cache file.
+启用缓存文件。
 
 #### path
 
-Path to the cache file.
-
-`cache.db` will be used if empty.
+缓存文件路径，默认使用`cache.db`。
 
 #### cache_id
 
-Identifier in the cache file
+缓存文件中的标识符。
 
-If not empty, configuration specified data will use a separate store keyed by it.
+如果不为空，配置特定的数据将使用由其键控的单独存储。
 
 #### store_fakeip
 
-Store fakeip in the cache file
+将 fakeip 存储在缓存文件中。
 
 #### store_rdrc
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    `store_rdrc` is deprecated and will be removed in sing-box 1.16.0, check [Migration](/migration/#migrate-store-rdrc).
+    `store_rdrc` 已在 sing-box 1.14.0 废弃，且将在 sing-box 1.16.0 中被移除，参阅[迁移指南](/migration/#迁移-store_rdrc)。
 
-Store rejected DNS response cache in the cache file
+将拒绝的 DNS 响应缓存存储在缓存文件中。
 
-The check results of [Legacy Address Filter Fields](/configuration/dns/rule/#legacy-address-filter-fields)
-will be cached until expiration.
+[旧版地址筛选字段](/configuration/dns/rule/#旧版地址筛选字段) 的检查结果将被缓存至过期。
 
 #### rdrc_timeout
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    `rdrc_timeout` is deprecated and will be removed in sing-box 1.16.0, check [Migration](/migration/#migrate-store-rdrc).
+    `rdrc_timeout` 已在 sing-box 1.14.0 废弃，且将在 sing-box 1.16.0 中被移除，参阅[迁移指南](/migration/#迁移-store_rdrc)。
 
-Timeout of rejected DNS response cache.
+拒绝的 DNS 响应缓存超时。
 
-`7d` is used by default.
+默认使用 `7d`。
 
 #### store_dns
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Store DNS cache in the cache file.
+将 DNS 缓存存储在缓存文件中。
 
 #### buffer_size
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Size of the write buffer.
+写缓存的大小。
 
-`1MB` is used by default.
+默认使用 `1MB`。
 
 #### flush_interval
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Interval for flushing the write buffer automatically.
+自动冲刷写缓存的间隔。
 
-Disabled by default.
+默认禁用。

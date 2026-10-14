@@ -2,7 +2,7 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [ttl](#ttl)  
     :material-plus: [propagation_delay](#propagation_delay)  
@@ -10,13 +10,13 @@ icon: material/new-box
     :material-plus: [resolvers](#resolvers)  
     :material-plus: [override_domain](#override_domain)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [alidns.security_token](#security_token)  
     :material-plus: [cloudflare.zone_token](#zone_token)  
     :material-plus: [acmedns](#acmedns)
 
-### Structure
+### 结构
 
 ```json
 {
@@ -27,51 +27,51 @@ icon: material/new-box
   "override_domain": "",
   "provider": "",
 
-  ... // Provider Fields
+  ... // 提供商字段
 }
 ```
 
-### Fields
+### 字段
 
 #### ttl
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The TTL of the temporary TXT record used for the DNS challenge.
+DNS 质询临时 TXT 记录的 TTL。
 
 #### propagation_delay
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-How long to wait after creating the challenge record before starting propagation checks.
+创建质询记录后，在开始传播检查前要等待的时间。
 
 #### propagation_timeout
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The maximum time to wait for the challenge record to propagate.
+等待质询记录传播完成的最长时间。
 
-Set to `-1` to disable propagation checks.
+设为 `-1` 可禁用传播检查。
 
 #### resolvers
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Preferred DNS resolvers to use for DNS propagation checks.
+进行 DNS 传播检查时优先使用的 DNS 解析器。
 
 #### override_domain
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Override the domain name used for the DNS challenge record.
+覆盖 DNS 质询记录使用的域名。
 
-Useful when `_acme-challenge` is delegated to a different zone.
+适用于将 `_acme-challenge` 委托到其他 zone 的场景。
 
 #### provider
 
-The DNS provider. See below for provider-specific fields.
+DNS 提供商。提供商专有字段见下文。
 
-### Provider Fields
+### 提供商字段
 
 #### Alibaba Cloud DNS
 
@@ -87,9 +87,9 @@ The DNS provider. See below for provider-specific fields.
 
 ##### security_token
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-The Security Token for STS temporary credentials.
+用于 STS 临时凭证的安全令牌。
 
 #### Cloudflare
 
@@ -103,15 +103,15 @@ The Security Token for STS temporary credentials.
 
 ##### zone_token
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Optional API token with `Zone:Read` permission.
+具有 `Zone:Read` 权限的可选 API 令牌。
 
-When provided, allows `api_token` to be scoped to a single zone.
+提供后可将 `api_token` 限定到单个区域。
 
 #### ACME-DNS
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 ```json
 {
@@ -123,4 +123,4 @@ When provided, allows `api_token` to be scoped to a single zone.
 }
 ```
 
-See [ACME-DNS](https://github.com/joohoi/acme-dns) for details.
+参阅 [ACME-DNS](https://github.com/joohoi/acme-dns)。

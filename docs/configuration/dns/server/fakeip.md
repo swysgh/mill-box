@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # Fake IP
 
-### Structure
+### 结构
 
 ```json
 {
@@ -24,12 +24,12 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### inet4_range
 
-IPv4 address range for FakeIP.
+FakeIP 的 IPv4 地址范围。
 
-#### inet6_address
+#### inet6_range
 
-IPv6 address range for FakeIP.
+FakeIP 的 IPv6 地址范围。

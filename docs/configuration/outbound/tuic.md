@@ -1,4 +1,4 @@
-### Structure
+### 结构
 
 ```json
 {
@@ -17,86 +17,94 @@
   "network": "tcp",
   "tls": {},
 
-  ... // QUIC Fields
+  ... // QUIC 字段
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### uuid
 
-==Required==
+==必填==
 
-TUIC user uuid
+TUIC 用户 UUID
 
 #### password
 
-TUIC user password
+TUIC 用户密码
 
 #### congestion_control
 
-QUIC congestion control algorithm
+QUIC 拥塞控制算法
 
-One of: `cubic`, `new_reno`, `bbr`
+可选值: `cubic`, `new_reno`, `bbr`
 
-`cubic` is used by default.
+默认使用 `cubic`。
 
 #### udp_relay_mode
 
-UDP packet relay mode
+UDP 包中继模式
 
-| Mode   | Description                                                              |
-|:-------|:-------------------------------------------------------------------------|
-| native | native UDP characteristics                                               |
-| quic   | lossless UDP relay using QUIC streams, additional overhead is introduced |
+| 模式     | 描述                           |
+|--------|------------------------------|
+| native | 原生 UDP                       |
+| quic   | 使用 QUIC 流的无损 UDP 中继，引入了额外的开销 |
 
-`native` is used by default.
-
-Conflict with `udp_over_stream`.
+与 `udp_over_stream` 冲突。
 
 #### udp_over_stream
 
-This is the TUIC port of the [UDP over TCP protocol](/configuration/shared/udp-over-tcp/), designed to provide a QUIC
-stream based UDP relay mode that TUIC does not provide. Since it is an add-on protocol, you will need to use sing-box or
-another program compatible with the protocol as a server.
+这是 TUIC 的 [UDP over TCP 协议](/configuration/shared/udp-over-tcp/) 移植， 旨在提供 TUIC 不提供的 基于 QUIC 流的 UDP 中继模式。 由于它是一个附加协议，因此您需要使用 sing-box 或其他兼容的程序作为服务器。
 
-This mode has no positive effect in a proper UDP proxy scenario and should only be applied to relay streaming UDP
-traffic (basically QUIC streams).
+此模式在正确的 UDP 代理场景中没有任何积极作用，仅适用于中继流式 UDP 流量（基本上是 QUIC 流）。
 
-Conflict with `udp_relay_mode`.
+与 `udp_relay_mode` 冲突。
+
+#### zero_rtt_handshake
+
+在客户端启用 0-RTT QUIC 连接握手
+这对性能影响不大，因为协议是完全复用的
+
+!!! warning ""
+强烈建议禁用此功能，因为它容易受到重放攻击。
+请参阅 [Attack of the clones](https://blog.cloudflare.com/even-faster-connection-establishment-with-quic-0-rtt-resumption/#attack-of-the-clones)
+
+#### heartbeat
+
+发送心跳包以保持连接存活的时间间隔
 
 #### network
 
-Enabled network
+启用的网络协议。
 
-One of `tcp` `udp`.
+`tcp` 或 `udp`。
 
-Both is enabled by default.
+默认所有。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
-### QUIC Fields
+### QUIC 字段
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/) 了解详情。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

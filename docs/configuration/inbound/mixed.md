@@ -1,13 +1,13 @@
-`mixed` inbound is a socks4, socks4a, socks5 and http server.
+`mixed` 入站是一个 socks4, socks4a, socks5 和 http 服务器.
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "mixed",
   "tag": "mixed-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "users": [
     {
@@ -19,26 +19,26 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-SOCKS and HTTP users.
+SOCKS 和 HTTP 用户
 
-No authentication required if empty.
+如果为空则不需要验证。
 
 #### set_system_proxy
 
 !!! quote ""
 
-    Only supported on Linux, Android, Windows, and macOS.
+    仅支持 Linux、Android、Windows 和 macOS。
 
 !!! warning ""
 
-    To work on Android and Apple platforms without privileges, use tun.platform.http_proxy instead.
+    要在无特权的 Android 和 iOS 上工作，请改用 tun.platform.http_proxy。
 
-Automatically set system proxy configuration when start and clean up when stop.
+启动时自动设置系统代理，停止时自动清理。

@@ -1,10 +1,10 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "vmess",
   "tag": "vmess-out",
-  
+
   "server": "127.0.0.1",
   "server_port": 1080,
   "uuid": "bf000d23-0752-40b4-affe-68f7707a9661",
@@ -15,36 +15,36 @@
   "network": "tcp",
   "tls": {},
   "packet_encoding": "",
-  "transport": {},
   "multiplex": {},
+  "transport": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### uuid
 
-==Required==
+==必填==
 
-The VMess user id.
+VMess 用户 ID。
 
 #### security
 
-Encryption methods:
+加密方法：
 
 * `auto`
 * `none`
@@ -52,56 +52,56 @@ Encryption methods:
 * `aes-128-gcm`
 * `chacha20-poly1305`
 
-Legacy encryption methods:
+旧加密方法：
 
 * `aes-128-ctr`
 
 #### alter_id
 
-| Alter ID | Description         |
-|----------|---------------------|
-| 0        | Use AEAD protocol   |
-| 1        | Use legacy protocol |
-| > 1      | Unused, same as 1   |
+| Alter ID | 描述         |
+|----------|------------|
+| 0        | 禁用旧协议      |
+| 1        | 启用旧协议      |
+| > 1      | 未使用, 行为同 1 |
 
 #### global_padding
 
-Protocol parameter. Will waste traffic randomly if enabled (enabled by default in v2ray and cannot be disabled).
+协议参数。 如果启用会随机浪费流量（在 v2ray 中默认启用并且无法禁用）。
 
 #### authenticated_length
 
-Protocol parameter. Enable length block encryption.
+协议参数。启用长度块加密。
 
 #### network
 
-Enabled network
+启用的网络协议。
 
-One of `tcp` `udp`.
+`tcp` 或 `udp`。
 
-Both is enabled by default.
+默认所有。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
 #### packet_encoding
 
-UDP packet encoding.
+UDP 包编码。
 
-| Encoding   | Description           |
-|------------|-----------------------|
-| (none)     | Disabled              |
-| packetaddr | Supported by v2ray 5+ |
-| xudp       | Supported by xray     |
+| 编码         | 描述            |
+|------------|---------------|
+| (空)        | 禁用            |
+| packetaddr | 由 v2ray 5+ 支持 |
+| xudp       | 由 xray 支持     |
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#outbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#出站)。
 
 #### transport
 
-V2Ray Transport configuration, see [V2Ray Transport](/configuration/shared/v2ray-transport/).
+V2Ray 传输配置，参阅 [V2Ray 传输层](/configuration/shared/v2ray-transport/)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

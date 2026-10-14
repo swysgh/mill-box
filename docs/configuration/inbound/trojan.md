@@ -1,11 +1,11 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "trojan",
   "tag": "trojan-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "users": [
     {
@@ -29,40 +29,40 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-==Required==
+==必填==
 
-Trojan users.
+Trojan 用户。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#入站)。
 
 #### fallback
 
 !!! failure ""
 
-    There is no evidence that GFW detects and blocks Trojan servers based on HTTP responses, and opening the standard http/s port on the server is a much bigger signature.
+    没有证据表明 GFW 基于 HTTP 响应检测并阻止 Trojan 服务器，并且在服务器上打开标准 http/s 端口是一个更大的特征。
 
-Fallback server configuration. Disabled if `fallback` and `fallback_for_alpn` are empty.
+回退服务器配置。如果 `fallback` 和 `fallback_for_alpn` 为空，则禁用回退。
 
 #### fallback_for_alpn
 
-Fallback server configuration for specified ALPN.
+为 ALPN 指定回退服务器配置。
 
-If not empty, TLS fallback requests with ALPN not in this table will be rejected.
+如果不为空，ALPN 不在此列表中的 TLS 回退请求将被拒绝。
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#inbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#入站)。
 
 #### transport
 
-V2Ray Transport configuration, see [V2Ray Transport](/configuration/shared/v2ray-transport/).
+V2Ray 传输配置，参阅 [V2Ray 传输层](/configuration/shared/v2ray-transport/)。

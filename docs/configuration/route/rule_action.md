@@ -2,19 +2,19 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [bypass](#bypass)  
     :material-alert: [reject](#reject)
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [resolve.disable_optimistic_cache](#disable_optimistic_cache)  
     :material-plus: [resolve.timeout](#timeout)  
     :material-plus: [tls_spoof](#tls_spoof)  
     :material-plus: [tls_spoof_method](#tls_spoof_method)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [tls_fragment](#tls_fragment)  
     :material-plus: [tls_fragment_fallback_delay](#tls_fragment_fallback_delay)  
@@ -23,107 +23,100 @@ icon: material/new-box
     :material-plus: [resolve.rewrite_ttl](#rewrite_ttl)  
     :material-plus: [resolve.client_subnet](#client_subnet)
 
-## Final actions
+## 最终动作
 
 ### route
 
 ```json
 {
-  "action": "route", // default
+  "action": "route", // 默认
   "outbound": "",
- 
-  ... // route-options Fields
+  
+  ... // route-options 字段
 }
 ```
 
-!!! note ""
-
-    You can ignore the JSON Array [] tag when the content is only one item
-
-`route` inherits the classic rule behavior of routing connection to the specified outbound.
+`route` 继承了将连接路由到指定出站的经典规则动作。
 
 #### outbound
 
-==Required==
+==必填==
 
-Tag of target outbound.
+目标出站的标签。
 
-#### route-options Fields
+#### route-options 字段
 
-See `route-options` fields below.
+参阅下方的 `route-options` 字段。
 
 ### bypass
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with `auto_redirect` enabled.
+    仅支持 Linux，且需要启用 `auto_redirect`。
 
 ```json
 {
   "action": "bypass",
   "outbound": "",
 
-  ... // route-options Fields
+  ... // route-options 字段
 }
 ```
 
-`bypass` bypasses sing-box at the kernel level for auto redirect connections in pre-match.
+`bypass` 在预匹配中为 auto redirect 连接在内核层面绕过 sing-box。
 
-For non-auto-redirect connections and already established connections,
-if `outbound` is specified, the behavior is the same as `route`;
-otherwise, the rule will be skipped.
+对于非 auto redirect 连接和已建立的连接，如果指定了 `outbound`，行为与 `route` 相同；否则规则将被跳过。
 
 #### outbound
 
-Tag of target outbound.
+目标出站的标签。
 
-If not specified, the rule only matches in [pre-match](/configuration/shared/pre-match/)
-from auto redirect, and will be skipped in other contexts.
+如果未指定，规则仅在来自 auto redirect 的[预匹配](/configuration/shared/pre-match/)中匹配，在其他场景中将被跳过。
 
-#### route-options Fields
+#### route-options 字段
 
-See `route-options` fields below.
+参阅下方的 `route-options` 字段。
 
 ### reject
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
-    Since sing-box 1.13.0, you can reject (or directly reply to) ICMP echo (ping) requests using `reject` action.
+    自 sing-box 1.13.0 起，您可以通过 `reject` 动作拒绝（或直接回复）ICMP 回显（ping）请求。
 
 ```json
 {
   "action": "reject",
-  "method": "default", // default
+  "method": "default",  // 默认
   "no_drop": false
 }
 ```
 
-`reject` reject connections
+`reject` 拒绝连接。
 
-The specified method is used for reject tun connections if `sniff` action has not been performed yet.
+如果尚未执行 `sniff` 操作，则将使用指定方法拒绝 tun 连接。
 
-For non-tun connections and already established connections, will just be closed.
+对于非 tun 连接和已建立的连接，将直接关闭。
 
 #### method
 
-For TCP and UDP connections:
+对于 TCP 和 UDP 连接：
 
-- `default`: Reply with TCP RST for TCP connections, and ICMP port unreachable for UDP packets.
-- `drop`: Drop packets.
+- `default`: 对于 TCP 连接回复 RST，对于 UDP 包回复 ICMP 端口不可达。
+- `drop`: 丢弃数据包。
 
-For ICMP echo requests:
+对于 ICMP 回显请求：
 
-- `default`: Reply with ICMP host unreachable.
-- `drop`: Drop packets.
-- `reply`: Reply with ICMP echo reply.
+- `default`: 回复 ICMP 主机不可达。
+- `drop`: 丢弃数据包。
+- `reply`: 回复以 ICMP 回显应答。
 
 #### no_drop
 
-If not enabled, `method` will be temporarily overwritten to `drop` after 50 triggers in 30s.
+如果未启用，则 30 秒内触发 50 次后，`method` 将被暂时覆盖为 `drop`。
 
-Not available when `method` is set to drop.
+当 `method` 设为 `drop` 时不可用。
 
 ### hijack-dns
 
@@ -133,9 +126,9 @@ Not available when `method` is set to drop.
 }
 ```
 
-`hijack-dns` hijack DNS requests to the sing-box DNS module.
+`hijack-dns` 劫持 DNS 请求至 sing-box DNS 模块。
 
-## Non-final actions
+## 非最终动作
 
 ### route-options
 
@@ -151,128 +144,125 @@ Not available when `method` is set to drop.
   "udp_timeout": "",
   "tls_fragment": false,
   "tls_fragment_fallback_delay": "",
-  "tls_record_fragment": "",
+  "tls_record_fragment": false,
   "tls_spoof": "",
   "tls_spoof_method": ""
 }
 ```
 
-`route-options` set options for routing.
+!!! note ""
+
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
+
+`route-options` 为路由设置选项。
 
 #### override_address
 
-Override the connection destination address.
+覆盖目标地址。
 
 #### override_port
 
-Override the connection destination port.
+覆盖目标端口。
 
 #### network_strategy
 
-See [Dial Fields](/configuration/shared/dial/#network_strategy) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#network_strategy)。
 
-Only take effect if outbound is direct without `outbound.bind_interface`,
-`outbound.inet4_bind_address` and `outbound.inet6_bind_address` set.
+仅当出站为 `direct` 且 `outbound.bind_interface`, `outbound.inet4_bind_address`
+且 `outbound.inet6_bind_address` 未设置时生效。
 
 #### network_type
 
-See [Dial Fields](/configuration/shared/dial/#network_type) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#network_type)。
 
 #### fallback_network_type
 
-See [Dial Fields](/configuration/shared/dial/#fallback_network_type) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#fallback_network_type)。
 
 #### fallback_delay
 
-See [Dial Fields](/configuration/shared/dial/#fallback_delay) for details.
+详情参阅 [拨号字段](/configuration/shared/dial/#fallback_delay)。
 
 #### udp_disable_domain_unmapping
 
-If enabled, for UDP proxy requests addressed to a domain,
-the original packet address will be sent in the response instead of the mapped domain.
+如果启用，对于地址为域的 UDP 代理请求，将在响应中发送原始包地址而不是映射的域。
 
-This option is used for compatibility with clients that
-do not support receiving UDP packets with domain addresses, such as Surge.
+此选项用于兼容不支持接收带有域地址的 UDP 包的客户端，如 Surge。
 
 #### udp_connect
 
-If enabled, attempts to connect UDP connection to the destination instead of listen.
+如果启用，将尝试将 UDP 连接 connect 到目标而不是 listen。
 
 #### udp_timeout
 
-Timeout for UDP connections.
+UDP 连接超时时间。
 
-Setting a larger value than the UDP timeout in inbounds will have no effect.
+设置比入站 UDP 超时更大的值将无效。
 
-Default value for protocol sniffed connections:
+已探测协议连接的默认值：
 
-| Timeout | Protocol             |
-|---------|----------------------|
-| `10s`   | `dns`, `ntp`, `stun` |
-| `30s`   | `quic`, `dtls`       |
+| 超时    | 协议                   |
+|-------|----------------------|
+| `10s` | `dns`, `ntp`, `stun` |
+| `30s` | `quic`, `dtls`       |
 
-If no protocol is sniffed, the following ports will be recognized as protocols by default:
+如果没有探测到协议，以下端口将默认识别为协议：
 
-| Port | Protocol |
-|------|----------|
-| 53   | `dns`    |
-| 123  | `ntp`    |
-| 443  | `quic`   |
-| 3478 | `stun`   |
+| 端口   | 协议     |
+|------|--------|
+| 53   | `dns`  |
+| 123  | `ntp`  |
+| 443  | `quic` |
+| 3478 | `stun` |
 
 #### tls_fragment
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Fragment TLS handshakes to bypass firewalls.
+通过分段 TLS 握手数据包来绕过防火墙检测。
 
-This feature is intended to circumvent simple firewalls based on **plaintext packet matching**,
-and should not be used to circumvent real censorship.
+此功能旨在规避基于**明文数据包匹配**的简单防火墙，不应该用于规避真的审查。
 
-Due to poor performance, try `tls_record_fragment` first, and only apply to server names known to be blocked.
+由于性能不佳，请首先尝试 `tls_record_fragment`，且仅应用于已知被阻止的服务器名称。
 
-On Linux, Apple platforms, (administrator privileges required) Windows,
-the wait time can be automatically detected. Otherwise, it will fall back to
-waiting for a fixed time specified by `tls_fragment_fallback_delay`.
+在 Linux、Apple 平台和需要管理员权限的 Windows 系统上，可自动检测等待时间。
+若无法自动检测，将回退使用 `tls_fragment_fallback_delay` 指定的固定等待时间。
 
-In addition, if the actual wait time is less than 20ms, it will also fall back to waiting for a fixed time,
-because the target is considered to be local or behind a transparent proxy.
+此外，若实际等待时间小于 20 毫秒，同样会回退至固定等待时间模式，因为此时判定目标处于本地或透明代理之后。
 
 #### tls_fragment_fallback_delay
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-The fallback value used when TLS segmentation cannot automatically determine the wait time.
+当 TLS 分片功能无法自动判定等待时间时使用的回退值。
 
-`500ms` is used by default.
+默认使用 `500ms`。
 
 #### tls_record_fragment
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Fragment TLS handshake into multiple TLS records to bypass firewalls.
+通过分段 TLS 握手数据包到多个 TLS 记录来绕过防火墙检测。
 
 #### tls_spoof
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, macOS, and Windows, and requires elevated privileges.
+    仅支持 Linux、macOS 和 Windows，需要提升的权限。
 
-Inject a forged TLS ClientHello carrying this SNI before the real one,
-to fool SNI-filtering middleboxes that permit specific hostnames.
+在真实 ClientHello 之前注入携带本字段所指定 SNI 的伪造 TLS ClientHello，
+用于欺骗仅放行特定主机名的 SNI 过滤中间盒。
 
-See outbound TLS [`spoof`](/configuration/shared/tls/#spoof) for details
-and required privileges.
+详情与所需权限参阅出站 TLS [`spoof`](/configuration/shared/tls/#spoof)。
 
 #### tls_spoof_method
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-How the forged segment is rejected by the real server. See outbound TLS
-[`spoof_method`](/configuration/shared/tls/#spoof_method) for the full table
-of accepted values and platform notes.
+控制伪造报文被真实服务器拒绝的方式。完整取值表与平台说明参阅出站 TLS
+[`spoof_method`](/configuration/shared/tls/#spoof_method)。
 
 ### sniff
 
@@ -284,23 +274,23 @@ of accepted values and platform notes.
 }
 ```
 
-`sniff` performs protocol sniffing on connections.
+`sniff` 对连接执行协议嗅探。
 
-For deprecated `inbound.sniff` options, it is considered to `sniff()` performed before routing.
+对于已弃用的 `inbound.sniff` 选项，被视为在路由之前执行的 `sniff`。
 
 #### sniffer
 
-Enabled sniffers.
+启用的探测器。
 
-All sniffers enabled by default.
+默认启用所有探测器。
 
-Available protocol values an be found on in [Protocol Sniff](../sniff/)
+可用的协议值可以在 [协议嗅探](../sniff/) 中找到。
 
 #### timeout
 
-Timeout for sniffing.
+探测超时时间。
 
-`300ms` is used by default.
+默认使用 300ms。
 
 ### resolve
 
@@ -317,50 +307,50 @@ Timeout for sniffing.
 }
 ```
 
-`resolve` resolve request destination from domain to IP addresses.
+`resolve` 将请求的目标从域名解析为 IP 地址。
 
 #### server
 
-Specifies DNS server tag to use instead of selecting through DNS routing.
+指定要使用的 DNS 服务器的标签，而不是通过 DNS 路由进行选择。
 
 #### strategy
 
-DNS resolution strategy, available values are: `prefer_ipv4`, `prefer_ipv6`, `ipv4_only`, `ipv6_only`.
+DNS 解析策略，可用值有：`prefer_ipv4`、`prefer_ipv6`、`ipv4_only`、`ipv6_only`。
 
-`dns.strategy` will be used by default.
+默认使用 `dns.strategy`。
 
 #### disable_cache
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Disable cache and save cache in this query.
+在此查询中禁用缓存。
 
 #### disable_optimistic_cache
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Disable optimistic DNS caching in this query.
+在此查询中禁用乐观 DNS 缓存。
 
 #### rewrite_ttl
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Rewrite TTL in DNS responses.
+重写 DNS 回应中的 TTL。
 
 #### timeout
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Override the DNS query timeout for this lookup.
+覆盖此查询的 DNS 查询超时时间。
 
-Will override `dns.timeout`.
+将覆盖 `dns.timeout`。
 
 #### client_subnet
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Append a `edns0-subnet` OPT extra record with the specified IP prefix to every query by default.
+默认情况下，将带有指定 IP 前缀的 `edns0-subnet` OPT 附加记录附加到每个查询。
 
-If value is an IP address instead of prefix, `/32` or `/128` will be appended automatically.
+如果值是 IP 地址而不是前缀，则会自动附加 `/32` 或 `/128`。
 
-Will override `dns.client_subnet`.
+将覆盖 `dns.client_subnet`.

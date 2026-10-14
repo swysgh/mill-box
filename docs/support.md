@@ -2,11 +2,12 @@
 icon: material/forum
 ---
 
-# Support
+# 支持
 
-| Channel                       | Link                                        |
-| :---------------------------- | :------------------------------------------ |
-| GitHub Issues                 | https://github.com/SagerNet/sing-box/issues |
-| Telegram notification channel | https://t.me/yapnc                          |
-| Telegram user group           | https://t.me/yapug                          |
-| Email                         | contact@sagernet.org                        |
+| 通道              | 链接                                        |
+| :---------------- | :------------------------------------------ |
+| GitHub Issues     | https://github.com/SagerNet/sing-box/issues |
+| Telegram 通知频道 | https://t.me/yapnc                          |
+| Telegram 用户组   | https://t.me/yapug                          |
+| 邮件              | contact@sagernet.org                        |
+

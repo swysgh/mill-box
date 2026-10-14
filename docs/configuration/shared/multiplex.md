@@ -1,4 +1,4 @@
-### Inbound
+### 入站
 
 ```json
 {
@@ -8,7 +8,7 @@
 }
 ```
 
-### Outbound
+### 出站
 
 ```json
 {
@@ -22,65 +22,64 @@
 }
 ```
 
-
-### Inbound Fields
+### 入站字段
 
 #### enabled
 
-Enable multiplex support.
+启用多路复用支持。
 
 #### padding
 
-If enabled, non-padded connections will be rejected.
+如果启用，将拒绝非填充连接。
 
 #### brutal
 
-See [TCP Brutal](/configuration/shared/tcp-brutal/) for details.
+参阅 [TCP Brutal](/configuration/shared/tcp-brutal/)。
 
-### Outbound Fields
+### 出站字段
 
 #### enabled
 
-Enable multiplex.
+启用多路复用。
 
 #### protocol
 
-Multiplex protocol.
+多路复用协议
 
-| Protocol | Description                        |
-|----------|------------------------------------|
-| smux     | https://github.com/xtaci/smux      |
-| yamux    | https://github.com/hashicorp/yamux |
-| h2mux    | https://golang.org/x/net/http2     |
+| 协议    | 描述                                 |
+|-------|------------------------------------|
+| smux  | https://github.com/xtaci/smux      |
+| yamux | https://github.com/hashicorp/yamux |
+| h2mux | https://golang.org/x/net/http2     |
 
-h2mux is used by default.
+默认使用 h2mux。
 
 #### max_connections
 
-Maximum connections.
+最大连接数量。
 
-Conflict with `max_streams`.
+与 `max_streams` 冲突。
 
 #### min_streams
 
-Minimum multiplexed streams in a connection before opening a new connection.
+在打开新连接之前，连接中的最小多路复用流数量。
 
-Conflict with `max_streams`.
+与 `max_streams` 冲突。
 
 #### max_streams
 
-Maximum multiplexed streams in a connection before opening a new connection.
+在打开新连接之前，连接中的最大多路复用流数量。
 
-Conflict with `max_connections` and `min_streams`.
+与 `max_connections` 和 `min_streams` 冲突。
 
 #### padding
 
 !!! info
 
-    Requires sing-box server version 1.3-beta9 or later.
+    需要 sing-box 服务器版本 1.3-beta9 或更高。
 
-Enable padding.
+启用填充。
 
 #### brutal
 
-See [TCP Brutal](/configuration/shared/tcp-brutal/) for details.
+参阅 [TCP Brutal](/configuration/shared/tcp-brutal/)。

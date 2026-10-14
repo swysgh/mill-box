@@ -1,11 +1,10 @@
 # NTP
 
-Built-in NTP client service.
+内建的 NTP 客户端服务。
 
-If enabled, it will provide time for protocols like TLS/Shadowsocks/VMess, which is useful for environments where time
-synchronization is not possible.
+如果启用，它将为像 TLS/Shadowsocks/VMess 这样的协议提供时间，这对于无法进行时间同步的环境很有用。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -15,36 +14,36 @@ synchronization is not possible.
     "server_port": 123,
     "interval": "30m",
     
-    ... // Dial Fields
+    ... // 拨号字段
   }
 }
 
 ```
 
-### Fields
+### 字段
 
 #### enabled
 
-Enable NTP service.
+启用 NTP 服务。
 
 #### server
 
-==Required==
+==必填==
 
-NTP server address.
+NTP 服务器地址。
 
 #### server_port
 
-NTP server port.
+NTP 服务器端口。
 
-123 is used by default.
+默认使用 123。
 
 #### interval
 
-Time synchronization interval.
+时间同步间隔。
 
-30 minutes is used by default.
+默认使用 30 分钟。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

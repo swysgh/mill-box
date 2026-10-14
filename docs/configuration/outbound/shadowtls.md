@@ -1,4 +1,4 @@
-### Structure
+### 结构
 
 ```json
 {
@@ -11,29 +11,29 @@
   "password": "fuck me till the daylight",
   "tls": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### version
 
-ShadowTLS protocol version.
+ShadowTLS 协议版本。
 
-| Value         | Protocol Version                                                                        |
+| 值             | 协议版本                                                                                    |
 |---------------|-----------------------------------------------------------------------------------------|
 | `1` (default) | [ShadowTLS v1](https://github.com/ihciah/shadow-tls/blob/master/docs/protocol-en.md#v1) |
 | `2`           | [ShadowTLS v2](https://github.com/ihciah/shadow-tls/blob/master/docs/protocol-en.md#v2) |
@@ -41,16 +41,16 @@ ShadowTLS protocol version.
 
 #### password
 
-Set password.
+设置密码。
 
-Only available in the ShadowTLS v2/v3 protocol.
+仅在 ShadowTLS v2/v3 协议中可用。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

@@ -1,8 +1,8 @@
 !!! quote ""
 
-    V2Ray API is not included by default, see [Installation](/installation/build-from-source/#build-tags).
+    默认安装不包含 V2Ray API，参阅 [安装](/installation/build-from-source/#构建标记)。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -23,28 +23,28 @@
 }
 ```
 
-### Fields
+### 字段
 
 #### listen
 
-gRPC API listening address. V2Ray API will be disabled if empty.
+gRPC API 监听地址。如果为空，则禁用 V2Ray API。
 
 #### stats
 
-Traffic statistics service settings.
+流量统计服务设置。
 
 #### stats.enabled
 
-Enable statistics service.
+启用统计服务。
 
 #### stats.inbounds
 
-Inbound list to count traffic.
+统计流量的入站列表。
 
 #### stats.outbounds
 
-Outbound list to count traffic.
+统计流量的出站列表。
 
 #### stats.users
 
-User list to count traffic.
+统计流量的用户列表。

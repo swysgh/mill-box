@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # OpenConnect
 
-### Structure
+### 结构
 
 ```json
 {
@@ -25,31 +25,31 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### endpoint
 
-==Required==
+==必填==
 
-The tag of the [OpenConnect Endpoint](/configuration/endpoint/openconnect).
+[OpenConnect 端点](/configuration/endpoint/openconnect) 的标签。
 
-DNS queries are sent to the resolvers pushed by the VPN server through the OpenConnect endpoint.
+DNS 查询会通过 OpenConnect 端点发送到 VPN 服务器推送的解析器。
 
 #### accept_default_resolvers
 
-Accept the general resolvers pushed by the VPN server for unmatched queries.
+接受 VPN 服务器推送的通用解析器，用于未匹配的查询。
 
-When enabled, the general resolvers are used as the default only if the server requests all DNS through the tunnel, or if it does not provide split-DNS rules or suffixes. Otherwise, unmatched queries return `NXDOMAIN`.
+启用时，仅当服务器要求所有 DNS 通过隧道，或未提供分流 DNS 规则及后缀时，通用解析器才会作为默认解析器。否则，未匹配的查询将返回 `NXDOMAIN`。
 
 #### accept_search_domain
 
-When enabled and pushed search domains are available, single-label queries (for example, `intranet`) are retried with each search domain until one resolves.
+启用且存在推送的搜索域时，单标签查询（例如 `intranet`）会依次附加各个搜索域进行重试，直到其中一个解析成功。
 
-If every search-domain expansion returns `NXDOMAIN`, the original unqualified name follows normal default-resolver behavior.
+如果所有搜索域扩展均返回 `NXDOMAIN`，原始未限定名称将按普通默认解析器行为处理。
 
-### Examples
+### 示例
 
-=== "Split DNS only"
+=== "仅分流 DNS"
 
     ```json
     {
@@ -77,7 +77,7 @@ If every search-domain expansion returns `NXDOMAIN`, the original unqualified na
     }
     ```
 
-=== "Accept pushed default resolvers"
+=== "接受推送的默认解析器"
 
     ```json
     {

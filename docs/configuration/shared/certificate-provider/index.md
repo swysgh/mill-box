@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-# Certificate Provider
+# 证书提供者
 
-### Structure
+### 结构
 
 ```json
 {
@@ -19,9 +19,9 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
-| Type   | Format           |
+| 类型   | 格式             |
 |--------|------------------|
 | `acme` | [ACME](/configuration/shared/certificate-provider/acme)   |
 | `tailscale` | [Tailscale](/configuration/shared/certificate-provider/tailscale) |
@@ -29,4 +29,4 @@ icon: material/new-box
 
 #### tag
 
-The tag of the certificate provider.
+证书提供者的标签。

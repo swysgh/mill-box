@@ -2,9 +2,9 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -16,28 +16,28 @@ icon: material/new-box
 }
 ```
 
-### Fields
+### 字段
 
 #### idle_timeout
 
-Idle connection timeout, in golang's Duration format.
+空闲连接超时，采用 golang 的 Duration 格式。
 
 #### keep_alive_period
 
-Keep alive period, in golang's Duration format.
+Keep alive 周期，采用 golang 的 Duration 格式。
 
 #### stream_receive_window
 
-HTTP2 stream-level flow-control receive window size.
+HTTP2 流级别流控接收窗口大小。
 
-Accepts memory size format, e.g. `"64 MB"`.
+接受内存大小格式，例如 `"64 MB"`。
 
 #### connection_receive_window
 
-HTTP2 connection-level flow-control receive window size.
+HTTP2 连接级别流控接收窗口大小。
 
-Accepts memory size format, e.g. `"64 MB"`.
+接受内存大小格式，例如 `"64 MB"`。
 
 #### max_concurrent_streams
 
-Maximum concurrent streams per connection.
+每个连接的最大并发流数。

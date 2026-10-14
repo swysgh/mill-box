@@ -2,11 +2,11 @@
 icon: material/note-remove
 ---
 
-!!! failure "Removed in sing-box 1.12.0"
+!!! failure "已在 sing-box 1.12.0 中被移除"
 
-    GeoIP is deprecated in sing-box 1.8.0 and removed in sing-box 1.12.0, check [Migration](/migration/#migrate-geoip-to-rule-sets).
+    GeoIP 已在 sing-box 1.8.0 废弃且在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移-geoip-到规则集)。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -20,22 +20,22 @@ icon: material/note-remove
 }
 ```
 
-### Fields
+### 字段
 
 #### path
 
-The path to the sing-geoip database.
+指定 GeoIP 资源的路径。
 
-`geoip.db` will be used if empty.
+默认 `geoip.db`。
 
 #### download_url
 
-The download URL of the sing-geoip database.
+指定 GeoIP 资源的下载链接。
 
-Default is `https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db`.
+默认为 `https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db`。
 
 #### download_detour
 
-The tag of the outbound to download the database.
+用于下载 GeoIP 资源的出站的标签。
 
-Default outbound will be used if empty.
+如果为空，将使用默认出站。

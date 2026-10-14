@@ -2,7 +2,7 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # Resolved
 
@@ -22,26 +22,25 @@ icon: material/new-box
 }
 ```
 
-
-### Fields
+### 字段
 
 #### service
 
-==Required==
+==必填==
 
-The tag of the [Resolved Service](/configuration/service/resolved).
+[Resolved 服务](/configuration/service/resolved) 的标签。
 
 #### accept_default_resolvers
 
-Indicates whether the default DNS resolvers should be accepted for fallback queries in addition to matching domains.
+指示是否除了匹配域名外，还应接受默认 DNS 解析器以进行回退查询。
 
-Specifically, default DNS resolvers are DNS servers that have `SetLinkDefaultRoute` or `SetLinkDomains ~.` set.
+具体来说，默认 DNS 解析器是设置了 `SetLinkDefaultRoute` 或 `SetLinkDomains ~.` 的 DNS 服务器。
 
-If not enabled, `NXDOMAIN` will be returned for requests that do not match search or match domains.
+如果未启用，对于不匹配搜索域或匹配域的请求，将返回 `NXDOMAIN`。
 
-### Examples
+### 示例
 
-=== "Split DNS only"
+=== "仅分割 DNS"
 
     === ":material-card-multiple: sing-box 1.14.0"
 
@@ -96,7 +95,7 @@ If not enabled, `NXDOMAIN` will be returned for requests that do not match searc
         }
         ```
 
-=== "Use as global DNS"
+=== "用作全局 DNS"
 
     ```json
     {

@@ -2,25 +2,23 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # sing-box API
 
-The sing-box API service is a gRPC server for observing and controlling the running sing-box instance.
+sing-box API 服务是用于观察与控制正在运行的 sing-box 实例的 gRPC 服务器。
 
-It can be accessed by the [sing-box graphical clients](/clients/) for iOS, macOS, and
-Android (via the Remote Control feature), or the
-[sing-box dashboard](https://github.com/SagerNet/sing-box-dashboard).
+它可以由 iOS、macOS 和 Android 上的 [sing-box 图形客户端](/clients/)（通过 Remote Control 功能）或 [sing-box dashboard](https://github.com/SagerNet/sing-box-dashboard) 访问。
 
-The server also accepts [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) requests.
+服务器同时接受 [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) 请求。
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "api",
   
-  ... // Listen Fields
+  ... // 监听字段
   
   "secret": "",
   "access_control_allow_origin": [],
@@ -29,75 +27,74 @@ The server also accepts [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/
     "enabled": true,
     "path": "",
     "download_url": "",
-    "http_client": "", // or {}
+    "http_client": "", // 或 {}
     "update_interval": ""
   },
   "tls": {}
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### secret
 
-Secret for the API.
+API 密钥。
 
-Clients authenticate with the standard `authorization: Bearer <secret>` gRPC metadata header.
+客户端通过标准的 `authorization: Bearer <secret>` gRPC metadata 头认证。
 
-If empty, authentication is disabled.
+默认无需认证。
 
 #### access_control_allow_origin
 
-CORS allowed origins, `*` will be used if empty.
+允许的 CORS 来源,默认使用 `*`。
 
 #### access_control_allow_private_network
 
-Allow access from private network.
+允许从私有网络访问。
 
 #### dashboard
 
-Web dashboard downloaded and served over the API listener at `/dashboard/`; other browser
-requests are redirected to it.
+下载并通过 API 监听器在 `/dashboard/` 提供的 Web 仪表板；其他浏览器请求将被重定向到该路径。
 
 !!! info ""
 
-    The object can be replaced with a boolean value (equivalent to `{ "enabled": <bool> }`),
-    or with a string path (equivalent to `{ "enabled": true, "path": "<string>" }`).
+    该对象可以替换为布尔值（等同于 `{ "enabled": <bool> }`），
+    或字符串路径（等同于 `{ "enabled": true, "path": "<string>" }`）。
 
 ##### enabled
 
-Enable the dashboard.
+启用仪表板。
 
 ##### path
 
-Directory the dashboard files are stored in.
+存放仪表板文件的目录。
 
-`dashboard` in the working directory will be used by default.
+默认使用工作目录下的 `dashboard`。
 
-If the directory contains files not downloaded by sing-box, they are served as-is.
+如果目录中包含非 sing-box 下载的文件，将按原样提供。
 
 ##### download_url
 
-Download URL of the dashboard archive (zip).
+仪表板压缩包（zip）的下载 URL。
 
-`https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip` will be used by default.
+默认使用 `https://github.com/SagerNet/sing-box-dashboard/archive/refs/heads/gh-pages.zip`。
 
 ##### http_client
 
-HTTP client used to download the dashboard.
+用于下载仪表板的 HTTP 客户端。
 
-See [HTTP Client Fields](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端字段](/configuration/shared/http-client/)。
 
 ##### update_interval
 
-Update interval of the dashboard.
+仪表板的更新间隔。
 
-`1d` will be used by default.
+默认使用 `1d`。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置,参阅 [TLS](/configuration/shared/tls/#inbound)。

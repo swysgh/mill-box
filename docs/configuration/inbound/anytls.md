@@ -2,16 +2,16 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "anytls",
   "tag": "anytls-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "users": [
     {
@@ -24,23 +24,23 @@ icon: material/new-box
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-==Required==
+==必填==
 
-AnyTLS users.
+AnyTLS 用户。
 
 #### padding_scheme
 
-AnyTLS padding scheme line array.
+AnyTLS 填充方案行数组。
 
-Default padding scheme:
+默认填充方案:
 
 ```json
 [
@@ -58,4 +58,4 @@ Default padding scheme:
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。

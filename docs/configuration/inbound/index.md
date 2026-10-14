@@ -1,6 +1,6 @@
-# Inbound
+# 入站
 
-### Structure
+### 结构
 
 ```json
 {
@@ -13,9 +13,9 @@
 }
 ```
 
-### Fields
+### 字段
 
-| Type          | Format                        | Injectable       |
+| 类型            | 格式                            | 注入支持             |
 |---------------|-------------------------------|------------------|
 | `direct`      | [Direct](./direct/)           | :material-close: |
 | `mixed`       | [Mixed](./mixed/)             | TCP              |
@@ -40,4 +40,4 @@
 
 #### tag
 
-The tag of the inbound.
+入站的标签。

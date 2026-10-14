@@ -2,7 +2,7 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-delete-clock: [strategy](#strategy)  
     :material-plus: [evaluate](#evaluate)  
@@ -13,55 +13,48 @@ icon: material/new-box
     :material-plus: [speculative](#speculative)  
     :material-plus: [remove_client_subnet](#remove_client_subnet)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [strategy](#strategy)  
     :material-plus: [predefined](#predefined)
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
   "action": "",
   "race": false,
 
-  ... // Action Fields
+  ... // 动作字段
 }
 ```
 
 #### action
 
-The action to perform. `route` will be used by default.
+要执行的动作。默认使用 `route`。
 
 #### race
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Only available with `route`, `respond`, `reject` and `predefined` actions.
+仅可用于 `route`、`respond`、`reject` 和 `predefined` 动作。
 
-Requires [`match_response`](/configuration/dns/rule/#match_response) (for logical rules, in sub-rules).
-Conflict with `speculative`.
+需要 [`match_response`](/configuration/dns/rule/#match_response)（对 logical 规则，位于子规则中）。
+与 `speculative` 冲突。
 
-By default, rules are matched one after another in listed order: a rule with `match_response`
-waits for its referenced responses, and no later rule is matched until it has been judged.
+默认情况下，规则逐条按顺序匹配：带 `match_response` 的规则等待其引用的响应，在它被判定之前不会匹配任何后续规则。
 
-A rule with `race` enabled does not hold this order: rule matching continues past it while its
-referenced responses are still pending, so the matching of race rules runs in parallel — with
-each other and with the rules after them. Each race rule is judged once its referenced
-responses are available, and the first race rule that matches terminates rule evaluation
-immediately; the remaining queries are canceled.
+启用 `race` 的规则成为竞态规则，不再保持这一顺序：其引用的响应尚未到达时，规则匹配会越过它继续进行，因此竞态规则的匹配相互并行、也与后续规则并行。每条竞态规则在其引用的响应可用时被判定，首个匹配的竞态规则立即终止规则评估，其余查询将被取消。
 
-Rules without `race` still take effect strictly in listed order: while a preceding race rule is
-not yet judged, the action of any other matched rule is held until none of the race rules
-matched.
+未启用 `race` 的规则仍严格按顺序生效：只要前面还有未判定的竞态规则，其他已匹配规则的动作就被扣住，直到所有竞态规则均未匹配。
 
 ### route
 
 ```json
 {
-  "action": "route",  // default
+  "action": "route", // 默认
   "server": "",
   "speculative": false,
   "strategy": "",
@@ -74,79 +67,77 @@ matched.
 }
 ```
 
-`route` inherits the classic rule behavior of routing DNS requests to the specified server.
+`route` 继承了将 DNS 请求 路由到指定服务器的经典规则动作。
 
 #### server
 
-==Required==
+==必填==
 
-Tag of target server.
+目标 DNS 服务器的标签。
 
 #### speculative
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Conflict with `race`. Has no effect without a preceding `race` rule.
+与 `race` 冲突。没有前序竞态规则时无效果。
 
-By default, no query is sent in parallel with pending race rules: a matched `route` action
-holds its query until none of the race rules matched.
+默认情况下，查询决不与未判定的竞态规则并行发出：已匹配的 `route` 动作扣住其查询，直到所有竞态规则均未匹配后才发送。
 
-When `speculative` is enabled, the query is sent as soon as the rule matches, in parallel with
-the pending race rules; its response is used only after none of the race rules matched.
+启用 `speculative` 后，查询在规则匹配时立即发出、与未判定的竞态规则并行；其响应仅在所有竞态规则均未匹配后才被使用。
 
 #### strategy
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    `strategy` is deprecated in sing-box 1.14.0 and will be removed in sing-box 1.16.0.
+    `strategy` 已在 sing-box 1.14.0 废弃，且将在 sing-box 1.16.0 中被移除。
 
-Set domain strategy for this query.
+为此查询设置域名策略。
 
-One of `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`.
+可选项：`prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`。
 
 #### disable_cache
 
-Disable cache and save cache in this query.
+在此查询中禁用缓存。
 
 #### disable_optimistic_cache
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Disable optimistic DNS caching in this query.
+在此查询中禁用乐观 DNS 缓存。
 
 #### rewrite_ttl
 
-Rewrite TTL in DNS responses.
+重写 DNS 回应中的 TTL。
 
 #### timeout
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Override the DNS query timeout for matched queries.
+覆盖匹配查询的 DNS 查询超时时间。
 
-Will override `dns.timeout`.
+将覆盖 `dns.timeout`。
 
 #### client_subnet
 
-Append a `edns0-subnet` OPT extra record with the specified IP prefix to every query by default.
+默认情况下，将带有指定 IP 前缀的 `edns0-subnet` OPT 附加记录附加到每个查询。
 
-If value is an IP address instead of prefix, `/32` or `/128` will be appended automatically.
+如果值是 IP 地址而不是前缀，则会自动附加 `/32` 或 `/128`。
 
-Will override `dns.client_subnet`.
+将覆盖 `dns.client_subnet`.
 
 #### remove_client_subnet
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Remove the `edns0-subnet` OPT extra record from the query, and suppress `dns.client_subnet`.
+移除查询中的 `edns0-subnet` OPT 附加记录，并抑制 `dns.client_subnet`。
 
-Conflict with `client_subnet`.
+与 `client_subnet` 冲突。
 
 ### evaluate
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 ```json
 {
@@ -163,80 +154,76 @@ Conflict with `client_subnet`.
 }
 ```
 
-`evaluate` sends a DNS query to the specified server and saves the evaluated response for subsequent rules
-to match against using [`match_response`](/configuration/dns/rule/#match_response) and response fields.
-Unlike `route`, it does **not** terminate rule evaluation.
+`evaluate` 向指定服务器发送 DNS 查询并保存已评估的响应，供后续规则通过 [`match_response`](/configuration/dns/rule/#match_response) 和响应字段进行匹配。与 `route` 不同，它**不会**终止规则评估。
 
-Only allowed on top-level DNS rules (not inside logical sub-rules).
-Rules that use [`match_response`](/configuration/dns/rule/#match_response) or Response Match Fields
-require a preceding top-level rule with `evaluate` action.
+仅允许在顶层 DNS 规则中使用（不可在逻辑子规则内部使用）。
+使用 [`match_response`](/configuration/dns/rule/#match_response) 或响应匹配字段的规则，
+需要位于更早的顶层 `evaluate` 规则之后。
 
 #### server
 
-==Required==
+==必填==
 
-Tag of target server.
+目标 DNS 服务器的标签。
 
 #### tag
 
-Tag of the evaluated response.
+已评估响应的标签。
 
-A tagged response is only referenced via [`match_response`](/configuration/dns/rule/#match_response) with the tag;
-`match_response: true` references the response of the latest `evaluate` action without `tag`.
+带标签的响应仅能通过 [`match_response`](/configuration/dns/rule/#match_response) 以标签引用；
+`match_response: true` 引用最近一条无 `tag` 的 `evaluate` 动作的响应。
 
 #### speculative
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Has no effect without a preceding `race` rule.
+没有前序竞态规则时无效果。
 
-By default, no query is sent in parallel with pending race rules: a matched `evaluate` action
-holds its query, and rule matching stops there, until none of the race rules matched.
+默认情况下，查询决不与未判定的竞态规则并行发出：已匹配的 `evaluate` 动作扣住其查询，规则匹配在此处停止，直到所有竞态规则均未匹配。
 
-When `speculative` is enabled, the query is sent as soon as the rule matches, in parallel with
-the pending race rules, and rule matching continues without waiting for them.
+启用 `speculative` 后，查询在规则匹配时立即发出、与未判定的竞态规则并行，规则匹配继续进行而不等待竞态规则。
 
 #### disable_cache
 
-Disable cache and save cache in this query.
+在此查询中禁用缓存。
 
 #### disable_optimistic_cache
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Disable optimistic DNS caching in this query.
+在此查询中禁用乐观 DNS 缓存。
 
 #### rewrite_ttl
 
-Rewrite TTL in DNS responses.
+重写 DNS 回应中的 TTL。
 
 #### timeout
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Override the DNS query timeout for matched queries.
+覆盖匹配查询的 DNS 查询超时时间。
 
-Will override `dns.timeout`.
+将覆盖 `dns.timeout`。
 
 #### client_subnet
 
-Append a `edns0-subnet` OPT extra record with the specified IP prefix to every query by default.
+默认情况下，将带有指定 IP 前缀的 `edns0-subnet` OPT 附加记录附加到每个查询。
 
-If value is an IP address instead of prefix, `/32` or `/128` will be appended automatically.
+如果值是 IP 地址而不是前缀，则会自动附加 `/32` 或 `/128`。
 
-Will override `dns.client_subnet`.
+将覆盖 `dns.client_subnet`.
 
 #### remove_client_subnet
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Remove the `edns0-subnet` OPT extra record from the query, and suppress `dns.client_subnet`.
+移除查询中的 `edns0-subnet` OPT 附加记录，并抑制 `dns.client_subnet`。
 
-Conflict with `client_subnet`.
+与 `client_subnet` 冲突。
 
 ### respond
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 ```json
 {
@@ -244,9 +231,9 @@ Conflict with `client_subnet`.
 }
 ```
 
-`respond` terminates rule evaluation and returns the evaluated response from a preceding [`evaluate`](/configuration/dns/rule_action/#evaluate) action.
+`respond` 会终止规则评估，并直接返回前序 [`evaluate`](/configuration/dns/rule_action/#evaluate) 动作保存的已评估的响应。
 
-Only allowed after a preceding top-level `evaluate` rule. If the action is reached without an evaluated response at runtime, the request fails with an error instead of falling through to later rules.
+只能用于前面已有顶层 `evaluate` 规则的场景。如果运行时命中该动作时没有已评估的响应，则请求会直接返回错误，而不是继续匹配后续规则。
 
 ### route-options
 
@@ -262,7 +249,7 @@ Only allowed after a preceding top-level `evaluate` rule. If the action is reach
 }
 ```
 
-`route-options` set options for routing.
+`route-options` 为路由设置选项。
 
 ### reject
 
@@ -274,24 +261,24 @@ Only allowed after a preceding top-level `evaluate` rule. If the action is reach
 }
 ```
 
-`reject` reject DNS requests.
+`reject` 拒绝 DNS 请求。
 
 #### method
 
-- `default`: Reply with REFUSED.
-- `drop`: Drop the request.
+- `default`: 返回 REFUSED。
+- `drop`: 丢弃请求。
 
-`default` will be used by default.
+默认使用 `default`。
 
 #### no_drop
 
-If not enabled, `method` will be temporarily overwritten to `drop` after 50 triggers in 30s.
+如果未启用，则 30 秒内触发 50 次后，`method` 将被暂时覆盖为 `drop`。
 
-Not available when `method` is set to drop.
+当 `method` 设为 `drop` 时不可用。
 
 ### predefined
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 ```json
 {
@@ -303,39 +290,39 @@ Not available when `method` is set to drop.
 }
 ```
 
-`predefined` responds with predefined DNS records.
+`predefined` 以预定义的 DNS 记录响应。
 
 #### rcode
 
-The response code.
+响应码。
 
-| Value      | Value in the legacy rcode server | Description     |
-|------------|----------------------------------|-----------------|
-| `NOERROR`  | `success`                        | Ok              |
-| `FORMERR`  | `format_error`                   | Bad request     |
-| `SERVFAIL` | `server_failure`                 | Server failure  |
-| `NXDOMAIN` | `name_error`                     | Not found       |
-| `NOTIMP`   | `not_implemented`                | Not implemented |
-| `REFUSED`  | `refused`                        | Refused         |
+| 值          | 旧 rcode DNS 服务器中的值 | 描述              |
+|------------|--------------------|-----------------|
+| `NOERROR`  | `success`          | Ok              |
+| `FORMERR`  | `format_error`     | Bad request     |
+| `SERVFAIL` | `server_failure`   | Server failure  |
+| `NXDOMAIN` | `name_error`       | Not found       |
+| `NOTIMP`   | `not_implemented`  | Not implemented |
+| `REFUSED`  | `refused`          | Refused         |
 
-`NOERROR` will be used by default.
+默认使用 `NOERROR`。
 
 #### answer
 
-List of text DNS record to respond as answers.
+用于作为回答响应的文本 DNS 记录列表。
 
-Examples:
+例子:
 
-| Record Type | Example                       |
-|-------------|-------------------------------|
-| `A`         | `localhost. IN A 127.0.0.1`   |
-| `AAAA`      | `localhost. IN AAAA ::1`      |
-| `TXT`       | `localhost. IN TXT \"Hello\"` |
+| 记录类型   | 例子                            |
+|--------|-------------------------------|
+| `A`    | `localhost. IN A 127.0.0.1`   |
+| `AAAA` | `localhost. IN AAAA ::1`      |
+| `TXT`  | `localhost. IN TXT \"Hello\"` |
 
 #### ns
 
-List of text DNS record to respond as name servers.
+用于作为名称服务器响应的文本 DNS 记录列表。
 
 #### extra
 
-List of text DNS record to respond as extra records.
+用于作为额外记录响应的文本 DNS 记录列表。

@@ -1,34 +1,34 @@
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-sing-box supports some rule-set formats from other projects which cannot be fully translated to sing-box,
-currently only AdGuard DNS Filter.
+sing-box 支持其他项目的一些规则集格式，这些格式无法完全转换为 sing-box，
+目前只有 AdGuard DNS Filter。
 
-These formats are not directly supported as source formats,
-instead you need to convert them to binary rule-set.
+这些格式不直接作为源格式支持，
+而是需要将它们转换为二进制规则集。
 
-## Convert
+## 转换
 
-Use `sing-box rule-set convert --type adguard [--output <file-name>.srs] <file-name>.txt` to convert to binary rule-set.
+使用 `sing-box rule-set convert --type adguard [--output <file-name>.srs] <file-name>.txt` 以转换为二进制规则集。
 
-## Performance
+## 性能
 
-AdGuard keeps all rules in memory and matches them sequentially,
-while sing-box chooses high performance and smaller memory usage.
-As a trade-off, you cannot know which rule item is matched.
+AdGuard 将所有规则保存在内存中并按顺序匹配，
+而 sing-box 选择高性能和较小的内存使用量。
+作为权衡，您无法知道匹配了哪个规则项。
 
-## Compatibility
+## 兼容性
 
-Almost all rules in [AdGuardSDNSFilter](https://github.com/AdguardTeam/AdGuardSDNSFilter)
-and rules in rule-sets listed in [adguard-filter-list](https://github.com/ppfeufer/adguard-filter-list)
-are supported.
+[AdGuardSDNSFilter](https://github.com/AdguardTeam/AdGuardSDNSFilter)
+中的几乎所有规则以及 [adguard-filter-list](https://github.com/ppfeufer/adguard-filter-list)
+中列出的规则集中的规则均受支持。
 
-## Supported formats
+## 支持的格式
 
 ### AdGuard Filter
 
-#### Basic rule syntax
+#### 基本规则语法
 
-| Syntax | Supported        |
+| 语法     | 支持               |
 |--------|------------------|
 | `@@`   | :material-check: | 
 | `\|\|` | :material-check: | 
@@ -36,9 +36,9 @@ are supported.
 | `^`    | :material-check: |
 | `*`    | :material-check: |
 
-#### Host syntax
+#### 主机语法
 
-| Syntax      | Example                  | Supported                |
+| 语法          | 示例                       | 支持                       |
 |-------------|--------------------------|--------------------------|
 | Scheme      | `https://`               | :material-alert: Ignored |
 | Domain Host | `example.org`            | :material-check:         |
@@ -47,19 +47,18 @@ are supported.
 | Port        | `example.org:80`         | :material-close:         |
 | Path        | `example.org/path/ad.js` | :material-close:         |
 
-#### Modifier syntax
+#### 描述符语法
 
-| Modifier              | Supported                |
+| 描述符                   | 支持                       |
 |-----------------------|--------------------------|
 | `$important`          | :material-check:         |
 | `$dnsrewrite=0.0.0.0` | :material-alert: Ignored |
-| Any other modifiers   | :material-close:         |
+| 任何其他描述符               | :material-close:         |
 
 ### Hosts
 
-Only items with `0.0.0.0` IP addresses will be accepted.
+只有 IP 地址为 `0.0.0.0` 的条目将被接受。
 
-### Simple
+### 简易
 
-When all rule lines are valid domains, they are treated as simple line-by-line domain rules which,
-like hosts, only match the exact same domain.
+当所有行都是有效域时，它们被视为简单的逐行域规则， 与 hosts 一样，只匹配完全相同的域。

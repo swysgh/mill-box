@@ -1,10 +1,10 @@
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-# Endpoint
+# 端点
 
-An endpoint is a protocol with inbound and outbound behavior.
+端点是具有入站和出站行为的协议。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -17,18 +17,18 @@ An endpoint is a protocol with inbound and outbound behavior.
 }
 ```
 
-### Fields
+### 字段
 
-| Type             | Format                                  |
+| 类型               | 格式                                      |
 |------------------|-----------------------------------------|
 | `wireguard`      | [WireGuard](./wireguard/)               |
 | `tailscale`      | [Tailscale](./tailscale/)               |
-| `openconnect`    | [OpenConnect Client](./openconnect/)    |
-| `openvpn-client` | [OpenVPN Client](./openvpn-client/)     |
-| `openvpn-server` | [OpenVPN Server](./openvpn-server/)     |
-| `masque-client`  | [MASQUE Client](./masque-client/)       |
-| `masque-server`  | [MASQUE Server](./masque-server/)       |
+| `openconnect`    | [OpenConnect 客户端](./openconnect/)       |
+| `openvpn-client` | [OpenVPN 客户端](./openvpn-client/)         |
+| `openvpn-server` | [OpenVPN 服务器](./openvpn-server/)         |
+| `masque-client`  | [MASQUE 客户端](./masque-client/)           |
+| `masque-server`  | [MASQUE 服务器](./masque-server/)           |
 
 #### tag
 
-The tag of the endpoint.
+端点的标签。

@@ -1,18 +1,17 @@
 !!! quote ""
 
-    Only supported on Linux and macOS.
+    仅支持 Linux 和 macOS。
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "redirect",
   "tag": "redirect-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 }
 ```
+### 监听字段
 
-### Listen Fields
-
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。

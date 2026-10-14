@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # DHCP
 
-### Structure
+### 结构
 
 ```json
 {
@@ -17,22 +17,22 @@ icon: material/new-box
         "tag": "",
 
         "interface": "",
-        
-        // Dial Fields
+
+        // 拨号字段
       }
     ]
   }
 }
 ```
 
-### Fields
+### 字段
 
 #### interface
 
-Interface name to listen on. 
+要监听的网络接口名称。
 
-Tge default interface will be used by default.
+默认使用默认接口。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details. 
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

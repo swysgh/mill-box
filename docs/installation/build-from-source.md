@@ -2,9 +2,9 @@
 icon: material/file-code
 ---
 
-# Build from source
+# 从源代码构建
 
-## :material-graph: Requirements
+## :material-graph: 要求
 
 ### sing-box 1.11
 
@@ -13,25 +13,29 @@ icon: material/file-code
 ### sing-box 1.10
 
 * Go 1.20.0 - ~
+* Go 1.21.0 - ~ with tag `with_ech` enabled
 
 ### sing-box 1.9
 
 * Go 1.18.5 - 1.22.x
 * Go 1.20.0 - 1.22.x with tag `with_quic`, or `with_utls` enabled
+* Go 1.21.0 - 1.22.x with tag `with_ech` enabled
 
-## :material-fast-forward: Simple Build
+您可以从 https://go.dev/doc/install 下载并安装 Go，推荐使用最新版本。
+
+## :material-fast-forward: 快速开始
 
 ```bash
 make
 ```
 
-Or build and install binary to `$GOBIN`:
+或者构建二进制文件并将其安装到 `$GOBIN`：
 
 ```bash
 make install
 ```
 
-## :material-cog: Custom Build
+## :material-cog: 自定义构建
 
 ```bash
 TAGS="tag_a tag_b" make
@@ -43,83 +47,83 @@ or
 go build -tags "tag_a tag_b" ./cmd/sing-box
 ```
 
-## :material-folder-settings: Build Tags
+## :material-folder-settings: 构建标记
 
-| Build Tag                          | Enabled by default   | Description                                                                                                                                                                                                                                                                                                                    |
-|------------------------------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `with_quic`                        | :material-check:     | Build with QUIC support, see [QUIC and HTTP3 DNS transports](/configuration/dns/server/), [Naive inbound](/configuration/inbound/naive/), [Hysteria Inbound](/configuration/inbound/hysteria/), [Hysteria Outbound](/configuration/outbound/hysteria/) and [V2Ray Transport#QUIC](/configuration/shared/v2ray-transport#quic). |
-| `with_grpc`                        | :material-close:️    | Build with standard gRPC support, see [V2Ray Transport#gRPC](/configuration/shared/v2ray-transport#grpc).                                                                                                                                                                                                                      |
-| `with_dhcp`                        | :material-check:     | Build with DHCP support, see [DHCP DNS transport](/configuration/dns/server/).                                                                                                                                                                                                                                                 |
-| `with_wireguard`                   | :material-check:     | Build with WireGuard support, see [WireGuard outbound](/configuration/outbound/wireguard/).                                                                                                                                                                                                                                    |
-| `with_utls`                        | :material-check:     | Build with [uTLS](https://github.com/refraction-networking/utls) support for TLS outbound, see [TLS](/configuration/shared/tls#utls).                                                                                                                                                                                          |
-| `with_acme`                        | :material-check:     | Build with ACME TLS certificate issuer support, see [TLS](/configuration/shared/tls/).                                                                                                                                                                                                                                         |
-| `with_clash_api`                   | :material-check:     | Build with Clash API support, see [Experimental](/configuration/experimental#clash-api-fields).                                                                                                                                                                                                                                |
-| `with_v2ray_api`                   | :material-close:️    | Build with V2Ray API support, see [Experimental](/configuration/experimental#v2ray-api-fields).                                                                                                                                                                                                                                |
-| `with_gvisor`                      | :material-close:     | Build with gVisor support, required by the deprecated `gvisor` / `mixed` [Tun stacks](/configuration/inbound/tun#stack).                                                                                                                                                                   |
-| `with_embedded_tor` (CGO required) | :material-close:️    | Build with embedded Tor support, see [Tor outbound](/configuration/outbound/tor/).                                                                                                                                                                                                                                             |
-| `with_tailscale`                   | :material-check:     | Build with Tailscale support, see [Tailscale endpoint](/configuration/endpoint/tailscale).                                                                                                                                                                                                                                     |
-| `with_ccm`                         | :material-check:     | Build with Claude Code Multiplexer service support.                                                                                                                                                                                                                                                                            |
-| `with_ocm`                         | :material-check:     | Build with OpenAI Codex Multiplexer service support.                                                                                                                                                                                                                                                                           |
-| `with_naive_outbound`              | :material-check:     | Build with NaiveProxy outbound support, see [NaiveProxy outbound](/configuration/outbound/naive/).                                                                                                                                                                                                                             |
-| `with_cloudflared`                 | :material-check:     | Build with Cloudflare Tunnel inbound support, see [Cloudflared inbound](/configuration/inbound/cloudflared/).                                                                                                                                                                                                                  |
-| `badlinkname`                      | :material-check:     | Enable `go:linkname` access to internal standard library functions.                                                                                                                                                                                                                                                            |
-| `tfogo_checklinkname0`             | :material-check:     | Indicates the build uses the `-checklinkname=0` linker flag. Required together with `badlinkname`.                                                                                                                                                                                                                            |
+| 构建标记                               | 默认启动              | 说明                                                                                                                                                                                                                                                                                                                             |
+|------------------------------------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `with_quic`                        | :material-check:  | Build with QUIC support, see [QUIC and HTTP3 DNS transports](/configuration/dns/server/), [Naive inbound](/configuration/inbound/naive/), [Hysteria Inbound](/configuration/inbound/hysteria/), [Hysteria Outbound](/configuration/outbound/hysteria/) and [V2Ray Transport#QUIC](/configuration/shared/v2ray-transport#quic). |
+| `with_grpc`                        | :material-close:️ | Build with standard gRPC support, see [V2Ray Transport#gRPC](/configuration/shared/v2ray-transport#grpc).                                                                                                                                                                                                                      |
+| `with_dhcp`                        | :material-check:  | Build with DHCP support, see [DHCP DNS transport](/configuration/dns/server/).                                                                                                                                                                                                                                                 |
+| `with_wireguard`                   | :material-check:  | Build with WireGuard support, see [WireGuard outbound](/configuration/outbound/wireguard/).                                                                                                                                                                                                                                    |
+| `with_utls`                        | :material-check:  | Build with [uTLS](https://github.com/refraction-networking/utls) support for TLS outbound, see [TLS](/configuration/shared/tls#utls).                                                                                                                                                                                          |
+| `with_acme`                        | :material-check:  | Build with ACME TLS certificate issuer support, see [TLS](/configuration/shared/tls/).                                                                                                                                                                                                                                         |
+| `with_clash_api`                   | :material-check:  | Build with Clash API support, see [Experimental](/configuration/experimental#clash-api-fields).                                                                                                                                                                                                                                |
+| `with_v2ray_api`                   | :material-close:️ | Build with V2Ray API support, see [Experimental](/configuration/experimental#v2ray-api-fields).                                                                                                                                                                                                                                |
+| `with_gvisor`                      | :material-close:  | 构建 gVisor 支持，已弃用的 `gvisor` / `mixed` [Tun 栈](/configuration/inbound/tun#stack) 需要。                                                                                                                                                                   |
+| `with_embedded_tor` (CGO required) | :material-close:️ | Build with embedded Tor support, see [Tor outbound](/configuration/outbound/tor/).                                                                                                                                                                                                                                             |
+| `with_tailscale`                   | :material-check:  | 构建 Tailscale 支持，参阅 [Tailscale 端点](/configuration/endpoint/tailscale)。                                                                                                                                                                                                                                                         |
+| `with_ccm`                         | :material-check:  | 构建 Claude Code Multiplexer 服务支持。                                                                                                                                                                                                                                                                                              |
+| `with_ocm`                         | :material-check:  | 构建 OpenAI Codex Multiplexer 服务支持。                                                                                                                                                                                                                                                                                             |
+| `with_naive_outbound`              | :material-check:  | 构建 NaiveProxy 出站支持，参阅 [NaiveProxy 出站](/configuration/outbound/naive/)。                                                                                                                                                                                                                                                         |
+| `with_cloudflared`                 | :material-check:  | 构建 Cloudflare Tunnel 入站支持，参阅 [Cloudflared 入站](/configuration/inbound/cloudflared/)。                                                                                                                                                                                                                                              |
+| `badlinkname`                      | :material-check:  | 启用 `go:linkname` 以访问标准库内部函数。                                                                                                                                                                                                                                                                                        |
+| `tfogo_checklinkname0`             | :material-check:  | 表示构建使用 `-checklinkname=0` 链接器标志，需要与 `badlinkname` 一起使用。                                                                                                                                                                                                                                                          |
 
-It is not recommended to change the default build tag list unless you really know what you are adding.
+除非您确实知道您正在启用什么，否则不建议更改默认构建标签列表。
 
-## :material-wrench: Linker Flags
+## :material-wrench: 链接器标志
 
-The required linker flags for official builds are maintained in `release/LDFLAGS`. Downstream builds should use that file unchanged.
+官方构建所需的链接器标志维护在 `release/LDFLAGS` 中。下游构建应原样使用该文件。
 
-| Flag                                                        | Description                                                                                                                                                                                                             |
-|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `-checklinkname=0`                                          | Required together with the `badlinkname` build tag.                                                                                                                                                                     |
+| 标志                                                          | 说明                                                                                                                                                         |
+|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `-checklinkname=0`                                          | 需要与 `badlinkname` 构建标记一起使用。                                                                                                                                  |
 
-## :material-package-variant: For Downstream Packagers
+## :material-package-variant: 下游打包者
 
-The default build tag lists and linker flags are available as files in the repository for downstream packagers to reference directly:
+默认构建标签列表和链接器标志以文件形式存放在仓库中，供下游打包者直接引用：
 
-| File | Description |
-|------|-------------|
-| `release/DEFAULT_BUILD_TAGS` | Default for Linux (common architectures), Darwin, and Android. |
-| `release/DEFAULT_BUILD_TAGS_WINDOWS` | Default for Windows (includes `with_purego`). |
-| `release/DEFAULT_BUILD_TAGS_OTHERS` | Default for other platforms (no `with_naive_outbound`). |
-| `release/LDFLAGS` | Required linker flags (see above). |
+| 文件 | 说明 |
+|------|------|
+| `release/DEFAULT_BUILD_TAGS` | Linux（常见架构）、Darwin 和 Android 的默认标签。 |
+| `release/DEFAULT_BUILD_TAGS_WINDOWS` | Windows 的默认标签（包含 `with_purego`）。 |
+| `release/DEFAULT_BUILD_TAGS_OTHERS` | 其他平台的默认标签（不含 `with_naive_outbound`）。 |
+| `release/LDFLAGS` | 必需的链接器标志（参见上文）。 |
 
 ## :material-layers: with_naive_outbound
 
-NaiveProxy outbound requires special build configurations depending on your target platform.
+NaiveProxy 出站需要根据目标平台进行特殊的构建配置。
 
-### Supported Platforms
+### 支持的平台
 
-| Platform        | Architectures                                          | Mode   | Requirements                                                    |
-|-----------------|--------------------------------------------------------|--------|-----------------------------------------------------------------|
-| Linux           | amd64, arm64                                           | purego | None (library included in official releases)                    |
-| Linux           | 386, amd64, arm, arm64, mipsle, mips64le, riscv64, loong64 | CGO    | Chromium toolchain, glibc >= 2.31 (loong64: >= 2.36) at runtime |
-| Linux (musl)    | 386, amd64, arm, arm64, mipsle, riscv64, loong64       | CGO    | Chromium toolchain                                              |
-| Windows         | amd64, arm64                                           | purego | None (library included in official releases)                    |
-| Apple platforms | *                                                      | CGO    | Xcode                                                           |
-| Android         | *                                                      | CGO    | Android NDK                                                     |
+| 平台           | 架构                                                       | 模式     | 要求                                                  |
+|--------------|----------------------------------------------------------|--------|-----------------------------------------------------|
+| Linux        | amd64, arm64                                             | purego | 无（官方发布版本已包含库文件）                                     |
+| Linux        | 386, amd64, arm, arm64, mipsle, mips64le, riscv64, loong64 | CGO    | Chromium 工具链，运行时需要 glibc >= 2.31（loong64: >= 2.36） |
+| Linux (musl) | 386, amd64, arm, arm64, mipsle, riscv64, loong64          | CGO    | Chromium 工具链                                        |
+| Windows      | amd64, arm64                                             | purego | 无（官方发布版本已包含库文件）                                     |
+| Apple 平台     | *                                                        | CGO    | Xcode                                               |
+| Android      | *                                                        | CGO    | Android NDK                                          |
 
 ### Windows
 
-Use `with_purego` tag.
+使用 `with_purego` 标记。
 
-For official releases, `libcronet.dll` is included in the archive. For self-built binaries, download from [cronet-go releases](https://github.com/sagernet/cronet-go/releases) and place in the same directory as `sing-box.exe` or in a directory listed in `PATH`.
+官方发布版本已包含 `libcronet.dll`。自行构建时，从 [cronet-go releases](https://github.com/sagernet/cronet-go/releases) 下载并放置在 `sing-box.exe` 相同目录或 `PATH` 中的任意目录。
 
-### Linux (purego, amd64/arm64 only)
+### Linux (purego, 仅 amd64/arm64)
 
-Use `with_purego` tag.
+使用 `with_purego` 标记。
 
-For official releases, `libcronet.so` is included in the archive. For self-built binaries, download from [cronet-go releases](https://github.com/sagernet/cronet-go/releases) and place in the same directory as sing-box binary or in system library path.
+官方发布版本已包含 `libcronet.so`。自行构建时，从 [cronet-go releases](https://github.com/sagernet/cronet-go/releases) 下载并放置在 sing-box 二进制文件相同目录或系统库路径中。
 
 ### Linux (CGO)
 
-See [cronet-go](https://github.com/sagernet/cronet-go#linux-build-instructions).
+参阅 [cronet-go](https://github.com/sagernet/cronet-go#linux-build-instructions)。
 
-- **glibc build**: Requires glibc >= 2.31 at runtime
-- **musl build**: Use `with_musl` tag, statically linked, no runtime requirements
+- **glibc 构建**：运行时需要 glibc >= 2.31
+- **musl 构建**：使用 `with_musl` 标记，静态链接，无运行时要求
 
-### Apple platforms / Android
+### Apple 平台 / Android
 
-See [cronet-go](https://github.com/sagernet/cronet-go).
+参阅 [cronet-go](https://github.com/sagernet/cronet-go)。

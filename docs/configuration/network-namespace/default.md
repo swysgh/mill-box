@@ -2,19 +2,19 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # Default
 
-Attach to an existing network namespace.
+附加到已存在的网络命名空间。
 
-### Structure
+### 结构
 
 ```json
 {
   "network_namespaces": [
     {
-      "type": "default", // optional
+      "type": "default", // 可选
       "tag": "",
       "path": ""
     }
@@ -22,10 +22,10 @@ Attach to an existing network namespace.
 }
 ```
 
-### Fields
+### 字段
 
 #### path
 
-==Required==
+==必填==
 
-Name or path of the network namespace, for example `sing` or `/run/netns/sing`.
+网络命名空间的名称或路径，例如 `sing` 或 `/run/netns/sing`。

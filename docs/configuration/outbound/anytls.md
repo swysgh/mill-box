@@ -2,9 +2,9 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -20,54 +20,54 @@ icon: material/new-box
   "client_metadata": "",
   "tls": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### password
 
-==Required==
+==必填==
 
-The AnyTLS password.
+AnyTLS 密码。
 
 #### idle_session_check_interval
 
-Interval checking for idle sessions. Default: 30s.
+检查空闲会话的时间间隔。默认值：30秒。
 
 #### idle_session_timeout
 
-In the check, close sessions that have been idle for longer than this. Default: 30s.
+在检查中，关闭闲置时间超过此值的会话。默认值：30秒。
 
 #### min_idle_session
 
-In the check, at least the first `n` idle sessions are kept open. Default value: `n`=0
+在检查中，至少前 `n` 个空闲会话保持打开状态。默认值：`n`=0
 
 #### client_metadata
 
-!!! question "Since sing-box 1.13.16"
+!!! question "自 sing-box 1.13.16 起"
 
-Check [AnyTLS client metadata](/manual/misc/anytls-client-metadata/).
+参阅 [AnyTLS 客户端元数据](/manual/misc/anytls-client-metadata/)。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

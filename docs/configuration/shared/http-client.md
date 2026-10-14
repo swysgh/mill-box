@@ -2,15 +2,15 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-### Structure
+### 结构
 
-A string or an object.
+字符串或对象。
 
-When string, the tag of a shared [HTTP Client](/configuration/shared/http-client/) defined in top-level `http_clients`.
+当为字符串时，为顶层 `http_clients` 中定义的共享 [HTTP 客户端](/configuration/shared/http-client/) 的标签。
 
-When object:
+当为对象时：
 
 ```json
 {
@@ -19,48 +19,48 @@ When object:
   "disable_version_fallback": false,
   "headers": {},
 
-  ... // HTTP2 Fields
+  ... // HTTP2 字段
 
   "tls": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### engine
 
-HTTP engine to use.
+要使用的 HTTP 引擎。
 
-Values:
+可用值：
 
-* `go` (default)
+* `go`（默认）
 * `apple`
 
-`apple` uses NSURLSession, only available on Apple platforms.
+`apple` 使用 NSURLSession，仅在 Apple 平台可用。
 
 !!! warning ""
 
-    Experimental only: do not use in hot paths on iOS and tvOS.
+    仅供实验用途：不应在 iOS 和 tvOS 的热路径中使用。
 
-Supported fields:
+支持的字段：
 
 * `headers`
-* `tls.server_name` (must match request host)
+* `tls.server_name`（必须与请求主机匹配）
 * `tls.insecure`
 * `tls.min_version` / `tls.max_version`
 * `tls.certificate` / `tls.certificate_path`
 * `tls.certificate_sha256`
 * `tls.certificate_public_key_sha256`
-* Dial Fields
+* 拨号字段
 
-Unsupported fields:
+不支持的字段：
 
 * `version`
 * `disable_version_fallback`
-* HTTP2 Fields
-* QUIC Fields
+* HTTP2 字段
+* QUIC 字段
 * `tls.engine`
 * `tls.alpn`
 * `tls.disable_sni`
@@ -75,40 +75,40 @@ Unsupported fields:
 
 #### version
 
-HTTP version.
+HTTP 版本。
 
-Available values: `1`, `2`, `3`.
+可用值：`1`、`2`、`3`。
 
-`2` is used by default.
+默认使用 `2`。
 
-When `3`, [HTTP2 Fields](#http2-fields) are replaced by [QUIC Fields](#quic-fields).
+当为 `3` 时，[HTTP2 字段](#http2-字段) 替换为 [QUIC 字段](#quic-字段)。
 
 #### disable_version_fallback
 
-Disable automatic fallback to lower HTTP version.
+禁用自动回退到更低的 HTTP 版本。
 
 #### headers
 
-Custom HTTP headers.
+自定义 HTTP 标头。
 
-`Host` header is used as request host.
+`Host` 标头用作请求主机。
 
-### HTTP2 Fields
+### HTTP2 字段
 
-When `version` is `2` (default).
+当 `version` 为 `2`（默认）时。
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/) 了解详情。
 
-### QUIC Fields
+### QUIC 字段
 
-When `version` is `3`.
+当 `version` 为 `3` 时。
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/) 了解详情。
 
-### TLS Fields
+### TLS 字段
 
-See [TLS](/configuration/shared/tls/#outbound) for details.
+参阅 [TLS](/configuration/shared/tls/#出站) 了解详情。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

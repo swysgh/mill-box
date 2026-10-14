@@ -2,11 +2,11 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # Cloudflare Origin CA
 
-### Structure
+### 结构
 
 ```json
 {
@@ -19,64 +19,64 @@ icon: material/new-box
   "origin_ca_key": "",
   "request_type": "",
   "requested_validity": 0,
-  "http_client": "" // or {}
+  "http_client": "" // 或 {}
 }
 ```
 
-### Fields
+### 字段
 
 #### domain
 
-==Required==
+==必填==
 
-List of domain names or wildcard domain names to include in the certificate.
+要写入证书的域名或通配符域名列表。
 
 #### data_directory
 
-Root directory used to store the issued certificate, private key, and metadata.
+保存签发证书、私钥和元数据的根目录。
 
-If empty, sing-box uses the same default data directory as the ACME certificate provider:
-`$XDG_DATA_HOME/certmagic` or `$HOME/.local/share/certmagic`.
+如果为空，sing-box 会使用与 ACME 证书提供者相同的默认数据目录：
+`$XDG_DATA_HOME/certmagic` 或 `$HOME/.local/share/certmagic`。
 
 #### api_token
 
-Cloudflare API token used to create the certificate.
+用于创建证书的 Cloudflare API Token。
 
-Get or create one in [Cloudflare Dashboard > My Profile > API Tokens](https://dash.cloudflare.com/profile/api-tokens).
+可在 [Cloudflare Dashboard > My Profile > API Tokens](https://dash.cloudflare.com/profile/api-tokens) 获取或创建。
 
-Requires the `Zone / SSL and Certificates / Edit` permission.
+需要 `Zone / SSL and Certificates / Edit` 权限。
 
-Conflict with `origin_ca_key`.
+与 `origin_ca_key` 冲突。
 
 #### origin_ca_key
 
-Cloudflare Origin CA Key.
+Cloudflare Origin CA Key。
 
-Get it in [Cloudflare Dashboard > My Profile > API Tokens > API Keys > Origin CA Key](https://dash.cloudflare.com/profile/api-tokens).
+可在 [Cloudflare Dashboard > My Profile > API Tokens > API Keys > Origin CA Key](https://dash.cloudflare.com/profile/api-tokens) 获取。
 
-Conflict with `api_token`.
+与 `api_token` 冲突。
 
 #### request_type
 
-The signature type to request from Cloudflare.
+向 Cloudflare 请求的签名类型。
 
-| Value                | Type        |
+| 值                   | 类型        |
 |----------------------|-------------|
 | `origin-rsa`         | RSA         |
 | `origin-ecc`         | ECDSA P-256 |
 
-`origin-rsa` is used if empty.
+如果为空，使用 `origin-rsa`。
 
 #### requested_validity
 
-The requested certificate validity in days.
+请求的证书有效期，单位为天。
 
-Available values: `7`, `30`, `90`, `365`, `730`, `1095`, `5475`.
+可用值：`7`、`30`、`90`、`365`、`730`、`1095`、`5475`。
 
-`5475` days (15 years) is used if empty.
+如果为空，使用 `5475` 天（15 年）。
 
 #### http_client
 
-HTTP Client for all provider HTTP requests.
+用于所有提供者 HTTP 请求的 HTTP 客户端。
 
-See [HTTP Client Fields](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端字段](/configuration/shared/http-client/) 了解详情。

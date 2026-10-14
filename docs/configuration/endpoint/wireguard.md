@@ -1,22 +1,22 @@
-!!! quote "Changes in sing-box 1.15.0"
+!!! quote "sing-box 1.15.0 中的更改"
 
     :material-plus: [on_demand](#on_demand)
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [udp_mapping](/configuration/shared/udp-nat/#udp_mapping)  
     :material-plus: [udp_filtering](/configuration/shared/udp-nat/#udp_filtering)  
     :material-plus: [udp_nat_max](/configuration/shared/udp-nat/#udp_nat_max)
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "wireguard",
   "tag": "wg-ep",
-  
+
   "system": false,
   "name": "",
   "mtu": 1408,
@@ -35,112 +35,114 @@
     }
   ],
 
-  ... // UDP NAT Fields
+  ... // UDP NAT 字段
 
   "workers": 0,
   "on_demand": false,
- 
-  ... // Dial Fields
+
+  ... // 拨号字段
 }
 ```
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-### Fields
+### 字段
 
 #### system
 
-Use system interface.
+使用系统设备。
 
-Requires privilege and cannot conflict with exists system interfaces.
+需要特权且不能与已有系统接口冲突。
 
 #### name
 
-Custom interface name for system interface.
+为系统接口自定义设备名称。
 
 #### mtu
 
-WireGuard MTU.
+WireGuard MTU。
 
-`1408` will be used by default.
+默认使用 1408。
 
 #### address
 
-==Required==
+==必填==
 
-List of IP (v4 or v6) address prefixes to be assigned to the interface.
+接口的 IPv4/IPv6 地址或地址段的列表。
+
+要分配给接口的 IP（v4 或 v6）地址段列表。
 
 #### private_key
 
-==Required==
+==必填==
 
-WireGuard requires base64-encoded public and private keys. These can be generated using the wg(8) utility:
+WireGuard 需要 base64 编码的公钥和私钥。 这些可以使用 wg(8) 实用程序生成：
 
 ```shell
 wg genkey
 echo "private key" || wg pubkey
 ```
 
-or `sing-box generate wg-keypair`.
+或 `sing-box generate wg-keypair`.
 
 #### peers
 
-==Required==
+==必填==
 
-List of WireGuard peers.
+WireGuard 对等方的列表。
 
 #### peers.address
 
-WireGuard peer address.
+对等方的 IP 地址。
 
 #### peers.port
 
-WireGuard peer port.
+对等方的 WireGuard 端口。
 
 #### peers.public_key
 
-==Required==
+==必填==
 
-WireGuard peer public key.
+对等方的 WireGuard 公钥。
 
 #### peers.pre_shared_key
 
-WireGuard peer pre-shared key.
+对等方的预共享密钥。
 
 #### peers.allowed_ips
 
-==Required==
+==必填==
 
-WireGuard allowed IPs.
+对等方的允许 IP 地址。
 
 #### peers.persistent_keepalive_interval
 
-WireGuard persistent keepalive interval, in seconds.
+对等方的持久性保持活动间隔，以秒为单位。
 
-Disabled by default.
+默认禁用。
 
 #### peers.reserved
 
-WireGuard reserved field bytes.
+对等方的保留字段字节。
 
 #### workers
 
-WireGuard worker count.
+WireGuard worker 数量。
 
-CPU count is used by default.
+默认使用 CPU 数量。
 
 #### on_demand
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Allow the endpoint to be disconnected when necessary.
+允许该 endpoint 在需要时断开连接。
 
-### UDP NAT Fields
+### UDP NAT 字段
 
-See [UDP NAT Fields](/configuration/shared/udp-nat/) for details.
+参阅 [UDP NAT 字段](/configuration/shared/udp-nat/)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

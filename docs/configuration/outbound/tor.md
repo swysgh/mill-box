@@ -1,10 +1,10 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "tor",
   "tag": "tor-out",
-  
+
   "executable_path": "/usr/bin/tor",
   "extra_args": [],
   "data_directory": "$HOME/.cache/tor",
@@ -12,40 +12,40 @@
     "ClientOnly": 1
   },
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
 !!! info ""
 
-    Embedded Tor is not included by default, see [Installation](/installation/build-from-source/#build-tags).
+    默认安装不包含嵌入式 Tor, 参阅 [安装](/installation/build-from-source/#构建标记)。
 
-### Fields
+### 字段
 
 #### executable_path
 
-The path to the Tor executable.
+Tor 可执行文件路径
 
-Embedded Tor will be ignored if set.
+如果设置，将覆盖嵌入式 Tor。
 
 #### extra_args
 
-List of extra arguments passed to the Tor instance when started.
+启动 Tor 时传递的附加参数列表。
 
 #### data_directory
 
-==Recommended==
+==推荐==
 
-The data directory of Tor.
+Tor 的数据目录。
 
-Each start will be very slow if not specified.
+如未设置，每次启动都需要长时间。
 
 #### torrc
 
-Map of torrc options.
+torrc 参数表。
 
-See [tor(1)](https://linux.die.net/man/1/tor) for details.
+参阅 [tor(1)](https://linux.die.net/man/1/tor)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

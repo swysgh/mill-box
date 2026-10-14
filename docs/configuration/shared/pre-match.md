@@ -2,83 +2,76 @@
 icon: material/new-box
 ---
 
-# Pre-match
+# 预匹配
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-alert: [route](#route)  
     :material-plus: [sniff](#sniff)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [bypass](#bypass)
 
-Pre-match is rule matching that runs before the connection is established.
+预匹配是在连接建立之前运行的规则匹配。
 
-### How it works
+### 工作原理
 
-When an L3 inbound (TUN, WireGuard, or Tailscale) receives a connection request, the connection has not yet been established:
-for TCP connections no connection data is available, while for UDP connections only the first packet is available.
-In this phase, sing-box runs the routing rules in pre-match mode.
+当 L3 入站（TUN、WireGuard 或 Tailscale）收到连接请求时，连接尚未建立：对于 TCP 连接，无连接数据可用；对于 UDP 连接，仅首个数据包可用。在此阶段，sing-box 在预匹配模式下运行路由规则。
 
-When a rule matches an action that requires more connection data than available, pre-match stops at that rule.
+当规则匹配到需要比当前可用数据更多连接数据的动作时，预匹配将在该规则处停止。
 
-### Supported actions
+### 支持的动作
 
 #### reject
 
-Reject with TCP RST / ICMP unreachable.
+以 TCP RST / ICMP 不可达拒绝。
 
-See [reject](/configuration/route/rule_action/#reject) for details.
+详情参阅 [reject](/configuration/route/rule_action/#reject)。
 
 #### route
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
-    Since sing-box 1.14.0, TCP and UDP connections can also be forwarded at L3;
-    previously only ICMP connections were supported.
+    自 sing-box 1.14.0 起，TCP 和 UDP 连接也可以在 L3 转发；此前仅支持 ICMP 连接。
 
-Forward connections directly at L3 to the specified outbound,
-without going through L3 to L4 translation.
+将连接直接在 L3 转发到指定出站，不经过 L3 到 L4 转换。
 
-Supported targets:
+支持的目标：
 
-- ICMP connections: Direct and Bridge outbounds, and WireGuard / Tailscale endpoints.
-- TCP and UDP connections: Bridge outbounds, and WireGuard / Tailscale endpoints.
+- ICMP 连接：direct 和 bridge 出站以及 WireGuard / Tailscale 端点。
+- TCP 和 UDP 连接：bridge 出站以及 WireGuard / Tailscale 端点。
 
-L3 forwarding also applies when no rule matches and the default outbound is a supported
-target; for outbound groups, the currently selected outbound is used.
+当没有规则匹配且默认出站为受支持的目标时，L3 转发同样生效；对于出站组，使用当前选中的出站。
 
-FakeIP destinations require a `resolve` action performed in pre-match,
-otherwise connections will be rejected.
+FakeIP 目标需要在预匹配中先执行 `resolve` 动作，否则连接将被拒绝。
 
-See [route](/configuration/route/rule_action/#route) for details.
+详情参阅 [route](/configuration/route/rule_action/#route)。
 
 #### sniff
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-For UDP connections, sniffing runs on the first packet and rule matching continues with the sniffed metadata.
+对于 UDP 连接，协议探测在首个数据包上运行，随后规则匹配将携带探测结果继续。
 
-When sniffers require more data (like a fragmented QUIC Client Hello), pre-match stops at that rule.
+当探测器需要更多数据时（如分片的 QUIC Client Hello），预匹配将在该规则处停止。
 
-For TCP connections, pre-match always stops at that rule.
+对于 TCP 连接，预匹配总是在该规则处停止。
 
-See [sniff](/configuration/route/rule_action/#sniff) for details.
+详情参阅 [sniff](/configuration/route/rule_action/#sniff)。
 
 #### bypass
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported on Linux with `auto_redirect` enabled.
+    仅支持 Linux，且需要启用 `auto_redirect`。
 
-Bypass sing-box and connect directly at kernel level.
+在内核层面绕过 sing-box 直接连接。
 
-If `outbound` is not specified, the rule only matches in pre-match from auto redirect,
-and will be skipped in other contexts.
+如果未指定 `outbound`，规则仅在来自 auto redirect 的预匹配中匹配，在其他场景中将被跳过。
 
-For all other contexts, bypass with `outbound` behaves like `route` action.
+对于其他所有场景，指定了 `outbound` 的 bypass 行为与 `route` 相同。
 
-See [bypass](/configuration/route/rule_action/#bypass) for details.
+详情参阅 [bypass](/configuration/route/rule_action/#bypass)。

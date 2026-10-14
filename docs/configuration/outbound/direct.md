@@ -2,14 +2,14 @@
 icon: material/alert-decagram
 ---
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-delete-clock: [override_address](#override_address)  
     :material-delete-clock: [override_port](#override_port)
 
-`direct` outbound send requests directly.
+`direct` 出站直接发送请求。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -18,31 +18,29 @@ icon: material/alert-decagram
   
   "override_address": "1.0.0.1",
   "override_port": 53,
-  
-  ... // Dial Fields
+
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### override_address
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Destination override fields are deprecated in sing-box 1.11.0 and will be removed in sing-box 1.13.0, see [Migration](/migration/#migrate-destination-override-fields-to-route-options).
+    目标覆盖字段在 sing-box 1.11.0 中已废弃，并将在 sing-box 1.13.0 中被移除，参阅 [迁移指南](/migration/#迁移-direct-出站中的目标地址覆盖字段到路由字段)。
 
-Override the connection destination address.
+覆盖连接目标地址。
 
 #### override_port
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Destination override fields are deprecated in sing-box 1.11.0 and will be removed in sing-box 1.13.0, see [Migration](/migration/#migrate-destination-override-fields-to-route-options).
+    目标覆盖字段在 sing-box 1.11.0 中已废弃，并将在 sing-box 1.13.0 中被移除，参阅 [迁移指南](/migration/#迁移-direct-出站中的目标地址覆盖字段到路由字段)。
 
-Override the connection destination port.
+覆盖连接目标端口。
 
-Protocol value can be `1` or `2`.
+### 拨号字段
 
-### Dial Fields
-
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

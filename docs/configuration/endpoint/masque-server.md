@@ -1,17 +1,17 @@
-# MASQUE Server
+# MASQUE 服务器
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-`masque-server` endpoint is an IP proxying over HTTP ([RFC 9484](https://datatracker.ietf.org/doc/html/rfc9484), CONNECT-IP) server.
+`masque-server` endpoint 是一个基于 HTTP 的 IP 代理（[RFC 9484](https://datatracker.ietf.org/doc/html/rfc9484)，CONNECT-IP）服务器。
 
-## Structure
+## 结构
 
 ```json
 {
   "type": "masque-server",
   "tag": "masque-server",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "version": [],
   "users": [
@@ -28,97 +28,97 @@
   "name": "",
   "mtu": 1280,
 
-  ... // HTTP2 Fields / QUIC Fields
-  ... // UDP NAT Fields
+  ... // HTTP2 字段 / QUIC 字段
+  ... // UDP NAT 字段
 }
 ```
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-## Listen Fields
+## 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details. `udp_timeout` is part of the [UDP NAT Fields](#udp-nat-fields) below.
+参阅 [监听字段](/configuration/shared/listen/)。`udp_timeout` 属于下方的 [UDP NAT 字段](#udp-nat-字段)。
 
-## Fields
+## 字段
 
 ### version
 
-List of HTTP versions to serve.
+提供的 HTTP 版本列表。
 
-Available values: `1`, `2`, `3`.
+可用值：`1`、`2`、`3`。
 
-All versions are used by default.
+默认提供全部版本。
 
-TLS is required for `3`.
+`3` 需要 TLS。
 
 ### users
 
-HTTP users, verified by the `Authorization` header.
+HTTP 用户，通过 `Authorization` 标头验证。
 
-No authentication required if empty.
+如果为空则不需要验证。
 
 ### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#inbound)。
 
-IP proxying must be operated over TLS or QUIC. Leave it disabled only when the server is placed behind an HTTP intermediary that terminates TLS.
+IP 代理必须运行在 TLS 或 QUIC 之上。仅当服务器位于终止 TLS 的 HTTP 中间层之后时才可以不启用。
 
 ### path
 
-URI template path of the IP proxying resource, may contain the `target` and `ipproto` variables.
+IP 代理资源的 URI 模板路径，可以包含 `target` 和 `ipproto` 变量。
 
-`/.well-known/masque/ip/{target}/{ipproto}/` is used by default.
+默认使用 `/.well-known/masque/ip/{target}/{ipproto}/`。
 
 ### address
 
-==Required==
+==必填==
 
-List of IP prefixes of the tunnel network, at most one for each IP version.
+隧道网络的 IP 前缀列表，每个 IP 版本最多一个。
 
-The address of the prefix is used by the server itself, other addresses in the prefix are assigned to clients.
+前缀中的地址由服务器自己使用，前缀内的其他地址分配给客户端。
 
 ### advertise_routes
 
-List of IP prefixes to advertise to clients, in addition to the tunnel network.
+除隧道网络外，向客户端声明的 IP 前缀列表。
 
-Traffic from clients to other destinations is rejected.
+客户端发往其他目的地址的流量会被拒绝。
 
-All addresses are advertised by default.
+默认声明全部地址。
 
 ### system
 
-Use system interface.
+使用系统接口。
 
-Requires privilege and cannot conflict with existing system interfaces.
+需要特权且不能与已有系统接口冲突。
 
-If disabled, sing-box uses the internal network stack.
+如果禁用，sing-box 将使用内部网络栈。
 
 ### name
 
-Custom interface name for system interface.
+系统接口的自定义接口名称。
 
-An automatically generated `masque` interface name is used by default.
+默认使用自动生成的 `masque` 接口名称。
 
 ### mtu
 
-Tunnel MTU.
+隧道 MTU。
 
-`1280` will be used by default.
+默认使用 `1280`。
 
-## HTTP2 Fields
+## HTTP2 字段
 
-When `version` contains `2`.
+当 `version` 包含 `2` 时。
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/)。
 
-## QUIC Fields
+## QUIC 字段
 
-When `version` contains `3` (default), [HTTP2 Fields](#http2-fields) are replaced by QUIC Fields.
+当 `version` 包含 `3`（默认）时，[HTTP2 字段](#http2-字段) 替换为 QUIC 字段。
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/)。
 
-## UDP NAT Fields
+## UDP NAT 字段
 
-See [UDP NAT Fields](/configuration/shared/udp-nat/) for details.
+参阅 [UDP NAT 字段](/configuration/shared/udp-nat/)。

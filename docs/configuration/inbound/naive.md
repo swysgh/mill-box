@@ -1,16 +1,16 @@
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [quic_congestion_control](#quic_congestion_control)
 
-### Structure
+### 结构
 
 ```json
 {
 "type": "naive",
 "tag": "naive-in",
 "network": "udp",
-...
-// Listen Fields
+
+... // 监听字段
 
 "users": [
 {
@@ -23,38 +23,38 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### network
 
-Listen network, one of `tcp` `udp`.
+监听的网络协议，`tcp` `udp` 之一。
 
-Both if empty.
+默认所有。
 
 #### users
 
-==Required==
+==必填==
 
-Naive users.
+Naive 用户。
 
 #### quic_congestion_control
 
 !!! question "Since sing-box 1.13.0"
 
-QUIC congestion control algorithm.
+QUIC 拥塞控制算法。
 
-| Algorithm      | Description                     |
-|----------------|---------------------------------|
-| `bbr`          | BBR                             |
-| `cubic`        | CUBIC                           |
-| `reno`         | New Reno                        |
+| 算法             | 描述                 |
+|----------------|--------------------|
+| `bbr`          | BBR                |
+| `cubic`        | CUBIC              |
+| `reno`         | New Reno           |
 
-`bbr` is used by default.
+默认使用 `bbr`。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。

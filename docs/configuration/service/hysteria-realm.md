@@ -2,25 +2,25 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 # Hysteria Realm
 
-Hysteria Realm is a rendezvous service for Hysteria2 NAT traversal.
+Hysteria Realm 是用于 Hysteria2 NAT 穿透的会合服务。
 
-Hysteria2 servers behind NAT register on the realm via the [`realm`](/configuration/inbound/hysteria2/#realm) inbound field, and clients connect to them through the realm via the [`realm`](/configuration/outbound/hysteria2/#realm) outbound field.
+位于 NAT 后面的 Hysteria2 服务器通过 [`realm`](/configuration/inbound/hysteria2/#realm) 入站字段注册到 realm，客户端通过 [`realm`](/configuration/outbound/hysteria2/#realm) 出站字段经由 realm 连接到这些服务器。
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "hysteria-realm",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "tls": {},
 
-  ... // HTTP2 Fields
+  ... // HTTP2 字段
 
   "users": [
     {
@@ -32,40 +32,40 @@ Hysteria2 servers behind NAT register on the realm via the [`realm`](/configurat
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/) 了解详情。
 
-### HTTP2 Fields
+### HTTP2 字段
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/) 了解详情。
 
-### Fields
+### 字段
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#入站)。
 
-When configured, the realm serves HTTP/2 over TLS; otherwise plain HTTP/1.1.
+配置后，realm 将通过 TLS 提供 HTTP/2 服务；否则提供明文 HTTP/1.1。
 
 #### users
 
-==Required==
+==必填==
 
-Authorized users.
+授权用户。
 
 #### users.name
 
-==Required==
+==必填==
 
-Username, used in logs and as the quota key.
+用户名，用于日志记录和配额键。
 
 #### users.token
 
-==Required==
+==必填==
 
-Bearer token presented by Hysteria2 inbounds and outbounds via `Authorization: Bearer <token>`.
+Hysteria2 入站和出站通过 `Authorization: Bearer <token>` 出示的 Bearer 令牌。
 
 #### users.max_realms
 
-Maximum number of realm slots this user may hold concurrently.
+此用户可同时持有的 realm 槽位数量上限。

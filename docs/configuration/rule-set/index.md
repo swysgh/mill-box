@@ -1,165 +1,161 @@
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [http_client](#http_client)  
     :material-delete-clock: [download_detour](#download_detour)  
     :material-alert: [tag](#tag)  
     :material-plus: [initial_path](#initial_path)
 
-!!! quote "Changes in sing-box 1.10.0"
+!!! quote "sing-box 1.10.0 中的更改"
 
     :material-plus: `type: inline`
 
-# rule-set
+# 规则集
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
-### Structure
+### 结构
 
-=== "Inline"
+=== "内联"
 
-    !!! question "Since sing-box 1.10.0"
+    !!! question "自 sing-box 1.10.0 起"
 
     ```json
     {
-      "type": "inline", // optional
+      "type": "inline", // 可选
       "tag": "",
       "rules": []
     }
     ```
 
-=== "Local File"
+=== "本地文件"
 
     ```json
     {
       "type": "local",
-      "tag": "", // or []
+      "tag": "", // 或 []
       "format": "source", // or binary
       "path": ""
     }
     ```
 
-=== "Remote File"
+=== "远程文件"
 
     !!! info ""
     
-        Remote rule-set will be cached if `experimental.cache_file.enabled`.
+        远程规则集将被缓存如果 `experimental.cache_file.enabled` 已启用。
 
     ```json
     {
       "type": "remote",
-      "tag": "", // or []
+      "tag": "", // 或 []
       "format": "source", // or binary
       "url": "",
       "initial_path": "",
-      "http_client": "", // or {}
+      "http_client": "", // 或 {}
       "update_interval": "",
 
-      // Deprecated
+      // 废弃的
 
       "download_detour": ""
     }
     ```
 
-### Fields
+### 字段
 
 #### type
 
-==Required==
+==必填==
 
-Type of rule-set, `local` or `remote`.
+规则集类型， `local` 或 `remote`。
 
 #### tag
 
-==Required==
+==必填==
 
-Tag of rule-set.
+规则集的标签。
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-    `tag` also accepts a list of tags to define multiple rule-sets sharing other options at once.
+    `tag` 也接受一组标签，用于一次定义多个共享其他选项的规则集。
 
-    The `{tag}` placeholder in `path`, `url` or `initial_path` is replaced by each tag,
-    and is required when multiple tags are set.
+    `path`、`url` 或 `initial_path` 中的 `{tag}` 占位符将被替换为每个标签，设置多个标签时必填。
 
-    Multiple tags conflict with `type: inline`.
+    多个标签与 `type: inline` 冲突。
 
-### Inline Fields
+### 内联字段
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
 #### rules
 
-==Required==
+==必填==
 
-List of [Headless Rule](./headless-rule/).
+一组 [无头规则](./headless-rule/).
 
-### Local or Remote Fields
+### 本地或远程字段
 
 #### format
 
-==Required==
+==必填==
 
-Format of rule-set file, `source` or `binary`.
+规则集格式， `source` 或 `binary`。
 
-Optional when `path` or `url` uses `json` or `srs` as extension.
+当 `path` 或 `url` 使用 `json` 或 `srs` 作为扩展名时可选。
 
-### Local Fields
+### 本地字段
 
 #### path
 
-==Required==
+==必填==
 
 !!! note ""
 
-    Will be automatically reloaded if file modified since sing-box 1.10.0.
+    自 sing-box 1.10.0 起，文件更改时将自动重新加载。
 
-File path of rule-set.
+规则集的文件路径。
 
-### Remote Fields
+### 远程字段
 
 #### url
 
-==Required==
+==必填==
 
-Download URL of rule-set.
+规则集的下载 URL。
 
 #### initial_path
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-File path of the initial rule-set content.
+规则集初始内容的文件路径。
 
-Used at startup when no cached rule-set is available.
+在启动时没有可用的规则集缓存时使用。
 
 #### http_client
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-HTTP Client for downloading rule-set.
+用于下载规则集的 HTTP 客户端。
 
-See [HTTP Client Fields](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端字段](/configuration/shared/http-client/) 了解详情。
 
-When empty, the default HTTP client is used: the one named by
-[`default_http_client`](/configuration/route/#default_http_client), or the first top-level
-`http_clients` entry when `default_http_client` is empty.
+留空时使用默认 HTTP 客户端：即由 [`default_http_client`](/configuration/route/#default_http_client)
+指定的客户端，或当 `default_http_client` 为空时使用顶级 `http_clients` 的第一项。
 
-!!! failure "Implicit default deprecated in sing-box 1.14.0"
+!!! failure "隐式默认已在 sing-box 1.14.0 废弃"
 
-    When neither `http_clients` nor `default_http_client` is configured, an implicit HTTP
-    client connecting through the default outbound is used. This implicit default is
-    deprecated in sing-box 1.14.0 and will be removed in sing-box 1.16.0; define
-    `http_clients` instead.
+    当 `http_clients` 与 `default_http_client` 均未配置时，将使用通过默认出站连接的隐式 HTTP 客户端。
+    该隐式默认已在 sing-box 1.14.0 废弃，并将在 sing-box 1.16.0 移除；请改为定义 `http_clients`。
 
 #### update_interval
 
-Update interval of rule-set.
+规则集的更新间隔。
 
-`1d` will be used if empty.
+默认使用 `1d`。
 
 #### download_detour
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    `download_detour` is deprecated in sing-box 1.14.0 and will be removed in sing-box 1.16.0, use `http_client` instead.
+    `download_detour` 已在 sing-box 1.14.0 废弃且将在 sing-box 1.16.0 中被移除，请使用 `http_client` 代替。
 
-Tag of the outbound to download rule-set.
+用于下载规则集的出站的标签。

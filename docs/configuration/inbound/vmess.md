@@ -1,11 +1,11 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "vmess",
   "tag": "vmess-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "users": [
     {
@@ -20,35 +20,35 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-==Required==
+==必填==
 
-VMess users.
+VMess 用户。
 
-| Alter ID | Description             |
-|----------|-------------------------|
-| 0        | Disable legacy protocol |
-| > 0      | Enable legacy protocol  |
+| Alter ID | 描述    |
+|----------|-------|
+| 0        | 禁用旧协议 |
+| > 0      | 启用旧协议 |
 
 !!! warning ""
 
-    Legacy protocol support (VMess MD5 Authentication) is provided for compatibility purposes only, use of alterId > 1 is not recommended.
+    提供旧协议支持（VMess MD5 身份验证）仅出于兼容性目的，不建议使用 alterId > 1。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#inbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#入站)。
 
 #### transport
 
-V2Ray Transport configuration, see [V2Ray Transport](/configuration/shared/v2ray-transport/).
+V2Ray 传输配置，参阅 [V2Ray 传输层](/configuration/shared/v2ray-transport/)。

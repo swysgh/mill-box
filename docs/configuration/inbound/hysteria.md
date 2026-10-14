@@ -1,11 +1,11 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "hysteria",
   "tag": "hysteria-in",
   
-  ... // Listen Fields
+  ... // 监听字段
 
   "up": "100 Mbps",
   "up_mbps": 100,
@@ -20,12 +20,12 @@
       "auth_str": "password"
     }
   ],
-  
+
   "tls": {},
 
-  ... // QUIC Fields
+  ... // QUIC 字段
 
-  // Deprecated
+  // 废弃的
 
   "recv_window_conn": 0,
   "recv_window_client": 0,
@@ -34,19 +34,19 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### up, down
 
-==Required==
+==必填==
 
-Format: `[Integer] [Unit]` e.g. `100 Mbps, 640 KBps, 2 Gbps`
+格式: `[Integer] [Unit]` 例如： `100 Mbps, 640 KBps, 2 Gbps`
 
-Supported units (case sensitive, b = bits, B = bytes, 8b=1B):
+支持的单位 (大小写敏感, b = bits, B = bytes, 8b=1B)：
 
     bps (bits per second)
     Bps (bytes per second)
@@ -61,58 +61,58 @@ Supported units (case sensitive, b = bits, B = bytes, 8b=1B):
 
 #### up_mbps, down_mbps
 
-==Required==
+==必填==
 
-`up, down` in Mbps.
+以 Mbps 为单位的 `up, down`。
 
 #### obfs
 
-Obfuscated password.
+混淆密码。
 
 #### users
 
-Hysteria users
+Hysteria 用户
 
 #### users.auth
 
-Authentication password, in base64.
+base64 编码的认证密码。
 
 #### users.auth_str
 
-Authentication password.
+认证密码。
 
 #### tls
 
-==Required==
+==必填==
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。
 
-### QUIC Fields
+### QUIC 字段
 
-See [QUIC Fields](/configuration/shared/quic/) for details.
+参阅 [QUIC 字段](/configuration/shared/quic/) 了解详情。
 
-### Deprecated Fields
+### 废弃字段
 
 #### recv_window_conn
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    Use QUIC fields `stream_receive_window` instead.
+    请使用 QUIC 字段 `stream_receive_window` 代替。
 
 #### recv_window_client
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    Use QUIC fields `connection_receive_window` instead.
+    请使用 QUIC 字段 `connection_receive_window` 代替。
 
 #### max_conn_client
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    Use QUIC fields `max_concurrent_streams` instead.
+    请使用 QUIC 字段 `max_concurrent_streams` 代替。
 
 #### disable_mtu_discovery
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    Use QUIC fields `disable_path_mtu_discovery` instead.
+    请使用 QUIC 字段 `disable_path_mtu_discovery` 代替。

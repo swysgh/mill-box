@@ -2,15 +2,15 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [Chrome Root Store](#store)
 
-# Certificate
+# 证书
 
-### Structure
+### 结构
 
 ```json
 {
@@ -23,37 +23,37 @@ icon: material/new-box
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-### Fields
+### 字段
 
 #### store
 
-The default X509 trusted CA certificate list.
+默认的 X509 受信任 CA 证书列表。
 
-| Type               | Description                                                                                                    |
-|--------------------|----------------------------------------------------------------------------------------------------------------|
-| `system` (default) | System trusted CA certificates                                                                                 |
-| `mozilla`          | [Mozilla Included List](https://wiki.mozilla.org/CA/Included_Certificates) with China CA certificates removed |
-| `chrome`           | [Chrome Root Store](https://g.co/chrome/root-policy) with China CA certificates removed                        |
-| `none`             | Empty list                                                                                                     |
+| 类型              | 描述                                                                                       |
+|-------------------|--------------------------------------------------------------------------------------------|
+| `system`（默认）   | 系统受信任的 CA 证书                                                                        |
+| `mozilla`         | [Mozilla 包含列表](https://wiki.mozilla.org/CA/Included_Certificates)（已移除中国 CA 证书） |
+| `chrome`          | [Chrome Root Store](https://g.co/chrome/root-policy)（已移除中国 CA 证书）                  |
+| `none`            | 空列表                                                                                     |
 
 #### certificate
 
-The certificate line array to trust, in PEM format.
+要信任的证书行数组，PEM 格式。
 
 #### certificate_path
 
 !!! note ""
 
-    Will be automatically reloaded if file modified.
+    文件修改时将自动重新加载。
 
-The paths to certificates to trust, in PEM format.
+要信任的证书路径，PEM 格式。
 
 #### certificate_directory_path
 
 !!! note ""
 
-    Will be automatically reloaded if file modified.
+    文件修改时将自动重新加载。
 
-The directory path to search for certificates to trust,in PEM format.
+搜索要信任的证书的目录路径，PEM 格式。

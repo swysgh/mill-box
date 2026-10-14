@@ -2,13 +2,13 @@
 icon: material/delete-clock
 ---
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Legacy special outbounds are deprecated and will be removed in sing-box 1.13.0, check [Migration](/migration/#migrate-legacy-special-outbounds-to-rule-actions).
+    旧的特殊出站已被弃用，且将在 sing-box 1.13.0 中被移除, 参阅 [迁移指南](/migration/#迁移旧的特殊出站到规则动作). 
 
-`dns` outbound is a internal DNS server.
+`dns` 出站是一个内部 DNS 服务器。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -19,8 +19,8 @@ icon: material/delete-clock
 
 !!! note ""
 
-    There are no outbound connections by the DNS outbound, all requests are handled internally.
+    DNS 出站没有出站连接，所有请求均在内部处理。
 
-### Fields
+### 字段
 
-No fields.
+无字段。

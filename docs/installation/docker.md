@@ -4,7 +4,7 @@ icon: material/docker
 
 # Docker
 
-## :material-console: Command
+## :material-console: 命令
 
 ```bash
 docker run -d \

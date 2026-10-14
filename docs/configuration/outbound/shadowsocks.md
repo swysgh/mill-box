@@ -1,4 +1,4 @@
-### Structure
+### 结构
 
 ```json
 {
@@ -15,29 +15,29 @@
   "udp_over_tcp": false | {},
   "multiplex": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### method
 
-==Required==
+==必填==
 
-Encryption methods:
+加密方法：
 
 * `2022-blake3-aes-128-gcm`
 * `2022-blake3-aes-256-gcm`
@@ -49,7 +49,7 @@ Encryption methods:
 * `chacha20-ietf-poly1305`
 * `xchacha20-ietf-poly1305`
 
-Legacy encryption methods:
+旧加密方法：
 
 * `aes-128-ctr`
 * `aes-192-ctr`
@@ -63,40 +63,40 @@ Legacy encryption methods:
 
 #### password
 
-==Required==
+==必填==
 
-The shadowsocks password.
+Shadowsocks 密码。
 
 #### plugin
 
-Shadowsocks SIP003 plugin, implemented in internal.
+Shadowsocks SIP003 插件，由内部实现。
 
-Only `obfs-local` and `v2ray-plugin` are supported.
+仅支持 `obfs-local` 和 `v2ray-plugin`。
 
 #### plugin_opts
 
-Shadowsocks SIP003 plugin options.
+Shadowsocks SIP003 插件参数。
 
 #### network
 
-Enabled network
+启用的网络协议
 
-One of `tcp` `udp`.
+`tcp` 或 `udp`。
 
-Both is enabled by default.
+默认所有。
 
 #### udp_over_tcp
 
-UDP over TCP configuration.
+UDP over TCP 配置。
 
-See [UDP Over TCP](/configuration/shared/udp-over-tcp/) for details.
+参阅 [UDP Over TCP](/configuration/shared/udp-over-tcp/)。
 
-Conflict with `multiplex`.
+与 `multiplex` 冲突。
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#outbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#出站)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

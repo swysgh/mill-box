@@ -2,29 +2,29 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
   "initial_packet_size": 0,
   "disable_path_mtu_discovery": false,
 
-  ... // HTTP2 Fields
+  ... // HTTP2 字段
 }
 ```
 
-### Fields
+### 字段
 
 #### initial_packet_size
 
-Initial QUIC packet size.
+初始 QUIC 数据包大小。
 
 #### disable_path_mtu_discovery
 
-Disable QUIC path MTU discovery.
+禁用 QUIC 路径 MTU 发现。
 
-### HTTP2 Fields
+### HTTP2 字段
 
-See [HTTP2 Fields](/configuration/shared/http2/) for details.
+参阅 [HTTP2 字段](/configuration/shared/http2/) 了解详情。

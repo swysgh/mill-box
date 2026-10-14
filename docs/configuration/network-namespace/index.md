@@ -2,19 +2,19 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-# Network Namespace
+# 网络命名空间
 
-Network namespaces let inbounds and outbounds run inside a separate Linux network namespace,
-referenced by tag from the [tun](/configuration/inbound/tun/#netns),
-[Listen Fields](/configuration/shared/listen/#netns) and [Dial Fields](/configuration/shared/dial/#netns).
+网络命名空间使入站和出站可以运行在独立的 Linux 网络命名空间中，
+通过标签从 [tun](/configuration/inbound/tun/#netns)、
+[监听字段](/configuration/shared/listen/#netns) 和 [拨号字段](/configuration/shared/dial/#netns) 引用。
 
-### Structure
+### 结构
 
 ```json
 {
@@ -29,15 +29,15 @@ referenced by tag from the [tun](/configuration/inbound/tun/#netns),
 
 #### type
 
-The type of the network namespace, `default` is used by default.
+网络命名空间的类型，默认使用 `default`。
 
-| Type      | Format                 |
+| 类型      | 格式                   |
 |-----------|------------------------|
 | `default` | [Default](./default/)  |
 | `unshare` | [Unshare](./unshare/)  |
 
 #### tag
 
-==Required==
+==必填==
 
-The tag of the network namespace.
+网络命名空间的标签。

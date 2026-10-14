@@ -1,10 +1,10 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "trojan",
   "tag": "trojan-out",
-
+  
   "server": "127.0.0.1",
   "server_port": 1080,
   "password": "8JCsPssfgS8tiRwiMlhARg==",
@@ -13,50 +13,50 @@
   "multiplex": {},
   "transport": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### password
 
-==Required==
+==必填==
 
-The Trojan password.
+Trojan 密码。
 
 #### network
 
-Enabled network
+启用的网络协议。
 
-One of `tcp` `udp`.
+`tcp` 或 `udp`。
 
-Both is enabled by default.
+默认所有。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#outbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#出站)。
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#outbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#出站)。
 
 #### transport
 
-V2Ray Transport configuration, see [V2Ray Transport](/configuration/shared/v2ray-transport/).
+V2Ray 传输配置，参阅 [V2Ray 传输层](/configuration/shared/v2ray-transport/)。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。

@@ -1,6 +1,6 @@
-# Outbound
+# 出站
 
-### Structure
+### 结构
 
 ```json
 {
@@ -13,9 +13,9 @@
 }
 ```
 
-### Fields
+### 字段
 
-| Type           | Format                         |
+| 类型             | 格式                             |
 |----------------|--------------------------------|
 | `direct`       | [Direct](./direct/)             |
 | `bridge`       | [Bridge](./bridge/)             |
@@ -43,10 +43,10 @@
 
 #### tag
 
-The tag of the outbound.
+出站的标签。
 
-### Features
+### 特性
 
-#### Outbounds that support IP connection
+#### 支持 IP 连接的出站
 
 * `WireGuard`

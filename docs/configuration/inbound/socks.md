@@ -1,13 +1,13 @@
-`socks` inbound is a socks4, socks4a, socks5 server.
+`socks` 入站是一个 socks4, socks4a 和 socks5 服务器.
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "socks",
   "tag": "socks-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "users": [
     {
@@ -18,14 +18,14 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-SOCKS users.
+SOCKS 用户
 
-No authentication required if empty.
+如果为空则不需要验证。

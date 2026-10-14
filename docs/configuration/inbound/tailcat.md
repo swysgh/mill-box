@@ -2,9 +2,9 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -24,60 +24,58 @@ icon: material/new-box
   "derp_servers": [],
   "http_client": {},
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### private_key
 
-==Required==
+==必填==
 
-Private key.
+私钥。
 
-Generate with `sing-box generate tailcat-keypair`.
+使用 `sing-box generate tailcat-keypair` 生成。
 
 #### pre_shared_key
 
-Pre-shared key.
+预共享密钥。
 
 #### users
 
-Tailcat users.
+Tailcat 用户。
 
-Clients are not verified if empty.
+为空时不验证客户端。
 
-To use a DERP server with client verification, set `verify_client_inbound` or `verify_client_key` in
-[DERP service](/configuration/service/derp/#verify_client_inbound), and clients must use fixed
-private keys.
+如需使用带客户端验证的 DERP 服务器，在 [DERP 服务](/configuration/service/derp/#verify_client_inbound)
+中设置 `verify_client_inbound` 或 `verify_client_key`，且客户端必须使用固定的私钥。
 
 #### users.public_key
 
-==Required==
+==必填==
 
-Client public key.
+客户端公钥。
 
 #### derp_map_url
 
-URL of the [DERP map](https://pkg.go.dev/tailscale.com/tailcfg#DERPMap).
+[DERP map](https://pkg.go.dev/tailscale.com/tailcfg#DERPMap) 的 URL。
 
-`https://tailcat.dev/derpmap.json` is used by default.
+默认使用 `https://tailcat.dev/derpmap.json`。
 
 #### derp_region
 
-DERP region ID in the DERP map.
+DERP map 中的 DERP 区域 ID。
 
-Conflicts with `derp_servers`.
+与 `derp_servers` 冲突。
 
 #### derp_servers
 
-Custom DERP servers in [DERPNode](https://pkg.go.dev/tailscale.com/tailcfg#DERPNode) format, with
-snake_case field names.
+自定义 DERP 服务器，为 [DERPNode](https://pkg.go.dev/tailscale.com/tailcfg#DERPNode) 格式，字段名使用 snake_case。
 
-Conflicts with `derp_map_url` and `derp_region`.
+与 `derp_map_url` 和 `derp_region` 冲突。
 
-Setting Array value to a string `__HOST__` is equivalent to configuring:
+将数组值设置为字符串 `__HOST__` 等同于配置：
 
 ```json
 { "host": __HOST__ }
@@ -85,14 +83,14 @@ Setting Array value to a string `__HOST__` is equivalent to configuring:
 
 #### http_client
 
-HTTP client used to fetch the DERP map.
+用于获取 DERP map 的 HTTP 客户端。
 
-See [HTTP Client](/configuration/shared/http-client/) for details.
+参阅 [HTTP 客户端](/configuration/shared/http-client/) 了解详情。
 
-### Dial Fields
+### 拨号字段
 
 !!! note
 
-    Dial Fields in Tailcat inbounds only control how it connects to DERP servers and have nothing to do with actual connections.
+    Tailcat 入站中的拨号字段仅控制它如何连接到 DERP 服务器，与实际连接无关。
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。

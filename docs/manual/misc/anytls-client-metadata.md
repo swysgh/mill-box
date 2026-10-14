@@ -2,66 +2,34 @@
 icon: material/incognito
 ---
 
-# AnyTLS client metadata
+# AnyTLS 客户端元数据
 
-The AnyTLS protocol has a design flaw: its settings frame requires the client
-to send its software name and version to the server, and the protocol
-specification requires that clients not disguise this information.
+AnyTLS 协议具有设计缺陷：其 settings 帧要求客户端向服务器发送软件名称和版本，且协议规范要求客户端不得伪装此信息。
 
-This field serves no protocol purpose — AnyTLS already has a separate version
-field for compatibility negotiation, and the open-source server implementation
-does not use client metadata. However, the field allows vendors to collect and track client types, and for
-platform-specific clients, potentially infer private information such as the operating system type and version range —
-something that should not, and is not expected by users to, appear in an
-anti-censorship protocol. We have received reports that
-commercial proxy providers use this information to identify and block
-connections from the official library provided by AnyTLS for sing-box
-integration, reportedly because abusive users connect to their servers with
-sing-box or with clients using the same official library. This indicates that
-client metadata is being collected and used for discrimination in practice.
+此字段不承担协议功能——AnyTLS 已有独立的版本字段用于兼容性协商，且开源服务端实现不使用客户端元数据。然而，此字段使得供应商可以收集并统计客户端类型，对于某些平台特定的客户端，还可能推断出操作系统类型与版本范围等隐私信息，而这不应该，也不是被用户预期的，在一个反审查协议中出现。我们收到报告，有商业代理提供商利用此信息识别和阻止来自 sing-box 使用的、由 AnyTLS 提供的用于 sing-box 集成的官方代码库的连接，据传原因是恶意用户使用 sing-box 或使用相同官方代码库的客户端连接到服务器，这表明客户端元数据在实践中已被用于收集和区别对待。
 
-The protocol specification states that "disguising it has no value." We
-disagree: the situation is analogous to browsers implementing TLS ECH GREASE —
-without it, privacy-protecting clients can be fingerprinted and treated
-differently.
+协议规范称「伪装它没有任何意义」。我们不同意：这类似于浏览器实现 TLS ECH GREASE——如果没有这一机制，保护隐私的客户端会被识别并受到差别对待。
 
-## Status
+## 状态
 
 ### 2025-02-20
 
-We merged the
-[pull request adding this protocol](https://github.com/SagerNet/sing-box/pull/2615).
-Since the metadata was fixed at `sing-anytls/<library version>` in the
-implementation provided for our use, and we did not carefully review the
-protocol specification and other implementations, we wrongly believed that it
-was not private information.
+我们合并了[添加此协议的 PR](https://github.com/SagerNet/sing-box/pull/2615)。由于在供我们使用的实现中，metadata 被固定在 `sing-anytls/<library version>`，且我们没有仔细审查协议规范和其他实现，我们错误地认为这不是隐私信息。
 
 ### 2025-04-05
 
-The protocol document
-[added](https://github.com/anytls/anytls-go/commit/8812aae7ab29dd88bb89067b9ca676e2e7e29171)
-the requirement that third-party implementations fill in the real software
-name and version, claiming that "disguising it has no value".
+协议文档[加入](https://github.com/anytls/anytls-go/commit/8812aae7ab29dd88bb89067b9ca676e2e7e29171)了要求第三方实现填写真实软件名称与版本号的条款，并声称「伪装它没有任何意义」。
 
 ### 2026-07-18
 
-A [pull request submitted to sing-box](https://github.com/SagerNet/sing-box/pull/4311)
-was found to additionally upload the `sing-box` name and the actual version;
-the change was subsequently reverted and was never released.
+[向 sing-box 提出的 PR](https://github.com/SagerNet/sing-box/pull/4311) 被发现额外上传了 `sing-box` 和实际版本的字符串，随后此更改被回退，没有发布。
 
 ### 2026-08-03
 
-sing-box 1.13.16 and 1.14.0-beta.5 have been released; the client metadata in
-AnyTLS requests is now empty by default. For compatibility, the
-[client_metadata](/configuration/outbound/anytls/#client_metadata) outbound
-option allows users to set a custom value.
+发布了 sing-box 1.13.16 和 1.14.0-beta.5，现在 AnyTLS 请求中的客户端元数据默认为空。出于兼容性考虑，[client_metadata](/configuration/outbound/anytls/#client_metadata) 出站选项允许用户自定义此值。
 
-Since the open-source server implementation does not use this information and
-it has no legitimate use, this is not considered a breaking change.
+由于开源服务端实现不使用此信息，且它没有合理用途，这不被视为破坏性更改。
 
-## Recommendations
+## 建议
 
-We recommend that the AnyTLS protocol remove the client metadata, or replace
-it with an option that is not sent by default and can be customized by the
-user; and that other client implementations also take action, to jointly stop
-statistics collection and discrimination based on client metadata.
+我们建议 AnyTLS 协议移除客户端元数据，或将其替换为非默认提供、且用户可以自定义的选项；并建议其他客户端实现也采取行动，共同阻止基于客户端元数据的统计和区别对待。

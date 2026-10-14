@@ -2,43 +2,43 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
 # SSM API
 
-SSM API service is a RESTful API server for managing Shadowsocks servers.
+SSM API 服务是一个用于管理 Shadowsocks 服务器的 RESTful API 服务器。
 
-See https://github.com/Shadowsocks-NET/shadowsocks-specs/blob/main/2023-1-shadowsocks-server-management-api-v1.md
+参阅 https://github.com/Shadowsocks-NET/shadowsocks-specs/blob/main/2023-1-shadowsocks-server-management-api-v1.md
 
-### Structure
+### 结构
 
 ```json
 {
   "type": "ssm-api",
-  
-  ... // Listen Fields
-  
+
+  ... // 监听字段
+
   "servers": {},
   "cache_path": "",
   "tls": {}
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/) 了解详情。
 
-### Fields
+### 字段
 
 #### servers
 
-==Required==
+==必填==
 
-A mapping Object from HTTP endpoints to [Shadowsocks Inbound](/configuration/inbound/shadowsocks) tags.
+从 HTTP 端点到 [Shadowsocks 入站](/configuration/inbound/shadowsocks) 标签的映射对象。
 
-Selected Shadowsocks inbounds must be configured with [managed](/configuration/inbound/shadowsocks#managed) enabled.
+选定的 Shadowsocks 入站必须配置启用 [managed](/configuration/inbound/shadowsocks#managed)。
 
-Example:
+示例：
 
 ```json
 {
@@ -50,9 +50,9 @@ Example:
 
 #### cache_path
 
-If set, when the server is about to stop, traffic and user state will be saved to the specified JSON file
-to be restored on the next startup.
+如果设置，当服务器即将停止时，流量和用户状态将保存到指定的 JSON 文件中，
+以便在下次启动时恢复。
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置，参阅 [TLS](/configuration/shared/tls/#入站)。

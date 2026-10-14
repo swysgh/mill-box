@@ -1,11 +1,11 @@
-### Structure
+### 结构
 
 ```json
 {
   "type": "vless",
   "tag": "vless-in",
 
-  ... // Listen Fields
+  ... // 监听字段
 
   "users": [
     {
@@ -20,40 +20,40 @@
 }
 ```
 
-### Listen Fields
+### 监听字段
 
-See [Listen Fields](/configuration/shared/listen/) for details.
+参阅 [监听字段](/configuration/shared/listen/)。
 
-### Fields
+### 字段
 
 #### users
 
-==Required==
+==必填==
 
-VLESS users.
+VLESS 用户。
 
 #### users.uuid
 
-==Required==
+==必填==
 
-VLESS user id.
+VLESS 用户 ID。
 
 #### users.flow
 
-VLESS Sub-protocol.
+VLESS 子协议。
 
-Available values:
+可用值：
 
 * `xtls-rprx-vision`
 
 #### tls
 
-TLS configuration, see [TLS](/configuration/shared/tls/#inbound).
+TLS 配置, 参阅 [TLS](/configuration/shared/tls/#入站)。
 
 #### multiplex
 
-See [Multiplex](/configuration/shared/multiplex#inbound) for details.
+参阅 [多路复用](/configuration/shared/multiplex#入站)。
 
 #### transport
 
-V2Ray Transport configuration, see [V2Ray Transport](/configuration/shared/v2ray-transport/).
+V2Ray 传输配置，参阅 [V2Ray 传输层](/configuration/shared/v2ray-transport/)。

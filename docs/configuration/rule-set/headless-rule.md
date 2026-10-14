@@ -2,25 +2,25 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [package_name_regex](#package_name_regex)  
     :material-alert: [query_type](#query_type)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [network_interface_address](#network_interface_address)  
     :material-plus: [default_interface_address](#default_interface_address)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-plus: [network_type](#network_type)  
     :material-plus: [network_is_expensive](#network_is_expensive)  
     :material-plus: [network_is_constrained](#network_is_constrained)
 
-### Structure
+### 结构
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
 ```json
 {
@@ -119,13 +119,13 @@ icon: material/new-box
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签。
 
 ### Default Fields
 
 !!! note ""
 
-    The default rule uses the following matching logic:  
+    默认规则使用以下匹配逻辑:  
     (`domain` || `domain_suffix` || `domain_keyword` || `domain_regex` || `ip_cidr`) &&  
     (`port` || `port_range`) &&  
     (`source_port` || `source_port_range`) &&  
@@ -133,178 +133,170 @@ icon: material/new-box
 
 #### query_type
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
-    When a DNS rule references this rule-set, this field now also applies
-    when the DNS rule is matched from an internal domain resolution that
-    does not target a specific DNS server. See
-    [Migration](/migration/#ip_version-and-query_type-behavior-changes-in-dns-rules).
+    当 DNS 规则引用此规则集时，此字段现在也会在 DNS 规则被未指定具体
+    DNS 服务器的内部域名解析匹配时生效。参阅
+    [迁移指南](/migration/#dns-规则中的-ip_version-和-query_type-行为更改)。
 
-    When a DNS rule references a rule-set containing this field, the DNS
-    rule is incompatible in the same DNS configuration with Legacy Address
-    Filter Fields in DNS rules, the Legacy `strategy` DNS rule action
-    option, and the Legacy `rule_set_ip_cidr_accept_empty` DNS rule item.
+    当 DNS 规则引用了包含此字段的规则集时，该 DNS 规则在同一 DNS 配置中
+    不能与旧版地址筛选字段 (DNS 规则)、旧版 DNS 规则动作 `strategy` 选项，
+    或旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项共存。
 
-DNS query type. Values can be integers or type name strings.
+DNS 查询类型。值可以为整数或者类型名称字符串。
 
 #### network
 
-`tcp` or `udp`.
+`tcp` 或 `udp`。
 
 #### domain
 
-Match full domain.
+匹配完整域名。
 
 #### domain_suffix
 
-Match domain suffix.
+匹配域名后缀。
 
 #### domain_keyword
 
-Match domain using keyword.
+匹配域名关键字。
 
 #### domain_regex
 
-Match domain using regular expression.
+匹配域名正则表达式。
 
 #### source_ip_cidr
 
-Match source IP CIDR.
+匹配源 IP CIDR。
 
 #### ip_cidr
 
-!!! info ""
-
-    `ip_cidr` is an alias for `source_ip_cidr` when `rule_set_ipcidr_match_source` enabled in route/DNS rules.
-
-Match IP CIDR.
+匹配 IP CIDR。
 
 #### source_port
 
-Match source port.
+匹配源端口。
 
 #### source_port_range
 
-Match source port range.
+匹配源端口范围。
 
 #### port
 
-Match port.
+匹配端口。
 
 #### port_range
 
-Match port range.
+匹配端口范围。
 
 #### process_name
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS。
 
-Match process name.
+匹配进程名称。
 
 #### process_path
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match process path.
+匹配进程路径。
 
 #### process_path_regex
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match process path using regular expression.
+使用正则表达式匹配进程路径。
 
 #### package_name
 
-Match android package name.
+匹配 Android 应用包名。
 
 #### package_name_regex
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Match android package name using regular expression.
+使用正则表达式匹配 Android 应用包名。
 
 #### network_type
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Match network type.
+匹配网络类型。
 
 Available values: `wifi`, `cellular`, `ethernet` and `other`.
 
 #### network_is_expensive
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Match if network is considered Metered (on Android) or considered expensive,
-such as Cellular or a Personal Hotspot (on Apple platforms).
+匹配如果网络被视为计费 (在 Android) 或被视为昂贵，
+像蜂窝网络或个人热点 (在 Apple 平台)。
 
 #### network_is_constrained
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Apple platforms.
+    仅在 Apple 平台图形客户端中支持。
 
-Match if network is in Low Data Mode.
+匹配如果网络在低数据模式下。
 
 #### network_interface_address
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Matches network interface (same values as `network_type`) address.
+匹配网络接口（可用值同 `network_type`）地址。
 
 #### default_interface_address
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match default interface address.
+匹配默认接口地址。
 
 #### wifi_ssid
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Match WiFi SSID.
+匹配 WiFi SSID。
 
 #### wifi_bssid
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
-
-Match WiFi BSSID.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
 #### invert
 
-Invert match result.
+反选匹配结果。
 
-### Logical Fields
+### 逻辑字段
 
 #### type
 
@@ -312,12 +304,12 @@ Invert match result.
 
 #### mode
 
-==Required==
+==必填==
 
-`and` or `or`
+`and` 或 `or`
 
 #### rules
 
-==Required==
+==必填==
 
-Included rules.
+包括的规则。

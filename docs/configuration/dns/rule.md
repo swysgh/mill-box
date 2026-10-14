@@ -2,12 +2,12 @@
 icon: material/alert-decagram
 ---
 
-!!! quote "Changes in sing-box 1.15.0"
+!!! quote "sing-box 1.15.0 中的更改"
 
     :material-plus: [dns_server_address](#dns_server_address)  
     :material-plus: [dns_search_domain](#dns_search_domain)
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [source_mac_address](#source_mac_address)  
     :material-plus: [source_hostname](#source_hostname)  
@@ -24,18 +24,18 @@ icon: material/alert-decagram
     :material-alert: [ip_version](#ip_version)  
     :material-alert: [query_type](#query_type)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [interface_address](#interface_address)  
     :material-plus: [network_interface_address](#network_interface_address)  
     :material-plus: [default_interface_address](#default_interface_address)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-plus: [ip_accept_any](#ip_accept_any)  
     :material-delete-clock: [outbound](#outbound)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-plus: [action](#action)  
     :material-alert: [server](#server)  
@@ -46,14 +46,14 @@ icon: material/alert-decagram
     :material-plus: [network_is_expensive](#network_is_expensive)  
     :material-plus: [network_is_constrained](#network_is_constrained)
 
-!!! quote "Changes in sing-box 1.10.0"
+!!! quote "sing-box 1.10.0 中的更改"
 
     :material-delete-clock: [rule_set_ipcidr_match_source](#rule_set_ipcidr_match_source)  
     :material-plus: [rule_set_ip_cidr_match_source](#rule_set_ip_cidr_match_source)  
     :material-plus: [rule_set_ip_cidr_accept_empty](#rule_set_ip_cidr_accept_empty)  
     :material-plus: [process_path_regex](#process_path_regex)
 
-!!! quote "Changes in sing-box 1.9.0"
+!!! quote "sing-box 1.9.0 中的更改"
 
     :material-plus: [geoip](#geoip)  
     :material-plus: [ip_cidr](#ip_cidr)  
@@ -61,14 +61,14 @@ icon: material/alert-decagram
     :material-plus: [client_subnet](#client_subnet)  
     :material-plus: [rule_set_ipcidr_match_source](#rule_set_ipcidr_match_source)
 
-!!! quote "Changes in sing-box 1.8.0"
+!!! quote "sing-box 1.8.0 中的更改"
 
     :material-plus: [rule_set](#rule_set)  
     :material-plus: [source_ip_is_private](#source_ip_is_private)  
     :material-delete-clock: [geoip](#geoip)  
     :material-delete-clock: [geosite](#geosite)
 
-### Structure
+### 结构
 
 ```json
 {
@@ -222,7 +222,7 @@ icon: material/alert-decagram
         "action": "route",
         "server": "local",
 
-        // Deprecated
+        // 已弃用
 
         "rule_set_ip_cidr_accept_empty": false,
         "rule_set_ipcidr_match_source": false,
@@ -251,528 +251,519 @@ icon: material/alert-decagram
 
 !!! note ""
 
-    You can ignore the JSON Array [] tag when the content is only one item
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签
 
-### Default Fields
+### 默认字段
 
 !!! note ""
 
-    The default rule uses the following matching logic:  
+    默认规则使用以下匹配逻辑:  
     (`domain` || `domain_suffix` || `domain_keyword` || `domain_regex` || `geosite` || `ip_cidr` || `ip_is_private` || `ip_accept_any`) &&  
     (`port` || `port_range`) &&  
     (`source_geoip` || `source_ip_cidr` || `source_ip_is_private`) &&  
     (`source_port` || `source_port_range`) &&  
-    `other fields`
+    `其他字段`
 
-    When a rule-set contains only a single default rule without `invert`, its fields are considered merged into the outer rule per the logic above; otherwise, it is matched as an `other field`; different rule-sets always keep OR semantics.
+    当规则集仅包含一条默认规则且非 invert 时，其中字段视为按以上规则与外层规则合并；否则，作为一条 `其他字段` 匹配；不同规则集之间始终保持 or。
 
 #### inbound
 
-Tags of [Inbound](/configuration/inbound/).
+[入站](/configuration/inbound/) 标签.
 
 #### ip_version
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
-    This field now also applies when a DNS rule is matched from an internal
-    domain resolution that does not target a specific DNS server, such as a
-    [`resolve`](../../route/rule_action/#resolve) route rule action without a
-    `server` set. See
-    [Migration](/migration/#ip_version-and-query_type-behavior-changes-in-dns-rules).
+    此字段现在也会在 DNS 规则被未指定具体 DNS 服务器的内部域名解析匹配时生效，
+    例如未设置 `server` 的 [`resolve`](../../route/rule_action/#resolve) 路由规则动作。参阅
+    [迁移指南](/migration/#dns-规则中的-ip_version-和-query_type-行为更改)。
 
-    Setting this field makes the DNS rule incompatible in the same DNS
-    configuration with Legacy Address Filter Fields in DNS rules, the Legacy
-    `strategy` DNS rule action option, and the Legacy
-    `rule_set_ip_cidr_accept_empty` DNS rule item. To combine with
-    address-based filtering, use the [`evaluate`](../rule_action/#evaluate)
-    action and [`match_response`](#match_response).
+    在 DNS 规则中设置此字段后，该 DNS 规则在同一 DNS 配置中不能与
+    旧版地址筛选字段 (DNS 规则)、旧版 DNS 规则动作 `strategy` 选项，
+    或旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项共存。如需与
+    基于地址的筛选组合，请使用 [`evaluate`](../rule_action/#evaluate) 动作和
+    [`match_response`](#match_response)。
 
-4 (A DNS query) or 6 (AAAA DNS query).
+4 (A DNS 查询) 或 6 (AAAA DNS 查询)。
 
-Not limited if empty.
+默认不限制。
 
 #### query_type
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
-    This field now also applies when a DNS rule is matched from an internal
-    domain resolution that does not target a specific DNS server, such as a
-    [`resolve`](../../route/rule_action/#resolve) route rule action without a
-    `server` set. See
-    [Migration](/migration/#ip_version-and-query_type-behavior-changes-in-dns-rules).
+    此字段现在也会在 DNS 规则被未指定具体 DNS 服务器的内部域名解析匹配时生效，
+    例如未设置 `server` 的 [`resolve`](../../route/rule_action/#resolve) 路由规则动作。参阅
+    [迁移指南](/migration/#dns-规则中的-ip_version-和-query_type-行为更改)。
 
-    Setting this field makes the DNS rule incompatible in the same DNS
-    configuration with Legacy Address Filter Fields in DNS rules, the Legacy
-    `strategy` DNS rule action option, and the Legacy
-    `rule_set_ip_cidr_accept_empty` DNS rule item. To combine with
-    address-based filtering, use the [`evaluate`](../rule_action/#evaluate)
-    action and [`match_response`](#match_response).
+    在 DNS 规则中设置此字段后，该 DNS 规则在同一 DNS 配置中不能与
+    旧版地址筛选字段 (DNS 规则)、旧版 DNS 规则动作 `strategy` 选项，
+    或旧版 `rule_set_ip_cidr_accept_empty` DNS 规则项共存。如需与
+    基于地址的筛选组合，请使用 [`evaluate`](../rule_action/#evaluate) 动作和
+    [`match_response`](#match_response)。
 
-DNS query type. Values can be integers or type name strings.
+DNS 查询类型。值可以为整数或者类型名称字符串。
 
 #### query_client_subnet
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Match the `edns0-subnet` OPT extra record (EDNS Client Subnet) in the query.
+匹配查询中的 `edns0-subnet` OPT 附加记录（EDNS 客户端子网）。
 
-A listed prefix matches when it is no more specific than the received client subnet and contains its address.
+列出的前缀在不比收到的客户端子网更具体、且包含其地址时匹配。
 
-If value is an IP address instead of prefix, `/32` or `/128` will be appended automatically.
+如果值是 IP 地址而不是前缀，则会自动附加 `/32` 或 `/128`。
 
 #### query_dnssec
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Match queries with the DNSSEC OK (`DO`) bit set.
+匹配设置了 DNSSEC OK (`DO`) 位的查询。
 
 #### network
 
-`tcp` or `udp`.
+`tcp` 或 `udp`。
 
 #### auth_user
 
-Username, see each inbound for details.
+认证用户名，参阅入站设置。
 
 #### protocol
 
-Sniffed protocol, see [Sniff](/configuration/route/sniff/) for details.
+探测到的协议, 参阅 [协议探测](/configuration/route/sniff/)。
 
 #### domain
 
-Match full domain.
+匹配完整域名。
 
 #### domain_suffix
 
-Match domain suffix.
+匹配域名后缀。
 
 #### domain_keyword
 
-Match domain using keyword.
+匹配域名关键字。
 
 #### domain_regex
 
-Match domain using regular expression.
+匹配域名正则表达式。
 
 #### geosite
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.12.0 中被移除"
 
-    Geosite is deprecated and will be removed in sing-box 1.12.0, check [Migration](/migration/#migrate-geosite-to-rule-sets).
+    GeoSite 已在 sing-box 1.8.0 废弃且在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移-geosite-到规则集)。
 
-Match geosite.
+匹配 Geosite。
 
 #### source_geoip
 
-!!! failure "Deprecated in sing-box 1.8.0"
+!!! failure "已在 sing-box 1.12.0 中被移除"
 
-    GeoIP is deprecated and will be removed in sing-box 1.12.0, check [Migration](/migration/#migrate-geoip-to-rule-sets).
+    GeoIP 已在 sing-box 1.8.0 废弃且在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移-geoip-到规则集)。
 
-Match source geoip.
+匹配源 GeoIP。
 
 #### source_ip_cidr
 
-Match source IP CIDR.
+匹配源 IP CIDR。
 
 #### source_ip_is_private
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
-Match non-public source IP.
+匹配非公开源 IP。
 
 #### source_port
 
-Match source port.
+匹配源端口。
 
 #### source_port_range
 
-Match source port range.
+匹配源端口范围。
 
 #### port
 
-Match port.
+匹配端口。
 
 #### port_range
 
-Match port range.
+匹配端口范围。
 
 #### process_name
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match process name.
+匹配进程名称。
 
 #### process_path
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match process path.
+匹配进程路径。
 
 #### process_path_regex
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match process path using regular expression.
+使用正则表达式匹配进程路径。
 
 #### package_name
 
-Match android package name.
+匹配 Android 应用包名。
 
 #### package_name_regex
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Match android package name using regular expression.
+使用正则表达式匹配 Android 应用包名。
 
 #### user
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Match user name.
+匹配用户名。
 
 #### user_id
 
 !!! quote ""
 
-    Only supported on Linux.
+    仅支持 Linux。
 
-Match user id.
+匹配用户 ID。
 
 #### clash_mode
 
-Match Clash mode.
+匹配 Clash 模式。
 
 #### network_type
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Match network type.
+匹配网络类型。
 
 Available values: `wifi`, `cellular`, `ethernet` and `other`.
 
 #### network_is_expensive
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Match if network is considered Metered (on Android) or considered expensive,
-such as Cellular or a Personal Hotspot (on Apple platforms).
+匹配如果网络被视为计费 (在 Android) 或被视为昂贵，
+像蜂窝网络或个人热点 (在 Apple 平台)。
 
 #### network_is_constrained
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Apple platforms.
+    仅在 Apple 平台图形客户端中支持。
 
-Match if network is in Low Data Mode.
+匹配如果网络在低数据模式下。
 
 #### interface_address
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match interface address.
+匹配接口地址。
 
 #### network_interface_address
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms.
+    仅在 Android 与 Apple 平台图形客户端中支持。
 
-Matches network interface (same values as `network_type`) address.
+匹配网络接口（可用值同 `network_type`）地址。
 
 #### default_interface_address
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, Windows, and macOS.
+    仅支持 Linux、Windows 和 macOS.
 
-Match default interface address.
+匹配默认接口地址。
 
 #### source_mac_address
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, macOS, or in graphical clients on Android and macOS. See [Neighbor Resolution](/configuration/shared/neighbor/) for setup.
+    仅支持 Linux、macOS，或在 Android 和 macOS 图形客户端中支持。参阅 [邻居解析](/configuration/shared/neighbor/) 了解设置方法。
 
-Match source device MAC address.
+匹配源设备 MAC 地址。
 
 #### source_hostname
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
 !!! quote ""
 
-    Only supported on Linux, macOS, or in graphical clients on Android and macOS. See [Neighbor Resolution](/configuration/shared/neighbor/) for setup.
+    仅支持 Linux、macOS，或在 Android 和 macOS 图形客户端中支持。参阅 [邻居解析](/configuration/shared/neighbor/) 了解设置方法。
 
-Match source device hostname from DHCP leases.
+匹配源设备从 DHCP 租约获取的主机名。
 
 #### preferred_by
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Match specified DNS servers' preferred domains.
+匹配指定 DNS 服务器的首选域名。
 
-| Type          | Match                                                                        |
-|---------------|------------------------------------------------------------------------------|
-| `hosts`       | Match predefined entries and entries in hosts files                          |
-| `local`       | Match hosts entries, neighbor-resolved hosts, and mDNS local domains         |
-| `mdns`        | Match mDNS local domains (`*.local.` and IPv4/IPv6 link-local reverse zones) |
-| `tailscale`   | Match MagicDNS hosts and DNS route suffixes                                  |
-| `openconnect` | Match split DNS and search domains pushed by the VPN server                  |
-| `resolved`    | Match split DNS and search domains from systemd-resolved links               |
+| 类型            | 匹配                                                          |
+|---------------|-------------------------------------------------------------|
+| `hosts`       | 匹配预定义条目和 hosts 文件中的条目                                       |
+| `local`       | 匹配 hosts 中的条目、邻居解析得到的主机名以及 mDNS 本地域名                         |
+| `mdns`        | 匹配 mDNS 本地域名（`*.local.` 以及 IPv4/IPv6 链路本地反向区域）              |
+| `tailscale`   | 匹配 MagicDNS 主机和 DNS 路由后缀                                    |
+| `openconnect` | 匹配 VPN 服务器推送的分流 DNS 和搜索域                                  |
+| `resolved`    | 匹配 systemd-resolved 链路中的分流域名和搜索域                            |
 
 #### dns_server_address
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Match specified DNS servers' server addresses.
+匹配指定 DNS 服务器的服务器地址。
 
-| Type          | Match                                         |
-|---------------|-----------------------------------------------|
-| `local`       | Match system DNS servers                      |
-| `dhcp`        | Match DNS servers from DHCP                   |
-| `resolved`    | Match DNS servers from systemd-resolved links |
-| `tailscale`   | Match DNS resolvers of the tailnet            |
-| `openvpn`     | Match DNS servers pushed by the VPN server    |
-| `openconnect` | Match DNS servers pushed by the VPN server    |
+| 类型            | 匹配                               |
+|---------------|----------------------------------|
+| `local`       | 匹配系统 DNS 服务器                     |
+| `dhcp`        | 匹配通过 DHCP 获取的 DNS 服务器             |
+| `resolved`    | 匹配 systemd-resolved 链路中的 DNS 服务器  |
+| `tailscale`   | 匹配 tailnet 的 DNS 解析器              |
+| `openvpn`     | 匹配 VPN 服务器推送的 DNS 服务器             |
+| `openconnect` | 匹配 VPN 服务器推送的 DNS 服务器             |
 
 #### dns_search_domain
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Match specified DNS servers' search domains.
+匹配指定 DNS 服务器的搜索域。
 
-| Type          | Match                                            |
-|---------------|--------------------------------------------------|
-| `local`       | Match system search domains                      |
-| `dhcp`        | Match search domains from DHCP                   |
-| `resolved`    | Match search domains from systemd-resolved links |
-| `tailscale`   | Match search domains of the tailnet              |
-| `openvpn`     | Match search domains pushed by the VPN server    |
-| `openconnect` | Match search domains pushed by the VPN server    |
+| 类型            | 匹配                            |
+|---------------|-------------------------------|
+| `local`       | 匹配系统搜索域                       |
+| `dhcp`        | 匹配通过 DHCP 获取的搜索域              |
+| `resolved`    | 匹配 systemd-resolved 链路中的搜索域    |
+| `tailscale`   | 匹配 tailnet 的搜索域                |
+| `openvpn`     | 匹配 VPN 服务器推送的搜索域              |
+| `openconnect` | 匹配 VPN 服务器推送的搜索域              |
 
 #### wifi_ssid
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms, or on Linux.
+    仅在 Android 与 Apple 平台图形客户端和 Linux 中支持。
 
-Match WiFi SSID.
+匹配 WiFi SSID。
 
 #### wifi_bssid
 
 !!! quote ""
 
-    Only supported in graphical clients on Android and Apple platforms, or on Linux.
+    仅在 Android 与 Apple 平台图形客户端和 Linux 中支持。
 
-Match WiFi BSSID.
+匹配 WiFi BSSID。
 
 #### rule_set
 
-!!! question "Since sing-box 1.8.0"
+!!! question "自 sing-box 1.8.0 起"
 
-Match [rule-set](/configuration/route/#rule_set).
+匹配[规则集](/configuration/route/#rule_set)。
 
 #### rule_set_ipcidr_match_source
 
-!!! question "Since sing-box 1.9.0"
+!!! question "自 sing-box 1.9.0 起"
 
-!!! failure "Deprecated in sing-box 1.10.0"
-    
-    `rule_set_ipcidr_match_source` is renamed to `rule_set_ip_cidr_match_source` and will be remove in sing-box 1.11.0.
+!!! failure "已在 sing-box 1.10.0 废弃"
 
-Make `ip_cidr` rule items in rule-sets match the source IP.
+    `rule_set_ipcidr_match_source` 已重命名为 `rule_set_ip_cidr_match_source` 且将在 sing-box 1.11.0 中被移除。
+
+使规则集中的 `ip_cidr` 规则匹配源 IP。
 
 #### rule_set_ip_cidr_match_source
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-Make `ip_cidr` rule items in rule-sets match the source IP.
+使规则集中的 `ip_cidr` 规则匹配源 IP。
 
 #### match_response
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Enable response-based matching. When enabled, this rule matches against the evaluated response
-(set by a preceding [`evaluate`](/configuration/dns/rule_action/#evaluate) action)
-instead of only matching the original query.
+启用响应匹配。启用后，此规则将匹配已评估的响应（由前序 [`evaluate`](/configuration/dns/rule_action/#evaluate) 动作设置），而不仅是匹配原始查询。
 
-`true` or the `tag` of an `evaluate` action: `true` matches against the response of the latest
-`evaluate` action without `tag`; a tag matches against the response of the `evaluate` action with the tag.
+可以为 `true` 或 `evaluate` 动作的 `tag`：`true` 匹配最近一条无 `tag` 的 `evaluate` 动作的响应；标签则匹配对应 `evaluate` 动作的响应。
 
-The evaluated response can also be returned directly by a later [`respond`](/configuration/dns/rule_action/#respond) action;
-in a rule with a `match_response` tag, `respond` returns the tagged response.
+该已评估的响应也可以被后续的 [`respond`](/configuration/dns/rule_action/#respond) 动作直接返回；在带 `match_response` 标签的规则中，`respond` 返回该标签的响应。
 
-Required for Response Match Fields (`response_rcode`, `response_answer`, `response_ns`, `response_extra`).
-Also required for `ip_cidr`, `ip_is_private`, and `ip_accept_any` when used with `evaluate` or Response Match Fields.
+响应匹配字段（`response_rcode`、`response_answer`、`response_ns`、`response_extra`）需要此选项。
+当与 `evaluate` 或响应匹配字段一起使用时，`ip_cidr`、`ip_is_private` 和 `ip_accept_any` 也需要此选项。
 
 #### ip_accept_any
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-Match when the DNS query response contains at least one address.
+当 DNS 查询响应包含至少一个地址时匹配。
 
 #### invert
 
-Invert match result.
+反选匹配结果。
 
 #### outbound
 
-!!! failure "Deprecated in sing-box 1.12.0"
+!!! failure "已在 sing-box 1.12.0 废弃"
 
-    `outbound` rule items are deprecated and will be removed in sing-box 1.14.0, check [Migration](/migration/#migrate-outbound-dns-rule-items-to-domain-resolver). 
+    `outbound` 规则项已废弃且将在 sing-box 1.14.0 中被移除，参阅 [迁移指南](/migration/#迁移-outbound-dns-规则项到域解析选项)。
 
-Match outbound.
+匹配出站。
 
-`any` can be used as a value to match any outbound.
+`any` 可作为值用于匹配任意出站。
 
 #### action
 
-==Required==
+==必填==
 
-See [DNS Rule Actions](../rule_action/) for details.
+参阅 [规则动作](../rule_action/)。
 
 #### server
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Moved to [DNS Rule Action](../rule_action#route).
+    已移动到 [DNS 规则动作](../rule_action#route).
 
 #### disable_cache
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Moved to [DNS Rule Action](../rule_action#route).
+    已移动到 [DNS 规则动作](../rule_action#route).
 
 #### rewrite_ttl
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Moved to [DNS Rule Action](../rule_action#route).
+    已移动到 [DNS 规则动作](../rule_action#route).
 
 #### client_subnet
 
-!!! failure "Deprecated in sing-box 1.11.0"
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-    Moved to [DNS Rule Action](../rule_action#route).
+    已移动到 [DNS 规则动作](../rule_action#route).
 
-### Legacy Address Filter Fields
+### 旧版地址筛选字段
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    Legacy Address Filter Fields are deprecated and will be removed in sing-box 1.16.0,
-    check [Migration](/migration/#migrate-address-filter-fields-to-response-matching).
+    旧版地址筛选字段已废弃，且将在 sing-box 1.16.0 中被移除，
+    参阅[迁移指南](/migration/#迁移地址筛选字段到响应匹配)。
 
-Only takes effect for address requests (A/AAAA/HTTPS). When the query results do not match the address filtering rule items, the current rule will be skipped.
+仅对地址请求 (A/AAAA/HTTPS) 生效。 当查询结果与地址筛选规则项不匹配时，将跳过当前规则。
 
 !!! info ""
 
-    `ip_cidr` items in included rule-sets also takes effect as an address filtering field.
+    引用的规则集中的 `ip_cidr` 项也作为地址筛选字段生效。
 
 !!! note ""
 
-    Enable `experimental.cache_file.store_rdrc` to cache results.
+    启用 `experimental.cache_file.store_rdrc` 以缓存结果。
 
 #### geoip
 
-!!! failure "Removed in sing-box 1.12.0"
+!!! failure "已在 sing-box 1.12.0 中被移除"
 
-    GeoIP is deprecated in sing-box 1.8.0 and removed in sing-box 1.12.0, check [Migration](/migration/#migrate-geoip-to-rule-sets).
+    GeoIP 已在 sing-box 1.8.0 废弃且在 sing-box 1.12.0 中被移除，参阅 [迁移指南](/migration/#迁移-geoip-到规则集)。
 
-Match GeoIP with query response.
+
+与查询响应匹配 GeoIP。
 
 #### ip_cidr
 
-!!! question "Since sing-box 1.9.0"
+!!! question "自 sing-box 1.9.0 起"
 
-Match IP CIDR with query response.
+与查询响应匹配 IP CIDR。
 
-As a Legacy Address Filter Field, deprecated. Use with `match_response` instead,
-check [Migration](/migration/#migrate-address-filter-fields-to-response-matching).
+作为旧版地址筛选字段已废弃。请改为配合 `match_response` 使用，
+参阅[迁移指南](/migration/#迁移地址筛选字段到响应匹配)。
 
 #### ip_is_private
 
-!!! question "Since sing-box 1.9.0"
+!!! question "自 sing-box 1.9.0 起"
 
-Match private IP with query response.
+与查询响应匹配非公开 IP。
 
-As a Legacy Address Filter Field, deprecated. Use with `match_response` instead,
-check [Migration](/migration/#migrate-address-filter-fields-to-response-matching).
+作为旧版地址筛选字段已废弃。请改为配合 `match_response` 使用，
+参阅[迁移指南](/migration/#迁移地址筛选字段到响应匹配)。
 
 #### rule_set_ip_cidr_accept_empty
 
-!!! question "Since sing-box 1.10.0"
+!!! question "自 sing-box 1.10.0 起"
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    `rule_set_ip_cidr_accept_empty` is deprecated and will be removed in sing-box 1.16.0,
-    check [Migration](/migration/#migrate-address-filter-fields-to-response-matching).
+    `rule_set_ip_cidr_accept_empty` 已废弃且将在 sing-box 1.16.0 中被移除，
+    参阅[迁移指南](/migration/#迁移地址筛选字段到响应匹配)。
 
-Make `ip_cidr` rules in rule-sets accept empty query response.
+使规则集中的 `ip_cidr` 规则接受空查询响应。
 
-### Response Match Fields
+### 响应匹配字段
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Match fields for the evaluated response. Require `match_response` to be set to `true`
-and a preceding rule with [`evaluate`](/configuration/dns/rule_action/#evaluate) action to populate the response.
+已评估的响应的匹配字段。需要将 `match_response` 设为 `true`，
+且需要前序规则使用 [`evaluate`](/configuration/dns/rule_action/#evaluate) 动作来填充响应。
 
-That evaluated response may also be returned directly by a later [`respond`](/configuration/dns/rule_action/#respond) action.
+该已评估的响应也可以被后续的 [`respond`](/configuration/dns/rule_action/#respond) 动作直接返回。
 
 #### response_rcode
 
-Match DNS response code.
+匹配 DNS 响应码。
 
-Accepted values are the same as in the [predefined action rcode](/configuration/dns/rule_action/#rcode).
+接受的值与 [predefined 动作 rcode](/configuration/dns/rule_action/#rcode) 中相同。
 
 #### response_answer
 
-Match DNS answer records.
+匹配 DNS 应答记录。
 
-Record format is the same as in [predefined action answer](/configuration/dns/rule_action/#answer).
+记录格式与 [predefined 动作 answer](/configuration/dns/rule_action/#answer) 中相同。
 
 #### response_ns
 
-Match DNS name server records.
+匹配 DNS 名称服务器记录。
 
-Record format is the same as in [predefined action ns](/configuration/dns/rule_action/#ns).
+记录格式与 [predefined 动作 ns](/configuration/dns/rule_action/#ns) 中相同。
 
 #### response_extra
 
-Match DNS extra records.
+匹配 DNS 额外记录。
 
-Record format is the same as in [predefined action extra](/configuration/dns/rule_action/#extra).
+记录格式与 [predefined 动作 extra](/configuration/dns/rule_action/#extra) 中相同。
 
-### Logical Fields
+### 逻辑字段
 
 #### type
 
@@ -780,8 +771,12 @@ Record format is the same as in [predefined action extra](/configuration/dns/rul
 
 #### mode
 
-`and` or `or`
+==必填==
+
+`and` 或 `or`
 
 #### rules
 
-Included rules.
+==必填==
+
+包括的规则。

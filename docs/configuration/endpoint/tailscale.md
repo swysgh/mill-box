@@ -2,17 +2,17 @@
 icon: material/new-box
 ---
 
-!!! quote "Changes in sing-box 1.15.0"
+!!! quote "sing-box 1.15.0 中的更改"
 
     :material-plus: [on_demand](#on_demand)
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-plus: [listen_port](#listen_port)  
     :material-plus: [ssh_server](#ssh_server)  
     :material-plus: [taildrop_directory](#taildrop_directory)
 
-!!! quote "Changes in sing-box 1.13.0"
+!!! quote "sing-box 1.13.0 中的更改"
 
     :material-plus: [relay_server_port](#relay_server_port)  
     :material-plus: [relay_server_static_endpoints](#relay_server_static_endpoints)  
@@ -21,9 +21,9 @@ icon: material/new-box
     :material-plus: [system_interface_mtu](#system_interface_mtu)  
     :material-plus: [advertise_tags](#advertise_tags)
 
-!!! question "Since sing-box 1.12.0"
+!!! question "自 sing-box 1.12.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -51,145 +51,144 @@ icon: material/new-box
   "taildrop_directory": "",
   "on_demand": false,
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### state_directory
 
-The directory where the Tailscale state is stored.
+存储 Tailscale 状态的目录。
 
-`tailscale` is used by default.
+默认使用 `tailscale`。
 
-Example: `$HOME/.tailscale`
+示例：`$HOME/.tailscale`
 
 #### auth_key
 
 !!! note
-    
-    Auth key is not required. By default, sing-box will log the login URL.
 
-The auth key to create the node. If the node is already created (from state previously stored), then this field is not
-used.
+    认证密钥不是必需的。默认情况下，sing-box 将记录登录 URL。
+
+用于创建节点的认证密钥。如果节点已经创建（从之前存储的状态），则不使用此字段。
 
 #### control_url
 
-The coordination server URL.
+协调服务器 URL。
 
-`https://controlplane.tailscale.com` is used by default.
+默认使用 `https://controlplane.tailscale.com`。
 
 #### ephemeral
 
-Indicates whether the instance should register as an Ephemeral node (https://tailscale.com/s/ephemeral-nodes).
+指示实例是否应注册为临时节点 (https://tailscale.com/s/ephemeral-nodes)。
 
 #### hostname
 
-The hostname of the node.
+节点的主机名。
 
-System hostname is used by default.
+默认使用系统主机名。
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-    On iOS, tvOS and Android, the device name is used by default.
+    在 iOS、tvOS 和 Android 上，默认使用设备名称。
 
-Example: `localhost`
+示例：`localhost`
 
 #### accept_routes
 
-Indicates whether the node should accept routes advertised by other nodes.
+指示节点是否应接受其他节点通告的路由。
 
 #### exit_node
 
-The exit node name or IP address to use.
+要使用的出口节点名称或 IP 地址。
 
 #### exit_node_allow_lan_access
 
 !!! note
 
-    When the exit node does not have a corresponding advertised route, private traffics cannot be routed to the exit node even if `exit_node_allow_lan_access is` set.
+    当出口节点没有相应的通告路由时，即使设置了 `exit_node_allow_lan_access`，私有流量也无法路由到出口节点。
 
-Indicates whether locally accessible subnets should be routed directly or via the exit node.
+指示本地可访问的子网应该直接路由还是通过出口节点路由。
 
 #### advertise_routes
 
-CIDR prefixes to advertise into the Tailscale network as reachable through the current node.
+通告到 Tailscale 网络的 CIDR 前缀，作为可通过当前节点访问的路由。
 
-Example: `["192.168.1.1/24"]`
+示例：`["192.168.1.1/24"]`
 
 #### advertise_exit_node
 
-Indicates whether the node should advertise itself as an exit node.
+指示节点是否应将自己通告为出口节点。
 
 #### advertise_tags
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Tags to advertise for this node, for ACL enforcement purposes.
+为此节点通告的标签，用于 ACL 执行。
 
-Example: `["tag:server"]`
+示例：`["tag:server"]`
 
 #### listen_port
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The UDP port to listen on for WireGuard and peer-to-peer traffic.
+监听 WireGuard 和点对点流量的 UDP 端口。
 
-A port is automatically selected by default.
+默认自动选择端口。
 
 #### relay_server_port
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-The port to listen on for incoming relay connections from other Tailscale nodes.
+监听来自其他 Tailscale 节点的中继连接的端口。
 
 #### relay_server_static_endpoints
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Static endpoints to advertise for the relay server.
+为中继服务器通告的静态端点。
 
 #### system_interface
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Create a system TUN interface for Tailscale.
+为 Tailscale 创建系统 TUN 接口。
 
 #### system_interface_name
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Custom TUN interface name. By default, `tailscale` (or `utun` on macOS) will be used.
+自定义 TUN 接口名。默认使用 `tailscale`（macOS 上为 `utun`）。
 
 #### system_interface_mtu
 
-!!! question "Since sing-box 1.13.0"
+!!! question "自 sing-box 1.13.0 起"
 
-Override the TUN MTU. By default, Tailscale's own MTU is used.
+覆盖 TUN 的 MTU。默认使用 Tailscale 自己的 MTU。
 
 #### udp_timeout
 
-UDP NAT expiration time.
+UDP NAT 过期时间。
 
-`5m` will be used by default.
+默认使用 `5m`。
 
 #### ssh_server
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Run a Tailscale SSH server on tailnet port 22.
+在 tailnet 的 TCP 22 端口上运行 Tailscale SSH 服务器。
 
-Access is controlled by the SSH ACL in the Tailscale admin console, which maps each connection to a local user. How that user is resolved, and which users are allowed, depends on the platform:
+访问控制由 Tailscale 管理控制台中的 SSH ACL 决定，它将每个连接映射到一个本地用户。该用户如何解析、以及允许哪些用户，取决于平台：
 
-- **Linux** and **macOS**: switching to a user other than the one sing-box runs as requires running as root.
-- **Windows**: in the command line client, sessions mapped to a local account other than the one sing-box runs as are refused. In the graphical client, there is no such restriction.
-- **Android**: `root` is the superuser (UID 0) and `shell` is the ADB shell user (UID 2000); every other name is resolved as the package name of an installed application, running as that application's UID with its data directory as the home directory. `termux` is a shortcut for `com.termux`, and `sing-box` for the app's own package name; when Termux is installed, the `root` and `termux` users load the Termux environment. Running as the sing-box application itself requires no root, while any other user requires granted root access.
-- **macOS**: the SSH server is only available in the standalone version and requires the Helper Service; the App Store version is not supported.
-- **iOS**: the SSH server is only available in the jailbreak build; the App Store and TestFlight versions are not supported.
-- **tvOS**: not yet supported.
+- **Linux** 和 **macOS**：要切换到 sing-box 运行身份以外的用户需要以 root 运行。
+- **Windows**：在命令行客户端中，映射到 sing-box 运行身份以外的本地账户的会话将被拒绝。在图形客户端中没有此限制。
+- **Android**：`root` 即超级用户（UID 0），`shell` 为 ADB shell 用户（UID 2000）；其他名称均作为已安装应用的包名解析，以该应用的 UID 运行，并使用其数据目录作为主目录。`termux` 是 `com.termux` 的快捷方式，`sing-box` 是应用自身包名的快捷方式；当 Termux 已安装时，`root` 和 `termux` 用户将加载 Termux 环境。以 sing-box 应用自身身份运行无需 root，其他用户则需要已授予的 root 权限。
+- **macOS**：SSH 服务器仅在独立版本中可用，且需要辅助服务；App Store 版本不支持。
+- **iOS**：SSH 服务器仅在越狱版本中可用；App Store 和 TestFlight 版本不支持。
+- **tvOS**：暂不支持。
 
-Object format:
+对象格式：
 
 ```json
 {
@@ -200,49 +199,48 @@ Object format:
 }
 ```
 
-Setting `ssh_server` value to `true` is equivalent to `{ "enabled": true }`.
+将 `ssh_server` 值设置为 `true` 等同于 `{ "enabled": true }`。
 
 #### ssh_server.enabled
 
-Enable the SSH server.
+启用 SSH 服务器。
 
 #### ssh_server.disable_pty
 
-Refuse PTY allocation requests.
+拒绝 PTY 分配请求。
 
 #### ssh_server.disable_sftp
 
-Refuse the SFTP subsystem.
+拒绝 SFTP 子系统。
 
 #### ssh_server.disable_forwarding
 
-Refuse local and remote TCP and Unix-socket forwarding, including SSH agent forwarding.
+拒绝本地和远程的 TCP 与 Unix 套接字转发，包括 SSH agent 转发。
 
 #### taildrop_directory
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-The directory where files received from tailnet peers are stored.
+存储从 tailnet 对等节点接收到的文件的目录。
 
-Relative paths are resolved against the working directory, as [state_directory](#state_directory)
-is.
+相对路径基于工作目录解析，与 [state_directory](#state_directory) 相同。
 
-`Taildrop` is used by default.
+默认使用 `Taildrop`。
 
 #### on_demand
 
-!!! question "Since sing-box 1.15.0"
+!!! question "自 sing-box 1.15.0 起"
 
-Allow the endpoint to be disconnected when necessary.
+允许该 endpoint 在需要时断开连接。
 
-### Dial Fields
+### 拨号字段
 
 !!! note
 
-    Dial Fields in Tailscale endpoints only control how it connects to the control plane and have nothing to do with actual connections.
+    Tailscale 端点中的拨号字段仅控制它如何连接到控制平面，与实际连接无关。
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/) 了解详情。
 
-### Interactive authentication
+### 交互式认证
 
-Use `Tools` > `Endpoints` in the sing-box dashboard or any sing-box graphical client to authenticate and manage the endpoint.
+在 sing-box dashboard 或任意 sing-box 图形客户端的 `工具` > `端点` 中认证和管理 endpoint。

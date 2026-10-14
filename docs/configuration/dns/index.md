@@ -2,23 +2,23 @@
 icon: material/alert-decagram
 ---
 
-!!! quote "Changes in sing-box 1.14.0"
+!!! quote "sing-box 1.14.0 中的更改"
 
     :material-delete-clock: [independent_cache](#independent_cache)  
     :material-plus: [optimistic](#optimistic)  
     :material-plus: [timeout](#timeout)
 
-!!! quote "Changes in sing-box 1.12.0"
+!!! quote "sing-box 1.12.0 中的更改"
 
     :material-decagram: [servers](#servers)
 
-!!! quote "Changes in sing-box 1.11.0"
+!!! quote "sing-box 1.11.0 中的更改"
 
     :material-plus: [cache_capacity](#cache_capacity)
 
 # DNS
 
-### Structure
+### 结构
 
 ```json
 {
@@ -41,64 +41,63 @@ icon: material/alert-decagram
 
 ```
 
-### Fields
+### 字段
 
-| Key      | Format                          |
-|----------|---------------------------------|
-| `server` | List of [DNS Server](./server/) |
-| `rules`  | List of [DNS Rule](./rule/)     |
-| `fakeip` | :material-note-remove: [FakeIP](./fakeip/) |
+| 键        | 格式                      |
+|----------|-------------------------|
+| `server` | 一组 [DNS 服务器](./server/) |
+| `rules`  | 一组 [DNS 规则](./rule/)    |
 
 #### final
 
-Default dns server tag.
+默认 DNS 服务器的标签。
 
-The first server will be used if empty.
+默认使用第一个服务器。
 
 #### strategy
 
-Default domain strategy for resolving the domain names.
+默认解析域名策略。
 
-One of `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`.
+可选值: `prefer_ipv4` `prefer_ipv6` `ipv4_only` `ipv6_only`。
 
 #### disable_cache
 
-Disable dns cache.
+禁用 DNS 缓存。
 
-Conflict with `optimistic`.
+与 `optimistic` 冲突。
 
 #### disable_expire
 
-Disable dns cache expire.
+禁用 DNS 缓存过期。
 
-Conflict with `optimistic`.
+与 `optimistic` 冲突。
 
 #### independent_cache
 
-!!! failure "Deprecated in sing-box 1.14.0"
+!!! failure "已在 sing-box 1.14.0 废弃"
 
-    `independent_cache` is deprecated and will be removed in sing-box 1.16.0, check [Migration](/migration/#migrate-independent-dns-cache).
+    `independent_cache` 已在 sing-box 1.14.0 废弃，且将在 sing-box 1.16.0 中被移除，参阅[迁移指南](/migration/#迁移-independent-dns-cache)。
 
-Make each DNS server's cache independent for special purposes. If enabled, will slightly degrade performance.
+使每个 DNS 服务器的缓存独立，以满足特殊目的。如果启用，将轻微降低性能。
 
 #### cache_capacity
 
-!!! question "Since sing-box 1.11.0"
+!!! question "自 sing-box 1.11.0 起"
 
-LRU cache capacity.
+LRU 缓存容量。
 
-Value less than 1024 will be ignored.
+小于 1024 的值将被忽略。
 
 #### optimistic
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Enable optimistic DNS caching. When a cached DNS entry has expired but is still within the timeout window,
-the stale response is returned immediately while a background refresh is triggered.
+启用乐观 DNS 缓存。当缓存的 DNS 条目已过期但仍在超时窗口内时，
+立即返回过期的响应，同时在后台触发刷新。
 
-Conflict with `disable_cache` and `disable_expire`.
+与 `disable_cache` 和 `disable_expire` 冲突。
 
-Accepts a boolean or an object. When set to `true`, the default timeout of `3d` is used.
+接受布尔值或对象。当设置为 `true` 时，使用默认超时 `3d`。
 
 ```json
 {
@@ -109,37 +108,40 @@ Accepts a boolean or an object. When set to `true`, the default timeout of `3d` 
 
 ##### enabled
 
-Enable optimistic DNS caching.
+启用乐观 DNS 缓存。
 
 ##### timeout
 
-The maximum time an expired cache entry can be served optimistically.
+过期缓存条目可被乐观提供的最长时间。
 
-`3d` is used by default.
+默认使用 `3d`。
 
 #### timeout
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-Default timeout for each DNS query.
+每次 DNS 查询的默认超时时间。
 
-`10s` is used by default.
+默认使用 `10s`。
 
-Can be overridden by `rules.[].timeout` (DNS rule action) or `domain_resolver.timeout`.
+可被 `rules.[].timeout`（DNS 规则动作）或 `domain_resolver.timeout` 覆盖。
 
 #### reverse_mapping
 
-Stores a reverse mapping of IP addresses after responding to a DNS query in order to provide domain names when routing.
+在响应 DNS 查询后存储 IP 地址的反向映射以为路由目的提供域名。
 
-Since this process relies on the act of resolving domain names by an application before making a request, it can be
-problematic in environments such as macOS, where DNS is proxied and cached by the system.
+由于此过程依赖于应用程序在发出请求之前解析域名的行为，因此在 macOS 等 DNS 由系统代理和缓存的环境中可能会出现问题。
 
 #### client_subnet
 
-!!! question "Since sing-box 1.9.0"
+!!! question "自 sing-box 1.9.0 起"
 
-Append a `edns0-subnet` OPT extra record with the specified IP prefix to every query by default.
+默认情况下，将带有指定 IP 前缀的 `edns0-subnet` OPT 附加记录附加到每个查询。
 
-If value is an IP address instead of prefix, `/32` or `/128` will be appended automatically.
+如果值是 IP 地址而不是前缀，则会自动附加 `/32` 或 `/128`。
 
-Can be overridden by `servers.[].client_subnet` or `rules.[].client_subnet`.
+可以被 `servers.[].client_subnet` 或 `rules.[].client_subnet` 覆盖。
+
+#### fakeip :material-note-remove:
+
+[FakeIP](./fakeip/) 设置。

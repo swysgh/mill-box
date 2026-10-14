@@ -2,9 +2,9 @@
 icon: material/new-box
 ---
 
-!!! question "Since sing-box 1.14.0"
+!!! question "自 sing-box 1.14.0 起"
 
-### Structure
+### 结构
 
 ```json
 {
@@ -21,11 +21,11 @@ icon: material/new-box
   "obfs_mode": "",
   "obfs_host": "",
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Version 6 Structure
+### 版本 6 结构
 
 ```json
 {
@@ -41,85 +41,84 @@ icon: material/new-box
   "network": "tcp",
   "mode": "",
 
-  ... // Dial Fields
+  ... // 拨号字段
 }
 ```
 
-### Fields
+### 字段
 
 #### server
 
-==Required==
+==必填==
 
-The server address.
+服务器地址。
 
 #### server_port
 
-==Required==
+==必填==
 
-The server port.
+服务器端口。
 
 #### version
 
-==Required==
+==必填==
 
-The Snell protocol version, one of `4` `6`.
+Snell 协议版本，`4` `6` 之一。
 
-Version `4` supports HTTP obfuscation (`obfs_mode` / `obfs_host`); version `6`
-replaces it with traffic shaping (`mode`) and requires a `psk` of 12 to 255
-bytes.
+版本 `4` 支持 HTTP 混淆（`obfs_mode` / `obfs_host`）；版本 `6` 以流量整形（`mode`）
+取而代之，并要求 `psk` 长度为 12 到 255 字节。
 
 !!! note
 
-    Since we intentionally do not support the QUIC proxy mode of Snell v5, the v5 wire protocol
-    is effectively identical to v4, so no separate v4 server or v5 client is provided.
+    由于我们有意不支持 Snell v5 的 QUIC 代理模式，v5 的线路协议实际上与 v4 没有区别，
+    因此不提供独立的 v4 服务器和 v5 客户端。
 
 #### psk
 
-==Required==
+==必填==
 
-The pre-shared key.
+预共享密钥。
 
 #### userkey
 
-The user key, used to authenticate against a multi-user server.
+用户密钥，用于向多用户服务器进行认证。
 
 #### reuse
 
-Enable connection reuse (the Snell v2 `CONNECT` command).
+启用连接复用（Snell v2 `CONNECT` 命令）。
 
 #### network
 
-Enabled network
+启用的网络协议。
 
-One of `tcp` `udp`.
+`tcp` 或 `udp`。
 
-Both is enabled by default.
+默认所有。
 
 #### obfs_mode
 
-==Version 4 only==
+==仅版本 4==
 
-HTTP obfuscation mode, one of `none` `http`.
+HTTP 混淆模式，`none` `http` 之一。
 
-`none` is used by default.
+默认为 `none`。
 
 #### obfs_host
 
-==Version 4 only==
+==仅版本 4==
 
-The HTTP `Host` header sent when `obfs_mode` is `http`.
+`obfs_mode` 为 `http` 时发送的 HTTP `Host` 头。
 
-`bing.com` is used by default.
+默认为 `bing.com`。
 
 #### mode
 
-==Version 6 only==
+==仅版本 6==
 
-Traffic shaping mode, one of `default` `unshaped` `unsafe-raw`.
+流量整形模式，`default` `unshaped` `unsafe-raw` 之一。
 
-`default` is used by default.
+默认为 `default`。
 
-### Dial Fields
+### 拨号字段
 
-See [Dial Fields](/configuration/shared/dial/) for details.
+参阅 [拨号字段](/configuration/shared/dial/)。
