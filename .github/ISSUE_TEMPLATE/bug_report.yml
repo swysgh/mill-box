@@ -68,17 +68,11 @@ body:
         For the Android client, please check the `/sdcard/Android/data/com.swysgh.millbox/files/stderr.log` file for crash logs.
       render: shell
   - type: checkboxes
-    id: supporter
-    attributes:
-      label: Supporter
-      options:
-        - label: I am a [sponsor](https://github.com/sponsors/nekohasekai/)
-  - type: checkboxes
     attributes:
       label: Integrity requirements
       description: |-
         Please check all of the following options to prove that you have read and understood the requirements, otherwise this issue will be closed.
-        Sing-box is not a project aimed to please users who can't make any meaningful contributions and gain unethical influence. If you deceive here to deliberately waste the time of the developers, you will be permanently blocked.
+        Mill-box is not a project aimed to please users who can't make any meaningful contributions and gain unethical influence. If you deceive here to deliberately waste the time of the developers, you will be permanently blocked.
       options:
         - label: I confirm that I have read the documentation, understand the meaning of all the configuration items I wrote, and did not pile up seemingly useful options or default values.
           required: true

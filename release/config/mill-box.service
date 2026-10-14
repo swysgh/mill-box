@@ -1,6 +1,6 @@
 [Unit]
 Description=mill-box service
-Documentation=https://sing-box.sagernet.org
+Documentation=https://github.com/swysgh/mill-box
 After=network.target nss-lookup.target network-online.target
 
 [Service]
