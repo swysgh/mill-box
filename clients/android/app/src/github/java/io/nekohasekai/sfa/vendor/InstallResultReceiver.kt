@@ -8,7 +8,7 @@ import android.util.Log
 
 class InstallResultReceiver : BroadcastReceiver() {
     companion object {
-        const val ACTION_INSTALL_COMPLETE = "io.nekohasekai.sfa.INSTALL_COMPLETE"
+        const val ACTION_INSTALL_COMPLETE = "com.swysgh.millbox.INSTALL_COMPLETE"
         private const val TAG = "InstallResultReceiver"
     }
 

@@ -65,7 +65,7 @@ body:
       description: |-
         此外，如果您遭遇图形界面应用程序崩溃，请附加提供崩溃日志。
         对于 Apple 平台图形客户端程序，请检查 `Settings - View Service Log` 以导出崩溃日志。
-        对于 Android 图形客户端程序，请检查 `/sdcard/Android/data/io.nekohasekai.sfa/files/stderr.log` 文件以导出崩溃日志。
+        对于 Android 图形客户端程序，请检查 `/sdcard/Android/data/com.swysgh.millbox/files/stderr.log` 文件以导出崩溃日志。
       render: shell
   - type: checkboxes
     id: supporter

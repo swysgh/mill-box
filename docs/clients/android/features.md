@@ -61,5 +61,5 @@ SFA 允许您在图形界面中选择需要代理或绕过的 Android 应用列�
 
 ### 杂项
 
-* 工作目录位于 `/sdcard/Android/data/io.nekohasekai.sfa/files`（外部文件目录）
+* 工作目录位于 `/sdcard/Android/data/com.swysgh.millbox/files`（外部文件目录）
 * 崩溃日志位于 `$working_directory/stderr.log`

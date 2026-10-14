@@ -65,7 +65,7 @@ body:
       description: |-
         In addition, if you encounter a crash with the graphical client, please also provide crash logs.
         For Apple platform clients, please check `Settings - View Service Log` for crash logs.
-        For the Android client, please check the `/sdcard/Android/data/io.nekohasekai.sfa/files/stderr.log` file for crash logs.
+        For the Android client, please check the `/sdcard/Android/data/com.swysgh.millbox/files/stderr.log` file for crash logs.
       render: shell
   - type: checkboxes
     id: supporter

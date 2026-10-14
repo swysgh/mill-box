@@ -1,7 +1,7 @@
 package io.nekohasekai.sfa.constant
 
 object Action {
-    const val SERVICE = "io.nekohasekai.sfa.SERVICE"
-    const val SERVICE_CLOSE = "io.nekohasekai.sfa.SERVICE_CLOSE"
-    const val OPEN_URL = "io.nekohasekai.sfa.SERVICE_OPEN_URL"
+    const val SERVICE = "com.swysgh.millbox.SERVICE"
+    const val SERVICE_CLOSE = "com.swysgh.millbox.SERVICE_CLOSE"
+    const val OPEN_URL = "com.swysgh.millbox.SERVICE_OPEN_URL"
 }
