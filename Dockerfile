@@ -1,5 +1,5 @@
 FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
-LABEL maintainer="nekohasekai <contact-git@sekai.icu>"
+LABEL maintainer="swysgh"
 COPY . /go/src/github.com/swysgh/mill-box
 WORKDIR /go/src/github.com/swysgh/mill-box
 ARG TARGETOS TARGETARCH
@@ -19,7 +19,7 @@ RUN set -ex \
         -ldflags "-X \"github.com/swysgh/mill-box/constant.Version=$VERSION\" $LDFLAGS_SHARED -s -w -buildid=" \
         ./cmd/mill-box
 FROM --platform=$TARGETPLATFORM alpine AS dist
-LABEL maintainer="nekohasekai <contact-git@sekai.icu>"
+LABEL maintainer="swysgh"
 RUN set -ex \
     && apk add --no-cache --upgrade bash tzdata ca-certificates nftables
 COPY --from=builder /go/bin/mill-box /usr/local/bin/mill-box
