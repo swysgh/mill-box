@@ -6,11 +6,11 @@
 
 #### 服务
 
-SFA 允许您通过 ForegroundService 或 VpnService（当需要 TUN 时）运行 sing-box。
+mill-box 允许您通过 ForegroundService 或 VpnService（当需要 TUN 时）运行 mill-box 内核。
 
 #### TUN
 
-SFA 通过 Android VpnService 提供非特权 TUN 实现。
+mill-box 通过 Android VpnService 提供非特权 TUN 实现。
 
 | TUN 入站字段                     | 可用             | 备注                 |
 |-------------------------------|------------------|----------------------|
@@ -53,7 +53,7 @@ SFA 通过 Android VpnService 提供非特权 TUN 实现。
 
 #### 按应用代理
 
-SFA 允许您在图形界面中选择需要代理或绕过的 Android 应用列表，以覆盖 `include_package` 和
+mill-box 允许您在图形界面中选择需要代理或绕过的 Android 应用列表，以覆盖 `include_package` 和
 `exclude_package` 配置项。
 
 特别地，该选择器还提供「中国应用」扫描功能，为中国用户提供出色的体验，以绕过不需要代理的应用。
