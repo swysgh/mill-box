@@ -199,9 +199,6 @@
     <string name="core">هسته</string>
     <string name="core_version_title">نسخه هسته</string>
     <string name="core_data_size">اندازه داده</string>
-    <string name="about">درباره</string>
-    <string name="source_code">کد منبع</string>
-    <string name="sponsor">حامی مالی</string>
     <string name="working_directory">پوشه کاری</string>
     <string name="beta_settings">تنظیمات بتا</string>
     <string name="disable_deprecated_warnings">غیرفعال‌کردن هشدارهای منسوخ</string>
