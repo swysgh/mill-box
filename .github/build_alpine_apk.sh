@@ -89,6 +89,6 @@ apk --root "$APK_ROOT_DIR" mkpkg \
   --info "license:GPL-3.0-or-later with name use or association addition" \
   --info "origin:sing-box" \
   --info "url:https://sing-box.sagernet.org/" \
-  --info "maintainer:nekohasekai <contact-git@sekai.icu>" \
+  --info "maintainer:swysgh" \
   --files "$ROOT_DIR" \
   --output "$OUTPUT_PATH"

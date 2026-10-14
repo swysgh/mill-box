@@ -4,7 +4,7 @@
 --license GPL-3.0-or-later
 --description "The universal proxy platform."
 --url "https://sing-box.sagernet.org/"
---maintainer "nekohasekai <contact-git@sekai.icu>"
+--maintainer "swysgh"
 --no-deb-generate-changes
 
 --config-files /etc/config/sing-box
