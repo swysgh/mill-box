@@ -360,5 +360,5 @@ func getLogs(ctx context.Context, logFactory log.ObservableFactory) func(w http.
 }
 
 func version(w http.ResponseWriter, r *http.Request) {
-	render.JSON(w, r, render.M{"version": "sing-box " + C.Version, "premium": true, "meta": true})
+	render.JSON(w, r, render.M{"version": "mill-box " + C.Version, "premium": true, "meta": true})
 }

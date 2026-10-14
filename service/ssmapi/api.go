@@ -46,7 +46,7 @@ func (s *APIServer) Route(r chi.Router) {
 
 func (s *APIServer) getServerInfo(writer http.ResponseWriter, request *http.Request) {
 	render.JSON(writer, request, render.M{
-		"server":     "sing-box " + C.Version,
+		"server":     "mill-box " + C.Version,
 		"apiVersion": "v1",
 	})
 }
