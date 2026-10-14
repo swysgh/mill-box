@@ -80,6 +80,8 @@ setup_config() {
 
 setup_systemd() {
     echo "Setting up systemd service"
+    sudo cp "$SCRIPT_DIR/mill-box.sysusers" /usr/lib/sysusers.d/
+    sudo systemd-sysusers /usr/lib/sysusers.d/mill-box.sysusers
     sudo cp "$SCRIPT_DIR/mill-box.service" "$SYSTEMD_SERVICE_PATH/"
     sudo systemctl daemon-reload
 }
