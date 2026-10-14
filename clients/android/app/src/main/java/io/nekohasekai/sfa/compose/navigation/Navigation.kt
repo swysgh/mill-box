@@ -35,10 +35,6 @@ import io.nekohasekai.sfa.compose.screen.settings.ProfileOverrideScreen
 import io.nekohasekai.sfa.compose.screen.settings.RemoteControlScreen
 import io.nekohasekai.sfa.compose.screen.settings.ServiceSettingsScreen
 import io.nekohasekai.sfa.compose.screen.settings.SettingsScreen
-import io.nekohasekai.sfa.compose.screen.settings.TailscaleFontPickerScreen
-import io.nekohasekai.sfa.compose.screen.settings.TailscaleGhosttyConfigEditorScreen
-import io.nekohasekai.sfa.compose.screen.settings.TailscaleTerminalConfigScreen
-import io.nekohasekai.sfa.compose.screen.settings.TailscaleThemePickerScreen
 import io.nekohasekai.sfa.compose.screen.tools.CrashReportDetailScreen
 import io.nekohasekai.sfa.compose.screen.tools.CrashReportFileContentScreen
 import io.nekohasekai.sfa.compose.screen.tools.CrashReportListScreen
@@ -686,50 +682,6 @@ fun NavHost(
             popExitTransition = slideOutToRight,
         ) {
             PrivilegeSettingsManageScreen(onBack = { navController.navigateUp() }, serviceStatus = serviceStatus)
-        }
-
-        composable(
-            route = "settings/tailscale/terminal_config",
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) {
-            TailscaleTerminalConfigScreen(navController = navController)
-        }
-
-        composable(
-            route = "settings/tailscale/theme_picker/{isDark}",
-            arguments = listOf(navArgument("isDark") { type = NavType.StringType }),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val isDarkStr = backStackEntry.arguments?.getString("isDark") ?: "false"
-            TailscaleThemePickerScreen(navController = navController, isDark = isDarkStr == "true")
-        }
-
-        composable(
-            route = "settings/tailscale/config_editor/{isDark}",
-            arguments = listOf(navArgument("isDark") { type = NavType.StringType }),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val isDarkStr = backStackEntry.arguments?.getString("isDark") ?: "false"
-            TailscaleGhosttyConfigEditorScreen(navController = navController, isDark = isDarkStr == "true")
-        }
-
-        composable(
-            route = "settings/tailscale/font_picker",
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) {
-            TailscaleFontPickerScreen(navController = navController)
         }
 
         composable(

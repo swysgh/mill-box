@@ -143,14 +143,6 @@ fun TailscaleSSHPromptScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(R.string.tailscale_ssh_terminal_hint),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(horizontal = 32.dp),
-        )
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
