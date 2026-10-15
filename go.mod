@@ -58,7 +58,7 @@ require (
 	github.com/sagernet/wireguard-go v0.0.8-0.20260929150556-ca3bc60c4ce7
 	github.com/sagernet/ws v0.0.0-20231204124109-acfe8907c854
 	github.com/spf13/cobra v1.10.2
-	github.com/stretchr/testify v1.12.0
+	github.com/stretchr/testify v1.12.1
 	github.com/tailscale/go-winio v0.0.0-20231025203758-c4f33415bf55
 	github.com/vishvananda/netns v0.0.5
 	go.uber.org/zap v1.27.1
@@ -96,7 +96,7 @@ require (
 	github.com/dgryski/go-metro v0.0.0-20180109044635-280f6062b5bc // indirect
 	github.com/ebitengine/purego v0.10.0 // indirect
 	github.com/florianl/go-nfqueue/v2 v2.1.0 // indirect
-	github.com/fsnotify/fsnotify v1.9.0 // indirect
+	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/fxamacker/cbor/v2 v2.9.0 // indirect
 	github.com/gaissmai/bart v0.26.1 // indirect
 	github.com/go-jose/go-jose/v4 v4.1.3 // indirect
@@ -176,13 +176,73 @@ require (
 	github.com/zeebo/blake3 v0.2.4 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap/exp v0.3.0 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
 	golang.org/x/tools v0.47.0 // indirect
 	golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
 	golang.zx2c4.com/wireguard/windows v0.5.3 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251202230838-ff82c1b0f217 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	lukechampine.com/blake3 v1.3.0 // indirect
 	zombiezen.com/go/capnproto2 v2.18.2+incompatible // indirect
+)
+
+replace (
+	github.com/sagernet/bbolt => gitea.swysgh.dev/swysgh/mill-bbolt.git v0.0.0-20260915102804-500ee1e84832
+	github.com/sagernet/cors => gitea.swysgh.dev/swysgh/mill-cors.git v1.2.1
+	github.com/sagernet/cronet-go => gitea.swysgh.dev/swysgh/mill-cronet-go.git v0.0.0-20260929213745-4d18a60dc3a8
+	github.com/sagernet/cronet-go/all => gitea.swysgh.dev/swysgh/mill-cronet-go-all.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/android_386 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-android_386.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/android_amd64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-android_amd64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/android_arm => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-android_arm.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/android_arm64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-android_arm64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/darwin_amd64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-darwin_amd64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/darwin_arm64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-darwin_arm64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/ios_amd64_simulator => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-ios_amd64_simulator.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/ios_arm64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-ios_arm64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/ios_arm64_simulator => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-ios_arm64_simulator.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_386 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_386.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_386_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_386_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_amd64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_amd64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_amd64_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_amd64_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_arm => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_arm.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_arm64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_arm64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_arm64_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_arm64_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_arm_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_arm_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_loong64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_loong64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_loong64_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_loong64_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_mips64le => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_mips64le.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_mipsle => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_mipsle.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_mipsle_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_mipsle_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_riscv64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_riscv64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/linux_riscv64_musl => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-linux_riscv64_musl.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/tvos_amd64_simulator => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-tvos_amd64_simulator.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/tvos_arm64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-tvos_arm64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/tvos_arm64_simulator => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-tvos_arm64_simulator.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/windows_amd64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-windows_amd64.git v0.0.0-millpin
+	github.com/sagernet/cronet-go/lib/windows_arm64 => gitea.swysgh.dev/swysgh/mill-cronet-go-lib-windows_arm64.git v0.0.0-millpin
+	github.com/sagernet/fswatch => gitea.swysgh.dev/swysgh/mill-fswatch.git v0.1.2
+	github.com/sagernet/gliderssh => gitea.swysgh.dev/swysgh/mill-gliderssh.git v0.3.4-0.20260531100337-2194faca5648
+	github.com/sagernet/gomobile => gitea.swysgh.dev/swysgh/mill-gomobile.git v0.1.12
+	github.com/sagernet/gvisor => gitea.swysgh.dev/swysgh/mill-gvisor.git v0.0.0-20260727.0-sing-box-mod.1
+	github.com/sagernet/netlink => gitea.swysgh.dev/swysgh/mill-netlink.git v0.0.0-20260814022025-64455d367bbf
+	github.com/sagernet/nftables => gitea.swysgh.dev/swysgh/mill-nftables.git v0.3.0-mod.4
+	github.com/sagernet/quic-go => gitea.swysgh.dev/swysgh/mill-quic-go.git v0.61.0-sing-box-mod.9
+	github.com/sagernet/sing => gitea.swysgh.dev/swysgh/mill-sing.git v0.9.7-0.20260929150544-6f21f2425a95
+	github.com/sagernet/sing-anytls => gitea.swysgh.dev/swysgh/mill-sing-anytls.git v0.0.0-20260928104022-580984e4d8cb
+	github.com/sagernet/sing-cloudflared => gitea.swysgh.dev/swysgh/mill-sing-cloudflared.git v0.1.4-0.20261002084126-c1255ae368f2
+	github.com/sagernet/sing-mux => gitea.swysgh.dev/swysgh/mill-sing-mux.git v0.3.10-0.20260929204512-caf09fe32475
+	github.com/sagernet/sing-openconnect => gitea.swysgh.dev/swysgh/mill-sing-openconnect.git v0.1.1-0.20260929151226-29757281a247
+	github.com/sagernet/sing-openvpn => gitea.swysgh.dev/swysgh/mill-sing-openvpn.git v0.1.1-0.20260929151220-f330676d6d4a
+	github.com/sagernet/sing-quic => gitea.swysgh.dev/swysgh/mill-sing-quic.git v0.7.2-0.20261002084117-75c3ac4fa12b
+	github.com/sagernet/sing-shadowsocks => gitea.swysgh.dev/swysgh/mill-sing-shadowsocks.git v0.2.9-0.20260929204512-65740e0f0e3e
+	github.com/sagernet/sing-shadowsocks2 => gitea.swysgh.dev/swysgh/mill-sing-shadowsocks2.git v0.2.2-0.20260929152114-a69d1086332b
+	github.com/sagernet/sing-shadowtls => gitea.swysgh.dev/swysgh/mill-sing-shadowtls.git v0.2.2-0.20260928201441-a9c0127d5c99
+	github.com/sagernet/sing-snell => gitea.swysgh.dev/swysgh/mill-sing-snell.git v0.0.0-20260904135315-bc5a12ac736f
+	github.com/sagernet/sing-tun => gitea.swysgh.dev/swysgh/mill-sing-tun.git v0.9.7-0.20261015073935-a66bdc6dfc25
+	github.com/sagernet/sing-vmess => gitea.swysgh.dev/swysgh/mill-sing-vmess.git v0.2.9-0.20260929152519-9b95ab8c9478
+	github.com/sagernet/smux => gitea.swysgh.dev/swysgh/mill-smux.git v1.5.50-sing-box-mod.1
+	github.com/sagernet/tailscale => gitea.swysgh.dev/swysgh/mill-tailscale.git v1.102.1-sing-box-1.14-mod.5.0.20260925112514-35e61219dedd
+	github.com/sagernet/wireguard-go => gitea.swysgh.dev/swysgh/mill-wireguard-go.git v0.0.8-0.20260929150556-ca3bc60c4ce7
+	github.com/sagernet/ws => gitea.swysgh.dev/swysgh/mill-ws.git v0.0.0-20231204124109-acfe8907c854
 )
