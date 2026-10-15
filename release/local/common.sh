@@ -6,8 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 BINARY_NAME="mill-box"
 
-INSTALL_BIN_PATH="/usr/local/bin"
-INSTALL_CONFIG_PATH="/usr/local/etc/mill-box"
+INSTALL_BIN_PATH="/usr/bin"
+INSTALL_CONFIG_PATH="/etc/mill-box"
 INSTALL_DATA_PATH="/var/lib/mill-box"
 SYSTEMD_SERVICE_PATH="/etc/systemd/system"
 

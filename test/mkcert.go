@@ -20,7 +20,7 @@ import (
 )
 
 func createSelfSignedCertificate(t *testing.T, domain string) (caPem, certPem, keyPem string) {
-	const userAndHostname = "sekai@nekohasekai.local"
+	const userAndHostname = "mill-box@localhost"
 	tempDir, err := os.MkdirTemp("", "sing-box-test")
 	require.NoError(t, err)
 	t.Cleanup(func() {

@@ -9,7 +9,7 @@ https://sing-box.sagernet.org/installation/clients/sfa/
 ## License
 
 ```
-Copyright (C) 2022 by nekohasekai <contact-sagernet@sekai.icu>
+Copyright (C) 2026 by swysgh
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
