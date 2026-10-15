@@ -188,46 +188,6 @@ require (
 )
 
 replace (
-	github.com/sagernet/bbolt => git.swysgh.dn42/swysgh/bbolt.git v0.0.0-20260915102804-500ee1e84832
-	github.com/sagernet/cors => git.swysgh.dn42/swysgh/cors.git v1.2.1
-	github.com/sagernet/cronet-go => git.swysgh.dn42/swysgh/cronet-go.git v0.0.0-20260929213745-4d18a60dc3a8
-	github.com/sagernet/cronet-go/all => git.swysgh.dn42/swysgh/cronet-go-all.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/android_386 => git.swysgh.dn42/swysgh/cronet-go-lib-android_386.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/android_amd64 => git.swysgh.dn42/swysgh/cronet-go-lib-android_amd64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/android_arm => git.swysgh.dn42/swysgh/cronet-go-lib-android_arm.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/android_arm64 => git.swysgh.dn42/swysgh/cronet-go-lib-android_arm64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/darwin_amd64 => git.swysgh.dn42/swysgh/cronet-go-lib-darwin_amd64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/darwin_arm64 => git.swysgh.dn42/swysgh/cronet-go-lib-darwin_arm64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/ios_amd64_simulator => git.swysgh.dn42/swysgh/cronet-go-lib-ios_amd64_simulator.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/ios_arm64 => git.swysgh.dn42/swysgh/cronet-go-lib-ios_arm64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/ios_arm64_simulator => git.swysgh.dn42/swysgh/cronet-go-lib-ios_arm64_simulator.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_386 => git.swysgh.dn42/swysgh/cronet-go-lib-linux_386.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_386_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_386_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_amd64 => git.swysgh.dn42/swysgh/cronet-go-lib-linux_amd64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_amd64_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_amd64_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_arm => git.swysgh.dn42/swysgh/cronet-go-lib-linux_arm.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_arm64 => git.swysgh.dn42/swysgh/cronet-go-lib-linux_arm64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_arm64_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_arm64_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_arm_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_arm_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_loong64 => git.swysgh.dn42/swysgh/cronet-go-lib-linux_loong64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_loong64_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_loong64_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_mips64le => git.swysgh.dn42/swysgh/cronet-go-lib-linux_mips64le.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_mipsle => git.swysgh.dn42/swysgh/cronet-go-lib-linux_mipsle.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_mipsle_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_mipsle_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_riscv64 => git.swysgh.dn42/swysgh/cronet-go-lib-linux_riscv64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/linux_riscv64_musl => git.swysgh.dn42/swysgh/cronet-go-lib-linux_riscv64_musl.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/tvos_amd64_simulator => git.swysgh.dn42/swysgh/cronet-go-lib-tvos_amd64_simulator.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/tvos_arm64 => git.swysgh.dn42/swysgh/cronet-go-lib-tvos_arm64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/tvos_arm64_simulator => git.swysgh.dn42/swysgh/cronet-go-lib-tvos_arm64_simulator.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/windows_amd64 => git.swysgh.dn42/swysgh/cronet-go-lib-windows_amd64.git v0.0.0-millpin
-	github.com/sagernet/cronet-go/lib/windows_arm64 => git.swysgh.dn42/swysgh/cronet-go-lib-windows_arm64.git v0.0.0-millpin
-	github.com/sagernet/fswatch => git.swysgh.dn42/swysgh/fswatch.git v0.1.2
-	github.com/sagernet/gliderssh => git.swysgh.dn42/swysgh/gliderssh.git v0.3.4-0.20260531100337-2194faca5648
-	github.com/sagernet/gomobile => git.swysgh.dn42/swysgh/gomobile.git v0.1.12
-	github.com/sagernet/gvisor => git.swysgh.dn42/swysgh/gvisor.git v0.0.0-20260727.0-sing-box-mod.1
-	github.com/sagernet/netlink => git.swysgh.dn42/swysgh/netlink.git v0.0.0-20260814022025-64455d367bbf
-	github.com/sagernet/nftables => git.swysgh.dn42/swysgh/nftables.git v0.3.0-mod.4
-	github.com/sagernet/quic-go => git.swysgh.dn42/swysgh/quic-go.git v0.61.0-sing-box-mod.9
 	github.com/sagernet/sing => git.swysgh.dn42/swysgh/mill.git v0.9.7-0.20260929150544-6f21f2425a95
 	github.com/sagernet/sing-anytls => git.swysgh.dn42/swysgh/mill-anytls.git v0.0.0-20260928104022-580984e4d8cb
 	github.com/sagernet/sing-cloudflared => git.swysgh.dn42/swysgh/mill-cloudflared.git v0.1.4-0.20261002084126-c1255ae368f2
@@ -241,8 +201,4 @@ replace (
 	github.com/sagernet/sing-snell => git.swysgh.dn42/swysgh/mill-snell.git v0.0.0-20260904135315-bc5a12ac736f
 	github.com/sagernet/sing-tun => git.swysgh.dn42/swysgh/mill-tun.git v0.9.7-0.20261015073935-a66bdc6dfc25
 	github.com/sagernet/sing-vmess => git.swysgh.dn42/swysgh/mill-vmess.git v0.2.9-0.20260929152519-9b95ab8c9478
-	github.com/sagernet/smux => git.swysgh.dn42/swysgh/smux.git v1.5.50-sing-box-mod.1
-	github.com/sagernet/tailscale => git.swysgh.dn42/swysgh/tailscale.git v1.102.1-sing-box-1.14-mod.5.0.20260925112514-35e61219dedd
-	github.com/sagernet/wireguard-go => git.swysgh.dn42/swysgh/wireguard-go.git v0.0.8-0.20260929150556-ca3bc60c4ce7
-	github.com/sagernet/ws => git.swysgh.dn42/swysgh/ws.git v0.0.0-20231204124109-acfe8907c854
 )
