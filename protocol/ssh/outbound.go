@@ -214,7 +214,12 @@ func (s *Outbound) connect(ctx context.Context) (client *ssh.Client, err error) 
 }
 
 func (s *Outbound) InterfaceUpdated(ctx context.Context) {
-	common.Close(s.clientConn)
+	// clientConn is written under clientAccess by connect/releaseStream, so it
+	// has to be read under the same lock.
+	s.clientAccess.Lock()
+	clientConn := s.clientConn
+	s.clientAccess.Unlock()
+	common.Close(clientConn)
 }
 
 func (s *Outbound) MultiplexEnabled() bool {
@@ -266,7 +271,10 @@ func (s *Outbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 		return nil
 	}
 	scope.Add(func() error {
-		return common.Close(s.clientConn)
+		s.clientAccess.Lock()
+		clientConn := s.clientConn
+		s.clientAccess.Unlock()
+		return common.Close(clientConn)
 	})
 	return nil
 }
