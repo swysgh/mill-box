@@ -604,8 +604,6 @@
         <item quantity="other">Sharing %1$d USB devices</item>
     </plurals>
 
-    <string name="openconnect" translatable="false">OpenConnect</string>
-    <string name="openconnect_with_tag" translatable="false">OpenConnect: %1$s</string>
     <string name="openvpn" translatable="false">OpenVPN</string>
     <string name="openvpn_with_tag" translatable="false">OpenVPN: %1$s</string>
     <string name="endpoint_status">Status</string>

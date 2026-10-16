@@ -58,7 +58,6 @@ import io.nekohasekai.sfa.utils.RemoteControlManager
 @Composable
 fun ToolsScreen(
     navController: NavController,
-    openConnectViewModel: OpenConnectStatusViewModel,
     openVPNViewModel: OpenVPNStatusViewModel,
     showStatusBar: Boolean = false,
 ) {
@@ -96,7 +95,6 @@ fun ToolsScreen(
     val crashUnreadCount by CrashReportManager.unreadCount.collectAsState()
     val oomUnreadCount by OOMReportManager.unreadCount.collectAsState()
     val powerUnreadCount by PowerReportManager.unreadCount.collectAsState()
-    val openConnectState by openConnectViewModel.uiState.collectAsState()
     val openVPNState by openVPNViewModel.uiState.collectAsState()
     val remoteServer by RemoteControlManager.remoteServer.collectAsState()
 
@@ -110,9 +108,8 @@ fun ToolsScreen(
             .padding(scaffoldPadding)
             .padding(top = 8.dp, bottom = if (showStatusBar) STATUS_BAR_CONTENT_PADDING else 8.dp),
     ) {
-        val openConnectEndpoints = openConnectState.endpoints
         val openVPNEndpoints = openVPNState.endpoints
-        val endpointRowCount = openConnectEndpoints.size + openVPNEndpoints.size
+        val endpointRowCount = openVPNEndpoints.size
         if (endpointRowCount > 0) {
             Text(
                 text = stringResource(R.string.endpoints),
@@ -129,33 +126,6 @@ fun ToolsScreen(
                     containerColor = MaterialTheme.colorScheme.surfaceContainer,
                 ),
             ) {
-                openConnectEndpoints.forEachIndexed { index, endpoint ->
-                    ListItem(
-                        headlineContent = {
-                            Text(
-                                if (openConnectEndpoints.size == 1) {
-                                    stringResource(R.string.openconnect)
-                                } else {
-                                    stringResource(R.string.openconnect_with_tag, endpoint.endpointTag)
-                                },
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                        },
-                        leadingContent = {
-                            Icon(
-                                imageVector = Icons.Outlined.Route,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                            )
-                        },
-                        modifier = Modifier
-                            .clip(endpointRowShape(index, endpointRowCount))
-                            .clickable {
-                                navController.navigate("tools/openconnect/${Uri.encode(endpoint.endpointTag)}")
-                            },
-                        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                    )
-                }
                 openVPNEndpoints.forEachIndexed { index, endpoint ->
                     ListItem(
                         headlineContent = {
@@ -177,10 +147,7 @@ fun ToolsScreen(
                         },
                         modifier = Modifier
                             .clip(
-                                endpointRowShape(
-                                    openConnectEndpoints.size + index,
-                                    endpointRowCount,
-                                ),
+                                endpointRowShape(index, endpointRowCount),
                             )
                             .clickable {
                                 navController.navigate("tools/openvpn/${Uri.encode(endpoint.endpointTag)}")

@@ -39,7 +39,6 @@ require (
 	github.com/sagernet/sing v0.9.7-0.20260929150544-6f21f2425a95
 	github.com/sagernet/sing-anytls v0.0.0-20260928104022-580984e4d8cb
 	github.com/sagernet/sing-mux v0.3.10-0.20260929204512-caf09fe32475
-	github.com/sagernet/sing-openconnect v0.1.1-0.20260929151226-29757281a247
 	github.com/sagernet/sing-openvpn v0.1.1-0.20260929151220-f330676d6d4a
 	github.com/sagernet/sing-quic v0.7.2-0.20261002084117-75c3ac4fa12b
 	github.com/sagernet/sing-shadowsocks v0.2.9-0.20260929204512-65740e0f0e3e
@@ -104,9 +103,6 @@ require (
 	github.com/libp2p/go-netroute v0.2.1 // indirect
 	github.com/mdlayher/socket v0.6.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.26 // indirect
-	github.com/pion/dtls/v3 v3.1.5 // indirect
-	github.com/pion/logging v0.2.4 // indirect
-	github.com/pion/transport/v4 v4.0.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/sagernet/cronet-go/lib/android_386 v0.0.0-20260929213014-a1cafd93eb1f // indirect
@@ -139,11 +135,9 @@ require (
 	github.com/sagernet/cronet-go/lib/windows_amd64 v0.0.0-20260929213014-a1cafd93eb1f // indirect
 	github.com/sagernet/cronet-go/lib/windows_arm64 v0.0.0-20260929213014-a1cafd93eb1f // indirect
 	github.com/sagernet/gvisor v0.0.0-20260727.0-sing-box-mod.1 // indirect
-	github.com/smallstep/pkcs7 v0.1.1 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/tjfoc/gmsm v1.4.1 // indirect
 	github.com/u-root/uio v0.0.0-20240224005618-d2acac8f3701 // indirect
-	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	github.com/zeebo/blake3 v0.2.4 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap/exp v0.3.0 // indirect
@@ -160,7 +154,6 @@ replace (
 	github.com/sagernet/sing => git.swysgh.dn42/swysgh/mill.git v0.9.7-0.20260929150544-6f21f2425a95
 	github.com/sagernet/sing-anytls => git.swysgh.dn42/swysgh/mill-anytls.git v0.0.0-20260928104022-580984e4d8cb
 	github.com/sagernet/sing-mux => git.swysgh.dn42/swysgh/mill-mux.git v0.3.10-0.20260929204512-caf09fe32475
-	github.com/sagernet/sing-openconnect => git.swysgh.dn42/swysgh/mill-openconnect.git v0.1.1-0.20260929151226-29757281a247
 	github.com/sagernet/sing-openvpn => git.swysgh.dn42/swysgh/mill-openvpn.git v0.1.1-0.20260929151220-f330676d6d4a
 	github.com/sagernet/sing-quic => git.swysgh.dn42/swysgh/mill-quic.git v0.7.2-0.20261002084117-75c3ac4fa12b
 	github.com/sagernet/sing-shadowsocks => git.swysgh.dn42/swysgh/mill-shadowsocks.git v0.2.9-0.20260929204512-65740e0f0e3e

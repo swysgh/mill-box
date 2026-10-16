@@ -973,62 +973,6 @@ func subscribeStatus[T any](c *CommandClient, session *streamSession, name strin
 	return nil
 }
 
-func (c *CommandClient) SubscribeOpenConnectStatus(handler OpenConnectStatusHandler) (*OpenConnectStatusSubscription, error) {
-	session := new(OpenConnectStatusSubscription)
-	err := subscribeStatus(c, &session.streamSession, "openconnect status", func(ctx context.Context, client daemon.StartedServiceClient) (grpc.ServerStreamingClient[daemon.OpenConnectStatusUpdate], error) {
-		return client.SubscribeOpenConnectStatus(ctx, &emptypb.Empty{})
-	}, func(update *daemon.OpenConnectStatusUpdate) {
-		handler.OnStatusUpdate(openConnectStatusUpdateFromGRPC(update))
-	}, handler.OnError)
-	if err != nil {
-		return nil, err
-	}
-	return session, nil
-}
-
-func (c *CommandClient) SubmitOpenConnectAuthResponse(endpointTag string, challengeID string, response *OpenConnectAuthResponse) error {
-	submission := &daemon.OpenConnectAuthResponseSubmission{
-		EndpointTag: endpointTag,
-		ChallengeID: challengeID,
-	}
-	if response.formValues != nil {
-		submission.Response = &daemon.OpenConnectAuthResponseSubmission_Form{Form: &daemon.OpenConnectAuthFormResponse{
-			Values: response.formValues.values,
-		}}
-	}
-	if response.browserResult != nil {
-		submission.Response = &daemon.OpenConnectAuthResponseSubmission_Browser{Browser: &daemon.OpenConnectBrowserResult{
-			FinalURL: response.browserResult.FinalURL,
-			Cookies: common.Map(response.browserResult.cookies, func(cookie openConnectBrowserCookie) *daemon.OpenConnectBrowserCookie {
-				return &daemon.OpenConnectBrowserCookie{Name: cookie.Name, Value: cookie.Value}
-			}),
-			Headers: common.Map(response.browserResult.headers, func(header openConnectBrowserHeader) *daemon.OpenConnectBrowserHeader {
-				return &daemon.OpenConnectBrowserHeader{Name: header.Name, Values: header.Values}
-			}),
-		}}
-	}
-	_, err := callWithResult(c, func(ctx context.Context, client daemon.StartedServiceClient) (*emptypb.Empty, error) {
-		return client.SubmitOpenConnectAuthResponse(ctx, submission)
-	})
-	if err != nil {
-		return E.Cause(err, "submit openconnect authentication response")
-	}
-	return nil
-}
-
-func (c *CommandClient) CancelOpenConnectAuthChallenge(endpointTag string, challengeID string) error {
-	_, err := callWithResult(c, func(ctx context.Context, client daemon.StartedServiceClient) (*emptypb.Empty, error) {
-		return client.CancelOpenConnectAuthChallenge(ctx, &daemon.OpenConnectAuthChallengeCancel{
-			EndpointTag: endpointTag,
-			ChallengeID: challengeID,
-		})
-	})
-	if err != nil {
-		return E.Cause(err, "cancel openconnect authentication challenge")
-	}
-	return nil
-}
-
 func (c *CommandClient) SubscribeOpenVPNStatus(handler OpenVPNStatusHandler) (*OpenVPNStatusSubscription, error) {
 	session := new(OpenVPNStatusSubscription)
 	err := subscribeStatus(c, &session.streamSession, "openvpn status", func(ctx context.Context, client daemon.StartedServiceClient) (grpc.ServerStreamingClient[daemon.OpenVPNStatusUpdate], error) {

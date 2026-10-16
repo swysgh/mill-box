@@ -55,7 +55,7 @@ func runAPIOpenVPNCancel() error {
 	if err != nil {
 		return err
 	}
-	// sing-openvpn treats a canceled challenge as terminal: unlike OpenConnect, the client does not
+	// A canceled challenge is terminal for sing-openvpn: the client does not
 	// reconnect afterwards.
 	os.Stdout.WriteString(endpointTag + ": authentication challenge canceled; the client has stopped\n")
 	return nil

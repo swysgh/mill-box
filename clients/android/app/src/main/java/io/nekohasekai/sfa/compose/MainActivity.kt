@@ -124,7 +124,6 @@ import io.nekohasekai.sfa.compose.screen.dashboard.DashboardViewModel
 import io.nekohasekai.sfa.compose.screen.dashboard.GroupsCard
 import io.nekohasekai.sfa.compose.screen.dashboard.groups.GroupsViewModel
 import io.nekohasekai.sfa.compose.screen.log.LogViewModel
-import io.nekohasekai.sfa.compose.screen.tools.OpenConnectStatusViewModel
 import io.nekohasekai.sfa.compose.screen.tools.OpenVPNStatusViewModel
 import io.nekohasekai.sfa.compose.theme.Theme
 import io.nekohasekai.sfa.compose.topbar.LocalScaffoldPadding
@@ -698,12 +697,6 @@ class MainActivity :
 
         val isToolsRoute = currentRootRoute == Screen.Tools.route
 
-        val openConnectStatusViewModel: OpenConnectStatusViewModel? =
-            if (isToolsRoute) {
-                viewModel()
-            } else {
-                null
-            }
 
         val openVPNStatusViewModel: OpenVPNStatusViewModel? =
             if (isToolsRoute) {
@@ -714,11 +707,9 @@ class MainActivity :
 
         val statusTargetActive = remoteServer != null || currentServiceStatus == Status.Started
         val subscribeStatus = {
-            openConnectStatusViewModel?.subscribe()
             openVPNStatusViewModel?.subscribe()
         }
         val cancelStatus = {
-            openConnectStatusViewModel?.cancel()
             openVPNStatusViewModel?.cancel()
         }
         LaunchedEffect(remoteServer?.id) {
@@ -729,7 +720,6 @@ class MainActivity :
         }
         LaunchedEffect(
             statusTargetActive,
-            openConnectStatusViewModel,
             openVPNStatusViewModel,
         ) {
             if (statusTargetActive) {
@@ -858,7 +848,6 @@ class MainActivity :
                         logViewModel = logViewModel,
                         groupsViewModel = groupsViewModel,
                         connectionsViewModel = connectionsViewModel,
-                        openConnectStatusViewModel = openConnectStatusViewModel,
                         openVPNStatusViewModel = openVPNStatusViewModel,
                         modifier = Modifier.fillMaxSize(),
                     )

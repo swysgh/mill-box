@@ -44,8 +44,6 @@ import io.nekohasekai.sfa.compose.screen.tools.OOMReportDetailScreen
 import io.nekohasekai.sfa.compose.screen.tools.OOMReportFileContentScreen
 import io.nekohasekai.sfa.compose.screen.tools.OOMReportListScreen
 import io.nekohasekai.sfa.compose.screen.tools.OOMReportMetadataScreen
-import io.nekohasekai.sfa.compose.screen.tools.OpenConnectEndpointScreen
-import io.nekohasekai.sfa.compose.screen.tools.OpenConnectStatusViewModel
 import io.nekohasekai.sfa.compose.screen.tools.OpenVPNEndpointScreen
 import io.nekohasekai.sfa.compose.screen.tools.OpenVPNStatusViewModel
 import io.nekohasekai.sfa.compose.screen.tools.OutboundPickerScreen
@@ -86,7 +84,6 @@ fun NavHost(
     logViewModel: LogViewModel? = null,
     groupsViewModel: GroupsViewModel? = null,
     connectionsViewModel: ConnectionsViewModel? = null,
-    openConnectStatusViewModel: OpenConnectStatusViewModel? = null,
     openVPNStatusViewModel: OpenVPNStatusViewModel? = null,
     modifier: Modifier = Modifier,
 ) {
@@ -235,9 +232,8 @@ fun NavHost(
         }
 
         composable(Screen.Tools.route) {
-            val openConnectViewModel: OpenConnectStatusViewModel = openConnectStatusViewModel ?: viewModel()
             val openVPNViewModel: OpenVPNStatusViewModel = openVPNStatusViewModel ?: viewModel()
-            ToolsScreen(navController = navController, openConnectViewModel = openConnectViewModel, openVPNViewModel = openVPNViewModel, showStatusBar = showStatusBar)
+            ToolsScreen(navController = navController, openVPNViewModel = openVPNViewModel, showStatusBar = showStatusBar)
         }
 
         // Tools subscreens with slide animations
@@ -271,19 +267,6 @@ fun NavHost(
         ) { backStackEntry ->
             val selectedOutbound = Uri.decode(backStackEntry.arguments?.getString("selectedOutbound") ?: "")
             OutboundPickerScreen(navController = navController, selectedOutbound = selectedOutbound)
-        }
-
-        composable(
-            route = "tools/openconnect/{endpointTag}",
-            arguments = listOf(navArgument("endpointTag") { type = NavType.StringType }),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
-            val openConnectViewModel: OpenConnectStatusViewModel = openConnectStatusViewModel ?: viewModel()
-            OpenConnectEndpointScreen(navController = navController, viewModel = openConnectViewModel, endpointTag = endpointTag)
         }
 
         composable(

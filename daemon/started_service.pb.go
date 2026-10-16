@@ -5734,978 +5734,6 @@ func (x *USBSharedDevice) GetState() USBDeviceState {
 	return USBDeviceState_USB_DEVICE_STATE_IDLE
 }
 
-type OpenConnectStatusUpdate struct {
-	state         protoimpl.MessageState       `protogen:"open.v1"`
-	Endpoints     []*OpenConnectEndpointStatus `protobuf:"bytes,1,rep,name=endpoints,proto3" json:"endpoints,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectStatusUpdate) Reset() {
-	*x = OpenConnectStatusUpdate{}
-	mi := &file_daemon_started_service_proto_msgTypes[79]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectStatusUpdate) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectStatusUpdate) ProtoMessage() {}
-
-func (x *OpenConnectStatusUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[79]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectStatusUpdate.ProtoReflect.Descriptor instead.
-func (*OpenConnectStatusUpdate) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{79}
-}
-
-func (x *OpenConnectStatusUpdate) GetEndpoints() []*OpenConnectEndpointStatus {
-	if x != nil {
-		return x.Endpoints
-	}
-	return nil
-}
-
-type OpenConnectEndpointStatus struct {
-	state         protoimpl.MessageState    `protogen:"open.v1"`
-	EndpointTag   string                    `protobuf:"bytes,1,opt,name=endpointTag,proto3" json:"endpointTag,omitempty"`
-	State         string                    `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
-	StateText     string                    `protobuf:"bytes,3,opt,name=stateText,proto3" json:"stateText,omitempty"`
-	AuthChallenge *OpenConnectAuthChallenge `protobuf:"bytes,4,opt,name=authChallenge,proto3" json:"authChallenge,omitempty"`
-	Error         string                    `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`
-	TunnelInfo    *OpenConnectTunnelInfo    `protobuf:"bytes,6,opt,name=tunnelInfo,proto3" json:"tunnelInfo,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectEndpointStatus) Reset() {
-	*x = OpenConnectEndpointStatus{}
-	mi := &file_daemon_started_service_proto_msgTypes[80]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectEndpointStatus) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectEndpointStatus) ProtoMessage() {}
-
-func (x *OpenConnectEndpointStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[80]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectEndpointStatus.ProtoReflect.Descriptor instead.
-func (*OpenConnectEndpointStatus) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{80}
-}
-
-func (x *OpenConnectEndpointStatus) GetEndpointTag() string {
-	if x != nil {
-		return x.EndpointTag
-	}
-	return ""
-}
-
-func (x *OpenConnectEndpointStatus) GetState() string {
-	if x != nil {
-		return x.State
-	}
-	return ""
-}
-
-func (x *OpenConnectEndpointStatus) GetStateText() string {
-	if x != nil {
-		return x.StateText
-	}
-	return ""
-}
-
-func (x *OpenConnectEndpointStatus) GetAuthChallenge() *OpenConnectAuthChallenge {
-	if x != nil {
-		return x.AuthChallenge
-	}
-	return nil
-}
-
-func (x *OpenConnectEndpointStatus) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
-
-func (x *OpenConnectEndpointStatus) GetTunnelInfo() *OpenConnectTunnelInfo {
-	if x != nil {
-		return x.TunnelInfo
-	}
-	return nil
-}
-
-type OpenConnectTunnelInfo struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Server         string                 `protobuf:"bytes,1,opt,name=server,proto3" json:"server,omitempty"`
-	Flavor         string                 `protobuf:"bytes,2,opt,name=flavor,proto3" json:"flavor,omitempty"`
-	Transport      string                 `protobuf:"bytes,3,opt,name=transport,proto3" json:"transport,omitempty"`
-	Ipv4           []string               `protobuf:"bytes,4,rep,name=ipv4,proto3" json:"ipv4,omitempty"`
-	Ipv6           []string               `protobuf:"bytes,5,rep,name=ipv6,proto3" json:"ipv6,omitempty"`
-	Dns            []string               `protobuf:"bytes,6,rep,name=dns,proto3" json:"dns,omitempty"`
-	Mtu            uint32                 `protobuf:"varint,7,opt,name=mtu,proto3" json:"mtu,omitempty"`
-	ConnectedSince int64                  `protobuf:"varint,8,opt,name=connectedSince,proto3" json:"connectedSince,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
-}
-
-func (x *OpenConnectTunnelInfo) Reset() {
-	*x = OpenConnectTunnelInfo{}
-	mi := &file_daemon_started_service_proto_msgTypes[81]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectTunnelInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectTunnelInfo) ProtoMessage() {}
-
-func (x *OpenConnectTunnelInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[81]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectTunnelInfo.ProtoReflect.Descriptor instead.
-func (*OpenConnectTunnelInfo) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{81}
-}
-
-func (x *OpenConnectTunnelInfo) GetServer() string {
-	if x != nil {
-		return x.Server
-	}
-	return ""
-}
-
-func (x *OpenConnectTunnelInfo) GetFlavor() string {
-	if x != nil {
-		return x.Flavor
-	}
-	return ""
-}
-
-func (x *OpenConnectTunnelInfo) GetTransport() string {
-	if x != nil {
-		return x.Transport
-	}
-	return ""
-}
-
-func (x *OpenConnectTunnelInfo) GetIpv4() []string {
-	if x != nil {
-		return x.Ipv4
-	}
-	return nil
-}
-
-func (x *OpenConnectTunnelInfo) GetIpv6() []string {
-	if x != nil {
-		return x.Ipv6
-	}
-	return nil
-}
-
-func (x *OpenConnectTunnelInfo) GetDns() []string {
-	if x != nil {
-		return x.Dns
-	}
-	return nil
-}
-
-func (x *OpenConnectTunnelInfo) GetMtu() uint32 {
-	if x != nil {
-		return x.Mtu
-	}
-	return 0
-}
-
-func (x *OpenConnectTunnelInfo) GetConnectedSince() int64 {
-	if x != nil {
-		return x.ConnectedSince
-	}
-	return 0
-}
-
-type OpenConnectAuthChallenge struct {
-	state   protoimpl.MessageState `protogen:"open.v1"`
-	Id      string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Banner  string                 `protobuf:"bytes,2,opt,name=banner,proto3" json:"banner,omitempty"`
-	Message string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
-	Error   string                 `protobuf:"bytes,4,opt,name=error,proto3" json:"error,omitempty"`
-	// Types that are valid to be assigned to Challenge:
-	//
-	//	*OpenConnectAuthChallenge_Form
-	//	*OpenConnectAuthChallenge_Browser
-	Challenge     isOpenConnectAuthChallenge_Challenge `protobuf_oneof:"challenge"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthChallenge) Reset() {
-	*x = OpenConnectAuthChallenge{}
-	mi := &file_daemon_started_service_proto_msgTypes[82]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthChallenge) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthChallenge) ProtoMessage() {}
-
-func (x *OpenConnectAuthChallenge) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[82]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthChallenge.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthChallenge) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{82}
-}
-
-func (x *OpenConnectAuthChallenge) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthChallenge) GetBanner() string {
-	if x != nil {
-		return x.Banner
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthChallenge) GetMessage() string {
-	if x != nil {
-		return x.Message
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthChallenge) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthChallenge) GetChallenge() isOpenConnectAuthChallenge_Challenge {
-	if x != nil {
-		return x.Challenge
-	}
-	return nil
-}
-
-func (x *OpenConnectAuthChallenge) GetForm() *OpenConnectAuthForm {
-	if x != nil {
-		if x, ok := x.Challenge.(*OpenConnectAuthChallenge_Form); ok {
-			return x.Form
-		}
-	}
-	return nil
-}
-
-func (x *OpenConnectAuthChallenge) GetBrowser() *OpenConnectBrowserRequest {
-	if x != nil {
-		if x, ok := x.Challenge.(*OpenConnectAuthChallenge_Browser); ok {
-			return x.Browser
-		}
-	}
-	return nil
-}
-
-type isOpenConnectAuthChallenge_Challenge interface {
-	isOpenConnectAuthChallenge_Challenge()
-}
-
-type OpenConnectAuthChallenge_Form struct {
-	Form *OpenConnectAuthForm `protobuf:"bytes,5,opt,name=form,proto3,oneof"`
-}
-
-type OpenConnectAuthChallenge_Browser struct {
-	Browser *OpenConnectBrowserRequest `protobuf:"bytes,6,opt,name=browser,proto3,oneof"`
-}
-
-func (*OpenConnectAuthChallenge_Form) isOpenConnectAuthChallenge_Challenge() {}
-
-func (*OpenConnectAuthChallenge_Browser) isOpenConnectAuthChallenge_Challenge() {}
-
-type OpenConnectAuthForm struct {
-	state         protoimpl.MessageState      `protogen:"open.v1"`
-	Fields        []*OpenConnectAuthFormField `protobuf:"bytes,1,rep,name=fields,proto3" json:"fields,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthForm) Reset() {
-	*x = OpenConnectAuthForm{}
-	mi := &file_daemon_started_service_proto_msgTypes[83]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthForm) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthForm) ProtoMessage() {}
-
-func (x *OpenConnectAuthForm) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[83]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthForm.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthForm) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{83}
-}
-
-func (x *OpenConnectAuthForm) GetFields() []*OpenConnectAuthFormField {
-	if x != nil {
-		return x.Fields
-	}
-	return nil
-}
-
-type OpenConnectAuthFormField struct {
-	state         protoimpl.MessageState       `protogen:"open.v1"`
-	SubmissionKey string                       `protobuf:"bytes,1,opt,name=submissionKey,proto3" json:"submissionKey,omitempty"`
-	Name          string                       `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Label         string                       `protobuf:"bytes,3,opt,name=label,proto3" json:"label,omitempty"`
-	Kind          string                       `protobuf:"bytes,4,opt,name=kind,proto3" json:"kind,omitempty"`
-	Value         string                       `protobuf:"bytes,5,opt,name=value,proto3" json:"value,omitempty"`
-	Options       []*OpenConnectAuthFormChoice `protobuf:"bytes,6,rep,name=options,proto3" json:"options,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthFormField) Reset() {
-	*x = OpenConnectAuthFormField{}
-	mi := &file_daemon_started_service_proto_msgTypes[84]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthFormField) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthFormField) ProtoMessage() {}
-
-func (x *OpenConnectAuthFormField) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[84]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthFormField.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthFormField) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{84}
-}
-
-func (x *OpenConnectAuthFormField) GetSubmissionKey() string {
-	if x != nil {
-		return x.SubmissionKey
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthFormField) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthFormField) GetLabel() string {
-	if x != nil {
-		return x.Label
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthFormField) GetKind() string {
-	if x != nil {
-		return x.Kind
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthFormField) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthFormField) GetOptions() []*OpenConnectAuthFormChoice {
-	if x != nil {
-		return x.Options
-	}
-	return nil
-}
-
-type OpenConnectAuthFormChoice struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Value         string                 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
-	Label         string                 `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthFormChoice) Reset() {
-	*x = OpenConnectAuthFormChoice{}
-	mi := &file_daemon_started_service_proto_msgTypes[85]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthFormChoice) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthFormChoice) ProtoMessage() {}
-
-func (x *OpenConnectAuthFormChoice) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[85]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthFormChoice.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthFormChoice) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{85}
-}
-
-func (x *OpenConnectAuthFormChoice) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthFormChoice) GetLabel() string {
-	if x != nil {
-		return x.Label
-	}
-	return ""
-}
-
-type OpenConnectBrowserRequest struct {
-	state               protoimpl.MessageState `protogen:"open.v1"`
-	Url                 string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	FinalURL            string                 `protobuf:"bytes,2,opt,name=finalURL,proto3" json:"finalURL,omitempty"`
-	CookieNames         []string               `protobuf:"bytes,3,rep,name=cookieNames,proto3" json:"cookieNames,omitempty"`
-	HeaderNames         []string               `protobuf:"bytes,4,rep,name=headerNames,proto3" json:"headerNames,omitempty"`
-	CallbackURLPrefixes []string               `protobuf:"bytes,5,rep,name=callbackURLPrefixes,proto3" json:"callbackURLPrefixes,omitempty"`
-	EarlyCookieNames    []string               `protobuf:"bytes,6,rep,name=earlyCookieNames,proto3" json:"earlyCookieNames,omitempty"`
-	CacheID             string                 `protobuf:"bytes,7,opt,name=cacheID,proto3" json:"cacheID,omitempty"`
-	unknownFields       protoimpl.UnknownFields
-	sizeCache           protoimpl.SizeCache
-}
-
-func (x *OpenConnectBrowserRequest) Reset() {
-	*x = OpenConnectBrowserRequest{}
-	mi := &file_daemon_started_service_proto_msgTypes[86]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectBrowserRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectBrowserRequest) ProtoMessage() {}
-
-func (x *OpenConnectBrowserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[86]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectBrowserRequest.ProtoReflect.Descriptor instead.
-func (*OpenConnectBrowserRequest) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{86}
-}
-
-func (x *OpenConnectBrowserRequest) GetUrl() string {
-	if x != nil {
-		return x.Url
-	}
-	return ""
-}
-
-func (x *OpenConnectBrowserRequest) GetFinalURL() string {
-	if x != nil {
-		return x.FinalURL
-	}
-	return ""
-}
-
-func (x *OpenConnectBrowserRequest) GetCookieNames() []string {
-	if x != nil {
-		return x.CookieNames
-	}
-	return nil
-}
-
-func (x *OpenConnectBrowserRequest) GetHeaderNames() []string {
-	if x != nil {
-		return x.HeaderNames
-	}
-	return nil
-}
-
-func (x *OpenConnectBrowserRequest) GetCallbackURLPrefixes() []string {
-	if x != nil {
-		return x.CallbackURLPrefixes
-	}
-	return nil
-}
-
-func (x *OpenConnectBrowserRequest) GetEarlyCookieNames() []string {
-	if x != nil {
-		return x.EarlyCookieNames
-	}
-	return nil
-}
-
-func (x *OpenConnectBrowserRequest) GetCacheID() string {
-	if x != nil {
-		return x.CacheID
-	}
-	return ""
-}
-
-type OpenConnectBrowserCookie struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectBrowserCookie) Reset() {
-	*x = OpenConnectBrowserCookie{}
-	mi := &file_daemon_started_service_proto_msgTypes[87]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectBrowserCookie) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectBrowserCookie) ProtoMessage() {}
-
-func (x *OpenConnectBrowserCookie) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[87]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectBrowserCookie.ProtoReflect.Descriptor instead.
-func (*OpenConnectBrowserCookie) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{87}
-}
-
-func (x *OpenConnectBrowserCookie) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *OpenConnectBrowserCookie) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-type OpenConnectBrowserHeader struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Values        []string               `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectBrowserHeader) Reset() {
-	*x = OpenConnectBrowserHeader{}
-	mi := &file_daemon_started_service_proto_msgTypes[88]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectBrowserHeader) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectBrowserHeader) ProtoMessage() {}
-
-func (x *OpenConnectBrowserHeader) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[88]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectBrowserHeader.ProtoReflect.Descriptor instead.
-func (*OpenConnectBrowserHeader) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{88}
-}
-
-func (x *OpenConnectBrowserHeader) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *OpenConnectBrowserHeader) GetValues() []string {
-	if x != nil {
-		return x.Values
-	}
-	return nil
-}
-
-type OpenConnectAuthFormResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Values        map[string]string      `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthFormResponse) Reset() {
-	*x = OpenConnectAuthFormResponse{}
-	mi := &file_daemon_started_service_proto_msgTypes[89]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthFormResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthFormResponse) ProtoMessage() {}
-
-func (x *OpenConnectAuthFormResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[89]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthFormResponse.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthFormResponse) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{89}
-}
-
-func (x *OpenConnectAuthFormResponse) GetValues() map[string]string {
-	if x != nil {
-		return x.Values
-	}
-	return nil
-}
-
-type OpenConnectBrowserResult struct {
-	state         protoimpl.MessageState      `protogen:"open.v1"`
-	FinalURL      string                      `protobuf:"bytes,1,opt,name=finalURL,proto3" json:"finalURL,omitempty"`
-	Cookies       []*OpenConnectBrowserCookie `protobuf:"bytes,2,rep,name=cookies,proto3" json:"cookies,omitempty"`
-	Headers       []*OpenConnectBrowserHeader `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectBrowserResult) Reset() {
-	*x = OpenConnectBrowserResult{}
-	mi := &file_daemon_started_service_proto_msgTypes[90]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectBrowserResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectBrowserResult) ProtoMessage() {}
-
-func (x *OpenConnectBrowserResult) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[90]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectBrowserResult.ProtoReflect.Descriptor instead.
-func (*OpenConnectBrowserResult) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{90}
-}
-
-func (x *OpenConnectBrowserResult) GetFinalURL() string {
-	if x != nil {
-		return x.FinalURL
-	}
-	return ""
-}
-
-func (x *OpenConnectBrowserResult) GetCookies() []*OpenConnectBrowserCookie {
-	if x != nil {
-		return x.Cookies
-	}
-	return nil
-}
-
-func (x *OpenConnectBrowserResult) GetHeaders() []*OpenConnectBrowserHeader {
-	if x != nil {
-		return x.Headers
-	}
-	return nil
-}
-
-type OpenConnectAuthResponseSubmission struct {
-	state       protoimpl.MessageState `protogen:"open.v1"`
-	EndpointTag string                 `protobuf:"bytes,1,opt,name=endpointTag,proto3" json:"endpointTag,omitempty"`
-	ChallengeID string                 `protobuf:"bytes,2,opt,name=challengeID,proto3" json:"challengeID,omitempty"`
-	// Types that are valid to be assigned to Response:
-	//
-	//	*OpenConnectAuthResponseSubmission_Form
-	//	*OpenConnectAuthResponseSubmission_Browser
-	Response      isOpenConnectAuthResponseSubmission_Response `protobuf_oneof:"response"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthResponseSubmission) Reset() {
-	*x = OpenConnectAuthResponseSubmission{}
-	mi := &file_daemon_started_service_proto_msgTypes[91]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthResponseSubmission) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthResponseSubmission) ProtoMessage() {}
-
-func (x *OpenConnectAuthResponseSubmission) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[91]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthResponseSubmission.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthResponseSubmission) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{91}
-}
-
-func (x *OpenConnectAuthResponseSubmission) GetEndpointTag() string {
-	if x != nil {
-		return x.EndpointTag
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthResponseSubmission) GetChallengeID() string {
-	if x != nil {
-		return x.ChallengeID
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthResponseSubmission) GetResponse() isOpenConnectAuthResponseSubmission_Response {
-	if x != nil {
-		return x.Response
-	}
-	return nil
-}
-
-func (x *OpenConnectAuthResponseSubmission) GetForm() *OpenConnectAuthFormResponse {
-	if x != nil {
-		if x, ok := x.Response.(*OpenConnectAuthResponseSubmission_Form); ok {
-			return x.Form
-		}
-	}
-	return nil
-}
-
-func (x *OpenConnectAuthResponseSubmission) GetBrowser() *OpenConnectBrowserResult {
-	if x != nil {
-		if x, ok := x.Response.(*OpenConnectAuthResponseSubmission_Browser); ok {
-			return x.Browser
-		}
-	}
-	return nil
-}
-
-type isOpenConnectAuthResponseSubmission_Response interface {
-	isOpenConnectAuthResponseSubmission_Response()
-}
-
-type OpenConnectAuthResponseSubmission_Form struct {
-	Form *OpenConnectAuthFormResponse `protobuf:"bytes,3,opt,name=form,proto3,oneof"`
-}
-
-type OpenConnectAuthResponseSubmission_Browser struct {
-	Browser *OpenConnectBrowserResult `protobuf:"bytes,4,opt,name=browser,proto3,oneof"`
-}
-
-func (*OpenConnectAuthResponseSubmission_Form) isOpenConnectAuthResponseSubmission_Response() {}
-
-func (*OpenConnectAuthResponseSubmission_Browser) isOpenConnectAuthResponseSubmission_Response() {}
-
-type OpenConnectAuthChallengeCancel struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	EndpointTag   string                 `protobuf:"bytes,1,opt,name=endpointTag,proto3" json:"endpointTag,omitempty"`
-	ChallengeID   string                 `protobuf:"bytes,2,opt,name=challengeID,proto3" json:"challengeID,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OpenConnectAuthChallengeCancel) Reset() {
-	*x = OpenConnectAuthChallengeCancel{}
-	mi := &file_daemon_started_service_proto_msgTypes[92]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OpenConnectAuthChallengeCancel) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OpenConnectAuthChallengeCancel) ProtoMessage() {}
-
-func (x *OpenConnectAuthChallengeCancel) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[92]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OpenConnectAuthChallengeCancel.ProtoReflect.Descriptor instead.
-func (*OpenConnectAuthChallengeCancel) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{92}
-}
-
-func (x *OpenConnectAuthChallengeCancel) GetEndpointTag() string {
-	if x != nil {
-		return x.EndpointTag
-	}
-	return ""
-}
-
-func (x *OpenConnectAuthChallengeCancel) GetChallengeID() string {
-	if x != nil {
-		return x.ChallengeID
-	}
-	return ""
-}
-
 type OpenVPNStatusUpdate struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
 	Endpoints     []*OpenVPNEndpointStatus `protobuf:"bytes,1,rep,name=endpoints,proto3" json:"endpoints,omitempty"`
@@ -6715,7 +5743,7 @@ type OpenVPNStatusUpdate struct {
 
 func (x *OpenVPNStatusUpdate) Reset() {
 	*x = OpenVPNStatusUpdate{}
-	mi := &file_daemon_started_service_proto_msgTypes[93]
+	mi := &file_daemon_started_service_proto_msgTypes[79]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6727,7 +5755,7 @@ func (x *OpenVPNStatusUpdate) String() string {
 func (*OpenVPNStatusUpdate) ProtoMessage() {}
 
 func (x *OpenVPNStatusUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[93]
+	mi := &file_daemon_started_service_proto_msgTypes[79]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6740,7 +5768,7 @@ func (x *OpenVPNStatusUpdate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpenVPNStatusUpdate.ProtoReflect.Descriptor instead.
 func (*OpenVPNStatusUpdate) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{93}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{79}
 }
 
 func (x *OpenVPNStatusUpdate) GetEndpoints() []*OpenVPNEndpointStatus {
@@ -6764,7 +5792,7 @@ type OpenVPNEndpointStatus struct {
 
 func (x *OpenVPNEndpointStatus) Reset() {
 	*x = OpenVPNEndpointStatus{}
-	mi := &file_daemon_started_service_proto_msgTypes[94]
+	mi := &file_daemon_started_service_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6776,7 +5804,7 @@ func (x *OpenVPNEndpointStatus) String() string {
 func (*OpenVPNEndpointStatus) ProtoMessage() {}
 
 func (x *OpenVPNEndpointStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[94]
+	mi := &file_daemon_started_service_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6789,7 +5817,7 @@ func (x *OpenVPNEndpointStatus) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpenVPNEndpointStatus.ProtoReflect.Descriptor instead.
 func (*OpenVPNEndpointStatus) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{94}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *OpenVPNEndpointStatus) GetEndpointTag() string {
@@ -6850,7 +5878,7 @@ type OpenVPNTunnelInfo struct {
 
 func (x *OpenVPNTunnelInfo) Reset() {
 	*x = OpenVPNTunnelInfo{}
-	mi := &file_daemon_started_service_proto_msgTypes[95]
+	mi := &file_daemon_started_service_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6862,7 +5890,7 @@ func (x *OpenVPNTunnelInfo) String() string {
 func (*OpenVPNTunnelInfo) ProtoMessage() {}
 
 func (x *OpenVPNTunnelInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[95]
+	mi := &file_daemon_started_service_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6875,7 +5903,7 @@ func (x *OpenVPNTunnelInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpenVPNTunnelInfo.ProtoReflect.Descriptor instead.
 func (*OpenVPNTunnelInfo) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{95}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *OpenVPNTunnelInfo) GetServer() string {
@@ -6951,7 +5979,7 @@ type OpenVPNChallenge struct {
 
 func (x *OpenVPNChallenge) Reset() {
 	*x = OpenVPNChallenge{}
-	mi := &file_daemon_started_service_proto_msgTypes[96]
+	mi := &file_daemon_started_service_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6963,7 +5991,7 @@ func (x *OpenVPNChallenge) String() string {
 func (*OpenVPNChallenge) ProtoMessage() {}
 
 func (x *OpenVPNChallenge) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[96]
+	mi := &file_daemon_started_service_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6976,7 +6004,7 @@ func (x *OpenVPNChallenge) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpenVPNChallenge.ProtoReflect.Descriptor instead.
 func (*OpenVPNChallenge) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{96}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *OpenVPNChallenge) GetId() string {
@@ -7055,7 +6083,7 @@ type OpenVPNChallengeSubmission struct {
 
 func (x *OpenVPNChallengeSubmission) Reset() {
 	*x = OpenVPNChallengeSubmission{}
-	mi := &file_daemon_started_service_proto_msgTypes[97]
+	mi := &file_daemon_started_service_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7067,7 +6095,7 @@ func (x *OpenVPNChallengeSubmission) String() string {
 func (*OpenVPNChallengeSubmission) ProtoMessage() {}
 
 func (x *OpenVPNChallengeSubmission) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[97]
+	mi := &file_daemon_started_service_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7080,7 +6108,7 @@ func (x *OpenVPNChallengeSubmission) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpenVPNChallengeSubmission.ProtoReflect.Descriptor instead.
 func (*OpenVPNChallengeSubmission) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{97}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *OpenVPNChallengeSubmission) GetEndpointTag() string {
@@ -7128,7 +6156,7 @@ type OpenVPNChallengeCancel struct {
 
 func (x *OpenVPNChallengeCancel) Reset() {
 	*x = OpenVPNChallengeCancel{}
-	mi := &file_daemon_started_service_proto_msgTypes[98]
+	mi := &file_daemon_started_service_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7140,7 +6168,7 @@ func (x *OpenVPNChallengeCancel) String() string {
 func (*OpenVPNChallengeCancel) ProtoMessage() {}
 
 func (x *OpenVPNChallengeCancel) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[98]
+	mi := &file_daemon_started_service_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7153,7 +6181,7 @@ func (x *OpenVPNChallengeCancel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OpenVPNChallengeCancel.ProtoReflect.Descriptor instead.
 func (*OpenVPNChallengeCancel) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{98}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{84}
 }
 
 func (x *OpenVPNChallengeCancel) GetEndpointTag() string {
@@ -7183,7 +6211,7 @@ type NotificationEvent struct {
 
 func (x *NotificationEvent) Reset() {
 	*x = NotificationEvent{}
-	mi := &file_daemon_started_service_proto_msgTypes[99]
+	mi := &file_daemon_started_service_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7195,7 +6223,7 @@ func (x *NotificationEvent) String() string {
 func (*NotificationEvent) ProtoMessage() {}
 
 func (x *NotificationEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[99]
+	mi := &file_daemon_started_service_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7208,7 +6236,7 @@ func (x *NotificationEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NotificationEvent.ProtoReflect.Descriptor instead.
 func (*NotificationEvent) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{99}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *NotificationEvent) GetEvent() isNotificationEvent_Event {
@@ -7267,7 +6295,7 @@ type Notification struct {
 
 func (x *Notification) Reset() {
 	*x = Notification{}
-	mi := &file_daemon_started_service_proto_msgTypes[100]
+	mi := &file_daemon_started_service_proto_msgTypes[86]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7279,7 +6307,7 @@ func (x *Notification) String() string {
 func (*Notification) ProtoMessage() {}
 
 func (x *Notification) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[100]
+	mi := &file_daemon_started_service_proto_msgTypes[86]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7292,7 +6320,7 @@ func (x *Notification) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Notification.ProtoReflect.Descriptor instead.
 func (*Notification) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{100}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{86}
 }
 
 func (x *Notification) GetIdentifier() string {
@@ -7354,7 +6382,7 @@ type NotificationCancel struct {
 
 func (x *NotificationCancel) Reset() {
 	*x = NotificationCancel{}
-	mi := &file_daemon_started_service_proto_msgTypes[101]
+	mi := &file_daemon_started_service_proto_msgTypes[87]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7366,7 +6394,7 @@ func (x *NotificationCancel) String() string {
 func (*NotificationCancel) ProtoMessage() {}
 
 func (x *NotificationCancel) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[101]
+	mi := &file_daemon_started_service_proto_msgTypes[87]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7379,7 +6407,7 @@ func (x *NotificationCancel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NotificationCancel.ProtoReflect.Descriptor instead.
 func (*NotificationCancel) Descriptor() ([]byte, []int) {
-	return file_daemon_started_service_proto_rawDescGZIP(), []int{101}
+	return file_daemon_started_service_proto_rawDescGZIP(), []int{87}
 }
 
 func (x *NotificationCancel) GetIdentifier() string {
@@ -7406,7 +6434,7 @@ type Log_Message struct {
 
 func (x *Log_Message) Reset() {
 	*x = Log_Message{}
-	mi := &file_daemon_started_service_proto_msgTypes[102]
+	mi := &file_daemon_started_service_proto_msgTypes[88]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7418,7 +6446,7 @@ func (x *Log_Message) String() string {
 func (*Log_Message) ProtoMessage() {}
 
 func (x *Log_Message) ProtoReflect() protoreflect.Message {
-	mi := &file_daemon_started_service_proto_msgTypes[102]
+	mi := &file_daemon_started_service_proto_msgTypes[88]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7885,80 +6913,7 @@ const file_daemon_started_service_proto_rawDesc = "" +
 	"\x05busId\x18\x02 \x01(\tR\x05busId\x12\x1a\n" +
 	"\bstableId\x18\x03 \x01(\tR\bstableId\x12,\n" +
 	"\abackend\x18\x04 \x01(\x0e2\x12.daemon.USBBackendR\abackend\x12,\n" +
-	"\x05state\x18\x05 \x01(\x0e2\x16.daemon.USBDeviceStateR\x05state\"Z\n" +
-	"\x17OpenConnectStatusUpdate\x12?\n" +
-	"\tendpoints\x18\x01 \x03(\v2!.daemon.OpenConnectEndpointStatusR\tendpoints\"\x8e\x02\n" +
-	"\x19OpenConnectEndpointStatus\x12 \n" +
-	"\vendpointTag\x18\x01 \x01(\tR\vendpointTag\x12\x14\n" +
-	"\x05state\x18\x02 \x01(\tR\x05state\x12\x1c\n" +
-	"\tstateText\x18\x03 \x01(\tR\tstateText\x12F\n" +
-	"\rauthChallenge\x18\x04 \x01(\v2 .daemon.OpenConnectAuthChallengeR\rauthChallenge\x12\x14\n" +
-	"\x05error\x18\x05 \x01(\tR\x05error\x12=\n" +
-	"\n" +
-	"tunnelInfo\x18\x06 \x01(\v2\x1d.daemon.OpenConnectTunnelInfoR\n" +
-	"tunnelInfo\"\xd9\x01\n" +
-	"\x15OpenConnectTunnelInfo\x12\x16\n" +
-	"\x06server\x18\x01 \x01(\tR\x06server\x12\x16\n" +
-	"\x06flavor\x18\x02 \x01(\tR\x06flavor\x12\x1c\n" +
-	"\ttransport\x18\x03 \x01(\tR\ttransport\x12\x12\n" +
-	"\x04ipv4\x18\x04 \x03(\tR\x04ipv4\x12\x12\n" +
-	"\x04ipv6\x18\x05 \x03(\tR\x04ipv6\x12\x10\n" +
-	"\x03dns\x18\x06 \x03(\tR\x03dns\x12\x10\n" +
-	"\x03mtu\x18\a \x01(\rR\x03mtu\x12&\n" +
-	"\x0econnectedSince\x18\b \x01(\x03R\x0econnectedSince\"\xf1\x01\n" +
-	"\x18OpenConnectAuthChallenge\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06banner\x18\x02 \x01(\tR\x06banner\x12\x18\n" +
-	"\amessage\x18\x03 \x01(\tR\amessage\x12\x14\n" +
-	"\x05error\x18\x04 \x01(\tR\x05error\x121\n" +
-	"\x04form\x18\x05 \x01(\v2\x1b.daemon.OpenConnectAuthFormH\x00R\x04form\x12=\n" +
-	"\abrowser\x18\x06 \x01(\v2!.daemon.OpenConnectBrowserRequestH\x00R\abrowserB\v\n" +
-	"\tchallenge\"O\n" +
-	"\x13OpenConnectAuthForm\x128\n" +
-	"\x06fields\x18\x01 \x03(\v2 .daemon.OpenConnectAuthFormFieldR\x06fields\"\xd1\x01\n" +
-	"\x18OpenConnectAuthFormField\x12$\n" +
-	"\rsubmissionKey\x18\x01 \x01(\tR\rsubmissionKey\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05label\x18\x03 \x01(\tR\x05label\x12\x12\n" +
-	"\x04kind\x18\x04 \x01(\tR\x04kind\x12\x14\n" +
-	"\x05value\x18\x05 \x01(\tR\x05value\x12;\n" +
-	"\aoptions\x18\x06 \x03(\v2!.daemon.OpenConnectAuthFormChoiceR\aoptions\"G\n" +
-	"\x19OpenConnectAuthFormChoice\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\tR\x05value\x12\x14\n" +
-	"\x05label\x18\x02 \x01(\tR\x05label\"\x85\x02\n" +
-	"\x19OpenConnectBrowserRequest\x12\x10\n" +
-	"\x03url\x18\x01 \x01(\tR\x03url\x12\x1a\n" +
-	"\bfinalURL\x18\x02 \x01(\tR\bfinalURL\x12 \n" +
-	"\vcookieNames\x18\x03 \x03(\tR\vcookieNames\x12 \n" +
-	"\vheaderNames\x18\x04 \x03(\tR\vheaderNames\x120\n" +
-	"\x13callbackURLPrefixes\x18\x05 \x03(\tR\x13callbackURLPrefixes\x12*\n" +
-	"\x10earlyCookieNames\x18\x06 \x03(\tR\x10earlyCookieNames\x12\x18\n" +
-	"\acacheID\x18\a \x01(\tR\acacheID\"D\n" +
-	"\x18OpenConnectBrowserCookie\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\"F\n" +
-	"\x18OpenConnectBrowserHeader\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
-	"\x06values\x18\x02 \x03(\tR\x06values\"\xa1\x01\n" +
-	"\x1bOpenConnectAuthFormResponse\x12G\n" +
-	"\x06values\x18\x01 \x03(\v2/.daemon.OpenConnectAuthFormResponse.ValuesEntryR\x06values\x1a9\n" +
-	"\vValuesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xae\x01\n" +
-	"\x18OpenConnectBrowserResult\x12\x1a\n" +
-	"\bfinalURL\x18\x01 \x01(\tR\bfinalURL\x12:\n" +
-	"\acookies\x18\x02 \x03(\v2 .daemon.OpenConnectBrowserCookieR\acookies\x12:\n" +
-	"\aheaders\x18\x03 \x03(\v2 .daemon.OpenConnectBrowserHeaderR\aheaders\"\xec\x01\n" +
-	"!OpenConnectAuthResponseSubmission\x12 \n" +
-	"\vendpointTag\x18\x01 \x01(\tR\vendpointTag\x12 \n" +
-	"\vchallengeID\x18\x02 \x01(\tR\vchallengeID\x129\n" +
-	"\x04form\x18\x03 \x01(\v2#.daemon.OpenConnectAuthFormResponseH\x00R\x04form\x12<\n" +
-	"\abrowser\x18\x04 \x01(\v2 .daemon.OpenConnectBrowserResultH\x00R\abrowserB\n" +
-	"\n" +
-	"\bresponse\"d\n" +
-	"\x1eOpenConnectAuthChallengeCancel\x12 \n" +
-	"\vendpointTag\x18\x01 \x01(\tR\vendpointTag\x12 \n" +
-	"\vchallengeID\x18\x02 \x01(\tR\vchallengeID\"R\n" +
+	"\x05state\x18\x05 \x01(\x0e2\x16.daemon.USBDeviceStateR\x05state\"R\n" +
 	"\x13OpenVPNStatusUpdate\x12;\n" +
 	"\tendpoints\x18\x01 \x03(\v2\x1d.daemon.OpenVPNEndpointStatusR\tendpoints\"\xf6\x01\n" +
 	"\x15OpenVPNEndpointStatus\x12 \n" +
@@ -8039,7 +6994,7 @@ const file_daemon_started_service_proto_rawDesc = "" +
 	"\x17USB_BACKEND_LINUX_SYSFS\x10\x01\x12\x17\n" +
 	"\x13USB_BACKEND_DYNAMIC\x10\x02\x12\x1c\n" +
 	"\x18USB_BACKEND_DARWIN_IOKIT\x10\x03\x12\x1f\n" +
-	"\x1bUSB_BACKEND_WINDOWS_VBOXUSB\x10\x042\xdb\x1a\n" +
+	"\x1bUSB_BACKEND_WINDOWS_VBOXUSB\x10\x042\xb6\x18\n" +
 	"\x0eStartedService\x127\n" +
 	"\n" +
 	"GetVersion\x12\x16.google.protobuf.Empty\x1a\x0f.daemon.Version\"\x00\x12K\n" +
@@ -8076,10 +7031,7 @@ const file_daemon_started_service_proto_rawDesc = "" +
 	"\x12DeleteTaildropFile\x12!.daemon.DeleteTaildropFileRequest\x1a\x16.google.protobuf.Empty\"\x00\x12[\n" +
 	"\x17CancelTaildropReceiving\x12&.daemon.CancelTaildropReceivingRequest\x1a\x16.google.protobuf.Empty\"\x00\x12O\n" +
 	"\x11ProvideUSBDevices\x12\x1a.daemon.USBProviderMessage\x1a\x18.daemon.USBServerMessage\"\x00(\x010\x01\x12Y\n" +
-	"\x1aSubscribeUSBIPServerStatus\x12\x16.google.protobuf.Empty\x1a\x1f.daemon.USBIPServerStatusUpdate\"\x000\x01\x12Y\n" +
-	"\x1aSubscribeOpenConnectStatus\x12\x16.google.protobuf.Empty\x1a\x1f.daemon.OpenConnectStatusUpdate\"\x000\x01\x12d\n" +
-	"\x1dSubmitOpenConnectAuthResponse\x12).daemon.OpenConnectAuthResponseSubmission\x1a\x16.google.protobuf.Empty\"\x00\x12b\n" +
-	"\x1eCancelOpenConnectAuthChallenge\x12&.daemon.OpenConnectAuthChallengeCancel\x1a\x16.google.protobuf.Empty\"\x00\x12Q\n" +
+	"\x1aSubscribeUSBIPServerStatus\x12\x16.google.protobuf.Empty\x1a\x1f.daemon.USBIPServerStatusUpdate\"\x000\x01\x12Q\n" +
 	"\x16SubscribeOpenVPNStatus\x12\x16.google.protobuf.Empty\x1a\x1b.daemon.OpenVPNStatusUpdate\"\x000\x01\x12^\n" +
 	"\x1eSubmitOpenVPNChallengeResponse\x12\".daemon.OpenVPNChallengeSubmission\x1a\x16.google.protobuf.Empty\"\x00\x12R\n" +
 	"\x16CancelOpenVPNChallenge\x12\x1e.daemon.OpenVPNChallengeCancel\x1a\x16.google.protobuf.Empty\"\x00\x12O\n" +
@@ -8099,276 +7051,243 @@ func file_daemon_started_service_proto_rawDescGZIP() []byte {
 
 var (
 	file_daemon_started_service_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
-	file_daemon_started_service_proto_msgTypes  = make([]protoimpl.MessageInfo, 104)
+	file_daemon_started_service_proto_msgTypes  = make([]protoimpl.MessageInfo, 89)
 	file_daemon_started_service_proto_goTypes   = []any{
-		LogLevel(0),                               // 0: daemon.LogLevel
-		ConnectionEventType(0),                    // 1: daemon.ConnectionEventType
-		USBDeviceState(0),                         // 2: daemon.USBDeviceState
-		USBBackend(0),                             // 3: daemon.USBBackend
-		ServiceStatus_Type(0),                     // 4: daemon.ServiceStatus.Type
-		(*Version)(nil),                           // 5: daemon.Version
-		(*ServiceStatus)(nil),                     // 6: daemon.ServiceStatus
-		(*SubscribeStatusRequest)(nil),            // 7: daemon.SubscribeStatusRequest
-		(*Log)(nil),                               // 8: daemon.Log
-		(*DefaultLogLevel)(nil),                   // 9: daemon.DefaultLogLevel
-		(*Status)(nil),                            // 10: daemon.Status
-		(*Groups)(nil),                            // 11: daemon.Groups
-		(*Group)(nil),                             // 12: daemon.Group
-		(*GroupItem)(nil),                         // 13: daemon.GroupItem
-		(*URLTestRequest)(nil),                    // 14: daemon.URLTestRequest
-		(*SelectOutboundRequest)(nil),             // 15: daemon.SelectOutboundRequest
-		(*SetGroupExpandRequest)(nil),             // 16: daemon.SetGroupExpandRequest
-		(*ClashMode)(nil),                         // 17: daemon.ClashMode
-		(*ClashModeStatus)(nil),                   // 18: daemon.ClashModeStatus
-		(*SubscribeConnectionsRequest)(nil),       // 19: daemon.SubscribeConnectionsRequest
-		(*ConnectionEvent)(nil),                   // 20: daemon.ConnectionEvent
-		(*ConnectionEvents)(nil),                  // 21: daemon.ConnectionEvents
-		(*Connection)(nil),                        // 22: daemon.Connection
-		(*ProcessInfo)(nil),                       // 23: daemon.ProcessInfo
-		(*CloseConnectionRequest)(nil),            // 24: daemon.CloseConnectionRequest
-		(*DeprecatedWarnings)(nil),                // 25: daemon.DeprecatedWarnings
-		(*DeprecatedWarning)(nil),                 // 26: daemon.DeprecatedWarning
-		(*StartedAt)(nil),                         // 27: daemon.StartedAt
-		(*OutboundList)(nil),                      // 28: daemon.OutboundList
-		(*NetworkQualityTestRequest)(nil),         // 29: daemon.NetworkQualityTestRequest
-		(*NetworkQualityTestProgress)(nil),        // 30: daemon.NetworkQualityTestProgress
-		(*STUNTestRequest)(nil),                   // 31: daemon.STUNTestRequest
-		(*STUNTestProgress)(nil),                  // 32: daemon.STUNTestProgress
-		(*TailscaleStatusUpdate)(nil),             // 33: daemon.TailscaleStatusUpdate
-		(*TailscaleEndpointStatus)(nil),           // 34: daemon.TailscaleEndpointStatus
-		(*TailscaleUserGroup)(nil),                // 35: daemon.TailscaleUserGroup
-		(*TailscalePeer)(nil),                     // 36: daemon.TailscalePeer
-		(*TailscalePingRequest)(nil),              // 37: daemon.TailscalePingRequest
-		(*TailscalePingResponse)(nil),             // 38: daemon.TailscalePingResponse
-		(*SetTailscaleExitNodeRequest)(nil),       // 39: daemon.SetTailscaleExitNodeRequest
-		(*TailscaleLogoutRequest)(nil),            // 40: daemon.TailscaleLogoutRequest
-		(*TailscaleCertificateRequest)(nil),       // 41: daemon.TailscaleCertificateRequest
-		(*TailscaleCertificate)(nil),              // 42: daemon.TailscaleCertificate
-		(*TailscaleSSHClientMessage)(nil),         // 43: daemon.TailscaleSSHClientMessage
-		(*TailscaleSSHStart)(nil),                 // 44: daemon.TailscaleSSHStart
-		(*TailscaleSSHInput)(nil),                 // 45: daemon.TailscaleSSHInput
-		(*TailscaleSSHResize)(nil),                // 46: daemon.TailscaleSSHResize
-		(*TailscaleSSHServerMessage)(nil),         // 47: daemon.TailscaleSSHServerMessage
-		(*TailscaleSSHAuthBanner)(nil),            // 48: daemon.TailscaleSSHAuthBanner
-		(*TailscaleSSHReady)(nil),                 // 49: daemon.TailscaleSSHReady
-		(*TailscaleSSHOutput)(nil),                // 50: daemon.TailscaleSSHOutput
-		(*TailscaleSSHExit)(nil),                  // 51: daemon.TailscaleSSHExit
-		(*TailscaleSSHError)(nil),                 // 52: daemon.TailscaleSSHError
-		(*SubscribeTaildropInboxRequest)(nil),     // 53: daemon.SubscribeTaildropInboxRequest
-		(*MarkTaildropInboxReadRequest)(nil),      // 54: daemon.MarkTaildropInboxReadRequest
-		(*TaildropInbox)(nil),                     // 55: daemon.TaildropInbox
-		(*TaildropFile)(nil),                      // 56: daemon.TaildropFile
-		(*TaildropReceivingFile)(nil),             // 57: daemon.TaildropReceivingFile
-		(*TaildropSendClientMessage)(nil),         // 58: daemon.TaildropSendClientMessage
-		(*TaildropSendStart)(nil),                 // 59: daemon.TaildropSendStart
-		(*TaildropOutgoingFile)(nil),              // 60: daemon.TaildropOutgoingFile
-		(*TaildropFileChunk)(nil),                 // 61: daemon.TaildropFileChunk
-		(*TaildropFileDone)(nil),                  // 62: daemon.TaildropFileDone
-		(*TaildropSendServerMessage)(nil),         // 63: daemon.TaildropSendServerMessage
-		(*TaildropSendProgress)(nil),              // 64: daemon.TaildropSendProgress
-		(*DownloadTaildropFileRequest)(nil),       // 65: daemon.DownloadTaildropFileRequest
-		(*DownloadTaildropFileChunk)(nil),         // 66: daemon.DownloadTaildropFileChunk
-		(*DeleteTaildropFileRequest)(nil),         // 67: daemon.DeleteTaildropFileRequest
-		(*CancelTaildropReceivingRequest)(nil),    // 68: daemon.CancelTaildropReceivingRequest
-		(*USBProviderMessage)(nil),                // 69: daemon.USBProviderMessage
-		(*USBServerMessage)(nil),                  // 70: daemon.USBServerMessage
-		(*USBDeviceDescriptor)(nil),               // 71: daemon.USBDeviceDescriptor
-		(*USBDeviceAttach)(nil),                   // 72: daemon.USBDeviceAttach
-		(*USBInterface)(nil),                      // 73: daemon.USBInterface
-		(*USBDeviceDetach)(nil),                   // 74: daemon.USBDeviceDetach
-		(*USBDeviceReady)(nil),                    // 75: daemon.USBDeviceReady
-		(*USBURBRequest)(nil),                     // 76: daemon.USBURBRequest
-		(*USBURBResponse)(nil),                    // 77: daemon.USBURBResponse
-		(*USBIsoPacket)(nil),                      // 78: daemon.USBIsoPacket
-		(*USBEndpointAbort)(nil),                  // 79: daemon.USBEndpointAbort
-		(*USBError)(nil),                          // 80: daemon.USBError
-		(*USBIPServerStatusUpdate)(nil),           // 81: daemon.USBIPServerStatusUpdate
-		(*USBIPServerStatus)(nil),                 // 82: daemon.USBIPServerStatus
-		(*USBSharedDevice)(nil),                   // 83: daemon.USBSharedDevice
-		(*OpenConnectStatusUpdate)(nil),           // 84: daemon.OpenConnectStatusUpdate
-		(*OpenConnectEndpointStatus)(nil),         // 85: daemon.OpenConnectEndpointStatus
-		(*OpenConnectTunnelInfo)(nil),             // 86: daemon.OpenConnectTunnelInfo
-		(*OpenConnectAuthChallenge)(nil),          // 87: daemon.OpenConnectAuthChallenge
-		(*OpenConnectAuthForm)(nil),               // 88: daemon.OpenConnectAuthForm
-		(*OpenConnectAuthFormField)(nil),          // 89: daemon.OpenConnectAuthFormField
-		(*OpenConnectAuthFormChoice)(nil),         // 90: daemon.OpenConnectAuthFormChoice
-		(*OpenConnectBrowserRequest)(nil),         // 91: daemon.OpenConnectBrowserRequest
-		(*OpenConnectBrowserCookie)(nil),          // 92: daemon.OpenConnectBrowserCookie
-		(*OpenConnectBrowserHeader)(nil),          // 93: daemon.OpenConnectBrowserHeader
-		(*OpenConnectAuthFormResponse)(nil),       // 94: daemon.OpenConnectAuthFormResponse
-		(*OpenConnectBrowserResult)(nil),          // 95: daemon.OpenConnectBrowserResult
-		(*OpenConnectAuthResponseSubmission)(nil), // 96: daemon.OpenConnectAuthResponseSubmission
-		(*OpenConnectAuthChallengeCancel)(nil),    // 97: daemon.OpenConnectAuthChallengeCancel
-		(*OpenVPNStatusUpdate)(nil),               // 98: daemon.OpenVPNStatusUpdate
-		(*OpenVPNEndpointStatus)(nil),             // 99: daemon.OpenVPNEndpointStatus
-		(*OpenVPNTunnelInfo)(nil),                 // 100: daemon.OpenVPNTunnelInfo
-		(*OpenVPNChallenge)(nil),                  // 101: daemon.OpenVPNChallenge
-		(*OpenVPNChallengeSubmission)(nil),        // 102: daemon.OpenVPNChallengeSubmission
-		(*OpenVPNChallengeCancel)(nil),            // 103: daemon.OpenVPNChallengeCancel
-		(*NotificationEvent)(nil),                 // 104: daemon.NotificationEvent
-		(*Notification)(nil),                      // 105: daemon.Notification
-		(*NotificationCancel)(nil),                // 106: daemon.NotificationCancel
-		(*Log_Message)(nil),                       // 107: daemon.Log.Message
-		nil,                                       // 108: daemon.OpenConnectAuthFormResponse.ValuesEntry
-		(*emptypb.Empty)(nil),                     // 109: google.protobuf.Empty
+		LogLevel(0),                            // 0: daemon.LogLevel
+		ConnectionEventType(0),                 // 1: daemon.ConnectionEventType
+		USBDeviceState(0),                      // 2: daemon.USBDeviceState
+		USBBackend(0),                          // 3: daemon.USBBackend
+		ServiceStatus_Type(0),                  // 4: daemon.ServiceStatus.Type
+		(*Version)(nil),                        // 5: daemon.Version
+		(*ServiceStatus)(nil),                  // 6: daemon.ServiceStatus
+		(*SubscribeStatusRequest)(nil),         // 7: daemon.SubscribeStatusRequest
+		(*Log)(nil),                            // 8: daemon.Log
+		(*DefaultLogLevel)(nil),                // 9: daemon.DefaultLogLevel
+		(*Status)(nil),                         // 10: daemon.Status
+		(*Groups)(nil),                         // 11: daemon.Groups
+		(*Group)(nil),                          // 12: daemon.Group
+		(*GroupItem)(nil),                      // 13: daemon.GroupItem
+		(*URLTestRequest)(nil),                 // 14: daemon.URLTestRequest
+		(*SelectOutboundRequest)(nil),          // 15: daemon.SelectOutboundRequest
+		(*SetGroupExpandRequest)(nil),          // 16: daemon.SetGroupExpandRequest
+		(*ClashMode)(nil),                      // 17: daemon.ClashMode
+		(*ClashModeStatus)(nil),                // 18: daemon.ClashModeStatus
+		(*SubscribeConnectionsRequest)(nil),    // 19: daemon.SubscribeConnectionsRequest
+		(*ConnectionEvent)(nil),                // 20: daemon.ConnectionEvent
+		(*ConnectionEvents)(nil),               // 21: daemon.ConnectionEvents
+		(*Connection)(nil),                     // 22: daemon.Connection
+		(*ProcessInfo)(nil),                    // 23: daemon.ProcessInfo
+		(*CloseConnectionRequest)(nil),         // 24: daemon.CloseConnectionRequest
+		(*DeprecatedWarnings)(nil),             // 25: daemon.DeprecatedWarnings
+		(*DeprecatedWarning)(nil),              // 26: daemon.DeprecatedWarning
+		(*StartedAt)(nil),                      // 27: daemon.StartedAt
+		(*OutboundList)(nil),                   // 28: daemon.OutboundList
+		(*NetworkQualityTestRequest)(nil),      // 29: daemon.NetworkQualityTestRequest
+		(*NetworkQualityTestProgress)(nil),     // 30: daemon.NetworkQualityTestProgress
+		(*STUNTestRequest)(nil),                // 31: daemon.STUNTestRequest
+		(*STUNTestProgress)(nil),               // 32: daemon.STUNTestProgress
+		(*TailscaleStatusUpdate)(nil),          // 33: daemon.TailscaleStatusUpdate
+		(*TailscaleEndpointStatus)(nil),        // 34: daemon.TailscaleEndpointStatus
+		(*TailscaleUserGroup)(nil),             // 35: daemon.TailscaleUserGroup
+		(*TailscalePeer)(nil),                  // 36: daemon.TailscalePeer
+		(*TailscalePingRequest)(nil),           // 37: daemon.TailscalePingRequest
+		(*TailscalePingResponse)(nil),          // 38: daemon.TailscalePingResponse
+		(*SetTailscaleExitNodeRequest)(nil),    // 39: daemon.SetTailscaleExitNodeRequest
+		(*TailscaleLogoutRequest)(nil),         // 40: daemon.TailscaleLogoutRequest
+		(*TailscaleCertificateRequest)(nil),    // 41: daemon.TailscaleCertificateRequest
+		(*TailscaleCertificate)(nil),           // 42: daemon.TailscaleCertificate
+		(*TailscaleSSHClientMessage)(nil),      // 43: daemon.TailscaleSSHClientMessage
+		(*TailscaleSSHStart)(nil),              // 44: daemon.TailscaleSSHStart
+		(*TailscaleSSHInput)(nil),              // 45: daemon.TailscaleSSHInput
+		(*TailscaleSSHResize)(nil),             // 46: daemon.TailscaleSSHResize
+		(*TailscaleSSHServerMessage)(nil),      // 47: daemon.TailscaleSSHServerMessage
+		(*TailscaleSSHAuthBanner)(nil),         // 48: daemon.TailscaleSSHAuthBanner
+		(*TailscaleSSHReady)(nil),              // 49: daemon.TailscaleSSHReady
+		(*TailscaleSSHOutput)(nil),             // 50: daemon.TailscaleSSHOutput
+		(*TailscaleSSHExit)(nil),               // 51: daemon.TailscaleSSHExit
+		(*TailscaleSSHError)(nil),              // 52: daemon.TailscaleSSHError
+		(*SubscribeTaildropInboxRequest)(nil),  // 53: daemon.SubscribeTaildropInboxRequest
+		(*MarkTaildropInboxReadRequest)(nil),   // 54: daemon.MarkTaildropInboxReadRequest
+		(*TaildropInbox)(nil),                  // 55: daemon.TaildropInbox
+		(*TaildropFile)(nil),                   // 56: daemon.TaildropFile
+		(*TaildropReceivingFile)(nil),          // 57: daemon.TaildropReceivingFile
+		(*TaildropSendClientMessage)(nil),      // 58: daemon.TaildropSendClientMessage
+		(*TaildropSendStart)(nil),              // 59: daemon.TaildropSendStart
+		(*TaildropOutgoingFile)(nil),           // 60: daemon.TaildropOutgoingFile
+		(*TaildropFileChunk)(nil),              // 61: daemon.TaildropFileChunk
+		(*TaildropFileDone)(nil),               // 62: daemon.TaildropFileDone
+		(*TaildropSendServerMessage)(nil),      // 63: daemon.TaildropSendServerMessage
+		(*TaildropSendProgress)(nil),           // 64: daemon.TaildropSendProgress
+		(*DownloadTaildropFileRequest)(nil),    // 65: daemon.DownloadTaildropFileRequest
+		(*DownloadTaildropFileChunk)(nil),      // 66: daemon.DownloadTaildropFileChunk
+		(*DeleteTaildropFileRequest)(nil),      // 67: daemon.DeleteTaildropFileRequest
+		(*CancelTaildropReceivingRequest)(nil), // 68: daemon.CancelTaildropReceivingRequest
+		(*USBProviderMessage)(nil),             // 69: daemon.USBProviderMessage
+		(*USBServerMessage)(nil),               // 70: daemon.USBServerMessage
+		(*USBDeviceDescriptor)(nil),            // 71: daemon.USBDeviceDescriptor
+		(*USBDeviceAttach)(nil),                // 72: daemon.USBDeviceAttach
+		(*USBInterface)(nil),                   // 73: daemon.USBInterface
+		(*USBDeviceDetach)(nil),                // 74: daemon.USBDeviceDetach
+		(*USBDeviceReady)(nil),                 // 75: daemon.USBDeviceReady
+		(*USBURBRequest)(nil),                  // 76: daemon.USBURBRequest
+		(*USBURBResponse)(nil),                 // 77: daemon.USBURBResponse
+		(*USBIsoPacket)(nil),                   // 78: daemon.USBIsoPacket
+		(*USBEndpointAbort)(nil),               // 79: daemon.USBEndpointAbort
+		(*USBError)(nil),                       // 80: daemon.USBError
+		(*USBIPServerStatusUpdate)(nil),        // 81: daemon.USBIPServerStatusUpdate
+		(*USBIPServerStatus)(nil),              // 82: daemon.USBIPServerStatus
+		(*USBSharedDevice)(nil),                // 83: daemon.USBSharedDevice
+		(*OpenVPNStatusUpdate)(nil),            // 84: daemon.OpenVPNStatusUpdate
+		(*OpenVPNEndpointStatus)(nil),          // 85: daemon.OpenVPNEndpointStatus
+		(*OpenVPNTunnelInfo)(nil),              // 86: daemon.OpenVPNTunnelInfo
+		(*OpenVPNChallenge)(nil),               // 87: daemon.OpenVPNChallenge
+		(*OpenVPNChallengeSubmission)(nil),     // 88: daemon.OpenVPNChallengeSubmission
+		(*OpenVPNChallengeCancel)(nil),         // 89: daemon.OpenVPNChallengeCancel
+		(*NotificationEvent)(nil),              // 90: daemon.NotificationEvent
+		(*Notification)(nil),                   // 91: daemon.Notification
+		(*NotificationCancel)(nil),             // 92: daemon.NotificationCancel
+		(*Log_Message)(nil),                    // 93: daemon.Log.Message
+		(*emptypb.Empty)(nil),                  // 94: google.protobuf.Empty
 	}
 )
 
 var file_daemon_started_service_proto_depIdxs = []int32{
-	4,   // 0: daemon.ServiceStatus.status:type_name -> daemon.ServiceStatus.Type
-	107, // 1: daemon.Log.messages:type_name -> daemon.Log.Message
-	0,   // 2: daemon.DefaultLogLevel.level:type_name -> daemon.LogLevel
-	12,  // 3: daemon.Groups.group:type_name -> daemon.Group
-	13,  // 4: daemon.Group.items:type_name -> daemon.GroupItem
-	1,   // 5: daemon.ConnectionEvent.type:type_name -> daemon.ConnectionEventType
-	22,  // 6: daemon.ConnectionEvent.connection:type_name -> daemon.Connection
-	20,  // 7: daemon.ConnectionEvents.events:type_name -> daemon.ConnectionEvent
-	23,  // 8: daemon.Connection.processInfo:type_name -> daemon.ProcessInfo
-	26,  // 9: daemon.DeprecatedWarnings.warnings:type_name -> daemon.DeprecatedWarning
-	13,  // 10: daemon.OutboundList.outbounds:type_name -> daemon.GroupItem
-	34,  // 11: daemon.TailscaleStatusUpdate.endpoints:type_name -> daemon.TailscaleEndpointStatus
-	36,  // 12: daemon.TailscaleEndpointStatus.self:type_name -> daemon.TailscalePeer
-	35,  // 13: daemon.TailscaleEndpointStatus.userGroups:type_name -> daemon.TailscaleUserGroup
-	36,  // 14: daemon.TailscaleEndpointStatus.exitNode:type_name -> daemon.TailscalePeer
-	36,  // 15: daemon.TailscaleUserGroup.peers:type_name -> daemon.TailscalePeer
-	44,  // 16: daemon.TailscaleSSHClientMessage.start:type_name -> daemon.TailscaleSSHStart
-	45,  // 17: daemon.TailscaleSSHClientMessage.input:type_name -> daemon.TailscaleSSHInput
-	46,  // 18: daemon.TailscaleSSHClientMessage.resize:type_name -> daemon.TailscaleSSHResize
-	48,  // 19: daemon.TailscaleSSHServerMessage.authBanner:type_name -> daemon.TailscaleSSHAuthBanner
-	49,  // 20: daemon.TailscaleSSHServerMessage.ready:type_name -> daemon.TailscaleSSHReady
-	50,  // 21: daemon.TailscaleSSHServerMessage.output:type_name -> daemon.TailscaleSSHOutput
-	51,  // 22: daemon.TailscaleSSHServerMessage.exit:type_name -> daemon.TailscaleSSHExit
-	52,  // 23: daemon.TailscaleSSHServerMessage.error:type_name -> daemon.TailscaleSSHError
-	56,  // 24: daemon.TaildropInbox.files:type_name -> daemon.TaildropFile
-	57,  // 25: daemon.TaildropInbox.receiving:type_name -> daemon.TaildropReceivingFile
-	59,  // 26: daemon.TaildropSendClientMessage.start:type_name -> daemon.TaildropSendStart
-	61,  // 27: daemon.TaildropSendClientMessage.chunk:type_name -> daemon.TaildropFileChunk
-	62,  // 28: daemon.TaildropSendClientMessage.fileDone:type_name -> daemon.TaildropFileDone
-	60,  // 29: daemon.TaildropSendStart.files:type_name -> daemon.TaildropOutgoingFile
-	64,  // 30: daemon.TaildropSendServerMessage.progress:type_name -> daemon.TaildropSendProgress
-	72,  // 31: daemon.USBProviderMessage.attach:type_name -> daemon.USBDeviceAttach
-	74,  // 32: daemon.USBProviderMessage.detach:type_name -> daemon.USBDeviceDetach
-	77,  // 33: daemon.USBProviderMessage.urbResponse:type_name -> daemon.USBURBResponse
-	75,  // 34: daemon.USBServerMessage.ready:type_name -> daemon.USBDeviceReady
-	76,  // 35: daemon.USBServerMessage.urbRequest:type_name -> daemon.USBURBRequest
-	79,  // 36: daemon.USBServerMessage.abort:type_name -> daemon.USBEndpointAbort
-	80,  // 37: daemon.USBServerMessage.error:type_name -> daemon.USBError
-	73,  // 38: daemon.USBDeviceDescriptor.interfaces:type_name -> daemon.USBInterface
-	71,  // 39: daemon.USBDeviceAttach.descriptor:type_name -> daemon.USBDeviceDescriptor
-	78,  // 40: daemon.USBURBRequest.isoPackets:type_name -> daemon.USBIsoPacket
-	78,  // 41: daemon.USBURBResponse.isoPackets:type_name -> daemon.USBIsoPacket
-	82,  // 42: daemon.USBIPServerStatusUpdate.servers:type_name -> daemon.USBIPServerStatus
-	83,  // 43: daemon.USBIPServerStatus.devices:type_name -> daemon.USBSharedDevice
-	71,  // 44: daemon.USBSharedDevice.descriptor:type_name -> daemon.USBDeviceDescriptor
-	3,   // 45: daemon.USBSharedDevice.backend:type_name -> daemon.USBBackend
-	2,   // 46: daemon.USBSharedDevice.state:type_name -> daemon.USBDeviceState
-	85,  // 47: daemon.OpenConnectStatusUpdate.endpoints:type_name -> daemon.OpenConnectEndpointStatus
-	87,  // 48: daemon.OpenConnectEndpointStatus.authChallenge:type_name -> daemon.OpenConnectAuthChallenge
-	86,  // 49: daemon.OpenConnectEndpointStatus.tunnelInfo:type_name -> daemon.OpenConnectTunnelInfo
-	88,  // 50: daemon.OpenConnectAuthChallenge.form:type_name -> daemon.OpenConnectAuthForm
-	91,  // 51: daemon.OpenConnectAuthChallenge.browser:type_name -> daemon.OpenConnectBrowserRequest
-	89,  // 52: daemon.OpenConnectAuthForm.fields:type_name -> daemon.OpenConnectAuthFormField
-	90,  // 53: daemon.OpenConnectAuthFormField.options:type_name -> daemon.OpenConnectAuthFormChoice
-	108, // 54: daemon.OpenConnectAuthFormResponse.values:type_name -> daemon.OpenConnectAuthFormResponse.ValuesEntry
-	92,  // 55: daemon.OpenConnectBrowserResult.cookies:type_name -> daemon.OpenConnectBrowserCookie
-	93,  // 56: daemon.OpenConnectBrowserResult.headers:type_name -> daemon.OpenConnectBrowserHeader
-	94,  // 57: daemon.OpenConnectAuthResponseSubmission.form:type_name -> daemon.OpenConnectAuthFormResponse
-	95,  // 58: daemon.OpenConnectAuthResponseSubmission.browser:type_name -> daemon.OpenConnectBrowserResult
-	99,  // 59: daemon.OpenVPNStatusUpdate.endpoints:type_name -> daemon.OpenVPNEndpointStatus
-	101, // 60: daemon.OpenVPNEndpointStatus.challenge:type_name -> daemon.OpenVPNChallenge
-	100, // 61: daemon.OpenVPNEndpointStatus.tunnelInfo:type_name -> daemon.OpenVPNTunnelInfo
-	105, // 62: daemon.NotificationEvent.send:type_name -> daemon.Notification
-	106, // 63: daemon.NotificationEvent.cancel:type_name -> daemon.NotificationCancel
-	0,   // 64: daemon.Log.Message.level:type_name -> daemon.LogLevel
-	109, // 65: daemon.StartedService.GetVersion:input_type -> google.protobuf.Empty
-	109, // 66: daemon.StartedService.SubscribeServiceStatus:input_type -> google.protobuf.Empty
-	109, // 67: daemon.StartedService.SubscribeLog:input_type -> google.protobuf.Empty
-	109, // 68: daemon.StartedService.GetDefaultLogLevel:input_type -> google.protobuf.Empty
-	109, // 69: daemon.StartedService.ClearLogs:input_type -> google.protobuf.Empty
-	7,   // 70: daemon.StartedService.SubscribeStatus:input_type -> daemon.SubscribeStatusRequest
-	109, // 71: daemon.StartedService.SubscribeGroups:input_type -> google.protobuf.Empty
-	109, // 72: daemon.StartedService.GetClashModeStatus:input_type -> google.protobuf.Empty
-	109, // 73: daemon.StartedService.SubscribeClashMode:input_type -> google.protobuf.Empty
-	17,  // 74: daemon.StartedService.SetClashMode:input_type -> daemon.ClashMode
-	14,  // 75: daemon.StartedService.URLTest:input_type -> daemon.URLTestRequest
-	15,  // 76: daemon.StartedService.SelectOutbound:input_type -> daemon.SelectOutboundRequest
-	16,  // 77: daemon.StartedService.SetGroupExpand:input_type -> daemon.SetGroupExpandRequest
-	19,  // 78: daemon.StartedService.SubscribeConnections:input_type -> daemon.SubscribeConnectionsRequest
-	24,  // 79: daemon.StartedService.CloseConnection:input_type -> daemon.CloseConnectionRequest
-	109, // 80: daemon.StartedService.CloseAllConnections:input_type -> google.protobuf.Empty
-	109, // 81: daemon.StartedService.GetDeprecatedWarnings:input_type -> google.protobuf.Empty
-	109, // 82: daemon.StartedService.GetStartedAt:input_type -> google.protobuf.Empty
-	109, // 83: daemon.StartedService.SubscribeOutbounds:input_type -> google.protobuf.Empty
-	29,  // 84: daemon.StartedService.StartNetworkQualityTest:input_type -> daemon.NetworkQualityTestRequest
-	31,  // 85: daemon.StartedService.StartSTUNTest:input_type -> daemon.STUNTestRequest
-	109, // 86: daemon.StartedService.SubscribeTailscaleStatus:input_type -> google.protobuf.Empty
-	37,  // 87: daemon.StartedService.StartTailscalePing:input_type -> daemon.TailscalePingRequest
-	39,  // 88: daemon.StartedService.SetTailscaleExitNode:input_type -> daemon.SetTailscaleExitNodeRequest
-	40,  // 89: daemon.StartedService.TailscaleLogout:input_type -> daemon.TailscaleLogoutRequest
-	41,  // 90: daemon.StartedService.GetTailscaleCertificate:input_type -> daemon.TailscaleCertificateRequest
-	43,  // 91: daemon.StartedService.StartTailscaleSSHSession:input_type -> daemon.TailscaleSSHClientMessage
-	53,  // 92: daemon.StartedService.SubscribeTaildropInbox:input_type -> daemon.SubscribeTaildropInboxRequest
-	54,  // 93: daemon.StartedService.MarkTaildropInboxRead:input_type -> daemon.MarkTaildropInboxReadRequest
-	58,  // 94: daemon.StartedService.SendTaildropFiles:input_type -> daemon.TaildropSendClientMessage
-	65,  // 95: daemon.StartedService.DownloadTaildropFile:input_type -> daemon.DownloadTaildropFileRequest
-	67,  // 96: daemon.StartedService.DeleteTaildropFile:input_type -> daemon.DeleteTaildropFileRequest
-	68,  // 97: daemon.StartedService.CancelTaildropReceiving:input_type -> daemon.CancelTaildropReceivingRequest
-	69,  // 98: daemon.StartedService.ProvideUSBDevices:input_type -> daemon.USBProviderMessage
-	109, // 99: daemon.StartedService.SubscribeUSBIPServerStatus:input_type -> google.protobuf.Empty
-	109, // 100: daemon.StartedService.SubscribeOpenConnectStatus:input_type -> google.protobuf.Empty
-	96,  // 101: daemon.StartedService.SubmitOpenConnectAuthResponse:input_type -> daemon.OpenConnectAuthResponseSubmission
-	97,  // 102: daemon.StartedService.CancelOpenConnectAuthChallenge:input_type -> daemon.OpenConnectAuthChallengeCancel
-	109, // 103: daemon.StartedService.SubscribeOpenVPNStatus:input_type -> google.protobuf.Empty
-	102, // 104: daemon.StartedService.SubmitOpenVPNChallengeResponse:input_type -> daemon.OpenVPNChallengeSubmission
-	103, // 105: daemon.StartedService.CancelOpenVPNChallenge:input_type -> daemon.OpenVPNChallengeCancel
-	109, // 106: daemon.StartedService.SubscribeNotifications:input_type -> google.protobuf.Empty
-	5,   // 107: daemon.StartedService.GetVersion:output_type -> daemon.Version
-	6,   // 108: daemon.StartedService.SubscribeServiceStatus:output_type -> daemon.ServiceStatus
-	8,   // 109: daemon.StartedService.SubscribeLog:output_type -> daemon.Log
-	9,   // 110: daemon.StartedService.GetDefaultLogLevel:output_type -> daemon.DefaultLogLevel
-	109, // 111: daemon.StartedService.ClearLogs:output_type -> google.protobuf.Empty
-	10,  // 112: daemon.StartedService.SubscribeStatus:output_type -> daemon.Status
-	11,  // 113: daemon.StartedService.SubscribeGroups:output_type -> daemon.Groups
-	18,  // 114: daemon.StartedService.GetClashModeStatus:output_type -> daemon.ClashModeStatus
-	17,  // 115: daemon.StartedService.SubscribeClashMode:output_type -> daemon.ClashMode
-	109, // 116: daemon.StartedService.SetClashMode:output_type -> google.protobuf.Empty
-	109, // 117: daemon.StartedService.URLTest:output_type -> google.protobuf.Empty
-	109, // 118: daemon.StartedService.SelectOutbound:output_type -> google.protobuf.Empty
-	109, // 119: daemon.StartedService.SetGroupExpand:output_type -> google.protobuf.Empty
-	21,  // 120: daemon.StartedService.SubscribeConnections:output_type -> daemon.ConnectionEvents
-	109, // 121: daemon.StartedService.CloseConnection:output_type -> google.protobuf.Empty
-	109, // 122: daemon.StartedService.CloseAllConnections:output_type -> google.protobuf.Empty
-	25,  // 123: daemon.StartedService.GetDeprecatedWarnings:output_type -> daemon.DeprecatedWarnings
-	27,  // 124: daemon.StartedService.GetStartedAt:output_type -> daemon.StartedAt
-	28,  // 125: daemon.StartedService.SubscribeOutbounds:output_type -> daemon.OutboundList
-	30,  // 126: daemon.StartedService.StartNetworkQualityTest:output_type -> daemon.NetworkQualityTestProgress
-	32,  // 127: daemon.StartedService.StartSTUNTest:output_type -> daemon.STUNTestProgress
-	33,  // 128: daemon.StartedService.SubscribeTailscaleStatus:output_type -> daemon.TailscaleStatusUpdate
-	38,  // 129: daemon.StartedService.StartTailscalePing:output_type -> daemon.TailscalePingResponse
-	109, // 130: daemon.StartedService.SetTailscaleExitNode:output_type -> google.protobuf.Empty
-	109, // 131: daemon.StartedService.TailscaleLogout:output_type -> google.protobuf.Empty
-	42,  // 132: daemon.StartedService.GetTailscaleCertificate:output_type -> daemon.TailscaleCertificate
-	47,  // 133: daemon.StartedService.StartTailscaleSSHSession:output_type -> daemon.TailscaleSSHServerMessage
-	55,  // 134: daemon.StartedService.SubscribeTaildropInbox:output_type -> daemon.TaildropInbox
-	109, // 135: daemon.StartedService.MarkTaildropInboxRead:output_type -> google.protobuf.Empty
-	63,  // 136: daemon.StartedService.SendTaildropFiles:output_type -> daemon.TaildropSendServerMessage
-	66,  // 137: daemon.StartedService.DownloadTaildropFile:output_type -> daemon.DownloadTaildropFileChunk
-	109, // 138: daemon.StartedService.DeleteTaildropFile:output_type -> google.protobuf.Empty
-	109, // 139: daemon.StartedService.CancelTaildropReceiving:output_type -> google.protobuf.Empty
-	70,  // 140: daemon.StartedService.ProvideUSBDevices:output_type -> daemon.USBServerMessage
-	81,  // 141: daemon.StartedService.SubscribeUSBIPServerStatus:output_type -> daemon.USBIPServerStatusUpdate
-	84,  // 142: daemon.StartedService.SubscribeOpenConnectStatus:output_type -> daemon.OpenConnectStatusUpdate
-	109, // 143: daemon.StartedService.SubmitOpenConnectAuthResponse:output_type -> google.protobuf.Empty
-	109, // 144: daemon.StartedService.CancelOpenConnectAuthChallenge:output_type -> google.protobuf.Empty
-	98,  // 145: daemon.StartedService.SubscribeOpenVPNStatus:output_type -> daemon.OpenVPNStatusUpdate
-	109, // 146: daemon.StartedService.SubmitOpenVPNChallengeResponse:output_type -> google.protobuf.Empty
-	109, // 147: daemon.StartedService.CancelOpenVPNChallenge:output_type -> google.protobuf.Empty
-	104, // 148: daemon.StartedService.SubscribeNotifications:output_type -> daemon.NotificationEvent
-	107, // [107:149] is the sub-list for method output_type
-	65,  // [65:107] is the sub-list for method input_type
-	65,  // [65:65] is the sub-list for extension type_name
-	65,  // [65:65] is the sub-list for extension extendee
-	0,   // [0:65] is the sub-list for field type_name
+	4,  // 0: daemon.ServiceStatus.status:type_name -> daemon.ServiceStatus.Type
+	93, // 1: daemon.Log.messages:type_name -> daemon.Log.Message
+	0,  // 2: daemon.DefaultLogLevel.level:type_name -> daemon.LogLevel
+	12, // 3: daemon.Groups.group:type_name -> daemon.Group
+	13, // 4: daemon.Group.items:type_name -> daemon.GroupItem
+	1,  // 5: daemon.ConnectionEvent.type:type_name -> daemon.ConnectionEventType
+	22, // 6: daemon.ConnectionEvent.connection:type_name -> daemon.Connection
+	20, // 7: daemon.ConnectionEvents.events:type_name -> daemon.ConnectionEvent
+	23, // 8: daemon.Connection.processInfo:type_name -> daemon.ProcessInfo
+	26, // 9: daemon.DeprecatedWarnings.warnings:type_name -> daemon.DeprecatedWarning
+	13, // 10: daemon.OutboundList.outbounds:type_name -> daemon.GroupItem
+	34, // 11: daemon.TailscaleStatusUpdate.endpoints:type_name -> daemon.TailscaleEndpointStatus
+	36, // 12: daemon.TailscaleEndpointStatus.self:type_name -> daemon.TailscalePeer
+	35, // 13: daemon.TailscaleEndpointStatus.userGroups:type_name -> daemon.TailscaleUserGroup
+	36, // 14: daemon.TailscaleEndpointStatus.exitNode:type_name -> daemon.TailscalePeer
+	36, // 15: daemon.TailscaleUserGroup.peers:type_name -> daemon.TailscalePeer
+	44, // 16: daemon.TailscaleSSHClientMessage.start:type_name -> daemon.TailscaleSSHStart
+	45, // 17: daemon.TailscaleSSHClientMessage.input:type_name -> daemon.TailscaleSSHInput
+	46, // 18: daemon.TailscaleSSHClientMessage.resize:type_name -> daemon.TailscaleSSHResize
+	48, // 19: daemon.TailscaleSSHServerMessage.authBanner:type_name -> daemon.TailscaleSSHAuthBanner
+	49, // 20: daemon.TailscaleSSHServerMessage.ready:type_name -> daemon.TailscaleSSHReady
+	50, // 21: daemon.TailscaleSSHServerMessage.output:type_name -> daemon.TailscaleSSHOutput
+	51, // 22: daemon.TailscaleSSHServerMessage.exit:type_name -> daemon.TailscaleSSHExit
+	52, // 23: daemon.TailscaleSSHServerMessage.error:type_name -> daemon.TailscaleSSHError
+	56, // 24: daemon.TaildropInbox.files:type_name -> daemon.TaildropFile
+	57, // 25: daemon.TaildropInbox.receiving:type_name -> daemon.TaildropReceivingFile
+	59, // 26: daemon.TaildropSendClientMessage.start:type_name -> daemon.TaildropSendStart
+	61, // 27: daemon.TaildropSendClientMessage.chunk:type_name -> daemon.TaildropFileChunk
+	62, // 28: daemon.TaildropSendClientMessage.fileDone:type_name -> daemon.TaildropFileDone
+	60, // 29: daemon.TaildropSendStart.files:type_name -> daemon.TaildropOutgoingFile
+	64, // 30: daemon.TaildropSendServerMessage.progress:type_name -> daemon.TaildropSendProgress
+	72, // 31: daemon.USBProviderMessage.attach:type_name -> daemon.USBDeviceAttach
+	74, // 32: daemon.USBProviderMessage.detach:type_name -> daemon.USBDeviceDetach
+	77, // 33: daemon.USBProviderMessage.urbResponse:type_name -> daemon.USBURBResponse
+	75, // 34: daemon.USBServerMessage.ready:type_name -> daemon.USBDeviceReady
+	76, // 35: daemon.USBServerMessage.urbRequest:type_name -> daemon.USBURBRequest
+	79, // 36: daemon.USBServerMessage.abort:type_name -> daemon.USBEndpointAbort
+	80, // 37: daemon.USBServerMessage.error:type_name -> daemon.USBError
+	73, // 38: daemon.USBDeviceDescriptor.interfaces:type_name -> daemon.USBInterface
+	71, // 39: daemon.USBDeviceAttach.descriptor:type_name -> daemon.USBDeviceDescriptor
+	78, // 40: daemon.USBURBRequest.isoPackets:type_name -> daemon.USBIsoPacket
+	78, // 41: daemon.USBURBResponse.isoPackets:type_name -> daemon.USBIsoPacket
+	82, // 42: daemon.USBIPServerStatusUpdate.servers:type_name -> daemon.USBIPServerStatus
+	83, // 43: daemon.USBIPServerStatus.devices:type_name -> daemon.USBSharedDevice
+	71, // 44: daemon.USBSharedDevice.descriptor:type_name -> daemon.USBDeviceDescriptor
+	3,  // 45: daemon.USBSharedDevice.backend:type_name -> daemon.USBBackend
+	2,  // 46: daemon.USBSharedDevice.state:type_name -> daemon.USBDeviceState
+	85, // 47: daemon.OpenVPNStatusUpdate.endpoints:type_name -> daemon.OpenVPNEndpointStatus
+	87, // 48: daemon.OpenVPNEndpointStatus.challenge:type_name -> daemon.OpenVPNChallenge
+	86, // 49: daemon.OpenVPNEndpointStatus.tunnelInfo:type_name -> daemon.OpenVPNTunnelInfo
+	91, // 50: daemon.NotificationEvent.send:type_name -> daemon.Notification
+	92, // 51: daemon.NotificationEvent.cancel:type_name -> daemon.NotificationCancel
+	0,  // 52: daemon.Log.Message.level:type_name -> daemon.LogLevel
+	94, // 53: daemon.StartedService.GetVersion:input_type -> google.protobuf.Empty
+	94, // 54: daemon.StartedService.SubscribeServiceStatus:input_type -> google.protobuf.Empty
+	94, // 55: daemon.StartedService.SubscribeLog:input_type -> google.protobuf.Empty
+	94, // 56: daemon.StartedService.GetDefaultLogLevel:input_type -> google.protobuf.Empty
+	94, // 57: daemon.StartedService.ClearLogs:input_type -> google.protobuf.Empty
+	7,  // 58: daemon.StartedService.SubscribeStatus:input_type -> daemon.SubscribeStatusRequest
+	94, // 59: daemon.StartedService.SubscribeGroups:input_type -> google.protobuf.Empty
+	94, // 60: daemon.StartedService.GetClashModeStatus:input_type -> google.protobuf.Empty
+	94, // 61: daemon.StartedService.SubscribeClashMode:input_type -> google.protobuf.Empty
+	17, // 62: daemon.StartedService.SetClashMode:input_type -> daemon.ClashMode
+	14, // 63: daemon.StartedService.URLTest:input_type -> daemon.URLTestRequest
+	15, // 64: daemon.StartedService.SelectOutbound:input_type -> daemon.SelectOutboundRequest
+	16, // 65: daemon.StartedService.SetGroupExpand:input_type -> daemon.SetGroupExpandRequest
+	19, // 66: daemon.StartedService.SubscribeConnections:input_type -> daemon.SubscribeConnectionsRequest
+	24, // 67: daemon.StartedService.CloseConnection:input_type -> daemon.CloseConnectionRequest
+	94, // 68: daemon.StartedService.CloseAllConnections:input_type -> google.protobuf.Empty
+	94, // 69: daemon.StartedService.GetDeprecatedWarnings:input_type -> google.protobuf.Empty
+	94, // 70: daemon.StartedService.GetStartedAt:input_type -> google.protobuf.Empty
+	94, // 71: daemon.StartedService.SubscribeOutbounds:input_type -> google.protobuf.Empty
+	29, // 72: daemon.StartedService.StartNetworkQualityTest:input_type -> daemon.NetworkQualityTestRequest
+	31, // 73: daemon.StartedService.StartSTUNTest:input_type -> daemon.STUNTestRequest
+	94, // 74: daemon.StartedService.SubscribeTailscaleStatus:input_type -> google.protobuf.Empty
+	37, // 75: daemon.StartedService.StartTailscalePing:input_type -> daemon.TailscalePingRequest
+	39, // 76: daemon.StartedService.SetTailscaleExitNode:input_type -> daemon.SetTailscaleExitNodeRequest
+	40, // 77: daemon.StartedService.TailscaleLogout:input_type -> daemon.TailscaleLogoutRequest
+	41, // 78: daemon.StartedService.GetTailscaleCertificate:input_type -> daemon.TailscaleCertificateRequest
+	43, // 79: daemon.StartedService.StartTailscaleSSHSession:input_type -> daemon.TailscaleSSHClientMessage
+	53, // 80: daemon.StartedService.SubscribeTaildropInbox:input_type -> daemon.SubscribeTaildropInboxRequest
+	54, // 81: daemon.StartedService.MarkTaildropInboxRead:input_type -> daemon.MarkTaildropInboxReadRequest
+	58, // 82: daemon.StartedService.SendTaildropFiles:input_type -> daemon.TaildropSendClientMessage
+	65, // 83: daemon.StartedService.DownloadTaildropFile:input_type -> daemon.DownloadTaildropFileRequest
+	67, // 84: daemon.StartedService.DeleteTaildropFile:input_type -> daemon.DeleteTaildropFileRequest
+	68, // 85: daemon.StartedService.CancelTaildropReceiving:input_type -> daemon.CancelTaildropReceivingRequest
+	69, // 86: daemon.StartedService.ProvideUSBDevices:input_type -> daemon.USBProviderMessage
+	94, // 87: daemon.StartedService.SubscribeUSBIPServerStatus:input_type -> google.protobuf.Empty
+	94, // 88: daemon.StartedService.SubscribeOpenVPNStatus:input_type -> google.protobuf.Empty
+	88, // 89: daemon.StartedService.SubmitOpenVPNChallengeResponse:input_type -> daemon.OpenVPNChallengeSubmission
+	89, // 90: daemon.StartedService.CancelOpenVPNChallenge:input_type -> daemon.OpenVPNChallengeCancel
+	94, // 91: daemon.StartedService.SubscribeNotifications:input_type -> google.protobuf.Empty
+	5,  // 92: daemon.StartedService.GetVersion:output_type -> daemon.Version
+	6,  // 93: daemon.StartedService.SubscribeServiceStatus:output_type -> daemon.ServiceStatus
+	8,  // 94: daemon.StartedService.SubscribeLog:output_type -> daemon.Log
+	9,  // 95: daemon.StartedService.GetDefaultLogLevel:output_type -> daemon.DefaultLogLevel
+	94, // 96: daemon.StartedService.ClearLogs:output_type -> google.protobuf.Empty
+	10, // 97: daemon.StartedService.SubscribeStatus:output_type -> daemon.Status
+	11, // 98: daemon.StartedService.SubscribeGroups:output_type -> daemon.Groups
+	18, // 99: daemon.StartedService.GetClashModeStatus:output_type -> daemon.ClashModeStatus
+	17, // 100: daemon.StartedService.SubscribeClashMode:output_type -> daemon.ClashMode
+	94, // 101: daemon.StartedService.SetClashMode:output_type -> google.protobuf.Empty
+	94, // 102: daemon.StartedService.URLTest:output_type -> google.protobuf.Empty
+	94, // 103: daemon.StartedService.SelectOutbound:output_type -> google.protobuf.Empty
+	94, // 104: daemon.StartedService.SetGroupExpand:output_type -> google.protobuf.Empty
+	21, // 105: daemon.StartedService.SubscribeConnections:output_type -> daemon.ConnectionEvents
+	94, // 106: daemon.StartedService.CloseConnection:output_type -> google.protobuf.Empty
+	94, // 107: daemon.StartedService.CloseAllConnections:output_type -> google.protobuf.Empty
+	25, // 108: daemon.StartedService.GetDeprecatedWarnings:output_type -> daemon.DeprecatedWarnings
+	27, // 109: daemon.StartedService.GetStartedAt:output_type -> daemon.StartedAt
+	28, // 110: daemon.StartedService.SubscribeOutbounds:output_type -> daemon.OutboundList
+	30, // 111: daemon.StartedService.StartNetworkQualityTest:output_type -> daemon.NetworkQualityTestProgress
+	32, // 112: daemon.StartedService.StartSTUNTest:output_type -> daemon.STUNTestProgress
+	33, // 113: daemon.StartedService.SubscribeTailscaleStatus:output_type -> daemon.TailscaleStatusUpdate
+	38, // 114: daemon.StartedService.StartTailscalePing:output_type -> daemon.TailscalePingResponse
+	94, // 115: daemon.StartedService.SetTailscaleExitNode:output_type -> google.protobuf.Empty
+	94, // 116: daemon.StartedService.TailscaleLogout:output_type -> google.protobuf.Empty
+	42, // 117: daemon.StartedService.GetTailscaleCertificate:output_type -> daemon.TailscaleCertificate
+	47, // 118: daemon.StartedService.StartTailscaleSSHSession:output_type -> daemon.TailscaleSSHServerMessage
+	55, // 119: daemon.StartedService.SubscribeTaildropInbox:output_type -> daemon.TaildropInbox
+	94, // 120: daemon.StartedService.MarkTaildropInboxRead:output_type -> google.protobuf.Empty
+	63, // 121: daemon.StartedService.SendTaildropFiles:output_type -> daemon.TaildropSendServerMessage
+	66, // 122: daemon.StartedService.DownloadTaildropFile:output_type -> daemon.DownloadTaildropFileChunk
+	94, // 123: daemon.StartedService.DeleteTaildropFile:output_type -> google.protobuf.Empty
+	94, // 124: daemon.StartedService.CancelTaildropReceiving:output_type -> google.protobuf.Empty
+	70, // 125: daemon.StartedService.ProvideUSBDevices:output_type -> daemon.USBServerMessage
+	81, // 126: daemon.StartedService.SubscribeUSBIPServerStatus:output_type -> daemon.USBIPServerStatusUpdate
+	84, // 127: daemon.StartedService.SubscribeOpenVPNStatus:output_type -> daemon.OpenVPNStatusUpdate
+	94, // 128: daemon.StartedService.SubmitOpenVPNChallengeResponse:output_type -> google.protobuf.Empty
+	94, // 129: daemon.StartedService.CancelOpenVPNChallenge:output_type -> google.protobuf.Empty
+	90, // 130: daemon.StartedService.SubscribeNotifications:output_type -> daemon.NotificationEvent
+	92, // [92:131] is the sub-list for method output_type
+	53, // [53:92] is the sub-list for method input_type
+	53, // [53:53] is the sub-list for extension type_name
+	53, // [53:53] is the sub-list for extension extendee
+	0,  // [0:53] is the sub-list for field type_name
 }
 
 func init() { file_daemon_started_service_proto_init() }
@@ -8408,15 +7327,7 @@ func file_daemon_started_service_proto_init() {
 		(*USBServerMessage_Abort)(nil),
 		(*USBServerMessage_Error)(nil),
 	}
-	file_daemon_started_service_proto_msgTypes[82].OneofWrappers = []any{
-		(*OpenConnectAuthChallenge_Form)(nil),
-		(*OpenConnectAuthChallenge_Browser)(nil),
-	}
-	file_daemon_started_service_proto_msgTypes[91].OneofWrappers = []any{
-		(*OpenConnectAuthResponseSubmission_Form)(nil),
-		(*OpenConnectAuthResponseSubmission_Browser)(nil),
-	}
-	file_daemon_started_service_proto_msgTypes[99].OneofWrappers = []any{
+	file_daemon_started_service_proto_msgTypes[85].OneofWrappers = []any{
 		(*NotificationEvent_Send)(nil),
 		(*NotificationEvent_Cancel)(nil),
 	}
@@ -8426,7 +7337,7 @@ func file_daemon_started_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_daemon_started_service_proto_rawDesc), len(file_daemon_started_service_proto_rawDesc)),
 			NumEnums:      5,
-			NumMessages:   104,
+			NumMessages:   89,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

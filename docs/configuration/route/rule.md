@@ -494,7 +494,6 @@ icon: material/new-box
 | `dhcp`        | 匹配通过 DHCP 获取的 DNS 服务器             |
 | `resolved`    | 匹配 systemd-resolved 链路中的 DNS 服务器  |
 | `openvpn`     | 匹配 VPN 服务器推送的 DNS 服务器             |
-| `openconnect` | 匹配 VPN 服务器推送的 DNS 服务器             |
 
 #### dns_search_domain
 
@@ -508,7 +507,6 @@ icon: material/new-box
 | `dhcp`        | 匹配通过 DHCP 获取的搜索域              |
 | `resolved`    | 匹配 systemd-resolved 链路中的搜索域    |
 | `openvpn`     | 匹配 VPN 服务器推送的搜索域              |
-| `openconnect` | 匹配 VPN 服务器推送的搜索域              |
 
 #### source_mac_address
 

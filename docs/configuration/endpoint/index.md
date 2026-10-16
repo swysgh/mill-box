@@ -22,7 +22,6 @@
 | 类型               | 格式                                      |
 |------------------|-----------------------------------------|
 | `wireguard`      | [WireGuard](./wireguard/)               |
-| `openconnect`    | [OpenConnect 客户端](./openconnect/)       |
 | `openvpn-client` | [OpenVPN 客户端](./openvpn-client/)         |
 | `openvpn-server` | [OpenVPN 服务器](./openvpn-server/)         |
 | `masque-client`  | [MASQUE 客户端](./masque-client/)           |

@@ -540,7 +540,6 @@ Available values: `wifi`, `cellular`, `ethernet` and `other`.
 | `hosts`       | 匹配预定义条目和 hosts 文件中的条目                                       |
 | `local`       | 匹配 hosts 中的条目、邻居解析得到的主机名以及 mDNS 本地域名                         |
 | `mdns`        | 匹配 mDNS 本地域名（`*.local.` 以及 IPv4/IPv6 链路本地反向区域）              |
-| `openconnect` | 匹配 VPN 服务器推送的分流 DNS 和搜索域                                  |
 | `resolved`    | 匹配 systemd-resolved 链路中的分流域名和搜索域                            |
 
 #### dns_server_address
@@ -555,7 +554,6 @@ Available values: `wifi`, `cellular`, `ethernet` and `other`.
 | `dhcp`        | 匹配通过 DHCP 获取的 DNS 服务器             |
 | `resolved`    | 匹配 systemd-resolved 链路中的 DNS 服务器  |
 | `openvpn`     | 匹配 VPN 服务器推送的 DNS 服务器             |
-| `openconnect` | 匹配 VPN 服务器推送的 DNS 服务器             |
 
 #### dns_search_domain
 
@@ -569,7 +567,6 @@ Available values: `wifi`, `cellular`, `ethernet` and `other`.
 | `dhcp`        | 匹配通过 DHCP 获取的搜索域              |
 | `resolved`    | 匹配 systemd-resolved 链路中的搜索域    |
 | `openvpn`     | 匹配 VPN 服务器推送的搜索域              |
-| `openconnect` | 匹配 VPN 服务器推送的搜索域              |
 
 #### wifi_ssid
 

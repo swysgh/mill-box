@@ -50,9 +50,6 @@ const (
 	StartedService_CancelTaildropReceiving_FullMethodName        = "/daemon.StartedService/CancelTaildropReceiving"
 	StartedService_ProvideUSBDevices_FullMethodName              = "/daemon.StartedService/ProvideUSBDevices"
 	StartedService_SubscribeUSBIPServerStatus_FullMethodName     = "/daemon.StartedService/SubscribeUSBIPServerStatus"
-	StartedService_SubscribeOpenConnectStatus_FullMethodName     = "/daemon.StartedService/SubscribeOpenConnectStatus"
-	StartedService_SubmitOpenConnectAuthResponse_FullMethodName  = "/daemon.StartedService/SubmitOpenConnectAuthResponse"
-	StartedService_CancelOpenConnectAuthChallenge_FullMethodName = "/daemon.StartedService/CancelOpenConnectAuthChallenge"
 	StartedService_SubscribeOpenVPNStatus_FullMethodName         = "/daemon.StartedService/SubscribeOpenVPNStatus"
 	StartedService_SubmitOpenVPNChallengeResponse_FullMethodName = "/daemon.StartedService/SubmitOpenVPNChallengeResponse"
 	StartedService_CancelOpenVPNChallenge_FullMethodName         = "/daemon.StartedService/CancelOpenVPNChallenge"
@@ -98,9 +95,6 @@ type StartedServiceClient interface {
 	CancelTaildropReceiving(ctx context.Context, in *CancelTaildropReceivingRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	ProvideUSBDevices(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[USBProviderMessage, USBServerMessage], error)
 	SubscribeUSBIPServerStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[USBIPServerStatusUpdate], error)
-	SubscribeOpenConnectStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[OpenConnectStatusUpdate], error)
-	SubmitOpenConnectAuthResponse(ctx context.Context, in *OpenConnectAuthResponseSubmission, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CancelOpenConnectAuthChallenge(ctx context.Context, in *OpenConnectAuthChallengeCancel, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	SubscribeOpenVPNStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[OpenVPNStatusUpdate], error)
 	SubmitOpenVPNChallengeResponse(ctx context.Context, in *OpenVPNChallengeSubmission, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CancelOpenVPNChallenge(ctx context.Context, in *OpenVPNChallengeCancel, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -600,48 +594,9 @@ func (c *startedServiceClient) SubscribeUSBIPServerStatus(ctx context.Context, i
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type StartedService_SubscribeUSBIPServerStatusClient = grpc.ServerStreamingClient[USBIPServerStatusUpdate]
 
-func (c *startedServiceClient) SubscribeOpenConnectStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[OpenConnectStatusUpdate], error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &StartedService_ServiceDesc.Streams[17], StartedService_SubscribeOpenConnectStatus_FullMethodName, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &grpc.GenericClientStream[emptypb.Empty, OpenConnectStatusUpdate]{ClientStream: stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type StartedService_SubscribeOpenConnectStatusClient = grpc.ServerStreamingClient[OpenConnectStatusUpdate]
-
-func (c *startedServiceClient) SubmitOpenConnectAuthResponse(ctx context.Context, in *OpenConnectAuthResponseSubmission, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, StartedService_SubmitOpenConnectAuthResponse_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *startedServiceClient) CancelOpenConnectAuthChallenge(ctx context.Context, in *OpenConnectAuthChallengeCancel, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, StartedService_CancelOpenConnectAuthChallenge_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *startedServiceClient) SubscribeOpenVPNStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[OpenVPNStatusUpdate], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &StartedService_ServiceDesc.Streams[18], StartedService_SubscribeOpenVPNStatus_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &StartedService_ServiceDesc.Streams[17], StartedService_SubscribeOpenVPNStatus_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -680,7 +635,7 @@ func (c *startedServiceClient) CancelOpenVPNChallenge(ctx context.Context, in *O
 
 func (c *startedServiceClient) SubscribeNotifications(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NotificationEvent], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &StartedService_ServiceDesc.Streams[19], StartedService_SubscribeNotifications_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &StartedService_ServiceDesc.Streams[18], StartedService_SubscribeNotifications_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -736,9 +691,6 @@ type StartedServiceServer interface {
 	CancelTaildropReceiving(context.Context, *CancelTaildropReceivingRequest) (*emptypb.Empty, error)
 	ProvideUSBDevices(grpc.BidiStreamingServer[USBProviderMessage, USBServerMessage]) error
 	SubscribeUSBIPServerStatus(*emptypb.Empty, grpc.ServerStreamingServer[USBIPServerStatusUpdate]) error
-	SubscribeOpenConnectStatus(*emptypb.Empty, grpc.ServerStreamingServer[OpenConnectStatusUpdate]) error
-	SubmitOpenConnectAuthResponse(context.Context, *OpenConnectAuthResponseSubmission) (*emptypb.Empty, error)
-	CancelOpenConnectAuthChallenge(context.Context, *OpenConnectAuthChallengeCancel) (*emptypb.Empty, error)
 	SubscribeOpenVPNStatus(*emptypb.Empty, grpc.ServerStreamingServer[OpenVPNStatusUpdate]) error
 	SubmitOpenVPNChallengeResponse(context.Context, *OpenVPNChallengeSubmission) (*emptypb.Empty, error)
 	CancelOpenVPNChallenge(context.Context, *OpenVPNChallengeCancel) (*emptypb.Empty, error)
@@ -891,18 +843,6 @@ func (UnimplementedStartedServiceServer) ProvideUSBDevices(grpc.BidiStreamingSer
 
 func (UnimplementedStartedServiceServer) SubscribeUSBIPServerStatus(*emptypb.Empty, grpc.ServerStreamingServer[USBIPServerStatusUpdate]) error {
 	return status.Error(codes.Unimplemented, "method SubscribeUSBIPServerStatus not implemented")
-}
-
-func (UnimplementedStartedServiceServer) SubscribeOpenConnectStatus(*emptypb.Empty, grpc.ServerStreamingServer[OpenConnectStatusUpdate]) error {
-	return status.Error(codes.Unimplemented, "method SubscribeOpenConnectStatus not implemented")
-}
-
-func (UnimplementedStartedServiceServer) SubmitOpenConnectAuthResponse(context.Context, *OpenConnectAuthResponseSubmission) (*emptypb.Empty, error) {
-	return nil, status.Error(codes.Unimplemented, "method SubmitOpenConnectAuthResponse not implemented")
-}
-
-func (UnimplementedStartedServiceServer) CancelOpenConnectAuthChallenge(context.Context, *OpenConnectAuthChallengeCancel) (*emptypb.Empty, error) {
-	return nil, status.Error(codes.Unimplemented, "method CancelOpenConnectAuthChallenge not implemented")
 }
 
 func (UnimplementedStartedServiceServer) SubscribeOpenVPNStatus(*emptypb.Empty, grpc.ServerStreamingServer[OpenVPNStatusUpdate]) error {
@@ -1440,53 +1380,6 @@ func _StartedService_SubscribeUSBIPServerStatus_Handler(srv interface{}, stream 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type StartedService_SubscribeUSBIPServerStatusServer = grpc.ServerStreamingServer[USBIPServerStatusUpdate]
 
-func _StartedService_SubscribeOpenConnectStatus_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(emptypb.Empty)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(StartedServiceServer).SubscribeOpenConnectStatus(m, &grpc.GenericServerStream[emptypb.Empty, OpenConnectStatusUpdate]{ServerStream: stream})
-}
-
-// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type StartedService_SubscribeOpenConnectStatusServer = grpc.ServerStreamingServer[OpenConnectStatusUpdate]
-
-func _StartedService_SubmitOpenConnectAuthResponse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OpenConnectAuthResponseSubmission)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StartedServiceServer).SubmitOpenConnectAuthResponse(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StartedService_SubmitOpenConnectAuthResponse_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StartedServiceServer).SubmitOpenConnectAuthResponse(ctx, req.(*OpenConnectAuthResponseSubmission))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StartedService_CancelOpenConnectAuthChallenge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OpenConnectAuthChallengeCancel)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StartedServiceServer).CancelOpenConnectAuthChallenge(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StartedService_CancelOpenConnectAuthChallenge_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StartedServiceServer).CancelOpenConnectAuthChallenge(ctx, req.(*OpenConnectAuthChallengeCancel))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _StartedService_SubscribeOpenVPNStatus_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
@@ -1625,14 +1518,6 @@ var StartedService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _StartedService_CancelTaildropReceiving_Handler,
 		},
 		{
-			MethodName: "SubmitOpenConnectAuthResponse",
-			Handler:    _StartedService_SubmitOpenConnectAuthResponse_Handler,
-		},
-		{
-			MethodName: "CancelOpenConnectAuthChallenge",
-			Handler:    _StartedService_CancelOpenConnectAuthChallenge_Handler,
-		},
-		{
 			MethodName: "SubmitOpenVPNChallengeResponse",
 			Handler:    _StartedService_SubmitOpenVPNChallengeResponse_Handler,
 		},
@@ -1728,11 +1613,6 @@ var StartedService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "SubscribeUSBIPServerStatus",
 			Handler:       _StartedService_SubscribeUSBIPServerStatus_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "SubscribeOpenConnectStatus",
-			Handler:       _StartedService_SubscribeOpenConnectStatus_Handler,
 			ServerStreams: true,
 		},
 		{
