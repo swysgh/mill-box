@@ -67,12 +67,15 @@ type Outbound struct {
 func NewOutbound(ctx context.Context, router adapter.Router, logger log.ContextLogger, tag string, options option.USHOutboundOptions) (adapter.Outbound, error) {
 	// mill-box check only runs constructors, so every fatal misconfiguration has
 	// to be rejected here rather than in Start.
+	if options.Server == "" {
+		return nil, E.New("ush: server is required")
+	}
 	if options.UoTServer == "" {
 		return nil, E.New("ush: uot_server is required")
 	}
 	uotServerAddr := M.ParseSocksaddr(options.UoTServer)
-	if uotServerAddr.Port == 0 {
-		return nil, E.New("ush: invalid uot_server ", options.UoTServer, ": port is required")
+	if !uotServerAddr.IsValid() || uotServerAddr.Port == 0 {
+		return nil, E.New("ush: invalid uot_server ", options.UoTServer, ": host and port are required")
 	}
 	switch options.UoTVersion {
 	case 0, uot.Version:
@@ -142,6 +145,9 @@ func NewOutbound(ctx context.Context, router adapter.Router, logger log.ContextL
 			}
 			outbound.hostKey = append(outbound.hostKey, key)
 		}
+	}
+	if len(outbound.authMethod) == 0 {
+		return nil, E.New("ush: no authentication method configured, set password or private_key/private_key_path")
 	}
 	outbound.uotClient = &uot.Client{
 		Dialer:  &uotServerDialer{outbound: outbound},
@@ -241,7 +247,10 @@ func (s *Outbound) connect(ctx context.Context) (client *ssh.Client, err error) 
 }
 
 func (s *Outbound) InterfaceUpdated(ctx context.Context) {
-	common.Close(s.clientConn)
+	s.clientAccess.Lock()
+	clientConn := s.clientConn
+	s.clientAccess.Unlock()
+	common.Close(clientConn)
 }
 
 func (s *Outbound) MultiplexEnabled() bool {
@@ -293,7 +302,10 @@ func (s *Outbound) Start(stage adapter.StartStage, scope *adapter.Scope) error {
 		return nil
 	}
 	scope.Add(func() error {
-		return common.Close(s.clientConn)
+		s.clientAccess.Lock()
+		clientConn := s.clientConn
+		s.clientAccess.Unlock()
+		return common.Close(clientConn)
 	})
 	return nil
 }
