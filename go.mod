@@ -42,7 +42,6 @@ require (
 	github.com/sagernet/quic-go v0.61.0-sing-box-mod.9
 	github.com/sagernet/sing v0.9.7-0.20260929150544-6f21f2425a95
 	github.com/sagernet/sing-anytls v0.0.0-20260928104022-580984e4d8cb
-	github.com/sagernet/sing-cloudflared v0.1.4-0.20261002084126-c1255ae368f2
 	github.com/sagernet/sing-mux v0.3.10-0.20260929204512-caf09fe32475
 	github.com/sagernet/sing-openconnect v0.1.1-0.20260929151226-29757281a247
 	github.com/sagernet/sing-openvpn v0.1.1-0.20260929151220-f330676d6d4a
@@ -61,6 +60,7 @@ require (
 	github.com/stretchr/testify v1.12.1
 	github.com/tailscale/go-winio v0.0.0-20231025203758-c4f33415bf55
 	github.com/vishvananda/netns v0.0.5
+	github.com/xtaci/kcp-go/v5 v5.6.72
 	go.uber.org/zap v1.27.1
 	go4.org/mem v0.0.0-20240501181205-ae6ca9944745
 	go4.org/netipx v0.0.0-20231129151722-fdeea329fbba
@@ -90,7 +90,6 @@ require (
 	github.com/axiomhq/hyperloglog v0.0.0-20240319100328-84253e514e02 // indirect
 	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
 	github.com/coreos/go-iptables v0.7.1-0.20240112124308-65c67c9f46e6 // indirect
-	github.com/coreos/go-oidc/v3 v3.17.0 // indirect
 	github.com/database64128/netx-go v0.1.1 // indirect
 	github.com/dgryski/go-camellia v0.0.0-20191119043421-69a8a13fb23d // indirect
 	github.com/dgryski/go-metro v0.0.0-20180109044635-280f6062b5bc // indirect
@@ -99,7 +98,6 @@ require (
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/fxamacker/cbor/v2 v2.9.0 // indirect
 	github.com/gaissmai/bart v0.26.1 // indirect
-	github.com/go-jose/go-jose/v4 v4.1.3 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/go4org/hashtriemap v0.0.0-20251130024219-545ba229f689 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
@@ -110,7 +108,6 @@ require (
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/gopacket v1.1.19 // indirect
 	github.com/google/nftables v0.2.1-0.20240414091927-5e242ec57806 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
 	github.com/hdevalence/ed25519consensus v0.2.0 // indirect
 	github.com/huin/goupnp v1.3.0 // indirect
@@ -125,7 +122,6 @@ require (
 	github.com/libp2p/go-netroute v0.2.1 // indirect
 	github.com/mdlayher/socket v0.6.0 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
-	github.com/philhofer/fwd v1.2.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.26 // indirect
 	github.com/pion/dtls/v3 v3.1.5 // indirect
 	github.com/pion/logging v0.2.4 // indirect
@@ -174,7 +170,6 @@ require (
 	github.com/tjfoc/gmsm v1.4.1 // indirect
 	github.com/u-root/uio v0.0.0-20240224005618-d2acac8f3701 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
-	github.com/xtaci/kcp-go/v5 v5.6.72 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	github.com/zeebo/blake3 v0.2.4 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
@@ -187,13 +182,11 @@ require (
 	golang.zx2c4.com/wireguard/windows v0.5.3 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251202230838-ff82c1b0f217 // indirect
 	lukechampine.com/blake3 v1.3.0 // indirect
-	zombiezen.com/go/capnproto2 v2.18.2+incompatible // indirect
 )
 
 replace (
 	github.com/sagernet/sing => git.swysgh.dn42/swysgh/mill.git v0.9.7-0.20260929150544-6f21f2425a95
 	github.com/sagernet/sing-anytls => git.swysgh.dn42/swysgh/mill-anytls.git v0.0.0-20260928104022-580984e4d8cb
-	github.com/sagernet/sing-cloudflared => git.swysgh.dn42/swysgh/mill-cloudflared.git v0.1.4-0.20261002084126-c1255ae368f2
 	github.com/sagernet/sing-mux => git.swysgh.dn42/swysgh/mill-mux.git v0.3.10-0.20260929204512-caf09fe32475
 	github.com/sagernet/sing-openconnect => git.swysgh.dn42/swysgh/mill-openconnect.git v0.1.1-0.20260929151226-29757281a247
 	github.com/sagernet/sing-openvpn => git.swysgh.dn42/swysgh/mill-openvpn.git v0.1.1-0.20260929151220-f330676d6d4a

@@ -77,7 +77,6 @@ func InboundRegistry() *inbound.Registry {
 	uss.RegisterInbound(registry)
 
 	registerQUICInbounds(registry)
-	registerCloudflaredInbound(registry)
 	registerTailcatInbound(registry)
 	registerStubForRemovedInbounds(registry)
 
