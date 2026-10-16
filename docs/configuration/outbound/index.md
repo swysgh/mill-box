@@ -34,6 +34,7 @@
 | `anytls`       | [AnyTLS](./anytls/)             |
 | `anoiss`       | [Anoiss](./anoiss/)             |
 | `uss`          | [USS](./uss/)                   |
+| `ush`          | [USH](./ush/)                   |
 | `snell`        | [Snell](./snell/)               |
 | `tor`          | [Tor](./tor/)                   |
 | `ssh`          | [SSH](./ssh/)                   |

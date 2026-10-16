@@ -33,6 +33,7 @@
 | `anytls`      | [AnyTLS](./anytls/)           | TCP              |
 | `anoiss`      | [Anoiss](./anoiss/)           | TCP              |
 | `uss`         | [USS](./uss/)                 | :material-close: |
+| `ush`         | [USH](./ush/)                 | :material-close: |
 | `snell`       | [Snell](./snell/)             | TCP              |
 | `tun`         | [Tun](./tun/)                 | :material-close: |
 | `redirect`    | [Redirect](./redirect/)       | :material-close: |
