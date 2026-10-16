@@ -33,6 +33,7 @@
 | `hysteria2`    | [Hysteria2](./hysteria2/)       |
 | `anytls`       | [AnyTLS](./anytls/)             |
 | `anoiss`       | [Anoiss](./anoiss/)             |
+| `uss`          | [USS](./uss/)                   |
 | `snell`        | [Snell](./snell/)               |
 | `tailcat`      | [Tailcat](./tailcat/)           |
 | `tor`          | [Tor](./tor/)                   |

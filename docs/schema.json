@@ -8726,6 +8726,109 @@
           "type": "object",
           "properties": {
             "type": {
+              "const": "uss"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "listen": {
+              "$ref": "#/$defs/IPAddress"
+            },
+            "listen_port": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "bind_interface": {
+              "type": "string"
+            },
+            "routing_mark": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "reuse_addr": {
+              "type": "boolean"
+            },
+            "netns": {
+              "type": "string",
+              "x-tag-reference": "network_namespace"
+            },
+            "disable_tcp_keep_alive": {
+              "type": "boolean"
+            },
+            "tcp_keep_alive": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_keep_alive_interval": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_fast_open": {
+              "type": "boolean"
+            },
+            "tcp_multi_path": {
+              "type": "boolean"
+            },
+            "udp_fragment": {
+              "type": "boolean"
+            },
+            "udp_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "detour": {
+              "type": "string",
+              "x-tag-reference": "inbound"
+            },
+            "pre_shared_key": {
+              "type": "string"
+            },
+            "session_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "handshake_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "max_sessions": {
+              "type": "integer"
+            },
+            "max_udp_flows": {
+              "type": "integer"
+            },
+            "max_kcp_channels": {
+              "type": "integer"
+            },
+            "replay_window_size": {
+              "type": "integer"
+            },
+            "disable_tcp": {
+              "type": "boolean"
+            },
+            "disable_udp": {
+              "type": "boolean"
+            },
+            "kcp": {
+              "$ref": "#/$defs/UssKCPOptions"
+            },
+            "mtu": {
+              "$ref": "#/$defs/UssMTUOptions"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
               "const": "vless"
             },
             "tag": {
@@ -14672,6 +14775,158 @@
           "type": "object",
           "properties": {
             "type": {
+              "const": "uss"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "detour": {
+              "type": "string",
+              "x-tag-reference": "outbound"
+            },
+            "bind_interface": {
+              "type": "string"
+            },
+            "inet4_bind_address": {
+              "$ref": "#/$defs/IPAddress"
+            },
+            "inet6_bind_address": {
+              "$ref": "#/$defs/IPAddress"
+            },
+            "bind_address_no_port": {
+              "type": "boolean"
+            },
+            "protect_path": {
+              "type": "string"
+            },
+            "routing_mark": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "reuse_addr": {
+              "type": "boolean"
+            },
+            "netns": {
+              "type": "string",
+              "x-tag-reference": "network_namespace"
+            },
+            "connect_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_fast_open": {
+              "type": "boolean"
+            },
+            "tcp_multi_path": {
+              "type": "boolean"
+            },
+            "disable_tcp_keep_alive": {
+              "type": "boolean"
+            },
+            "tcp_keep_alive": {
+              "$ref": "#/$defs/Duration"
+            },
+            "tcp_keep_alive_interval": {
+              "$ref": "#/$defs/Duration"
+            },
+            "udp_fragment": {
+              "type": "boolean"
+            },
+            "domain_resolver": {
+              "$ref": "#/$defs/DomainResolver"
+            },
+            "network_strategy": {
+              "type": "string",
+              "enum": [
+                "default",
+                "fallback",
+                "hybrid"
+              ]
+            },
+            "network_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/InterfaceType"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/InterfaceType"
+                  }
+                }
+              ]
+            },
+            "fallback_network_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/InterfaceType"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/InterfaceType"
+                  }
+                }
+              ]
+            },
+            "fallback_delay": {
+              "$ref": "#/$defs/Duration"
+            },
+            "server": {
+              "type": "string"
+            },
+            "server_port": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            "pre_shared_key": {
+              "type": "string"
+            },
+            "tcp_mode": {
+              "type": "string"
+            },
+            "udp_mode": {
+              "type": "string"
+            },
+            "udp_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "session_timeout": {
+              "$ref": "#/$defs/Duration"
+            },
+            "max_udp_flows": {
+              "type": "integer"
+            },
+            "replay_window_size": {
+              "type": "integer"
+            },
+            "ping_interval": {
+              "$ref": "#/$defs/Duration"
+            },
+            "kcp": {
+              "$ref": "#/$defs/UssKCPOptions"
+            },
+            "mtu": {
+              "$ref": "#/$defs/UssMTUOptions"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
               "const": "vless"
             },
             "tag": {
@@ -17827,6 +18082,66 @@
         },
         "Password": {
           "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UssKCPOptions": {
+      "type": "object",
+      "properties": {
+        "nodelay": {
+          "type": "integer"
+        },
+        "interval": {
+          "type": "integer"
+        },
+        "resend": {
+          "type": "integer"
+        },
+        "nc": {
+          "type": "integer"
+        },
+        "window_size": {
+          "type": "integer"
+        },
+        "max_stream_buffer": {
+          "type": "integer"
+        },
+        "max_receive_buffer": {
+          "type": "integer"
+        },
+        "keep_alive_interval": {
+          "$ref": "#/$defs/Duration"
+        },
+        "keep_alive_timeout": {
+          "$ref": "#/$defs/Duration"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UssMTUOptions": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "base": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "step": {
+          "type": "integer"
+        },
+        "probe_interval": {
+          "$ref": "#/$defs/Duration"
+        },
+        "probe_timeout": {
+          "$ref": "#/$defs/Duration"
+        },
+        "probe_attempts": {
+          "type": "integer"
         }
       },
       "additionalProperties": false
