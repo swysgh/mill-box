@@ -91,7 +91,12 @@ mill-box run -c config.json
 ### 安全边界
 
 - **本入站不认证任何东西**：谁能连上这个端口，谁就能把它当开放 UDP 中继用（目标地址由客户端指定）。唯一的防线是它只绑在回环上、外面套一层 sshd。启动时日志会明确打一行 `unauthenticated UoT listener, only reachable through the SSH tunnel in front of it`
-- **sshd 侧要收紧转发面**：给这个账号单独配 `AllowTcpForwarding yes` + `PermitOpen 127.0.0.1:10086`（只允许转发到 UoT 监听器），别让同一个账号能转发到任意地址。账号本身可以用 `PasswordAuthentication`（见下）或公钥
+- **sshd 侧可以收紧转发面**：给这个账号单独配 `AllowTcpForwarding yes`，再用 `PermitOpen` 决定它能转发到哪。注意 `PermitOpen` 对 **TCP 与 UoT 一视同仁**（两者都是 `direct-tcpip` 通道）：
+  - `PermitOpen any`：ush 的 TCP 与 UDP 都能用，安全性完全依赖「这个账号可信」
+  - `PermitOpen 127.0.0.1:10086`：只放行到 UoT 监听器 —— 实测 UDP 正常、**TCP 会被 sshd 拒掉**（客户端日志：`ssh: rejected: administratively prohibited (open failed)`），等于这个账号只做 UDP 出口
+  - 想同时收窄又保留 TCP，就把允许的目标逐个列上（`PermitOpen` 支持多个条目）
+
+  账号本身用 `PasswordAuthentication`（见下）或公钥都行
 - **可以给这个账号单独开密码登录**：全局关掉密码认证、只对专用账号放开的写法是在 `/etc/ssh/sshd_config` **末尾**加
 
   ```
