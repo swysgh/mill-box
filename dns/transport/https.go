@@ -132,10 +132,6 @@ func NewHTTPSRaw(
 		dialer = tls.NewDialer(dialer, tlsConfig)
 	}
 	fallback := new(atomic.Bool)
-	if destination.Scheme == "http" {
-		// plain HTTP DoH used by Tailscale
-		fallback.Store(true)
-	}
 	transport := &HTTPSTransport{
 		TransportAdapter: adapter,
 		logger:           logger,

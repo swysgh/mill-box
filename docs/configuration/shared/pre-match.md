@@ -17,7 +17,7 @@ icon: material/new-box
 
 ### 工作原理
 
-当 L3 入站（TUN、WireGuard 或 Tailscale）收到连接请求时，连接尚未建立：对于 TCP 连接，无连接数据可用；对于 UDP 连接，仅首个数据包可用。在此阶段，sing-box 在预匹配模式下运行路由规则。
+当 L3 入站（TUN 或 WireGuard）收到连接请求时，连接尚未建立：对于 TCP 连接，无连接数据可用；对于 UDP 连接，仅首个数据包可用。在此阶段，sing-box 在预匹配模式下运行路由规则。
 
 当规则匹配到需要比当前可用数据更多连接数据的动作时，预匹配将在该规则处停止。
 
@@ -39,8 +39,8 @@ icon: material/new-box
 
 支持的目标：
 
-- ICMP 连接：direct 和 bridge 出站以及 WireGuard / Tailscale 端点。
-- TCP 和 UDP 连接：bridge 出站以及 WireGuard / Tailscale 端点。
+- ICMP 连接：direct 和 bridge 出站以及 WireGuard 端点。
+- TCP 和 UDP 连接：bridge 出站以及 WireGuard 端点。
 
 当没有规则匹配且默认出站为受支持的目标时，L3 转发同样生效；对于出站组，使用当前选中的出站。
 

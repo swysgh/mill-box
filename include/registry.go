@@ -77,7 +77,6 @@ func InboundRegistry() *inbound.Registry {
 	uss.RegisterInbound(registry)
 
 	registerQUICInbounds(registry)
-	registerTailcatInbound(registry)
 	registerStubForRemovedInbounds(registry)
 
 	return registry
@@ -110,7 +109,6 @@ func OutboundRegistry() *outbound.Registry {
 	uss.RegisterOutbound(registry)
 
 	registerQUICOutbounds(registry)
-	registerTailcatOutbound(registry)
 	registerStubForRemovedOutbounds(registry)
 
 	return registry
@@ -123,7 +121,6 @@ func EndpointRegistry() *endpoint.Registry {
 	registerOpenConnectEndpoint(registry)
 	registerOpenVPNEndpoints(registry)
 	masque.RegisterEndpoint(registry)
-	registerTailscaleEndpoint(registry)
 
 	return registry
 }
@@ -143,7 +140,6 @@ func DNSTransportRegistry() *dns.TransportRegistry {
 
 	registerQUICTransports(registry)
 	registerDHCPTransport(registry)
-	registerTailscaleTransport(registry)
 	registerOpenConnectDNSTransport(registry)
 	registerOpenVPNDNSTransport(registry)
 
@@ -158,7 +154,6 @@ func ServiceRegistry() *service.Registry {
 	ssmapi.RegisterService(registry)
 
 	registerQUICServices(registry)
-	registerDERPService(registry)
 
 	return registry
 }
@@ -167,7 +162,6 @@ func CertificateProviderRegistry() *certificate.Registry {
 	registry := certificate.NewRegistry()
 
 	registerACMECertificateProvider(registry)
-	registerTailscaleCertificateProvider(registry)
 	originca.RegisterCertificateProvider(registry)
 
 	return registry

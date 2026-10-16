@@ -169,30 +169,6 @@ func (s *platformInterfaceStub) CloseNeighborMonitor(listener adapter.NeighborUp
 	return nil
 }
 
-func (s *platformInterfaceStub) UsePlatformShell() bool {
-	return false
-}
-
-func (s *platformInterfaceStub) CheckPlatformShell() error {
-	return nil
-}
-
-func (s *platformInterfaceStub) OpenShellSession(user *adapter.PlatformUser, command string, env []string, term string, rows int32, cols int32) (adapter.ShellSession, error) {
-	return nil, os.ErrInvalid
-}
-
-func (s *platformInterfaceStub) LookupSFTPServer() (string, error) {
-	return "", os.ErrInvalid
-}
-
-func (s *platformInterfaceStub) ReadSystemSSHHostKey() ([]byte, error) {
-	return nil, os.ErrInvalid
-}
-
-func (s *platformInterfaceStub) TailscaleHostname() string {
-	return ""
-}
-
 func (s *platformInterfaceStub) UsePlatformBridge() bool {
 	return false
 }
@@ -206,10 +182,6 @@ func (s *platformInterfaceStub) UsePlatformAutoRedirect() bool {
 }
 
 func (s *platformInterfaceStub) CreateAutoRedirect(options adapter.AutoRedirectOptions) (adapter.AutoRedirectSession, error) {
-	return nil, os.ErrInvalid
-}
-
-func (s *platformInterfaceStub) LookupUser(username string) (*adapter.PlatformUser, error) {
 	return nil, os.ErrInvalid
 }
 

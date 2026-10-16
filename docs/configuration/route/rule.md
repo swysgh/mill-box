@@ -168,7 +168,6 @@ icon: material/new-box
           "00:00:00:00:00:00"
         ],
         "preferred_by": [
-          "tailscale",
           "wireguard"
         ],
         "dns_server_address": {
@@ -259,7 +258,7 @@ icon: material/new-box
 
     自 sing-box 1.13.0 起，您可以通过新的 `icmp` 网络匹配 ICMP 回显（ping）请求。
 
-    此类流量源自 `TUN`、`WireGuard` 和 `Tailscale` 入站，并可路由至 `Direct`、`WireGuard` 和 `Tailscale` 出站。
+    此类流量源自 `TUN` 和 `WireGuard` 入站，并可路由至 `Direct` 和 `WireGuard` 出站。
 
 匹配网络类型。
 
@@ -480,7 +479,6 @@ icon: material/new-box
 
 | 类型          | 匹配                             |
 |-------------|--------------------------------|
-| `tailscale` | 匹配 MagicDNS 域名和对端的 allowed IPs |
 | `wireguard` | 匹配对端的 allowed IPs              |
 | `bridge`    | 匹配除本机本地地址外的所有地址，仅在[预匹配](/configuration/shared/pre-match/)中 |
 
@@ -495,7 +493,6 @@ icon: material/new-box
 | `local`       | 匹配系统 DNS 服务器                     |
 | `dhcp`        | 匹配通过 DHCP 获取的 DNS 服务器             |
 | `resolved`    | 匹配 systemd-resolved 链路中的 DNS 服务器  |
-| `tailscale`   | 匹配 tailnet 的 DNS 解析器              |
 | `openvpn`     | 匹配 VPN 服务器推送的 DNS 服务器             |
 | `openconnect` | 匹配 VPN 服务器推送的 DNS 服务器             |
 
@@ -510,7 +507,6 @@ icon: material/new-box
 | `local`       | 匹配系统搜索域                       |
 | `dhcp`        | 匹配通过 DHCP 获取的搜索域              |
 | `resolved`    | 匹配 systemd-resolved 链路中的搜索域    |
-| `tailscale`   | 匹配 tailnet 的搜索域                |
 | `openvpn`     | 匹配 VPN 服务器推送的搜索域              |
 | `openconnect` | 匹配 VPN 服务器推送的搜索域              |
 

@@ -37,7 +37,6 @@
 | `tun`         | [Tun](./tun/)                 | :material-close: |
 | `redirect`    | [Redirect](./redirect/)       | :material-close: |
 | `tproxy`      | [TProxy](./tproxy/)           | :material-close: |
-| `tailcat`     | [Tailcat](./tailcat/)         | :material-close: |
 
 #### tag
 

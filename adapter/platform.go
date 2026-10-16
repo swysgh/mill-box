@@ -48,14 +48,6 @@ type PlatformInterface interface {
 	StartNeighborMonitor(listener NeighborUpdateListener) error
 	CloseNeighborMonitor(listener NeighborUpdateListener) error
 
-	UsePlatformShell() bool
-	CheckPlatformShell() error
-	OpenShellSession(user *PlatformUser, command string, env []string, term string, rows int32, cols int32) (ShellSession, error)
-	LookupUser(username string) (*PlatformUser, error)
-	LookupSFTPServer() (string, error)
-	ReadSystemSSHHostKey() ([]byte, error)
-	TailscaleHostname() string
-
 	UsePlatformBridge() bool
 	CreateBridge(options BridgeOptions) (BridgeSession, error)
 
@@ -93,15 +85,6 @@ type BridgeSession interface {
 	Inet6Active() bool
 	SetEgress(interfaceName string) error
 	Close() error
-}
-
-type PlatformUser struct {
-	Username string
-	Uid      int
-	Gid      int
-	HomeDir  string
-	Shell    string
-	Groups   []int
 }
 
 type FindConnectionOwnerRequest struct {

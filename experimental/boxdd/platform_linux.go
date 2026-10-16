@@ -166,34 +166,6 @@ func (p *linuxPlatformInterface) CloseNeighborMonitor(listener adapter.NeighborU
 	return nil
 }
 
-func (p *linuxPlatformInterface) UsePlatformShell() bool {
-	return false
-}
-
-func (p *linuxPlatformInterface) CheckPlatformShell() error {
-	return nil
-}
-
-func (p *linuxPlatformInterface) OpenShellSession(user *adapter.PlatformUser, command string, environ []string, term string, rows int32, cols int32) (adapter.ShellSession, error) {
-	return nil, os.ErrInvalid
-}
-
-func (p *linuxPlatformInterface) LookupUser(username string) (*adapter.PlatformUser, error) {
-	return nil, os.ErrInvalid
-}
-
-func (p *linuxPlatformInterface) LookupSFTPServer() (string, error) {
-	return "", os.ErrInvalid
-}
-
-func (p *linuxPlatformInterface) ReadSystemSSHHostKey() ([]byte, error) {
-	return nil, os.ErrInvalid
-}
-
-func (p *linuxPlatformInterface) TailscaleHostname() string {
-	return ""
-}
-
 func (p *linuxPlatformInterface) UsePlatformBridge() bool {
 	return false
 }

@@ -21,14 +21,12 @@ var (
 	debugEnabled bool
 	target       string
 	platform     string
-	// withTailscale bool
 )
 
 func init() {
 	flag.BoolVar(&debugEnabled, "debug", false, "enable debug")
 	flag.StringVar(&target, "target", "android", "target platform")
 	flag.StringVar(&platform, "platform", "", "specify platform")
-	// flag.BoolVar(&withTailscale, "with-tailscale", false, "build tailscale for iOS and tvOS")
 }
 
 func main() {

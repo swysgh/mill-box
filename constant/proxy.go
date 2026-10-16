@@ -33,8 +33,6 @@ const (
 	TypeOpenVPNServer      = "openvpn-server"
 	TypeMASQUEClient       = "masque-client"
 	TypeMASQUEServer       = "masque-server"
-	TypeTailscale          = "tailscale"
-	TypeTailcat            = "tailcat"
 	TypeDERP               = "derp"
 	TypeResolved           = "resolved"
 	TypeSSMAPI             = "ssm-api"
@@ -115,10 +113,6 @@ func ProxyDisplayName(proxyType string) string {
 		return "MASQUE Client"
 	case TypeMASQUEServer:
 		return "MASQUE Server"
-	case TypeTailscale:
-		return "Tailscale"
-	case TypeTailcat:
-		return "Tailcat"
 	case TypeSelector:
 		return "Selector"
 	case TypeURLTest:

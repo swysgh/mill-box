@@ -35,7 +35,6 @@
 | `anoiss`       | [Anoiss](./anoiss/)             |
 | `uss`          | [USS](./uss/)                   |
 | `snell`        | [Snell](./snell/)               |
-| `tailcat`      | [Tailcat](./tailcat/)           |
 | `tor`          | [Tor](./tor/)                   |
 | `ssh`          | [SSH](./ssh/)                   |
 | `dns`          | [DNS](./dns/)                   |

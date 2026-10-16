@@ -32,16 +32,6 @@ type Locale struct {
 	DeprecatedMessageNoLink string
 	InsecureFeatureMessage  string
 	ExternalPathFeature     string
-	TailscaleInitializing   string
-	TailscaleInUse          string
-	TailscaleNeedsLogin     string
-	TailscaleNeedsApproval  string
-	TailscaleStopped        string
-	TailscaleStarting       string
-	TailscaleRunning        string
-	TaildropReceiving       string
-	TaildropReceived        string
-	TaildropSendCanceled    string
 	VPNConnecting           string
 	VPNAuthentication       string
 	VPNConnected            string
@@ -55,16 +45,6 @@ var defaultLocale = &Locale{
 	DeprecatedMessageNoLink: "%s is deprecated in sing-box %s and will be removed in sing-box %s.",
 	InsecureFeatureMessage:  "%s is considered insecure in the graphical client for sing-box on %s. Enable Insecure Mode in `Settings - Core - Insecure Mode` to use it.",
 	ExternalPathFeature:     "Access to %s (outside of the working directory) is considered insecure in the graphical client for sing-box on %s. Enable Insecure Mode in `Settings - Core - Insecure Mode` to use it.",
-	TailscaleInitializing:   "Initializing",
-	TailscaleInUse:          "In use by another user",
-	TailscaleNeedsLogin:     "Needs login",
-	TailscaleNeedsApproval:  "Needs approval",
-	TailscaleStopped:        "Stopped",
-	TailscaleStarting:       "Starting",
-	TailscaleRunning:        "Running",
-	TaildropReceiving:       "Receiving %s from %s",
-	TaildropReceived:        "%s received from %s",
-	TaildropSendCanceled:    "Sending %s canceled by receiver",
 	VPNConnecting:           "Connecting",
 	VPNAuthentication:       "Authentication required",
 	VPNConnected:            "Connected",
@@ -162,27 +142,6 @@ func match(localeID string) (string, bool) {
 	}
 	_, localeIndex, _ := localeMatcher.Match(tags...)
 	return localeNames[localeIndex], true
-}
-
-func (l *Locale) TailscaleStateText(state string) string {
-	switch state {
-	case "NoState":
-		return l.TailscaleInitializing
-	case "InUseOtherUser":
-		return l.TailscaleInUse
-	case "NeedsLogin":
-		return l.TailscaleNeedsLogin
-	case "NeedsMachineAuth":
-		return l.TailscaleNeedsApproval
-	case "Stopped":
-		return l.TailscaleStopped
-	case "Starting":
-		return l.TailscaleStarting
-	case "Running":
-		return l.TailscaleRunning
-	default:
-		return l.Unknown
-	}
 }
 
 func (l *Locale) VPNStateText(state string) string {

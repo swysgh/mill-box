@@ -27,7 +27,6 @@ const (
 	DNSTypeFakeIP      = "fakeip"
 	DNSTypeDHCP        = "dhcp"
 	DNSTypeMDNS        = "mdns"
-	DNSTypeTailscale   = "tailscale"
 	DNSTypeOpenConnect = "openconnect"
 	DNSTypeOpenVPN     = "openvpn"
 )
