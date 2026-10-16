@@ -21,12 +21,14 @@ var (
 	debugEnabled bool
 	target       string
 	platform     string
+	withLegacy   bool
 )
 
 func init() {
 	flag.BoolVar(&debugEnabled, "debug", false, "enable debug")
 	flag.StringVar(&target, "target", "android", "target platform")
 	flag.StringVar(&platform, "platform", "", "specify platform")
+	flag.BoolVar(&withLegacy, "legacy", false, "also build libbox-legacy.aar (SDK 21, without the naive outbound)")
 }
 
 func main() {
@@ -162,11 +164,20 @@ func buildAndroid() {
 	if debugEnabled {
 		mainTags = append(mainTags, debugTags...)
 	}
+	log.Info("libbox build: target=", bindTarget, " android_api=24 output=libbox.aar legacy=", withLegacy)
+	log.Info("libbox.aar tags=", strings.Join(mainTags, ","))
 	buildAndroidVariant(AndroidBuildConfig{
 		AndroidAPI: 24,
 		OutputName: "libbox.aar",
 		Tags:       mainTags,
 	}, bindTarget)
+
+	if !withLegacy {
+		// The Android shell no longer has a legacy (SDK 21) flavor, so this
+		// variant had no consumer and only cost a second gomobile run.
+		log.Info("skipping libbox-legacy.aar, pass -legacy to build it")
+		return
+	}
 
 	// Build legacy variant (SDK 21, no naive outbound)
 	legacyTags := filterTags(sharedTags, "with_naive_outbound")
@@ -174,6 +185,7 @@ func buildAndroid() {
 	if debugEnabled {
 		legacyTags = append(legacyTags, debugTags...)
 	}
+	log.Info("libbox-legacy.aar tags=", strings.Join(legacyTags, ","))
 	buildAndroidVariant(AndroidBuildConfig{
 		AndroidAPI: 21,
 		OutputName: "libbox-legacy.aar",

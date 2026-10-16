@@ -606,7 +606,7 @@ jobs:
           export PATH="$PATH:$(go env GOPATH)/bin"
           go run ./cmd/internal/build_libbox -target android -platform android/${{ matrix.go_arch }}
           mkdir -p dist/${{ matrix.go_arch }}
-          mv libbox.aar libbox-legacy.aar dist/${{ matrix.go_arch }}
+          mv libbox.aar dist/${{ matrix.go_arch }}
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       - name: Upload library
@@ -629,9 +629,6 @@ jobs:
           - variant: other
             task: :app:assembleOtherRelease
             output: app/build/outputs/apk/other/release/*.apk
-          - variant: other-legacy
-            task: :app:assembleOtherLegacyRelease
-            output: app/build/outputs/apk/otherLegacy/release/*.apk
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
@@ -679,7 +676,6 @@ jobs:
       - name: Merge libraries
         run: |-
           go run ./cmd/internal/merge_aar -output libbox.aar libbox-inputs/*/libbox.aar
-          go run ./cmd/internal/merge_aar -output libbox-legacy.aar libbox-inputs/*/libbox-legacy.aar
       - name: Checkout main branch
         if: github.ref == 'refs/heads/stable' && github.event_name != 'workflow_dispatch'
         run: |-
@@ -787,7 +783,6 @@ jobs:
       - name: Merge libraries
         run: |-
           go run ./cmd/internal/merge_aar -output libbox.aar libbox-inputs/*/libbox.aar
-          go run ./cmd/internal/merge_aar -output libbox-legacy.aar libbox-inputs/*/libbox-legacy.aar
       - name: Checkout main branch
         if: github.ref == 'refs/heads/stable' && github.event_name != 'workflow_dispatch'
         run: |-
