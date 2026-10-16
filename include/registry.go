@@ -38,6 +38,7 @@ import (
 	"github.com/swysgh/mill-box/protocol/tor"
 	"github.com/swysgh/mill-box/protocol/trojan"
 	"github.com/swysgh/mill-box/protocol/tun"
+	"github.com/swysgh/mill-box/protocol/ush"
 	"github.com/swysgh/mill-box/protocol/uss"
 	"github.com/swysgh/mill-box/protocol/vless"
 	"github.com/swysgh/mill-box/protocol/vmess"
@@ -75,6 +76,7 @@ func InboundRegistry() *inbound.Registry {
 	anytls.RegisterInbound(registry)
 	anoiss.RegisterInbound(registry)
 	uss.RegisterInbound(registry)
+	ush.RegisterInbound(registry)
 
 	registerQUICInbounds(registry)
 	registerStubForRemovedInbounds(registry)
@@ -102,6 +104,7 @@ func OutboundRegistry() *outbound.Registry {
 	registerNaiveOutbound(registry)
 	tor.RegisterOutbound(registry)
 	ssh.RegisterOutbound(registry)
+	ush.RegisterOutbound(registry)
 	shadowtls.RegisterOutbound(registry)
 	vless.RegisterOutbound(registry)
 	anytls.RegisterOutbound(registry)

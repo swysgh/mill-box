@@ -24,6 +24,7 @@ const (
 	TypeAnyTLS             = "anytls"
 	TypeAnoiss             = "anoiss"
 	TypeUss                = "uss"
+	TypeUSH                = "ush"
 	TypeShadowsocksR       = "shadowsocksr"
 	TypeVLESS              = "vless"
 	TypeTUIC               = "tuic"
@@ -103,6 +104,8 @@ func ProxyDisplayName(proxyType string) string {
 		return "Anoiss"
 	case TypeUss:
 		return "USS"
+	case TypeUSH:
+		return "USH"
 	case TypeOpenConnect:
 		return "OpenConnect"
 	case TypeOpenVPNClient:
