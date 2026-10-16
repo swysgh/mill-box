@@ -320,7 +320,17 @@ func (s *Outbound) DialContext(ctx context.Context, network string, destination 
 		return s.dialSSH(ctx, destination)
 	case N.NetworkUDP:
 		s.logger.InfoContext(ctx, "outbound UoT packet connection to ", destination)
-		return s.uotClient.DialContext(ctx, N.NetworkUDP, destination)
+		conn, err := s.uotClient.DialContext(ctx, N.NetworkUDP, destination)
+		if err != nil {
+			return nil, err
+		}
+		uotConnection, isUoTConnection := conn.(*uot.Conn)
+		if !isUoTConnection {
+			// Legacy UoT returns a bind packet connection; it cannot be
+			// configured on this outbound, so this is unreachable in practice.
+			return conn, nil
+		}
+		return newUoTConn(uotConnection, destination), nil
 	default:
 		return nil, E.Extend(N.ErrUnknownNetwork, network)
 	}
@@ -331,7 +341,15 @@ func (s *Outbound) ListenPacket(ctx context.Context, destination M.Socksaddr) (n
 	metadata.Outbound = s.Tag()
 	metadata.Destination = destination
 	s.logger.InfoContext(ctx, "outbound UoT packet connection to ", destination)
-	return s.uotClient.ListenPacket(ctx, destination)
+	conn, err := s.uotClient.ListenPacket(ctx, destination)
+	if err != nil {
+		return nil, err
+	}
+	uotPacketConn, isUoTConnection := conn.(*uot.Conn)
+	if !isUoTConnection {
+		return conn, nil
+	}
+	return newUoTConn(uotPacketConn, destination), nil
 }
 
 // dialSSH opens a direct-tcpip channel to destination, i.e. the server side
@@ -381,6 +399,27 @@ func (d *uotServerDialer) ListenPacket(ctx context.Context, destination M.Socksa
 	return nil, os.ErrInvalid
 }
 
+// uotConn is the UDP connection handed to callers for a UoT stream. It exists to
+// report the stream peer: golang.org/x/crypto/ssh's Client.Dial documents that
+// the connection it returns "has a zero LocalAddr() and RemoteAddr()", and the
+// UoT stream is connected to the destination carried in the UoT request, not to
+// the sshd. Callers depend on that address, e.g. route/conn.go's UDP-connect
+// branch feeds RemoteAddr() into bufio.NewUnbindPacketConn and then rewrites the
+// source of every received datagram, so a zero address turns it into
+// "<destination>:0" and breaks reply matching.
+type uotConn struct {
+	*uot.Conn
+	remoteAddr net.Addr
+}
+
+func (c *uotConn) RemoteAddr() net.Addr {
+	return c.remoteAddr
+}
+
+func newUoTConn(conn *uot.Conn, destination M.Socksaddr) *uotConn {
+	return &uotConn{Conn: conn, remoteAddr: destination}
+}
+
 type chanConnWrapper struct {
 	net.Conn
 	closeOnce sync.Once
@@ -391,6 +430,17 @@ func (c *chanConnWrapper) Close() error {
 	err := c.Conn.Close()
 	c.closeOnce.Do(c.onClose)
 	return err
+}
+
+// NeedAdditionalReadDeadline reports that the connection cannot carry read
+// deadlines. golang.org/x/crypto/ssh channels have no deadline support, so the
+// SetDeadline family below only ever fails; declaring it here is what makes
+// callers add a deadline layer of their own (common/bufio/deadline) or close the
+// connection on context cancellation instead of relying on a deadline that
+// silently never fires. UoT connections declare the same thing on their own
+// layer, which is why the UDP path happened to be safe.
+func (c *chanConnWrapper) NeedAdditionalReadDeadline() bool {
+	return true
 }
 
 func (c *chanConnWrapper) SetDeadline(t time.Time) error {
