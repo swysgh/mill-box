@@ -38,6 +38,7 @@ import (
 	"github.com/swysgh/mill-box/protocol/tor"
 	"github.com/swysgh/mill-box/protocol/trojan"
 	"github.com/swysgh/mill-box/protocol/tun"
+	"github.com/swysgh/mill-box/protocol/uss"
 	"github.com/swysgh/mill-box/protocol/vless"
 	"github.com/swysgh/mill-box/protocol/vmess"
 	"github.com/swysgh/mill-box/service/api"
@@ -73,6 +74,7 @@ func InboundRegistry() *inbound.Registry {
 	vless.RegisterInbound(registry)
 	anytls.RegisterInbound(registry)
 	anoiss.RegisterInbound(registry)
+	uss.RegisterInbound(registry)
 
 	registerQUICInbounds(registry)
 	registerCloudflaredInbound(registry)
@@ -106,6 +108,7 @@ func OutboundRegistry() *outbound.Registry {
 	vless.RegisterOutbound(registry)
 	anytls.RegisterOutbound(registry)
 	anoiss.RegisterOutbound(registry)
+	uss.RegisterOutbound(registry)
 
 	registerQUICOutbounds(registry)
 	registerTailcatOutbound(registry)
