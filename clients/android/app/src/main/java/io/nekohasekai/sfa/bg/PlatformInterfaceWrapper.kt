@@ -8,7 +8,6 @@ import android.os.DeadObjectException
 import android.os.IBinder
 import android.os.ParcelFileDescriptor
 import android.os.Process
-import android.provider.Settings
 import android.system.OsConstants
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -24,18 +23,14 @@ import io.nekohasekai.libbox.NeighborEntryIterator
 import io.nekohasekai.libbox.NeighborUpdateListener
 import io.nekohasekai.libbox.NetworkInterfaceIterator
 import io.nekohasekai.libbox.PlatformInterface
-import io.nekohasekai.libbox.PlatformUser
-import io.nekohasekai.libbox.ShellSession
 import io.nekohasekai.libbox.StringIterator
 import io.nekohasekai.libbox.TunOptions
 import io.nekohasekai.libbox.WIFIState
 import io.nekohasekai.sfa.Application
 import io.nekohasekai.sfa.constant.Action
 import io.nekohasekai.sfa.ktx.toList
-import io.nekohasekai.sfa.ktx.toStringIterator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import java.io.File
 import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.net.InterfaceAddress
@@ -220,90 +215,6 @@ interface PlatformInterfaceWrapper : PlatformInterface {
         }
     }
 
-    override fun usePlatformShell(): Boolean = true
-
-    override fun checkPlatformShell() {
-        val available = RootClient.rootAvailable.value ?: runBlocking(Dispatchers.IO) {
-            RootClient.checkRootAvailable()
-        }
-        if (!available) {
-            error("missing root permission")
-        }
-    }
-
-    override fun openShellSession(
-        user: PlatformUser?,
-        command: String?,
-        environ: StringIterator?,
-        term: String?,
-        rows: Int,
-        cols: Int,
-    ): ShellSession {
-        user!!
-        val envList = environ?.toList().orEmpty()
-        if (user.uid == Process.myUid()) {
-            val resolved = ResolvedUser(user.username, user.uid, user.gid, user.homeDir)
-            val shell = UserResolver.findShell(resolved)
-            val shellEnv = buildBasicEnvironment(envList.toTypedArray(), shell, resolved.homeDir, term)
-            val args = if (command.isNullOrEmpty()) {
-                arrayOf("-" + File(shell).name)
-            } else {
-                arrayOf(File(shell).name, "-c", command)
-            }
-            val argsIter = args.asIterable().toStringIterator()
-            val envIter = shellEnv.asIterable().toStringIterator()
-            return if (term.isNullOrEmpty()) {
-                Libbox.openNativePipeSession(
-                    shell,
-                    resolved.homeDir,
-                    argsIter,
-                    envIter,
-                    -1,
-                    -1,
-                    null,
-                )
-            } else {
-                Libbox.openNativeShellSession(
-                    shell,
-                    resolved.homeDir,
-                    argsIter,
-                    envIter,
-                    term,
-                    rows,
-                    cols,
-                    -1,
-                    -1,
-                    null,
-                )
-            }
-        }
-        val rootSession = runBlocking(Dispatchers.IO) {
-            RootClient.openShellSession(
-                user.username,
-                command,
-                envList.toTypedArray(),
-                term,
-                rows,
-                cols,
-            )
-        }
-        return RootShellSessionWrapper(rootSession)
-    }
-
-    override fun readSystemSSHHostKey(): String {
-        error("not supported")
-    }
-
-    override fun lookupSFTPServer(): String = runBlocking(Dispatchers.IO) {
-        RootClient.lookupSFTPServer()
-    }
-
-    override fun tailscaleHostname(): String = Settings.Global.getString(
-        Application.application.contentResolver,
-        Settings.Global.DEVICE_NAME,
-    )?.takeIf { it.isNotBlank() }
-        ?: "${Build.MANUFACTURER} ${Build.MODEL}"
-
     override fun usePlatformBridge(): Boolean = RootClient.rootAvailable.value ?: runBlocking(Dispatchers.IO) {
         RootClient.checkRootAvailable()
     }
@@ -410,16 +321,6 @@ interface PlatformInterfaceWrapper : PlatformInterface {
         }
     }
 
-    override fun lookupUser(username: String?): io.nekohasekai.libbox.PlatformUser {
-        val resolved = UserResolver.resolve(Application.packageManager, username!!)
-        val platformUser = io.nekohasekai.libbox.PlatformUser()
-        platformUser.username = resolved.packageName
-        platformUser.uid = resolved.uid
-        platformUser.gid = resolved.gid
-        platformUser.homeDir = resolved.homeDir
-        return platformUser
-    }
-
     override fun registerMyInterface(name: String?) {
     }
 
@@ -446,29 +347,6 @@ interface PlatformInterfaceWrapper : PlatformInterface {
 
         override fun close() {
             session.close()
-        }
-    }
-
-    private class RootShellSessionWrapper(
-        private val rootSession: IRootShellSession,
-    ) : ShellSession {
-        private val masterPfd: ParcelFileDescriptor = rootSession.masterFD
-
-        override fun masterFD(): Int = masterPfd.fd
-
-        override fun resize(rows: Int, cols: Int) {
-            rootSession.resize(rows, cols)
-        }
-
-        override fun signal(signal: Int) {
-            rootSession.signal(signal)
-        }
-
-        override fun waitExit(): Int = rootSession.waitFor()
-
-        override fun close() {
-            masterPfd.close()
-            rootSession.close()
         }
     }
 

@@ -126,9 +126,6 @@ import io.nekohasekai.sfa.compose.screen.dashboard.groups.GroupsViewModel
 import io.nekohasekai.sfa.compose.screen.log.LogViewModel
 import io.nekohasekai.sfa.compose.screen.tools.OpenConnectStatusViewModel
 import io.nekohasekai.sfa.compose.screen.tools.OpenVPNStatusViewModel
-import io.nekohasekai.sfa.compose.screen.tools.TaildropSendManager
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleSSHSharedViewModel
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleStatusViewModel
 import io.nekohasekai.sfa.compose.theme.Theme
 import io.nekohasekai.sfa.compose.topbar.LocalScaffoldPadding
 import io.nekohasekai.sfa.compose.topbar.LocalTopBarController
@@ -250,16 +247,6 @@ class MainActivity :
             pendingNavigationRoute.value = "settings/privilege"
         }
         val uri = intent.data ?: return
-        if (uri.scheme == "sing-box") {
-            val target = if (uri.isOpaque) Uri.parse("sing-box://" + uri.schemeSpecificPart) else uri
-            if (target.host == "taildrop") {
-                val endpointTag = target.getQueryParameter("endpoint")
-                if (!endpointTag.isNullOrEmpty()) {
-                    pendingNavigationRoute.value = "tools/tailscale/${Uri.encode(endpointTag)}/taildrop"
-                }
-                return
-            }
-        }
         if (intent.action == Action.OPEN_URL) {
             launchCustomTab(uri.toString())
             return
@@ -709,15 +696,7 @@ class MainActivity :
                 null
             }
 
-        val tailscaleSSHSharedViewModel: TailscaleSSHSharedViewModel = viewModel()
-
         val isToolsRoute = currentRootRoute == Screen.Tools.route
-
-        val tailscaleStatusViewModel: TailscaleStatusViewModel = viewModel()
-        val tailscaleState by tailscaleStatusViewModel.uiState.collectAsState()
-        val taildropUnreadCount = tailscaleState.endpoints.sumOf { it.unreadFileCount }
-        val taildropSendSessions by TaildropSendManager.sessions.collectAsState()
-        val taildropFailedCount = taildropSendSessions.count { it.errorMessage != null }
 
         val openConnectStatusViewModel: OpenConnectStatusViewModel? =
             if (isToolsRoute) {
@@ -735,12 +714,10 @@ class MainActivity :
 
         val statusTargetActive = remoteServer != null || currentServiceStatus == Status.Started
         val subscribeStatus = {
-            tailscaleStatusViewModel.subscribe()
             openConnectStatusViewModel?.subscribe()
             openVPNStatusViewModel?.subscribe()
         }
         val cancelStatus = {
-            tailscaleStatusViewModel.cancel()
             openConnectStatusViewModel?.cancel()
             openVPNStatusViewModel?.cancel()
         }
@@ -881,8 +858,6 @@ class MainActivity :
                         logViewModel = logViewModel,
                         groupsViewModel = groupsViewModel,
                         connectionsViewModel = connectionsViewModel,
-                        tailscaleStatusViewModel = tailscaleStatusViewModel,
-                        tailscaleSSHSharedViewModel = tailscaleSSHSharedViewModel,
                         openConnectStatusViewModel = openConnectStatusViewModel,
                         openVPNStatusViewModel = openVPNStatusViewModel,
                         modifier = Modifier.fillMaxSize(),
@@ -1068,7 +1043,7 @@ class MainActivity :
         val powerReportUnreadCount by PowerReportManager.unreadCount.collectAsState()
         // The crash/OOM report entries are hidden in remote control mode.
         val toolsUnreadCount =
-            (if (isRemote) 0 else crashReportUnreadCount + oomReportUnreadCount + powerReportUnreadCount) + taildropUnreadCount
+            if (isRemote) 0 else crashReportUnreadCount + oomReportUnreadCount + powerReportUnreadCount
 
         LaunchedEffect(Unit) {
             withContext(Dispatchers.IO) {
@@ -1090,11 +1065,7 @@ class MainActivity :
 
                                 NavigationRailItem(
                                     icon = {
-                                        if (screen == Screen.Tools && taildropFailedCount > 0) {
-                                            BadgedBox(badge = { Badge(containerColor = MaterialTheme.colorScheme.error) { Text("!") } }) {
-                                                Icon(screen.icon, contentDescription = null)
-                                            }
-                                        } else if (screen == Screen.Tools && toolsUnreadCount > 0) {
+                                        if (screen == Screen.Tools && toolsUnreadCount > 0) {
                                             BadgedBox(badge = { Badge(containerColor = MaterialTheme.colorScheme.error) { Text("$toolsUnreadCount") } }) {
                                                 Icon(screen.icon, contentDescription = null)
                                             }
@@ -1142,11 +1113,7 @@ class MainActivity :
                                 bottomNavigationScreens.forEach { screen ->
                                     NavigationBarItem(
                                         icon = {
-                                            if (screen == Screen.Tools && taildropFailedCount > 0) {
-                                                BadgedBox(badge = { Badge(containerColor = MaterialTheme.colorScheme.error) { Text("!") } }) {
-                                                    Icon(screen.icon, contentDescription = null)
-                                                }
-                                            } else if (screen == Screen.Tools && toolsUnreadCount > 0) {
+                                            if (screen == Screen.Tools && toolsUnreadCount > 0) {
                                                 BadgedBox(badge = { Badge(containerColor = MaterialTheme.colorScheme.error) { Text("$toolsUnreadCount") } }) {
                                                     Icon(screen.icon, contentDescription = null)
                                                 }

@@ -54,15 +54,6 @@ import io.nekohasekai.sfa.compose.screen.tools.PowerReportFileContentScreen
 import io.nekohasekai.sfa.compose.screen.tools.PowerReportListScreen
 import io.nekohasekai.sfa.compose.screen.tools.PowerReportMetadataScreen
 import io.nekohasekai.sfa.compose.screen.tools.STUNTestScreen
-import io.nekohasekai.sfa.compose.screen.tools.TaildropInboxScreen
-import io.nekohasekai.sfa.compose.screen.tools.TaildropViewModel
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleEndpointScreen
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleExitNodePickerScreen
-import io.nekohasekai.sfa.compose.screen.tools.TailscalePeerScreen
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleSSHPromptScreen
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleSSHSharedViewModel
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleSSHTerminalScreen
-import io.nekohasekai.sfa.compose.screen.tools.TailscaleStatusViewModel
 import io.nekohasekai.sfa.compose.screen.tools.ToolsScreen
 import io.nekohasekai.sfa.constant.Status
 
@@ -95,8 +86,6 @@ fun NavHost(
     logViewModel: LogViewModel? = null,
     groupsViewModel: GroupsViewModel? = null,
     connectionsViewModel: ConnectionsViewModel? = null,
-    tailscaleStatusViewModel: TailscaleStatusViewModel? = null,
-    tailscaleSSHSharedViewModel: TailscaleSSHSharedViewModel? = null,
     openConnectStatusViewModel: OpenConnectStatusViewModel? = null,
     openVPNStatusViewModel: OpenVPNStatusViewModel? = null,
     modifier: Modifier = Modifier,
@@ -246,11 +235,9 @@ fun NavHost(
         }
 
         composable(Screen.Tools.route) {
-            val tailscaleViewModel: TailscaleStatusViewModel = tailscaleStatusViewModel ?: viewModel()
-            val sshSharedViewModel: TailscaleSSHSharedViewModel = tailscaleSSHSharedViewModel ?: viewModel()
             val openConnectViewModel: OpenConnectStatusViewModel = openConnectStatusViewModel ?: viewModel()
             val openVPNViewModel: OpenVPNStatusViewModel = openVPNStatusViewModel ?: viewModel()
-            ToolsScreen(navController = navController, tailscaleViewModel = tailscaleViewModel, sshSharedViewModel = sshSharedViewModel, openConnectViewModel = openConnectViewModel, openVPNViewModel = openVPNViewModel, showStatusBar = showStatusBar)
+            ToolsScreen(navController = navController, openConnectViewModel = openConnectViewModel, openVPNViewModel = openVPNViewModel, showStatusBar = showStatusBar)
         }
 
         // Tools subscreens with slide animations
@@ -310,111 +297,6 @@ fun NavHost(
             val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
             val openVPNViewModel: OpenVPNStatusViewModel = openVPNStatusViewModel ?: viewModel()
             OpenVPNEndpointScreen(navController = navController, viewModel = openVPNViewModel, endpointTag = endpointTag)
-        }
-
-        composable(
-            route = "tools/tailscale/{endpointTag}",
-            arguments = listOf(navArgument("endpointTag") { type = NavType.StringType }),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
-            val tailscaleViewModel: TailscaleStatusViewModel = tailscaleStatusViewModel ?: viewModel()
-            val sshSharedViewModel: TailscaleSSHSharedViewModel = tailscaleSSHSharedViewModel ?: viewModel()
-            TailscaleEndpointScreen(navController = navController, viewModel = tailscaleViewModel, sshSharedViewModel = sshSharedViewModel, endpointTag = endpointTag)
-        }
-
-        composable(
-            route = "tools/tailscale/{endpointTag}/taildrop",
-            arguments = listOf(navArgument("endpointTag") { type = NavType.StringType }),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
-            val taildropViewModel: TaildropViewModel = viewModel()
-            TaildropInboxScreen(
-                navController = navController,
-                viewModel = taildropViewModel,
-                endpointTag = endpointTag,
-            )
-        }
-
-        composable(
-            route = "tools/tailscale/{endpointTag}/exit_node",
-            arguments = listOf(navArgument("endpointTag") { type = NavType.StringType }),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
-            val tailscaleViewModel: TailscaleStatusViewModel = tailscaleStatusViewModel ?: viewModel()
-            TailscaleExitNodePickerScreen(navController = navController, viewModel = tailscaleViewModel, endpointTag = endpointTag)
-        }
-
-        composable(
-            route = "tools/tailscale/{endpointTag}/peer/{peerId}",
-            arguments = listOf(
-                navArgument("endpointTag") { type = NavType.StringType },
-                navArgument("peerId") { type = NavType.StringType },
-            ),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
-            val peerId = Uri.decode(backStackEntry.arguments?.getString("peerId") ?: return@composable)
-            val tailscaleViewModel: TailscaleStatusViewModel = tailscaleStatusViewModel ?: viewModel()
-            TailscalePeerScreen(navController = navController, viewModel = tailscaleViewModel, endpointTag = endpointTag, peerId = peerId)
-        }
-
-        composable(
-            route = "tools/tailscale/{endpointTag}/peer/{peerId}/ssh",
-            arguments = listOf(
-                navArgument("endpointTag") { type = NavType.StringType },
-                navArgument("peerId") { type = NavType.StringType },
-            ),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val endpointTag = Uri.decode(backStackEntry.arguments?.getString("endpointTag") ?: return@composable)
-            val peerId = Uri.decode(backStackEntry.arguments?.getString("peerId") ?: return@composable)
-            val tailscaleViewModel: TailscaleStatusViewModel = tailscaleStatusViewModel ?: viewModel()
-            val sshSharedViewModel: TailscaleSSHSharedViewModel = tailscaleSSHSharedViewModel ?: viewModel()
-            TailscaleSSHPromptScreen(
-                navController = navController,
-                sharedViewModel = sshSharedViewModel,
-                viewModel = tailscaleViewModel,
-                endpointTag = endpointTag,
-                peerId = peerId,
-            )
-        }
-
-        composable(
-            route = "tools/tailscale/{endpointTag}/peer/{peerId}/terminal",
-            arguments = listOf(
-                navArgument("endpointTag") { type = NavType.StringType },
-                navArgument("peerId") { type = NavType.StringType },
-            ),
-            enterTransition = slideInFromRight,
-            exitTransition = slideOutToLeft,
-            popEnterTransition = slideInFromLeft,
-            popExitTransition = slideOutToRight,
-        ) { backStackEntry ->
-            val sshSharedViewModel: TailscaleSSHSharedViewModel = tailscaleSSHSharedViewModel ?: viewModel()
-            val tailscaleViewModel: TailscaleStatusViewModel = tailscaleStatusViewModel ?: viewModel()
-            TailscaleSSHTerminalScreen(
-                navController = navController,
-                sharedViewModel = sshSharedViewModel,
-                tailscaleViewModel = tailscaleViewModel,
-            )
         }
 
         composable(

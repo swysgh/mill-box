@@ -115,23 +115,6 @@
             </intent-filter>
 
         </activity>
-        <activity
-            android:name=".compose.ShareActivity"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:label="@string/taildrop"
-            android:taskAffinity=""
-            android:theme="@style/AppTheme.Share">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <action android:name="android.intent.action.SEND_MULTIPLE" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="*/*" />
-            </intent-filter>
-        </activity>
-
         <service
             android:name=".bg.TileService"
             android:directBootAware="true"
@@ -165,15 +148,6 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="proxy" />
         </service>
-        <service
-            android:name=".bg.TaildropSendService"
-            android:exported="false"
-            android:foregroundServiceType="specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="taildrop" />
-        </service>
-
         <receiver
             android:name=".bg.BootReceiver"
             android:exported="true">
