@@ -26,6 +26,15 @@ const (
 	// It is deliberately above the biggest payload we ever produce (mtu max +
 	// our own overhead) so that a peer can never make us allocate more.
 	maxDatagramSize = 2048
+
+	// readBufferSize is the buffer the transport socket is read into. It is the
+	// maximum a UDP datagram can be, which buys two things: a datagram larger
+	// than maxDatagramSize stays readable (so it can be rejected with a warning
+	// naming its size instead of vanishing into a failed read), and EMSGSIZE on
+	// this socket can only ever mean the path's ICMP "fragmentation needed" —
+	// never a datagram that did not fit the buffer. Processing still enforces
+	// maxDatagramSize.
+	readBufferSize = 65535
 )
 
 // Packet types, carried as the first plaintext byte. The explicit byte type

@@ -164,13 +164,7 @@ func (t *clientTransport) onMTUIncrease(size int) {
 // kcpMTU converts a datagram budget into the segment budget the ARQ layer may
 // use, leaving room for our own envelope.
 func (t *clientTransport) kcpMTU(datagramSize int) int {
-	mtu := datagramSize - cleartextSize - aeadTagSize - 1
-	if mtu < minKCPMTU {
-		// A segment budget below this can not carry a KCP header and payload;
-		// keep the ARQ layer usable instead of handing it a nonsense value.
-		mtu = minKCPMTU
-	}
-	return mtu
+	return kcpMTUBudget(datagramSize)
 }
 
 func (t *clientTransport) nextCounter() uint64 {
@@ -231,6 +225,11 @@ func (t *clientTransport) sendPlaintext(plaintext []byte) error {
 	}
 	datagram := make([]byte, 0, cleartextSize+len(plaintext)+aeadTagSize)
 	datagram = t.keys.seal(datagram, t.instance, t.nextCounter(), plaintext)
+	if len(datagram) > maxDatagramSize {
+		// Instrumentation: nothing in the protocol should build a datagram this
+		// large, so log it here as well as on the receiving side.
+		t.logger.Warn("uss: sending oversized datagram: ", len(datagram), " bytes (limit ", maxDatagramSize, ")")
+	}
 	_, err = conn.Write(datagram)
 	return err
 }
@@ -249,7 +248,7 @@ func (t *clientTransport) sendProbe(probeID uint32, size int) error {
 }
 
 func (t *clientTransport) readLoop(conn net.Conn) {
-	buffer := make([]byte, maxDatagramSize)
+	buffer := make([]byte, readBufferSize)
 	consecutiveErrors := 0
 	for {
 		n, err := conn.Read(buffer)
@@ -267,6 +266,16 @@ func (t *clientTransport) readLoop(conn net.Conn) {
 					if !sleepContext(t.ctx, 50*time.Millisecond) {
 						return
 					}
+				} else if errors.Is(err, syscall.EMSGSIZE) {
+					// A connected UDP socket surfaces the path's ICMP
+					// "fragmentation needed" as EMSGSIZE on the next read: the
+					// path is saying a datagram was above its MTU. It says
+					// nothing about the socket, and the prober already treats a
+					// probe that goes unanswered as too big, so this is only
+					// about naming it correctly (readBufferSize makes the
+					// other possible cause — a datagram too large to read —
+					// impossible, so the wording is unambiguous).
+					t.logger.Debug("uss: path reports an oversized datagram (ICMP), keeping the current mtu estimate")
 				} else {
 					t.logger.Debug("uss: transient read error: ", err)
 				}
@@ -280,6 +289,14 @@ func (t *clientTransport) readLoop(conn net.Conn) {
 			return
 		}
 		consecutiveErrors = 0
+		if n > maxDatagramSize {
+			// A conforming peer keeps every datagram inside maxDatagramSize
+			// (mtuConfig.validate caps the probe ceiling below it), so this is
+			// a bug on the peer side or a stale socket. Name the size so the
+			// sender can be identified instead of losing it to an EMSGSIZE.
+			t.logger.Warn("uss: dropping oversized datagram: ", n, " bytes (limit ", maxDatagramSize, ")")
+			continue
+		}
 		t.handleDatagram(buffer[:n])
 	}
 }

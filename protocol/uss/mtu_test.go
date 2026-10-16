@@ -177,3 +177,46 @@ func TestMTUProberIgnoresStaleAck(t *testing.T) {
 		t.Fatalf("a stale acknowledgement changed the result to %d", got)
 	}
 }
+
+func TestKCPMTUBudgetFloor(t *testing.T) {
+	// A budget that can not hold a KCP header must never reach the ARQ layer:
+	// kcp-go derives its segment size from it, and a negative value turns into
+	// a huge segment because its flush loop sizes things unsigned.
+	for _, datagramSize := range []int{-4096, 0, 1, 16, 32, minKCPMTU, minKCPMTU + cleartextSize + aeadTagSize - 1} {
+		if got := kcpMTUBudget(datagramSize); got < minKCPMTU {
+			t.Fatalf("kcpMTUBudget(%d) = %d, want at least %d", datagramSize, got, minKCPMTU)
+		}
+	}
+	want := 1500 - cleartextSize - aeadTagSize - 1
+	if got := kcpMTUBudget(1500); got != want {
+		t.Fatalf("kcpMTUBudget(1500) = %d, want %d", got, want)
+	}
+}
+
+func TestMTUProberNeverProbesAboveDatagramBound(t *testing.T) {
+	// A large step must not push the search ceiling above what a peer is able
+	// to receive: the probe size is a whole datagram.
+	config := mtuConfig{
+		enabled:       true,
+		base:          576,
+		max:           maxDatagramSize - cleartextSize - aeadTagSize,
+		step:          maxDatagramSize - cleartextSize - aeadTagSize - 576,
+		probeInterval: time.Hour,
+		probeTimeout:  time.Second,
+		probeAttempts: 1,
+	}
+	if err := config.validate(); err != nil {
+		t.Fatalf("config must be valid: %v", err)
+	}
+	prober := newEchoProber(config, config.max)
+	for i := 0; i < 64; i++ {
+		size := prober.nextProbeSize()
+		if size <= 0 {
+			return
+		}
+		if size > maxDatagramSize {
+			t.Fatalf("probe size %d exceeds the datagram bound %d", size, maxDatagramSize)
+		}
+		prober.record(size, true)
+	}
+}

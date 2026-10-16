@@ -151,7 +151,14 @@ func (h *Inbound) NewPacket(buffer *buf.Buffer, source M.Socksaddr) {
 	if transport == nil {
 		return
 	}
-	transport.handlePacket(buffer.Bytes(), source)
+	body := buffer.Bytes()
+	if len(body) > maxDatagramSize {
+		// Instrumentation: nothing in the protocol builds a datagram this
+		// large, so name the size before dropping it.
+		h.logger.Warn("uss: dropping oversized datagram: ", len(body), " bytes (limit ", maxDatagramSize, ")")
+		return
+	}
+	transport.handlePacket(body, source)
 }
 
 func (h *Inbound) NewError(ctx context.Context, err error) {

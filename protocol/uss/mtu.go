@@ -51,6 +51,21 @@ const (
 	probeUnknown
 )
 
+// kcpMTUBudget converts a datagram budget into the segment budget the ARQ layer
+// may use, reserving room for our own envelope.
+//
+// The floor matters: kcp-go derives its segment size from this value, and a
+// negative or tiny budget makes its flush loop compute a nonsense (unsigned)
+// size and emit a huge segment. Both directions must go through here so the
+// client and the server can not drift apart.
+func kcpMTUBudget(datagramSize int) int {
+	mtu := datagramSize - cleartextSize - aeadTagSize - 1
+	if mtu < minKCPMTU {
+		mtu = minKCPMTU
+	}
+	return mtu
+}
+
 func (c mtuConfig) validate() error {
 	if c.base < 576 {
 		return E.New("mtu base must be at least 576")

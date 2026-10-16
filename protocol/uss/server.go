@@ -279,6 +279,11 @@ func (t *serverTransport) sendToClient(session *serverSession, packetType byte, 
 	copy(plaintext[1:], body)
 	datagram := make([]byte, 0, cleartextSize+len(plaintext)+aeadTagSize)
 	datagram = session.keys.seal(datagram, session.instanceID, session.nextSendCounter(), plaintext)
+	if len(datagram) > maxDatagramSize {
+		// Instrumentation: see the client side. A datagram this large can not
+		// be received by a peer that sizes its buffer to maxDatagramSize.
+		t.logger.Warn("uss: sending oversized datagram: ", len(datagram), " bytes (limit ", maxDatagramSize, ")")
+	}
 	destination := session.clientAddr.Load()
 	if !destination.IsValid() {
 		return os.ErrClosed
@@ -508,7 +513,7 @@ func (s *serverSession) handleKCP(transport *serverTransport, segment []byte) {
 // kcpMTU converts this session's datagram budget into the segment budget the
 // ARQ layer may use.
 func (s *serverSession) kcpMTU() int {
-	return s.pathMTUSize() - cleartextSize - aeadTagSize - 1
+	return kcpMTUBudget(s.pathMTUSize())
 }
 
 func (s *serverSession) expireKCPChannel(channel *serverKCPChannel) {
