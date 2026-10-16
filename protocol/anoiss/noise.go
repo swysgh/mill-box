@@ -147,13 +147,12 @@ func (c *noiseConn) Write(b []byte) (int, error) {
 			return total, fmt.Errorf("anoiss: encrypt error: %w", err)
 		}
 
-		var hdr [headerSize]byte
-		binary.BigEndian.PutUint16(hdr[:], uint16(len(ciphertext)))
-
-		if _, err := c.Conn.Write(hdr[:]); err != nil {
-			return total, err
-		}
-		if _, err := c.Conn.Write(ciphertext); err != nil {
+		// 同 writeFrame：长度头与载荷必须一次 Write 发出，否则首个数据包会
+		// 只有 2 字节，某些入口设备会据此判定连接异常并丢掉反向数据。
+		frame := make([]byte, headerSize+len(ciphertext))
+		binary.BigEndian.PutUint16(frame[:headerSize], uint16(len(ciphertext)))
+		copy(frame[headerSize:], ciphertext)
+		if _, err := c.Conn.Write(frame); err != nil {
 			return total, err
 		}
 
@@ -194,13 +193,16 @@ func newCipherSuite() noise.CipherSuite {
 }
 
 // writeFrame writes a length-prefixed frame to the connection.
+//
+// 长度头与载荷必须一次 Write 发出（合进同一个 TCP 段）。分成两次写时，
+// 2 字节的长度头会单独成包，某些中转/入口设备会把这种「首个数据包小于 10 字节」
+// 的连接判定为异常，进而丢掉该连接的反向数据（实测 nbix 的移动入口：握手 msg1
+// 被拆成 2B+510B 两个包时，服务端 msg2 永远到不了客户端；合成一个 512B 包即正常）。
 func writeFrame(conn net.Conn, data []byte) error {
-	var hdr [headerSize]byte
-	binary.BigEndian.PutUint16(hdr[:], uint16(len(data)))
-	if _, err := conn.Write(hdr[:]); err != nil {
-		return err
-	}
-	_, err := conn.Write(data)
+	buf := make([]byte, headerSize+len(data))
+	binary.BigEndian.PutUint16(buf[:headerSize], uint16(len(data)))
+	copy(buf[headerSize:], data)
+	_, err := conn.Write(buf)
 	return err
 }
 
